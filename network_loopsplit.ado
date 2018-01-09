@@ -2,9 +2,6 @@
 Version 1
 5 Jan 2018
 Loop-split ABC by DIY method
-
-With two added test comments
-
 To do: tempvars
 */
 program define network_loopsplit
