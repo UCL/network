@@ -1,4 +1,6 @@
 /*
+
+13mar2018: changing parameterisation to match paper
 *! UNDER DEVELOPMENT 
 27-28nov2017
 	rhoprior(dbeta()) gives sensible starting value.
