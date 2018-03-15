@@ -1,13 +1,12 @@
 /*
-*! version 1.4 - Ian White - 14mar2018
-13-14mar2018: changing parameterisation to match paper:
-	W(fR,nu) not W(nu*fR,nu)
-	sigma^2 not sigma hence 
-		logsigAmean -> logsigA2mean 
-		logsigCmean -> logsigC2mean 
-		sigA1		->  sigA2 (NB 1 was arm 1, 2 is squared)
-		sigC		->  sigC2
-*! UNDER DEVELOPMENT 
+*! version 1.4 - Ian White - 15mar2018
+v1.4 15mar2018: 
+	changing parameterisation to match paper:
+		W(fR,nu) not W(nu*fR,nu)
+	allow prior to be specified for either sigA or sigA2
+		but always monitor sigA2
+		same for sigC, logsigAmean, logsigCmean
+		muA1 now renamed muA
 27-28nov2017
 	rhoprior(dbeta()) gives sensible starting value.
 	tidied up fastac(), fasttrace() and their help entries.
@@ -52,7 +51,7 @@ TO DO
     optionally output all differences (e.g. C-B)
     slicker names for graphs - requires parsing `trace2' to detect cgoptions()
 	make it store name for future reference - but not as rclass (which is where wbstats are returned)
-	drop gen.inits() - FIND  OUT WHY IT'S NEEDED FOR MODEL(CB)
+	drop gen.inits() - FIND  OUT WHY IT'S NEEDED FOR MODEL(CB3)
 	need to save results for replay mode (fails for ABc model)
 	utility to look at logsigC instead of sigC?
 	should default name = model?
@@ -75,15 +74,33 @@ PROBLEMS
 */
 
 prog def network_bayes
+
+* some prior options require upper case: check for use of lower case
+local prior_options_respect_case /// 
+	alphaAprec muAprec muCprec sigAprior sigA2prior ///
+		/// priors for main effects
+	sigCprior sigC2prior rhoprior logsigCmean logsigC2mean ///
+	logsigAmean logsigA2mean df ///
+		// priors for heterogeneity variances
+foreach option of local prior_options_respect_case {
+	local prior_options `prior_options' `option'(string)
+	local loweroption = lower("`option'")
+	if "`loweroption'" == "`option'" continue	
+	syntax, [`loweroption'(string) *]
+	if !missing("``loweroption''") {
+		di as error "Option `loweroption'() ignored - please use `option'()"
+		exit 198
+	}
+}
+
+* main parsing
+
 syntax, [ ///
 	name(name) model(string) noCOMmonhet PRIORonly /// model specification
 	seed(int 0) BUrnin(int 1000) UPdates(int 1000) THin(int 1) dryrun /// MCMC 
-	WINBUGSdir(string) parms(string) quit noTImer SAVedir(string) /// WinBUGS
-    alphaAprec(string) muA1prec(string) sigA2prior(string) muCprec(string) muAprec(string)  /// priors for main effects
-    alphaaprec(string) mua1prec(string) siga2prior(string) mucprec(string) muaprec(string)  /// unallowed prior
-	sigC2prior(string) rhoprior(string) logsigC2mean(string) logsigA2mean(string) df(string)   /// prior for heterogeneity variances
-	sigc2prior(string)                  logsigc2mean(string) logsiga2mean(string) 			    /// unallowed prior 
-	ac AC2(string) notrace TRACE2(string) DENsity DENsity2(string) nostats clear            /// output options
+	WINBUGSdir(string) parms(string) Quitbugs noTImer SAVedir(string) /// WinBUGS
+    `prior_options' /// prior options (from above)
+	ac AC2(string) notrace TRACE2(string) DENsity DENsity2(string) nostats clear /// output options
 	debug /// undocumented options
 	]
 
@@ -115,7 +132,7 @@ else {
 }
 local filepath `filepath'/
 
-local modellist LA LAplus CB AB
+local modellist CB1 CB2 CB3 AB
 if !`: list model in modellist' {
     di as error "Model `model' not yet allowed"
     exit 198
@@ -124,26 +141,30 @@ if !`: list model in modellist' {
 local commonhet = mi("`commonhet'") 
 local commonhetname = cond(`commonhet',"Common","Non-common")
 local commonhetabb = cond(`commonhet',"CH","NCH")
-if inlist("`model'", "LA") & !`commonhet' {
-	di as error "Option nocommonhet not allowed with model LA"
+if inlist("`model'", "CB1") & !`commonhet' {
+	di as error "Option nocommonhet not allowed with model CB1"
 	exit 198
 }
-* unallowed prior options: don't accept options with lowercase C/A
-foreach arg in sigC2prior sigA2prior alphaAprec muAprec muA1prec muCprec logsigC2mean logsigA2mean {
-	local lowerarg = lower("`arg'")
-	if !mi("``lowerarg''") {
-		di as error "Option `lowerarg'() ignored - please use `arg'()"
-		exit 198
-	}
-}
-if mi("`quit'") local timer notimer
-local hassigA2    = ("`model'"=="AB" & `commonhet') | "`model'"=="CB"
-local hasSigmaA = "`model'"=="AB" & !`commonhet'
+if mi("`quitbugs'") local timer notimer
+* parms to monitor
+local setsigA2  = ("`model'"=="AB" & `commonhet') | "`model'"=="CB3"
+local setSigmaA = "`model'"=="AB" & !`commonhet'
 
 if !mi("`prioronly'") {
 	local trace notrace
 	local burnin 0
 	local thin 1
+}
+* check for heterogeneity priors on both SD and variance scales
+foreach option2 in sigA2prior logsigA2mean sigC2prior logsigC2mean {
+	local option = subinstr("`option2'","2","",1)
+	if !mi("``option''") & !mi("``option2''") {
+		di as error "Can't have both `option'() and `option2'()
+		exit 198
+	}
+	if !mi("``option2''") local  sig12priors `sig12priors' ``option2''
+	else local sig12priors `sig12priors' ``option''
+	* sig12priors lists the chosen parameters
 }
 // END OF PARSING
 
@@ -151,6 +172,7 @@ if !mi("`prioronly'") {
 foreach thing in `_dta[network_allthings]' {
 	local `thing' : char _dta[network_`thing']
 }
+local NT = `dim'+1
 
 // OUTPUT SOME INFORMATION
 local col2 as result _col(31)
@@ -171,44 +193,68 @@ if "`model'"!="" {
 	di as text "Model:" `col2' "`model'"
 	di as text "Heterogeneity:" `col2' "`commonhetname'"
 	di as text "Sampling from:" `col2' cond("`prioronly'"=="","Posterior","Prior")
-	* which prior parameters are needed
-	local hasalphaAprec = inlist("`model'","LA","LAplus") 
-	local hasmuA1prec   = inlist("`model'","CB") 
-	local hassigA2prior = inlist("`model'","CB") 
-	local hasmuAprec    = inlist("`model'","AB")
-	local hasmuCprec    = !inlist("`model'","AB")
-	local hassigC2prior  = `commonhet'
-	local haslogsigC2mean = !`commonhet'
-	local haslogsigA2mean = inlist("`model'","AB") & !`commonhet'
-	local hasdf         = !`commonhet'
-	local hasrhoprior = inlist("`model'","AB") & `commonhet'
-	* defaults for prior parameters
-	foreach parm in alphaAprec muA1prec muAprec muCprec {
-		local `parm'default 0.001
-		if !mi("``parm''") confirm number ``parm''
+	* parameters
+	local modelparms alphaA muA muC sigA sigC logsigA logsigC df rho
+	* which parameters are used
+	local hasalphaA  = inlist("`model'","CB1","CB2") 
+	local hasmuA     = inlist("`model'","CB3","AB") 
+	local hasmuC     = !inlist("`model'","AB")
+	local hassigA    = inlist("`model'","CB3")
+	local hassigC    = `commonhet'
+	local haslogsigA = inlist("`model'","AB") & !`commonhet'
+	local haslogsigC = !`commonhet'
+	local hasdf      = !`commonhet'
+	local hasrho     = inlist("`model'","AB") & `commonhet'
+	* how their priors are specified
+	local alphaAspec  prec  
+	local muAspec     prec     
+	local muCspec     prec     
+	local sigAspec    prior   
+	local sigCspec    prior   
+	local logsigAspec mean 
+	local logsigCspec mean 
+	local dfspec      // yes, blank
+	local rhospec     prior    
+	* has<parm>=2 if priors specified for  squared form
+	foreach parm in sigA sigC {
+		if `has`parm'' & !mi("``parm'2``parm'spec''") local has`parm' = 2 
 	}
-	local sigA2priordefault dunif(0,10)
-	local sigC2priordefault dunif(0,10)
-	local rhopriordefault   dunif(0,1)
-	local logsigC2meandefault 0
-	local logsigA2meandefault 0
-	local NTm1 : word count `trtlistnoref'
-	local dfdefault = `NTm1' + inlist("`model'","AB")
+	* for prior means, just code the double
+	if !mi("`logsigA2mean'") local logsigAmean = `logsigA2mean'/2
+	if !mi("`logsigC2mean'") local logsigCmean = `logsigC2mean'/2
+	* defaults for prior parameters
+	local alphaAdefault   0.001
+	local muAdefault      0.001 
+	local muCdefault      0.001
+	local sigAdefault     dunif(0,10)
+	local sigCdefault     dunif(0,10)
+	local logsigCdefault  0
+	local logsigAdefault  0
+	local dfdefault       = `NT' - 1 + inlist("`model'","AB")
+	local rhodefault      dunif(0,1)
 	* set up prior parameters and output
-	foreach parm in alphaAprec muA1prec sigA2prior muAprec muCprec ///
-		sigC2prior logsigC2mean logsigA2mean df rhoprior {
+	foreach parm of local modelparms {
+		local spec ``parm'spec'
+		local default ``parm'default'
 		if `has`parm'' {
-			if mi("``parm''") local `parm' ``parm'default'
-			di as text "`parm':" `col2' "``parm''" _c
-			if "``parm''" == "``parm'default'" di " (default)" _c
+			local two = cond(`has`parm''==2,"2","")
+			if !mi("`debug'") {
+				di "Parameter `parm': spec=`spec', default= `default', two=`two'
+			}
+			if mi("``parm'`two'`spec''") local `parm'`two'`spec' `default'
+			di as text "`parm'`two'`spec':" `col2' "``parm'`two'`spec''" _c
+			if "``parm'`spec''" == "`default'" di " (default)" _c
 			di
 		}
-		else if !mi("``parm''") {
-			di as error "Option `parm'(``parm'') ignored
-			local `parm'
+		else if !mi("``parm'`spec''") {
+			di as error "Option `parm'`spec'(``parm'`spec'') ignored
+			local `parm'`spec'
+		}
+		else if !mi("``parm'2`spec''") {
+			di as error "Option `parm'2`spec'(``parm'2`spec'') ignored
+			local `parm'2`spec'
 		}
 	}
-
 	* OPEN FILES
 	foreach type in data scalars inits model script {
 		local `type'file ``type'file'.txt
@@ -283,7 +329,7 @@ if "`model'"!="" {
     else if "`outcome'" == "quantitative" local vars2 mean sd n
 	rename (`studyvar' `trtvar' `vars') (s t `vars2')
 	sort s t
-    if "`model'"=="LA" {
+    if "`model'"=="CB1" {
     	egen b=min(t), by(s)
     	by s: gen m = _n
     	summ m, meanonly
@@ -336,7 +382,7 @@ if "`model'"!="" {
 	if !mi("`link'") `fwm2' "`link'(theta[o]) <- "
 	else `fwm2' "theta[o] <- "
 	if "`prioronly'"=="prioronly" `fwm' "0*(" 
-	if "`model'"=="LA" {
+	if "`model'"=="CB1" {
 		`fwm' "alphaA[s[o]] + deltaC[o]*(1-equals(t[o],b[o]))" 
     }
 	else if "`model'"=="AB" {
@@ -350,18 +396,25 @@ if "`model'"!="" {
     `fwm1' "}" _n
 	
 	`fwm1' _n "## MODEL STUDY MAIN EFFECTS" _n
-	if inlist("`model'","LA","LAplus") {
+	if inlist("`model'","CB1","CB2") {
 		`fwm1' "for (i in 1:NS) {" _n
 		`fwm2' "alphaA[i] ~ dnorm(0, `alphaAprec')" _n
 		`fwm1' "}" _n
 	}
-	else if "`model'"=="CB" {
+	else if "`model'"=="CB3" {
 		`fwm1' "for (i in 1:NS) {" _n
-		`fwm2' "alphaA[i] ~ dnorm(muA1, invsigA2)" _n
+		`fwm2' "alphaA[i] ~ dnorm(muA, invsigA2)" _n
 		`fwm1' "}" _n
-		`fwm1' "muA1 ~ dnorm(0, `muA1prec')" _n
+		`fwm1' "muA ~ dnorm(0, `muAprec')" _n
+		`fwm2' "## muA is overall mean for reference arm" _n
 		`fwm1' "invsigA2 <- 1/sigA2" _n
-		`fwm1' "sigA2 ~ `sigA2prior'" _n
+		if `hassigA'==2 {
+			`fwm1' "sigA2 ~ `sigA2prior'" _n
+		}
+		else {
+			`fwm1' "sigA2 <- pow(sigA,2)" _n
+			`fwm1' "sigA ~ `sigAprior'" _n
+		}
 	}
 	else if "`model'"=="AB" {
 		`fwm1' "## (none)" _n
@@ -378,13 +431,14 @@ if "`model'"!="" {
 		`fwm1' _n "## MODEL OVERALL TREATMENT MEANS" _n
 		`fwm1' "for (k in 1:NT) {" _n
 		`fwm2' "muA[k] ~ dnorm(0, `muAprec')" _n
-		`fwm2' "# useful summaries" _n
+		`fwm2' "## useful summaries" _n
 		`fwm2' "muC[k] <- muA[k] - muA[1]" _n
 		`fwm1' "}" _n
 	}
 
+
 	`fwm1' _n "## MODEL HETEROGENEITY EFFECTS" _n
-	if "`model'"=="LA" {
+	if "`model'"=="CB1" {
 		`fwm1' "for (o in 1:N) {" _n
 		`fwm2' "deltaC[o] ~ dnorm(md[o], taud[o])" _n
 		if `mmax'==2 `fwm2' "md[o] <- muC[t[o]] - muC[b[o]]" _n
@@ -419,11 +473,16 @@ if "`model'"!="" {
     	`fwm1' "}" _n
     }
 
+
 	`fwm1' _n "## PRIOR FOR HETEROGENEITY VARIANCE" _n
-	if "`model'"=="LA" {
-        `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+	if inlist("`model'","CB1") & `commonhet' {
+        if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+        else {
+			`fwm1' "sigC2 <- pow(sigC,2)" _n
+			`fwm1' "sigC ~ `sigCprior' ## SD of heterogeneity" _n
+		}
 	}
-	else if inlist("`model'","LAplus","CB") & `commonhet' {
+	else if inlist("`model'","CB2","CB3") & `commonhet' {
         `fwm1' "for (k in 1:NT-1) {" _n
         `fwm2' "for (l in 1:NT-1) {" _n
         `fwm3' "invSigmaC[k,l] <- 2 * (equals(k,l) - 1/NT) / sigC2" _n // invsigC2*inv(P)
@@ -432,9 +491,13 @@ if "`model'"!="" {
 	    `fwm3' "## and off-diagonal 0.5's" _n
         `fwm2' "}" _n
         `fwm1' "}" _n
-        `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
-    }
-	else if inlist("`model'","LAplus","CB") & !`commonhet' {
+         if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+        else {
+			`fwm1' "sigC2 <- pow(sigC,2)" _n
+			`fwm1' "sigC ~ `sigCprior' ## SD of heterogeneity" _n
+		}
+   }
+	else if inlist("`model'","CB2","CB3") & !`commonhet' {
 		if `df'==0 {
 			di as text "Taking df=NT-1"
 			local df = `NT'-1
@@ -443,17 +506,19 @@ if "`model'"!="" {
 			di as error "`model' model requires df>#treatments-1
 			exit 498
 		}
-		local sigmascale = 2 * exp( `logsigC2mean' + digamma((`df'-`NT'+2)/2))
-		`fwm1' "invSigmaC[1:NT-1,1:NT-1] ~ dwish(Pscale[1:NT-1,1:NT-1], `df')" _n
-		`fwm1' "    ## E[invSigmaC] = inv(`sigmascale'*P)" _n
+		local sigmascale = 2 * exp( 2*`logsigCmean' + digamma((`df'-`NT'+2)/2))
+		`fwm1' "SigmaC.nu <- `df'" _n
+		`fwm1' "SigmaC.f <- `sigmascale'" _n
 		`fwm1' "for (k in 1:NT-1) {" _n
 		`fwm2' "for (l in 1:NT-1) {" _n
-		`fwm3' "Pscale[k,l] <- `sigmascale' * (equals(k,l)+1) / 2" _n 
-		`fwm3' "    ## Pscale = `sigmascale'*P" _n 
+		`fwm3' "SigmaC.R[k,l] <- SigmaC.f * (equals(k,l)+1) / 2" _n 
+		`fwm3' "    ## SigmaC.R = SigmaC.f * P(1/2)" _n 
 		`fwm2' "}" _n
 		`fwm1' "}" _n
+		`fwm1' "invSigmaC[1:NT-1,1:NT-1] ~ dwish(SigmaC.R[1:NT-1,1:NT-1], SigmaC.nu)" _n
+		`fwm1' "    ## E[invSigmaC] = inv((SigmaC.f/SigmaC.nu) * P(1/2))" _n
 		`fwm1' "" _n
-		`fwm1' "# useful summaries" _n
+		`fwm1' "## useful summaries" _n
 		`fwm1' "SigmaC[1:NT-1,1:NT-1] <- inverse(invSigmaC[1:NT-1,1:NT-1])" _n
 		`fwm1' "sigC2[1,1] <- 0" _n
 		`fwm1' "for (k in 2:NT) {" _n
@@ -472,10 +537,14 @@ if "`model'"!="" {
 		`fwm3' "## exchangeable correlation structure" _n
         `fwm2' "}" _n
         `fwm1' "}" _n
-        `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
         `fwm1' "rho ~ `rhoprior' ## correlation in compound symmetrical SigmaA" _n
-		`fwm1' "# useful summaries" _n
-		`fwm1' "sigA2 <- sigC2 / (2*(1-rho))"
+        if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+        else {
+			`fwm1' "sigC2 <- pow(sigC,2)" _n
+			`fwm1' "sigC ~ `sigCprior' ## SD of heterogeneity" _n
+		}
+		`fwm1' "## useful summaries" _n
+		`fwm1' "sigA2 <- sigC2 / (2*(1-rho))" _n
 	}
 	else if inlist("`model'","AB") & !`commonhet' {
 		if `df'==0 {
@@ -486,21 +555,21 @@ if "`model'"!="" {
 			di as error "`model' model requires df>#treatments
 			exit 498
 		}
-		local sigmascale = 2 * exp(`logsigA2mean' + digamma((`df'-`NT'+1)/2))
-		local rho = 1 - 0.5*exp(`logsigC2mean' - `logsigA2mean')
-		`fwm1' "invSigmaA[1:NT,1:NT] ~ dwish(scaleid[1:NT,1:NT], `df')" _n
-		`fwm1' "    ## E[invSigmaA] = (1/`sigmascale') * I" _n
-		`fwm1' "    ## E[SigmaA] = (`sigmascale') * (`df'/(`df'-NT)) * I" _n
-		`fwm1' "    ## mode[SigmaA] = (`sigmascale') * (`df'/(`df'+NT)) * I" _n
-		`fwm1' "rho <- `rho'" _n
+		local sigmascale = 2 * exp(2*`logsigAmean' + digamma((`df'-`NT'+1)/2))
+		local r = 1 - 0.5*exp(2*`logsigCmean' - 2*`logsigAmean')
+		`fwm1' "SigmaA.nu <- `df'" _n
+		`fwm1' "SigmaA.f <- `sigmascale'" _n
+		`fwm1' "SigmaA.r <- `r'" _n
+		`fwm1' "invSigmaA[1:NT,1:NT] ~ dwish(SigmaA.R[1:NT,1:NT], SigmaA.nu)" _n
+		`fwm1' "    ## E[invSigmaA] = inv((SigmaA.f/SigmaA.nu) * P(SigmaA.r))" _n
 		`fwm1' "for (k in 1:NT) {" _n
 		`fwm2' "for (l in 1:NT) {" _n
-		`fwm3' "scaleid[k,l] <- `sigmascale' * `df' * ((1-rho)*equals(k,l)+rho)" _n
-		`fwm3' "    ## scaleid = `sigmascale' * `df' * I" _n
+		`fwm3' "SigmaA.R[k,l] <- SigmaA.f * ((1-SigmaA.r)*equals(k,l)+SigmaA.r)" _n
+		`fwm3' "    ## SigmaA.R = SigmaA.f * P(SigmaA.r)" _n
 		`fwm2' "}" _n
 		`fwm1' "}" _n
 		`fwm1' "" _n
-		`fwm1' "# useful summaries" _n
+		`fwm1' "## useful summaries" _n
 		`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
 		`fwm1' "for (k in 1:NT) {" _n
 		`fwm2' "sigA2[k] <- SigmaA[k,k]" _n // new 2017-11-22
@@ -511,6 +580,7 @@ if "`model'"!="" {
 		`fwm1' "}" _n
 	}
 	else exit 496
+
 
     * WRITE SCALARS OUT IN WINBUGS FORMAT
 	file write scalars "list(" _n
@@ -526,21 +596,22 @@ if "`model'"!="" {
 	local hasinits 0
 	* inits for parms with arbitrary prior
 	* middle of a uniform, otherwise 1
-    foreach parm in sigC2 sigA2 rho {
-		if !`has`parm'prior' continue
+    foreach parm in sigC sigA rho {
+		if !`has`parm'' continue
+		local parm2 = cond(`has`parm''==2,"`parm'2","`parm'")
 		if `hasinits' file write inits "," _n
-    	local 0, ``parm'prior'
+    	local 0, ``parm2'prior'
 		syntax, [dunif(string) dbeta(string) *]
-		local `parm' 1
+		local `parm2' 1
 		if !mi("`dunif'") {
 			tokenize "`dunif'", parse(",")
-			if `1'>=1 | `3'<=1 local `parm' = (`1' + `3')/2
+			if `1'>=1 | `3'<=1 local `parm2' = (`1' + `3')/2
 		}
 		if !mi("`dbeta'") {
 			tokenize "`dbeta'", parse(",")
-			local `parm' = `1' / (`1' + `3')
+			local `parm2' = `1' / (`1' + `3')
 		}
-    	file write inits "`parm'=" (``parm'')
+    	file write inits "`parm2'=" (``parm2'')
 		local hasinits 1
     }
 	* inits for deltaC
@@ -558,7 +629,7 @@ if "`model'"!="" {
 		file write inits _col(5) ".Dim=c(`NS',`NT')" _n
 		file write inits ")"
 	}
-	else if "`model'" == "LA" {
+	else if "`model'" == "CB1" {
 		file write inits "deltaC=c("
 		forvalues i=1/`N' {
 			file write inits (0)
@@ -607,8 +678,7 @@ if "`model'"!="" {
 	* PARAMETERS OF INTEREST
 	local extraparms `parms'
 	local parms muC sigC2
-	if `hasSigmaA' local parms `parms' sigA2
-	if `hassigA2' local parms `parms' sigA2
+	if `setSigmaA' | `setsigA2'  local parms `parms' sigA2
 	local allparms : list parms | extraparms
 
     * WRITE WINBUGS SCRIPT
@@ -630,7 +700,7 @@ if "`model'"!="" {
     file write script "update(`updates')" _n
     file write script "coda(*,'`codafile'')" _n
     file write script "save('`logfile'.txt')" _n
-    if !mi("`quit'") file write script "quit()" _n
+    if !mi("`quitbugs'") file write script "quit()" _n
     else file write script _n
 	
 	di as text "Writing files ..." _c
@@ -700,11 +770,11 @@ if "`model'"!="" {
     }
     else label var sigC2 "Het SD (all contrasts)"
 
-    if `hassigA2' {
+    if `setsigA2' {
 		rename sigA2 sigA2_`ref'
 		label var sigA2_`ref' "Het SD, arm `trt1'"
 	}
-    if `hasSigmaA' {
+    if `setSigmaA' {
 		forvalues i = 1/`NT' {
 			rename sigA2_`i' sigA2_`trt`i''
 			label var sigA2_`trt`i'' "Het var, arm `trt`i''"
@@ -729,8 +799,8 @@ di as text "" _c // just gets font right for next
 * identify parms of interest
 if `commonhet' local parms diff_* sigC2
 else local parms diff_* sigC2_*
-if `hassigA2' local parms `parms' sigA2_`ref'
-if `hasSigmaA' local parms `parms' sigA2_*
+if `setsigA2' local parms `parms' sigA2_`ref'
+if `setSigmaA' local parms `parms' sigA2_*
 local parms : list parms | extraparms
 * do results
 if mi("`stats'") wbstats `parms'
