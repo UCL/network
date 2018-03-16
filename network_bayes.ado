@@ -1,6 +1,6 @@
 /*
-*! version 1.4 - Ian White - 15mar2018
-v1.4 15mar2018: 
+*! version 1.4 - Ian White - 16mar2018
+v1.4 16mar2018: 
 	changing parameterisation to match paper:
 		W(fR,nu) not W(nu*fR,nu)
 	allow prior to be specified for either sigA or sigA2
@@ -88,7 +88,7 @@ foreach option of local prior_options_respect_case {
 	if "`loweroption'" == "`option'" continue	
 	syntax, [`loweroption'(string) *]
 	if !missing("``loweroption''") {
-		di as error "Option `loweroption'() ignored - please use `option'()"
+		di as error "Option `loweroption'() not allowed - please use `option'()"
 		exit 198
 	}
 }
@@ -162,9 +162,6 @@ foreach option2 in sigA2prior logsigA2mean sigC2prior logsigC2mean {
 		di as error "Can't have both `option'() and `option2'()
 		exit 198
 	}
-	if !mi("``option2''") local  sig12priors `sig12priors' ``option2''
-	else local sig12priors `sig12priors' ``option''
-	* sig12priors lists the chosen parameters
 }
 // END OF PARSING
 
@@ -215,13 +212,10 @@ if "`model'"!="" {
 	local logsigCspec mean 
 	local dfspec      // yes, blank
 	local rhospec     prior    
-	* has<parm>=2 if priors specified for  squared form
-	foreach parm in sigA sigC {
+	* has<parm>=2 if priors specified for squared form
+	foreach parm in sigA sigC logsigA logsigC {
 		if `has`parm'' & !mi("``parm'2``parm'spec''") local has`parm' = 2 
 	}
-	* for prior means, just code the double
-	if !mi("`logsigA2mean'") local logsigAmean = `logsigA2mean'/2
-	if !mi("`logsigC2mean'") local logsigCmean = `logsigC2mean'/2
 	* defaults for prior parameters
 	local alphaAdefault   0.001
 	local muAdefault      0.001 
@@ -243,7 +237,7 @@ if "`model'"!="" {
 			}
 			if mi("``parm'`two'`spec''") local `parm'`two'`spec' `default'
 			di as text "`parm'`two'`spec':" `col2' "``parm'`two'`spec''" _c
-			if "``parm'`spec''" == "`default'" di " (default)" _c
+			if "``parm'`two'`spec''" == "`default'" di " (default)" _c
 			di
 		}
 		else if !mi("``parm'`spec''") {
@@ -255,6 +249,9 @@ if "`model'"!="" {
 			local `parm'2`spec'
 		}
 	}
+	if !mi("`logsigA2mean'") local logsigAmean = `logsigA2mean'/2
+	if !mi("`logsigC2mean'") local logsigCmean = `logsigC2mean'/2
+
 	* OPEN FILES
 	foreach type in data scalars inits model script {
 		local `type'file ``type'file'.txt
@@ -476,10 +473,10 @@ if "`model'"!="" {
 
 	`fwm1' _n "## PRIOR FOR HETEROGENEITY VARIANCE" _n
 	if inlist("`model'","CB1") & `commonhet' {
-        if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+        if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
         else {
 			`fwm1' "sigC2 <- pow(sigC,2)" _n
-			`fwm1' "sigC ~ `sigCprior' ## SD of heterogeneity" _n
+			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 		}
 	}
 	else if inlist("`model'","CB2","CB3") & `commonhet' {
@@ -491,10 +488,10 @@ if "`model'"!="" {
 	    `fwm3' "## and off-diagonal 0.5's" _n
         `fwm2' "}" _n
         `fwm1' "}" _n
-         if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+         if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
         else {
 			`fwm1' "sigC2 <- pow(sigC,2)" _n
-			`fwm1' "sigC ~ `sigCprior' ## SD of heterogeneity" _n
+			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 		}
    }
 	else if inlist("`model'","CB2","CB3") & !`commonhet' {
@@ -522,13 +519,13 @@ if "`model'"!="" {
 		`fwm1' "SigmaC[1:NT-1,1:NT-1] <- inverse(invSigmaC[1:NT-1,1:NT-1])" _n
 		`fwm1' "sigC2[1,1] <- 0" _n
 		`fwm1' "for (k in 2:NT) {" _n
-		`fwm2' "sigC2[k,1] <- sqrt(SigmaC[k-1,k-1])" _n
-		`fwm2' "sigC2[1,k] <- sqrt(SigmaC[k-1,k-1])" _n
+		`fwm2' "sigC2[k,1] <- SigmaC[k-1,k-1]" _n
+		`fwm2' "sigC2[1,k] <- SigmaC[k-1,k-1]" _n
 		`fwm2' "for (l in 2:NT) {" _n
-		`fwm3' "sigC2[k,l] <- sqrt(SigmaC[k-1,k-1]+SigmaC[l-1,l-1]-2*SigmaC[k-1,l-1])" _n
-		`fwm3' "## SD of heterogeneity for k vs l" _n
+		`fwm3' "sigC2[k,l] <- SigmaC[k-1,k-1]+SigmaC[l-1,l-1]-2*SigmaC[k-1,l-1]" _n
+		`fwm3' "## contrast heterogeneity variance for k vs l" _n
 		`fwm2' "}" _n
-		`fwm1' "}" _n
+		`fwm1' "}" _n 
 	}
 	else if inlist("`model'","AB") & `commonhet' {
         `fwm1' "for (k in 1:NT) {" _n
@@ -538,13 +535,13 @@ if "`model'"!="" {
         `fwm2' "}" _n
         `fwm1' "}" _n
         `fwm1' "rho ~ `rhoprior' ## correlation in compound symmetrical SigmaA" _n
-        if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## SD of heterogeneity" _n
+         if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
         else {
 			`fwm1' "sigC2 <- pow(sigC,2)" _n
-			`fwm1' "sigC ~ `sigCprior' ## SD of heterogeneity" _n
+			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 		}
 		`fwm1' "## useful summaries" _n
-		`fwm1' "sigA2 <- sigC2 / (2*(1-rho))" _n
+		`fwm1' "sigA2 <- sigC2 / (2*(1-rho)) ## arm heterogeneity variance" _n
 	}
 	else if inlist("`model'","AB") & !`commonhet' {
 		if `df'==0 {
@@ -572,10 +569,10 @@ if "`model'"!="" {
 		`fwm1' "## useful summaries" _n
 		`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
 		`fwm1' "for (k in 1:NT) {" _n
-		`fwm2' "sigA2[k] <- SigmaA[k,k]" _n // new 2017-11-22
+		`fwm2' "sigA2[k] <- SigmaA[k,k] ## arm heterogeneity variance for k" _n 
 		`fwm2' "for (l in 1:NT) {" _n
 		`fwm3' "sigC2[k,l] <- SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l]" _n
-		`fwm3' "    ## SD of heterogeneity for k vs l" _n
+		`fwm3' "    ## contrast heterogeneity variance for k vs l" _n
 		`fwm2' "}" _n
 		`fwm1' "}" _n
 	}

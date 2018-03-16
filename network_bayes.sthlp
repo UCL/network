@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.4 15mar2018}{...}
+{* *! version 1.4 16mar2018}{...}
 {vieweralsosee "Main network help page" "network"}{...}
 {vieweralsosee "" "--"}{...}
 {viewerjumpto "Syntax" "network_bayes##syntax"}{...}
@@ -188,10 +188,9 @@ In future analyses we use the quit option to do this automatically.
 depending on outcome and contrast types.
 Here the outcome is "subjective" and the contrast is "non-pharmacological" so the 
 appropriate prior for log(sigC^2) is a normal distribution with mean -2.01 and SD 1.64. 
-This imples for log(sigC) a normal distribution with mean -1.005 and SD 0.82.
-To specify this prior in winbugs notation we also need to know the precision (1/0.82)^2 = 1.487.
+To specify this prior in winbugs notation we also need to know the precision (1/1.64)^2 = 0.3718.
 
-{pin}. {stata "network bayes, model(CB1) quit sigCprior(dlnorm(-1.005,1.487))"}
+{pin}. {stata "network bayes, model(CB1) quit sigC2prior(dlnorm(-2.01,0.3718))"}
 
 {pstd}Mixing may be poor. Explore autocorrelations:
 
@@ -200,18 +199,18 @@ To specify this prior in winbugs notation we also need to know the precision (1/
 {pstd}Yes, autocorrelation is substantial up to lag 5-20. 
 We increase the burnin and number of updates, and thin the chain to reduce autocorrelation:
 
-{pin}. {stata "network bayes, model(CB1) quit sigCprior(dlnorm(-1.005,1.487)) burnin(10000) updates(10000) thin(10)"}
+{pin}. {stata "network bayes, model(CB1) quit sigC2prior(dlnorm(-2.01,0.3718)) burnin(10000) updates(10000) thin(10)"}
 
 {pstd}We now show some different models.
 For clarity, in the commands below, we omit the burnin(), updates() and thin() options that should  be
 used to give adequate precision.
 First the CB2 model with non-common heterogeneity:
 
-{pin}. {stata "network bayes, model(CB2) nocommonhet quit logsigCmean(-1.005)"}
+{pin}. {stata "network bayes, model(CB2) nocommonhet quit logsigC2mean(-2.01)"}
 
 {pstd}But have we used the correct prior? To  check, we can draw from the prior:
 
-{pin}. {stata "network bayes, model(CB2) nocommonhet quit logsigCmean(-1.005) prioronly"}
+{pin}. {stata "network bayes, model(CB2) nocommonhet quit logsigC2mean(-2.01) prioronly"}
 
 {pstd}From this we see that the prior mean for each heterogeneity SD is about 1. 
 But this does not tell us about the prior mean for the log heterogeneity SD.
@@ -219,8 +218,8 @@ We can find this by loading the saved samples and computing the sampled values o
 
 {pin}. {stata "preserve"}{p_end}
 {pin}. {stata "use network_bayes_sample, clear"}{p_end}
-{pin}. {stata "gen logsigC = log(sigC_A_B)"}{p_end}
-{pin}. {stata "summ logsigC"}{p_end}
+{pin}. {stata "gen logsigC2 = log(sigC2_A_B)"}{p_end}
+{pin}. {stata "summ logsigC2"}{p_end}
 {pin}. {stata "restore"}{p_end}
 
 {pstd}Note how we have not specified the prior SD of the log heterogeneity SD,
@@ -230,11 +229,11 @@ in the non-common-heterogeneity model than in the common-heterogeneity model.
 
 {pstd}Finally we fit the AB model with common heterogeneity:
 
-{pin}. {stata "network bayes, model(AB) quit sigCprior(dlnorm(-1.005,1.487))"}
+{pin}. {stata "network bayes, model(AB) quit sigC2prior(dlnorm(-2.01,0.3718))"}
 
 {pstd}and the AB model with non-common heterogeneity:
 
-{pin}. {stata "network bayes, model(AB) nocommonhet quit logsigCmean(-1.005)"}
+{pin}. {stata "network bayes, model(AB) nocommonhet quit logsigC2mean(-2.01)"}
 
 
 {marker Requirements}{...}
