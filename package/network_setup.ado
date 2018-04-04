@@ -1,7 +1,10 @@
 /*
-*! version 1.3.1 # Ian White # 9oct2017
+*! version 1.4.1 # Ian White # 2018-04-04
+	bug fix: in wide format, existence of another variable with same stem caused failure
+	default changed to augment(1E-5)
+version 1.3.1 # Ian White # 9oct2017
 	better error message if summary statistic variables are string
-*! version 1.2.5 # Ian White # 13mar2017
+version 1.2.5 # Ian White # 13mar2017
     final changes to network_components and help file
 version 1.2.4 # Ian White # 23feb2017
     network_components and help file updated to match Howard Thom's paper
@@ -475,7 +478,7 @@ if "`outcome'"=="count" {
 // AUGMENT IF MISSING REF ARM
 
 * choose augment settings if not specified
-if mi("`augment'") local augment 0.001
+if mi("`augment'") local augment 0.00001
 if "`outcome'"=="count" local augsd 0
 local augmeanname `augmean'
 local augsdname `augsd'

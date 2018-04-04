@@ -98,9 +98,15 @@ and
 For multi-arm studies, {opt sdpool(on)} pools across all arms.{p_end}
 
 {syntab:Augment options}
-{synopt:{opt ref(string)}}Name of reference treatment{p_end}
+{synopt:{opt ref(string)}}Name of reference treatment.
+Different choices should give the same results, but numerical stability may be greater
+when the reference treatment is fairly central  in  the network 
+(e.g. it is one of the better connected treatments).{p_end}
 {synopt:{opt augment(exp)}}Number of individuals to use to augment missing reference treatment arms.
-Default is 0.001.{p_end}
+Default is 0.00001.
+If errors occur, it may be worth increasing this parameter.
+If discrepancies occur, for example between different formats, 
+then it may be worth decreasing this parameter.{p_end}
 {synopt:{opt augmean(exp)}}Mean outcome to use to augment missing reference treatment arms.
 Default is for each augmented study to use the weighted average of its
 arm-specific means.{p_end}

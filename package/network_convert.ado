@@ -37,7 +37,7 @@ else local diaserror di as error
 
 * large value for augmenting
 if "`newformat'"=="augmented" {
-    if `large'==0 local large 10000
+    if `large'==0 local large 100000
 }
 else if `large'!=0 {
     `diaserror' "large(`large') ignored because we're not converting to augmented format"

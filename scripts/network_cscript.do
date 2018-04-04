@@ -17,8 +17,10 @@ set trace off
 set more off
 pause on
 prog drop _all
-local networkdir N:\meta\network\ado\
-adopath ++ `networkdir'packages
+local mvmetadir c:\ado\ian\mvmeta\
+adopath ++ `mvmetadir'package
+local networkdir c:\ado\ian\network\
+adopath ++ `networkdir'package
 cd `networkdir'scripts
 
 which mvmeta
@@ -29,7 +31,7 @@ which network
 use smoking, clear
 keep study trt d n
 
-network setup d n, studyvar(stud) trtvar(trt) augment(0.0001) format(aug) ref(Self help)
+network setup d n, studyvar(stud) trtvar(trt) format(aug) ref(Self help)
 l if study<=3
 
 // check network convert
@@ -40,7 +42,7 @@ network convert stan
 l if study<=3
 save z, replace
 
-network convert aug
+network convert aug, large(1E5)
 l if study<=3
 
 network convert pairs
@@ -49,7 +51,7 @@ l if study<=3
 network convert stan
 l if study<=3
 
-network convert aug
+network convert aug, large(1E5)
 l if study<=3
 
 network convert pairs
@@ -59,7 +61,6 @@ network convert stan
 l if study<=3
 
 cf _all using z, verbose
-
 
 
 // check network meta: aug & std, multi-arm trials
