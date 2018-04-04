@@ -1,7 +1,7 @@
 /*
-*! version 1.4.1 # Ian White # 2018-04-04
+*! version 1.4.1 # Ian White # 4apr2018
 	bug fix: in wide format, existence of another variable with same stem caused failure
-	default changed to augment(1E-5)
+	default changed from augment(1E-3) to augment(1E-5)
 version 1.3.1 # Ian White # 9oct2017
 	better error message if summary statistic variables are string
 version 1.2.5 # Ian White # 13mar2017

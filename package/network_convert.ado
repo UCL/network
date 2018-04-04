@@ -1,5 +1,7 @@
 /*
-*! version 1.1 # Ian White # 8jun2015
+*! version 1.4.1 # Ian White # 4apr2018
+	default changed from large(1E4) to large(1E5)
+version 1.1 # Ian White # 8jun2015
 8jun2015
     "binomial" changed to "count"
     minor bug fix: `large' was added multiple times; now added only once
