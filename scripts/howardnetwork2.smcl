@@ -1,0 +1,71 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Ian\Dropbox\ado\network\scripts\howardnetwork2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}10 Dec 2015, 17:01:10
+{txt}
+{com}. use howardnetwork2, clear
+{txt}(Mock data for Howard's disconnected network 2)
+
+{com}. network setup d n, study(study) trt(trt)
+{res}{txt}Treatments used
+{col 4}A (reference):{col 40}{res}1
+{txt}{col 4}B:{col 40}{res}2
+{txt}{col 4}C:{col 40}{res}3
+{txt}{col 4}D:{col 40}{res}4
+{txt}{col 4}E:{col 40}{res}5
+{txt}{col 4}F:{col 40}{res}6
+{txt}{col 4}G:{col 40}{res}7
+{txt}{col 4}H:{col 40}{res}8
+
+{txt}Measure{col 40}{res}Log odds ratio
+
+{txt}Studies
+{col 4}ID variable: {col 40}{res}study
+{col 4}{txt}Number used: {col 40}{res}11
+{col 4}{txt}IDs with zero cells: {col 40}{res}[none]
+{col 4}{txt}IDs with augmented reference arm: {col 40}{res}4 5 6 7 8 9 10 11
+{col 4}{txt}- observations added:{col 40}{res}0.001
+{col 4}{txt}- mean in augmented observations:{col 40}{res}study-specific mean
+
+{txt}Network information{col 40}
+{col 4}Components:{col 40}{err}2 (disconnected)
+{txt}{col 4}D.f. for inconsistency:{col 40}{res}5
+{txt}{col 4}D.f. for heterogeneity:{col 40}{res}0
+
+{txt}Current data
+{col 4}Data format:{col 40}{res}augmented
+{txt}{col 4}Design variable: {col 40}{res}_design
+{txt}{col 4}Estimate variables: {col 40}{res}_y*
+{txt}{col 4}Variance variables: {col 40}{res}_S*
+{txt}{col 4}Command to list the data:{col 40}{stata list study _y* _S*, noo sepby(_design)}
+
+{com}. tab _design _component
+
+           {txt}{c |}      _component
+   _design {c |}         1          2 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+       A B {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       A C {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       A E {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       B C {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       B D {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       B E {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       C E {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       D E {c |}{res}         1          0 {txt}{c |}{res}         1 
+{txt}       F G {c |}{res}         0          1 {txt}{c |}{res}         1 
+{txt}       F H {c |}{res}         0          1 {txt}{c |}{res}         1 
+{txt}       G H {c |}{res}         0          1 {txt}{c |}{res}         1 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8          3 {txt}{c |}{res}        11 
+
+{txt}
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Ian\Dropbox\ado\network\scripts\howardnetwork2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}10 Dec 2015, 17:01:10
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

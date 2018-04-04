@@ -1,0 +1,513 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Ian White\Dropbox\network_v1.1\scripts\thromb_current.log
+  log type:  text
+ opened on:  14 May 2015, 11:26:09
+Log file thromb_current.log opened on 14 May 2015 at 11:26:09
+
+. // Thromb, dropping study 1
+. * this is challenging with ref(B) because the first B design is B-E
+. * and there are no other E trials
+. prog drop _all
+
+. include thromb_bestmaps.do
+
+. * Best network maps for thrombolytics data
+. 
+. #delimit ;
+delimiter now ;
+. mat A=(
+> 3,3,9\
+> 5,4,3\
+> 1,2,9\
+> 4.33,3,6\
+> 6,4.5,3\
+> 3,3.67,9\
+> 5,2,3\
+> 1,4,9)
+> ;
+
+. #delimit cr
+delimiter now cr
+. mat rownames A = A B C D E F G H
+
+. mat colnames A = x y labelpos
+
+. 
+. /*
+> use thromb, clear
+> keep study treat r n
+> network setup r n, studyvar(stud) trtvar(treat) nocodes
+> network map, loc(A) name(mapall, replace) title("Thrombolytics network") 
+> 
+> use thromb, clear
+> keep study treat r n
+> drop if inlist(study,1,2)
+> network setup r n, studyvar(stud) trtvar(treat) nocodes
+> network map, loc(A) name(map2arm, replace) title("Thrombolytics network, 2-arm s
+> tudies only") 
+> */
+. 
+. 
+. use thromb, clear
+(Thrombolytics network meta-analysis from Lu & Ades (2006), corrected)
+
+. keep study treat r n
+
+. network setup r n, studyvar(study) trtvar(treat) nocodes 
+Treatments
+   Used:
+      A (reference)                    A
+      B                                B
+      C                                C
+      D                                D
+      E                                E
+      F                                F
+      G                                G
+      H                                H
+Measure:                               Log odds ratio
+Studies
+   ID variable:                        study
+   Number used:                        28
+   IDs with zero cells:                [none]
+   IDs with augmented reference arm:   17 18 19 20 21 22 23 24 25 26 27 28
+   - observations added:               0.001
+   - mean in augmented observations:   study-specific mean
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             8
+   D.f. for heterogeneity:             15
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. network map, title(Thrombolytics) loc(A)
+Graph command stored in F9
+
+. network meta c
+Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) nowt  
+> vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Note: using method reml
+Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
+Note: 28 observations on 7 variables
+Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
+
+initial:       log likelihood = -100.59187
+rescale:       log likelihood = -89.907633
+rescale eq:    log likelihood = -88.004393
+Iteration 0:   log likelihood = -88.004393  
+Iteration 1:   log likelihood = -87.835873  
+Iteration 2:   log likelihood = -87.827444  
+Iteration 3:   log likelihood =  -87.82741  
+Iteration 4:   log likelihood = -87.827409  
+
+Multivariate meta-analysis
+Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
+Method = reml                                  Number of dimensions    =     7
+Restricted log likelihood = -87.827409         Number of observations  =    28
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_B         |
+       _cons |  -.1612882   .0464011    -3.48   0.001    -.2522326   -.0703438
+-------------+----------------------------------------------------------------
+_y_C         |
+       _cons |    .002128   .0324348     0.07   0.948     -.061443     .065699
+-------------+----------------------------------------------------------------
+_y_D         |
+       _cons |  -.0438161    .048854    -0.90   0.370    -.1395682    .0519359
+-------------+----------------------------------------------------------------
+_y_E         |
+       _cons |  -.1558532   .0803957    -1.94   0.053    -.3134259    .0017195
+-------------+----------------------------------------------------------------
+_y_F         |
+       _cons |   -.113002   .0619172    -1.83   0.068    -.2343574    .0083534
+-------------+----------------------------------------------------------------
+_y_G         |
+       _cons |  -.1972319   .2215621    -0.89   0.373    -.6314857    .2370219
+-------------+----------------------------------------------------------------
+_y_H         |
+       _cons |   .0143583   .0403238     0.36   0.722    -.0646749    .0933915
+------------------------------------------------------------------------------
+
+Estimated between-studies SDs and correlation matrix:
+             SD       _y_B       _y_C       _y_D       _y_E       _y_F       _y_G
+_y_B  .01520341          1          .          .          .          .          .
+_y_C  .01520341         .5          1          .          .          .          .
+_y_D  .01520341         .5         .5          1          .          .          .
+_y_E  .01520341         .5         .5         .5          1          .          .
+_y_F  .01520341         .5         .5         .5         .5          1          .
+_y_G  .01520341         .5         .5         .5         .5         .5          1
+_y_H  .01520341         .5         .5         .5         .5         .5         .5
+
+           _y_H
+_y_B          .
+_y_C          .
+_y_D          .
+_y_E          .
+_y_F          .
+_y_G          .
+_y_H          1
+mvmeta command stored as F9
+
+. network meta i, luades
+Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) nowt e
+> q(_y_F: groupB, _y_G: groupB groupC, _y_H: groupB groupC) vars(_y_B _y_C _y_D _y
+> _E _y_F _y_G _y_H)
+Note: using method reml
+Note: regressing _y_B on (nothing)
+Note: regressing _y_C on (nothing)
+Note: regressing _y_D on (nothing)
+Note: regressing _y_E on (nothing)
+Note: regressing _y_F on groupB
+Note: regressing _y_G on groupB groupC
+Note: regressing _y_H on groupB groupC
+Note: 28 observations on 7 variables
+Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
+
+initial:       log likelihood = -93.781776
+rescale:       log likelihood = -87.988879
+rescale eq:    log likelihood = -84.530711
+Iteration 0:   log likelihood = -84.530711  (not concave)
+Iteration 1:   log likelihood = -83.988927  
+Iteration 2:   log likelihood = -83.579277  (not concave)
+Iteration 3:   log likelihood = -83.522871  (not concave)
+Iteration 4:   log likelihood = -83.501245  
+Iteration 5:   log likelihood = -83.472236  
+Iteration 6:   log likelihood = -83.472194  
+Iteration 7:   log likelihood = -83.472194  
+
+Multivariate meta-analysis
+Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
+Method = reml                                  Number of dimensions    =     7
+Restricted log likelihood = -83.472194         Number of observations  =    28
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_B         |
+       _cons |  -.1557992   .0580128    -2.69   0.007    -.2695021   -.0420963
+-------------+----------------------------------------------------------------
+_y_C         |
+       _cons |   -.004904   .0392081    -0.13   0.900    -.0817506    .0719425
+-------------+----------------------------------------------------------------
+_y_D         |
+       _cons |  -.0413887   .0566613    -0.73   0.465    -.1524429    .0696654
+-------------+----------------------------------------------------------------
+_y_E         |
+       _cons |  -.1503642   .0918638    -1.64   0.102     -.330414    .0296857
+-------------+----------------------------------------------------------------
+_y_F         |
+      groupB |  -.0791736   .1332783    -0.59   0.552    -.3403943    .1820471
+       _cons |  -.0603276   .0945686    -0.64   0.524    -.2456786    .1250234
+-------------+----------------------------------------------------------------
+_y_G         |
+      groupB |   .3120322   .6196041     0.50   0.615    -.9023695    1.526434
+      groupC |   .0657958   .6092721     0.11   0.914    -1.128356    1.259947
+       _cons |  -.3462582   .5042503    -0.69   0.492    -1.334571    .6420542
+-------------+----------------------------------------------------------------
+_y_H         |
+      groupB |   1.194435   .4133868     2.89   0.004     .3842119    2.004658
+      groupC |  -.2928641   .3577383    -0.82   0.413    -.9940183    .4082901
+       _cons |   .0042309   .0475952     0.09   0.929    -.0890539    .0975158
+------------------------------------------------------------------------------
+
+Estimated between-studies SDs and correlation matrix:
+             SD       _y_B       _y_C       _y_D       _y_E       _y_F       _y_G
+_y_B  .03153131          1          .          .          .          .          .
+_y_C  .03153131         .5          1          .          .          .          .
+_y_D  .03153131         .5         .5          1          .          .          .
+_y_E  .03153131         .5         .5         .5          1          .          .
+_y_F  .03153131         .5         .5         .5         .5          1          .
+_y_G  .03153131         .5         .5         .5         .5         .5          1
+_y_H  .03153131         .5         .5         .5         .5         .5         .5
+
+           _y_H
+_y_B          .
+_y_C          .
+_y_D          .
+_y_E          .
+_y_F          .
+_y_G          .
+_y_H          1
+
+Testing for inconsistency:
+ ( 1)  [_y_F]groupB = 0
+ ( 2)  [_y_G]groupB = 0
+ ( 3)  [_y_H]groupB = 0
+ ( 4)  [_y_G]groupC = 0
+ ( 5)  [_y_H]groupC = 0
+
+           chi2(  5) =    9.98
+         Prob > chi2 =    0.0758
+mvmeta command stored as F9; test command stored as F8
+
+. network forest, list name(forestLA,replace)
+
+     +------------------------------------------------------------+
+     | t1   t2   design    type   studyvar        diff         se |
+     |------------------------------------------------------------|
+  1. |  A    B    A B D   study          1   -.1570565     .04868 |
+  2. |  A    B    A B D    inco          1   -.1557992   .0580128 |
+  3. |  A    B             cons          1   -.1612882   .0464011 |
+     |------------------------------------------------------------|
+  4. |  A    C      A C   study          3   -.3718485   .5427608 |
+  5. |  A    C      A C   study          4    -.898899   .8571962 |
+  6. |  A    C      A C   study          5    .0162605   .8361753 |
+  7. |  A    C      A C   study          6    .0532287   .0491415 |
+  8. |  A    C      A C   study          7   -.6096262   .6464308 |
+  9. |  A    C      A C   study          8   -.5463766   .4908674 |
+ 10. |  A    C      A C   study          9   -.7323679    .561865 |
+ 11. |  A    C      A C    inco          3    -.004904   .0392081 |
+ 12. |  A    C    A C H   study          2   -.0260019   .0394304 |
+ 13. |  A    C    A C H    inco          2    -.004904   .0392081 |
+ 14. |  A    C             cons          3     .002128   .0324348 |
+     |------------------------------------------------------------|
+ 15. |  A    D    A B D   study          1   -.0446749   .0471175 |
+ 16. |  A    D    A B D    inco          1   -.0413887   .0566613 |
+ 17. |  A    D      A D   study         10    .4054651   .6603667 |
+ 18. |  A    D      A D    inco         10   -.0413887   .0566613 |
+ 19. |  A    D             cons          1   -.0438161    .048854 |
+     |------------------------------------------------------------|
+ 20. |  A    F      A F   study         11   -.0603276   .0891571 |
+ 21. |  A    F      A F    inco         11   -.0603276   .0945686 |
+ 22. |  A    F             cons         11    -.113002   .0619172 |
+     |------------------------------------------------------------|
+ 23. |  A    G      A G   study         12   -.3462582   .5032634 |
+ 24. |  A    G      A G    inco         12   -.3462582   .5042502 |
+ 25. |  A    G             cons         12   -.1972319   .2215621 |
+     |------------------------------------------------------------|
+ 26. |  A    H    A C H   study          2   -.0048226   .0392449 |
+ 27. |  A    H    A C H    inco          2    .0042309   .0475952 |
+ 28. |  A    H      A H   study         13   -.3101549   .9335498 |
+ 29. |  A    H      A H   study         14    .6931472    .723945 |
+ 30. |  A    H      A H   study         15   -.4234836   .9324014 |
+ 31. |  A    H      A H   study         16   -.2133051   .4235553 |
+ 32. |  A    H      A H    inco         13    .0042309   .0475952 |
+ 33. |  A    H             cons          2    .0143583   .0403238 |
+     |------------------------------------------------------------|
+ 34. |  B    D    A B D   study          1    .1123817   .0558942 |
+ 35. |  B    D    A B D    inco          1    .1144105    .064143 |
+ 36. |  B    D             cons          1    .1174721   .0562033 |
+     |------------------------------------------------------------|
+ 37. |  B    E      B E   study         17     .005435   .0638691 |
+ 38. |  B    E      B E    inco         17     .005435   .0712284 |
+ 39. |  B    E             cons         17     .005435   .0656537 |
+     |------------------------------------------------------------|
+ 40. |  B    F      B F   study         18    .0341647   .0667507 |
+ 41. |  B    F      B F   study         19   -.7508085   .4826959 |
+ 42. |  B    F      B F    inco         18     .016298   .0742683 |
+ 43. |  B    F             cons         18    .0482862   .0567184 |
+     |------------------------------------------------------------|
+ 44. |  B    G      B G   study         20    .5806692   .8401193 |
+ 45. |  B    G      B G   study         21    .0217185   .3908114 |
+ 46. |  B    G      B G    inco         20    .1215733   .3553412 |
+ 47. |  B    G             cons         20   -.0359437   .2226909 |
+     |------------------------------------------------------------|
+ 48. |  B    H      B H   study         22    1.278927   .5185134 |
+ 49. |  B    H      B H   study         23    1.473772   .6520172 |
+ 50. |  B    H      B H    inco         22    1.354465   .4064715 |
+ 51. |  B    H             cons         22    .1756465   .0620672 |
+     |------------------------------------------------------------|
+ 52. |  C    G      C G   study         24           0   .6318176 |
+ 53. |  C    G      C G   study         25   -.5490468   .5285926 |
+ 54. |  C    G      C G   study         26   -.1652271   .6194852 |
+ 55. |  C    G      C G    inco         24   -.2755584   .3397323 |
+ 56. |  C    G             cons         24   -.1993599   .2219496 |
+     |------------------------------------------------------------|
+ 57. |  C    H    A C H   study          2    .0211792   .0394725 |
+ 58. |  C    H    A C H    inco          2    .0091349   .0474906 |
+ 59. |  C    H      C H   study         27   -.2623643   .4360827 |
+ 60. |  C    H      C H   study         28   -.3247762   .6051857 |
+ 61. |  C    H      C H    inco         27   -.2837291   .3545706 |
+ 62. |  C    H             cons          2    .0122303   .0398742 |
+     +------------------------------------------------------------+
+
+. network meta i
+Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) nowt e
+> q(_y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH d
+> es_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Note: using method reml
+Note: regressing _y_B on (nothing)
+Note: regressing _y_C on des_ACH
+Note: regressing _y_D on des_AD
+Note: regressing _y_E on (nothing)
+Note: regressing _y_F on des_BF
+Note: regressing _y_G on des_BG des_CG
+Note: regressing _y_H on des_AH des_BH des_CH
+Note: 28 observations on 7 variables
+Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
+
+initial:       log likelihood = -90.296166
+rescale:       log likelihood = -86.481142
+rescale eq:    log likelihood = -84.189181
+Iteration 0:   log likelihood = -84.189181  
+Iteration 1:   log likelihood = -83.874377  
+Iteration 2:   log likelihood = -83.862271  (not concave)
+Iteration 3:   log likelihood = -83.862011  
+Iteration 4:   log likelihood = -83.861265  
+Iteration 5:   log likelihood = -83.861264  
+
+Multivariate meta-analysis
+Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
+Method = reml                                  Number of dimensions    =     7
+Restricted log likelihood = -83.861264         Number of observations  =    28
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_B         |
+       _cons |  -.1570579   .2210322    -0.71   0.477    -.5902731    .2761573
+-------------+----------------------------------------------------------------
+_y_C         |
+     des_ACH |   .1590846   .3190918     0.50   0.618    -.4663237    .7844929
+       _cons |  -.1850865   .2319017    -0.80   0.425    -.6396056    .2694326
+-------------+----------------------------------------------------------------
+_y_D         |
+      des_AD |   .4501407   .7288875     0.62   0.537    -.9784526    1.878734
+       _cons |  -.0446756   .2206951    -0.20   0.840    -.4772301    .3878789
+-------------+----------------------------------------------------------------
+_y_E         |
+       _cons |  -.1516227   .3153107    -0.48   0.631    -.7696204    .4663749
+-------------+----------------------------------------------------------------
+_y_F         |
+      des_BF |  -.1835862   .3960683    -0.46   0.643    -.9598658    .5926934
+       _cons |  -.0603276   .2333142    -0.26   0.796    -.5176151    .3969599
+-------------+----------------------------------------------------------------
+_y_G         |
+      des_BG |   .3279492   .7117403     0.46   0.645    -1.067036    1.722935
+      des_CG |  -.1097309   .6948124    -0.16   0.875    -1.471538    1.252076
+       _cons |  -.3462582    .547504    -0.63   0.527    -1.419346    .7268299
+-------------+----------------------------------------------------------------
+_y_H         |
+      des_AH |  -.0585384   .4095507    -0.14   0.886     -.861243    .7441662
+      des_BH |   1.204758   .5346671     2.25   0.024     .1568298    2.252686
+      des_CH |    -.46537   .5027208    -0.93   0.355    -1.450685    .5199447
+       _cons |  -.0048226   .2191499    -0.02   0.982    -.4343486    .4247034
+------------------------------------------------------------------------------
+
+Estimated between-studies SDs and correlation matrix:
+             SD       _y_B       _y_C       _y_D       _y_E       _y_F       _y_G
+_y_B  .21560735          1          .          .          .          .          .
+_y_C  .21560735         .5          1          .          .          .          .
+_y_D  .21560735         .5         .5          1          .          .          .
+_y_E  .21560735         .5         .5         .5          1          .          .
+_y_F  .21560735         .5         .5         .5         .5          1          .
+_y_G  .21560735         .5         .5         .5         .5         .5          1
+_y_H  .21560735         .5         .5         .5         .5         .5         .5
+
+           _y_H
+_y_B          .
+_y_C          .
+_y_D          .
+_y_E          .
+_y_F          .
+_y_G          .
+_y_H          1
+
+Testing for inconsistency:
+ ( 1)  [_y_C]des_ACH = 0
+ ( 2)  [_y_D]des_AD = 0
+ ( 3)  [_y_H]des_AH = 0
+ ( 4)  [_y_F]des_BF = 0
+ ( 5)  [_y_G]des_BG = 0
+ ( 6)  [_y_H]des_BH = 0
+ ( 7)  [_y_G]des_CG = 0
+ ( 8)  [_y_H]des_CH = 0
+
+           chi2(  8) =    8.61
+         Prob > chi2 =    0.3767
+mvmeta command stored as F9; test command stored as F8
+
+. network forest, list name(forestDBT,replace)
+
+     +------------------------------------------------------------+
+     | t1   t2   design    type   studyvar        diff         se |
+     |------------------------------------------------------------|
+  1. |  A    B    A B D   study          1   -.1570565     .04868 |
+  2. |  A    B    A B D    inco          1   -.1570579   .2210322 |
+  3. |  A    B             cons          1   -.1612882   .0464011 |
+     |------------------------------------------------------------|
+  4. |  A    C      A C   study          3   -.3718485   .5427608 |
+  5. |  A    C      A C   study          4    -.898899   .8571962 |
+  6. |  A    C      A C   study          5    .0162605   .8361753 |
+  7. |  A    C      A C   study          6    .0532287   .0491415 |
+  8. |  A    C      A C   study          7   -.6096262   .6464308 |
+  9. |  A    C      A C   study          8   -.5463766   .4908674 |
+ 10. |  A    C      A C   study          9   -.7323679    .561865 |
+ 11. |  A    C      A C    inco          3   -.1850865   .2319017 |
+ 12. |  A    C    A C H   study          2   -.0260019   .0394304 |
+ 13. |  A    C    A C H    inco          2   -.0260019   .2191832 |
+ 14. |  A    C             cons          3     .002128   .0324348 |
+     |------------------------------------------------------------|
+ 15. |  A    D    A B D   study          1   -.0446749   .0471175 |
+ 16. |  A    D    A B D    inco          1   -.0446756   .2206951 |
+ 17. |  A    D      A D   study         10    .4054651   .6603667 |
+ 18. |  A    D      A D    inco         10    .4054651   .6946731 |
+ 19. |  A    D             cons          1   -.0438161    .048854 |
+     |------------------------------------------------------------|
+ 20. |  A    F      A F   study         11   -.0603276   .0891571 |
+ 21. |  A    F      A F    inco         11   -.0603276   .2333142 |
+ 22. |  A    F             cons         11    -.113002   .0619172 |
+     |------------------------------------------------------------|
+ 23. |  A    G      A G   study         12   -.3462582   .5032634 |
+ 24. |  A    G      A G    inco         12   -.3462582    .547504 |
+ 25. |  A    G             cons         12   -.1972319   .2215621 |
+     |------------------------------------------------------------|
+ 26. |  A    H    A C H   study          2   -.0048226   .0392449 |
+ 27. |  A    H    A C H    inco          2   -.0048226   .2191499 |
+ 28. |  A    H      A H   study         13   -.3101549   .9335498 |
+ 29. |  A    H      A H   study         14    .6931472    .723945 |
+ 30. |  A    H      A H   study         15   -.4234836   .9324014 |
+ 31. |  A    H      A H   study         16   -.2133051   .4235553 |
+ 32. |  A    H      A H    inco         13    -.063361   .3459842 |
+ 33. |  A    H             cons          2    .0143583   .0403238 |
+     |------------------------------------------------------------|
+ 34. |  B    D    A B D   study          1    .1123817   .0558942 |
+ 35. |  B    D    A B D    inco          1    .1123824    .222734 |
+ 36. |  B    D             cons          1    .1174721   .0562033 |
+     |------------------------------------------------------------|
+ 37. |  B    E      B E   study         17     .005435   .0638691 |
+ 38. |  B    E      B E    inco         17    .0054352   .2248683 |
+ 39. |  B    E             cons         17     .005435   .0656537 |
+     |------------------------------------------------------------|
+ 40. |  B    F      B F   study         18    .0341647   .0667507 |
+ 41. |  B    F      B F   study         19   -.7508085   .4826959 |
+ 42. |  B    F      B F    inco         18   -.0868558   .2314714 |
+ 43. |  B    F             cons         18    .0482862   .0567184 |
+     |------------------------------------------------------------|
+ 44. |  B    G      B G   study         20    .5806692   .8401193 |
+ 45. |  B    G      B G   study         21    .0217185   .3908114 |
+ 46. |  B    G      B G    inco         20     .138749   .3974419 |
+ 47. |  B    G             cons         20   -.0359437   .2226909 |
+     |------------------------------------------------------------|
+ 48. |  B    H      B H   study         22    1.278927   .5185134 |
+ 49. |  B    H      B H   study         23    1.473772   .6520172 |
+ 50. |  B    H      B H    inco         22    1.356993    .434728 |
+ 51. |  B    H             cons         22    .1756465   .0620672 |
+     |------------------------------------------------------------|
+ 52. |  C    G      C G   study         24           0   .6318176 |
+ 53. |  C    G      C G   study         25   -.5490468   .5285926 |
+ 54. |  C    G      C G   study         26   -.1652271   .6194852 |
+ 55. |  C    G      C G    inco         24   -.2709026   .3619138 |
+ 56. |  C    G             cons         24   -.1993599   .2219496 |
+     |------------------------------------------------------------|
+ 57. |  C    H    A C H   study          2    .0211792   .0394725 |
+ 58. |  C    H    A C H    inco          2    .0211793   .2191908 |
+ 59. |  C    H      C H   study         27   -.2623643   .4360827 |
+ 60. |  C    H      C H   study         28   -.3247762   .6051857 |
+ 61. |  C    H      C H    inco         27   -.2851061   .3878321 |
+ 62. |  C    H             cons          2    .0122303   .0398742 |
+     +------------------------------------------------------------+
+
+. 
+end of do-file
+Log file thromb_current.log completed on 14 May 2015 at 11:26:52
+      name:  <unnamed>
+       log:  C:\Users\Ian White\Dropbox\network_v1.1\scripts\thromb_current.log
+  log type:  text
+ closed on:  14 May 2015, 11:26:52
+----------------------------------------------------------------------------------

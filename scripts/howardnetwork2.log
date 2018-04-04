@@ -1,0 +1,68 @@
+------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Ian\Dropbox\ado\network\scripts\howardnetwork2.log
+  log type:  text
+ opened on:  10 Dec 2015, 17:01:19
+
+. use howardnetwork2, clear
+(Mock data for Howard's disconnected network 2)
+
+. network setup d n, study(study) trt(trt)
+Treatments used
+   A (reference):                      1
+   B:                                  2
+   C:                                  3
+   D:                                  4
+   E:                                  5
+   F:                                  6
+   G:                                  7
+   H:                                  8
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        11
+   IDs with zero cells:                [none]
+   IDs with augmented reference arm:   4 5 6 7 8 9 10 11
+   - observations added:               0.001
+   - mean in augmented observations:   study-specific mean
+
+Network information                    
+   Components:                         2 (disconnected)
+   D.f. for inconsistency:             5
+   D.f. for heterogeneity:             0
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. tab _design _component
+
+           |      _component
+   _design |         1          2 |     Total
+-----------+----------------------+----------
+       A B |         1          0 |         1 
+       A C |         1          0 |         1 
+       A E |         1          0 |         1 
+       B C |         1          0 |         1 
+       B D |         1          0 |         1 
+       B E |         1          0 |         1 
+       C E |         1          0 |         1 
+       D E |         1          0 |         1 
+       F G |         0          1 |         1 
+       F H |         0          1 |         1 
+       G H |         0          1 |         1 
+-----------+----------------------+----------
+     Total |         8          3 |        11 
+
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Ian\Dropbox\ado\network\scripts\howardnetwork2.log
+  log type:  text
+ closed on:  10 Dec 2015, 17:01:19
+------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 /*
-version 1.4 # Ian White # 5jan2018 
+*! version 1.4 # Ian White # 5jan2018 
 	add network loopsplit
 version 1.3.3 # Ian White # 20nov2017 
 	network bayes doesn't require setup or unsetup

@@ -1,0 +1,231 @@
+--------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  c:\ado\ian\network\testing\testall.log
+  log type:  text
+ opened on:  15 Mar 2018, 13:50:50
+Log file testall.log opened on 15 Mar 2018 at 13:50:50
+
+. /*
+> Test all network bayes models using default priors
+> IW 15mar2018
+> */
+. pda
+
+. local models CB1 CB2 CB3 AB
+
+. local hets commonhet nocommonhet 
+
+. local priors /*prioronly*/ noprioronly
+
+. local data 6a
+
+. 
+. cap mkdir temp
+
+. 
+. foreach model of local models {
+  2. foreach het of local hets {
+  3. foreach prior of local priors {
+  4. 
+.         if "`model'"=="CB1" & "`het'"=="nocommonhet" continue
+  5.         di _new(5) as input ///
+>                 "Data `data' analysed by `model' `het', `prior'" ///
+>                 _n
+  6. 
+.         clear
+  7.         use "C:\copyofN\ABCB\analysis\hyp18\hyp18`data'.dta"
+  8.         qui network setup d n, studyvar(study)
+  9. 
+.         local ch = substr("`het'",1,1)
+ 10.         local pr = substr("`prior'",1,1)
+ 11.         local name hyp18_run3_`data'_`model'_`ch'_`pr'
+ 12. 
+.         if "`prior'"=="prioronly" local opts burnin(0) updates(10000) thin(1) 
+ 13.         else local opts burnin(10000) updates(100000) thin(10) 
+ 14. 
+.         network bayes, name(`name') model(`model') `het' ///
+>                 savedir(c:\temp) ///
+>                 clear quit dryrun ///
+>                 trace(name(`name',replace)) `prior' `opts'
+ 15.         
+.         *logvar sig*
+.         *summ log*
+. 
+. }
+ 16. }
+ 17. }
+
+
+
+
+
+Data 6a analysed by CB1 commonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        CB1
+Heterogeneity:                Common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_CB1_c_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_CB1_c_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_CB1_c_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_CB1_c_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_CB1_c_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+
+
+
+
+Data 6a analysed by CB2 commonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        CB2
+Heterogeneity:                Common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_CB2_c_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_CB2_c_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_CB2_c_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_CB2_c_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_CB2_c_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+
+
+
+
+Data 6a analysed by CB2 nocommonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        CB2
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  0 (default)
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_CB2_n_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_CB2_n_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_CB2_n_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_CB2_n_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_CB2_n_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+
+
+
+
+Data 6a analysed by CB3 commonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        CB3
+Heterogeneity:                Common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dunif(0,10) (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_CB3_c_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_CB3_c_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_CB3_c_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_CB3_c_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_CB3_c_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+
+
+
+
+Data 6a analysed by CB3 nocommonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        CB3
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dunif(0,10) (default)
+logsigCmean:                  0 (default)
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_CB3_n_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_CB3_n_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_CB3_n_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_CB3_n_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_CB3_n_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+
+
+
+
+Data 6a analysed by AB commonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        AB
+Heterogeneity:                Common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+rhoprior:                     dunif(0,1) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_AB_c_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_AB_c_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_AB_c_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_AB_c_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_AB_c_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+
+
+
+
+Data 6a analysed by AB nocommonhet, noprioronly
+
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        AB
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+logsigAmean:                  0 (default)
+logsigCmean:                  0 (default)
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp/hyp18_run3_6a_AB_n_n_data.txt
+                  scalars to c:\temp/hyp18_run3_6a_AB_n_n_scalars.txt
+                  inits to c:\temp/hyp18_run3_6a_AB_n_n_inits.txt
+                  model to c:\temp/hyp18_run3_6a_AB_n_n_model.txt
+                  script to c:\temp/hyp18_run3_6a_AB_n_n_script.txt
+End of dry run. Files are written but WinBUGS has not run.
+
+. 
+end of do-file
+Log file testall.log completed on 15 Mar 2018 at 13:50:51
+      name:  <unnamed>
+       log:  c:\ado\ian\network\testing\testall.log
+  log type:  text
+ closed on:  15 Mar 2018, 13:50:51
+--------------------------------------------------------------------------------------
