@@ -1,5 +1,7 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+TIME: APPROX 5 MINUTES
+4apr2018: updated file locations moved to c:
 13mar2017: CTU file locations; added connectedness check
 21dec2015: corrected treat to trt for smoking data (now follows SJ article)
 8jun2015: added other effect measures
@@ -17,8 +19,8 @@ set trace off
 set more off
 pause on
 prog drop _all
-local networkdir N:\meta\network\ado\
-adopath ++ `networkdir'packages
+local networkdir C:\ado\ian\network\
+adopath ++ `networkdir'package
 cd `networkdir'scripts
 
 which mvmeta

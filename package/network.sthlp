@@ -152,7 +152,7 @@ not of their codes.
 
 {pstd}Load the {ul:smoking data}
 
-{pin}. {stata "use http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta/smoking, clear"}
+{pin}. {stata "use http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/smoking, clear"}
 
 {pin}. {stata "network setup d n, studyvar(stud) trtvar(trt)"}
 
@@ -183,7 +183,7 @@ not of their codes.
 
 {pstd}Load the {ul:thrombolytics data}
 
-{pin}. {stata "use http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta/thromb.dta, clear"}
+{pin}. {stata "use http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/thromb.dta, clear"}
 
 {pin}. {stata "network setup r n, studyvar(study) trtvar(treat)"}
 
@@ -288,11 +288,11 @@ Clinical Trials 2005; 2: 141-151.
 
 {title:Author and updates}{marker updates}
 
-{p}Ian White, MRC Biostatistics Unit, Cambridge, UK. 
-Email {browse "mailto:ian.white@mrc-bsu.cam.ac.uk":ian.white@mrc-bsu.cam.ac.uk}.
+{p}Ian White, MRC Clinical Trials Unit at UCL, London, UK. 
+Email {browse "mailto:ian.white@ucl.ac.uk":ian.white@ucl.ac.uk}.
 
 {p}You can get the latest version of this and my other Stata software using 
-{stata "net from http://www.mrc-bsu.cam.ac.uk/IW_Stata/"}.
+{stata "net from http://www.homepages.ucl.ac.uk/~rmjwiww/stata/"}.
 
 
 {title:See Also}

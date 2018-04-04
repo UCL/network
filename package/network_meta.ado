@@ -1,7 +1,8 @@
 /*
-*! version 1.2.1 # Ian White # 29jun2017 
-*! - attempted bug fix in standard format with nested trt names - see line 467
-*! version 1.2.0 # Ian White # 3jul2015
+*! v1.4 4apr2018 - updated links from BSU to UCL
+version 1.2.1 # Ian White # 29jun2017 
+	- attempted bug fix in standard format with nested trt names - see line 467
+version 1.2.0 # Ian White # 3jul2015
     prints warning if MNAR has been set
 version 1.1.4 # Ian White # 1jul2015
     network meta requires mvmeta v3.1
@@ -138,11 +139,11 @@ else {
     cap vercheck mvmeta `minmvmetaversion'
     if _rc {
         if _rc == 601 {
-            di as error `"network requires mvmeta: click {stata "net install mvmeta, from(http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta)":here} to install"'
+            di as error `"network requires mvmeta: click {stata "net install mvmeta, from(http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta)":here} to install"'
         }
         else if _rc == 498 {
             di as error "network requires mvmeta version `minmvmetaversion' or later"
-            di as error `"Click {stata "net install mvmeta, from(http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta) replace":here} to update your version of mvmeta"'
+            di as error `"Click {stata "net install mvmeta, from(http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta) replace":here} to update your version of mvmeta"'
         }
         else di as error "vercheck: unknown error"
         exit _rc
