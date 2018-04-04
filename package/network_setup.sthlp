@@ -55,7 +55,7 @@ should be handled: whether they should all be dropped, all kept, or specified on
 Otherwise, extra arm-level variables cause an error.{p_end}
 
 {syntab:How treatments are coded}
-{synopt:{opt trtlist(string)}}List of names of treatments to be used 
+{synopt:{opt trtl:ist(string)}}List of names of treatments to be used 
 - useful if you want to omit some treatments e.g. for a sensitivity analysis. 
 Also useful to specify how the treatments will be coded (first treatment will be A, etc.).
 The default is to use all treatments found in alphabetical order

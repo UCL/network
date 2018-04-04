@@ -54,7 +54,7 @@ nma version 0.1 30nov2012
 prog def network_setup
 syntax anything [if] [in], [ ///
     STUDyvar(varname) TRTvar(varname) ARMVars(string) /// describe data 
-    trtlist(string asis) alpha NUMcodes noCOdes /// how treatments are coded
+    TRTList(string asis) alpha NUMcodes noCOdes /// how treatments are coded
     format(string) or rr rd hr zeroadd(real 0.5) md smd sdpool(string) /// how to setup
     ref(string) augment(string) augmean(string) augsd(string) AUGOverall /// augment options
     GENPrefix(string) GENSuffix(string) /// what-to-output options
@@ -310,18 +310,20 @@ else {
     * identify treatments
     foreach nvar of varlist `n'* {
         if "`nvar'" != "`n'" {
-            local trt = substr("`nvar'",length("`n'")+1,.)
+            local missingvars
+			local trt = substr("`nvar'",length("`n'")+1,.)
             foreach rawvar in `rawvars' {
                 cap confirm var `rawvar'`trt'
-                if _rc {
-                    noi di as text "Warning: ignoring variable" as result " `nvar' " ///
-                        as text "because variable " as result "`rawvar'`trt'" as text " not found"
-                    continue
-                }
+                if _rc local missingvars `missingvars' `rawvar'`trt'
+			}
+			if !mi("`missingvars'") 	{
+				noi di as text "Warning: ignoring variable" as result " `nvar' " ///
+					as text "because variable(s) " as result "`missingvars'" as text " not found"
             }
-            local trtvarlevels `trtvarlevels' `trt'
-        }
-    }
+			else local trtvarlevels `trtvarlevels' `trt'
+		}
+	}
+
     if !mi(`"`trtlist'"') { // treatments specified: just check
         foreach trt in `trtlist' {
             foreach var in `rawvars' {
