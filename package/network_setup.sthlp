@@ -1,4 +1,5 @@
 {smcl}
+{* *! version 1.4.1 4apr018 - more on maxvar}{...}
 {* *! version 1.2.5 13mar2017}{...}
 {vieweralsosee "Main network help page" "network"}{...}
 {viewerjumpto "Syntax" "network_setup##syntax"}{...}
@@ -218,12 +219,14 @@ When treatments are coded numerically, up to 9 treatments are coded 1, 2, 3,...
 and more than 9 treatments are coded 01, 02, 03, ... (or 001, 002, 003, ... if necessary).
 
 {pstd}
-With large numbers of treatments, however, 
-you may exceed Stata's permitted numbers of variables.
-If you are running Stata/IC then this limit is about 45 treatments and cannot be changed. 
-If you are running Stata/MP or Stata/SE then the default limit is about 80 treatments 
-and can be increased by increasing {help memory:maxvar} above its default of 5000, 
-e.g. {cmd:set maxvar 10000} is adequate for 100 treatments; you may also need to increase {help matsize}.
+With large numbers of treatments, however, the number of variables required by the augmented format may exceed Stata's permitted numbers of variables.
+If you are running Stata/IC, then this limit is about 45 treatments, and cannot be changed. 
+If you are running Stata/MP or Stata/SE, then the default limit is about 70 treatments, 
+and can be increased by increasing {help memory:maxvar} to at least the square of the number of treatments;
+you may also need to increase {help matsize}.
+
+{pstd}
+Technical  note: it is not possible at present to circumvent these restrictions by using other formats, because the augmented format is always used as an intermediary.
 
 
 {marker smd}{...}

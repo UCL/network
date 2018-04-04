@@ -1,7 +1,9 @@
 /*
-*! version 1.2.1 # Ian White # 29jun2017 
-*! - attempted bug fix in standard format with nested trt names - see line 467
-*! version 1.2.0 # Ian White # 3jul2015
+*! Ian White # 4apr2018
+	better error message for network meta without c/i or previous model
+version 1.2.1 # Ian White # 29jun2017 
+	- attempted bug fix in standard format with nested trt names - see line 467
+version 1.2.0 # Ian White # 3jul2015
     prints warning if MNAR has been set
 version 1.1.4 # Ian White # 1jul2015
     network meta requires mvmeta v3.1
@@ -411,6 +413,10 @@ if !mi("`model'") {
 }
 
 else {
+	if "`e(cmd)'"!="mvmeta" | !inlist("`e(network)'","consistency","inconsistency") {
+    	di as error "network meta must be followed by c[onsistency] or i[nconsistency] unless a previous network meta model is available for replay"
+    	exit 198
+	}
     di as text "Using last-run `e(network)' model"
     local fullcommand mvmeta, `i2' `options'
 }

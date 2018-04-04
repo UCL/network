@@ -77,8 +77,12 @@ The command to test for inconsistency, if used, can be recalled by pressing F8.
 {pstd}By default, {cmd:network meta} uses a structured between-studies covariance matrix which 
 assumes that all treatment contrasts have the same heterogeneity variance. 
 
-{pstd}Which network format is best? 
-You should be able to get identical results using the {cmd:standard} and {cmd:augmented} formats. 
+{pstd}If neither consistency nor inconsistency is specified then the previous {cmd:mvmeta} model is rerun.
+
+
+{title:Which network format is best? }
+
+{pstd}You should be able to get identical results using the {cmd:standard} and {cmd:augmented} formats. 
 You should be able to match these results using the {cmd:pairs} format 
 provided you have only two-arm trials, 
 but if you have multi-arm trials then the results using the {cmd:pairs} format will be wrong.
