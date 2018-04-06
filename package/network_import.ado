@@ -1,5 +1,7 @@
 /*
-*! version 1.1 # Ian White # 27may2015
+*! Ian White # 6apr2018
+	new measure() option
+version 1.1 # Ian White # 27may2015
 11may2015
     import also from augmented format
     restructured to do this

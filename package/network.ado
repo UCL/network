@@ -1,6 +1,8 @@
 /*
-*! version 1.5.0 # Ian White # 6apr2018 # RELEASE
-	minor improvements to setup, meta, forest
+*! version 1.5.0 # Ian White # 6apr2018 
+	RELEASED TO UCL AND SSC
+	new: network compare
+	minor improvements to setup, meta, forest, import
 version 1.4 # Ian White # 5jan2018 
 	add network loopsplit
 version 1.3.3 # Ian White # 20nov2017 
@@ -48,15 +50,12 @@ version 0.4 # 18dec2013
 */
 prog def network
 version 13
-syntax [anything] [if] [in], [*]
+syntax [anything] [if] [in], [which *]
 
 // LOAD SAVED NETWORK PARAMETERS
 foreach thing in `_dta[network_allthings]' {
     local `thing' : char _dta[network_`thing']
 }
-
-// Parse
-gettoken subcmd rest : anything
 
 // Known network subcommands
 * subcmds requiring data NOT network set
@@ -69,6 +68,24 @@ local subcmds1 convert query unset table /// utilities
 local subcmds2 bayes
 * all known subcommands
 local subcmds `subcmds0' `subcmds1' `subcmds'
+
+// check a subcommand is given
+if mi("`anything'") {
+	di as error "Syntax: network <subcommand>"
+	exit 198
+}
+
+// "which" option
+if "`anything'"=="which" {
+	which network
+	foreach subcmd of local subcmds {
+		which network_`subcmd'
+	}
+	exit
+}
+
+// Parse current subcommand
+gettoken subcmd rest : anything
 
 // Identify abbreviations of known subcommands
 if length("`subcmd'")>=3 {

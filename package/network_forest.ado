@@ -1,5 +1,5 @@
 /*
-*! version 1.4.1 # Ian White # 4apr2018
+*! Ian White # 4apr2018
 	note() doesn't default to "graphs by column" if no inco model
 version 1.2.3 # Ian White # 11jan2016
     output "group(...) assumed" suppressed unless -debug- on
