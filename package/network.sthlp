@@ -10,8 +10,11 @@
 {viewerjumpto "Troubleshooting and limitations" "network##limitations"}{...}
 {viewerjumpto "Examples" "network##examples"}{...}
 {viewerjumpto "References" "network##refs"}{...}
+{viewerjumpto "Changes from version 1.2.x to version 1.5" "network##whatsnew"}{...}
+{viewerjumpto "Future developments" "network##future"}{...}
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
+
 
 {phang}
 {bf:network} {hline 2} Suite of commands for network meta-analysis
@@ -152,7 +155,7 @@ not of their codes.
 
 {pstd}Load the {ul:smoking data}
 
-{pin}. {stata "use http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta/smoking, clear"}
+{pin}. {stata "use http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/smoking, clear"}
 
 {pin}. {stata "network setup d n, studyvar(stud) trtvar(trt)"}
 
@@ -183,7 +186,7 @@ not of their codes.
 
 {pstd}Load the {ul:thrombolytics data}
 
-{pin}. {stata "use http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta/thromb.dta, clear"}
+{pin}. {stata "use http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/thromb.dta, clear"}
 
 {pin}. {stata "network setup r n, studyvar(study) trtvar(treat)"}
 
@@ -241,6 +244,21 @@ The problem arises with augmented format and I hope to find a workaround in futu
 {p 0 0 0}Please report any other problems to ian.white@ucl.ac.uk.
 
 
+{title:Changes from version 1.2.x to version 1.5}{marker whatsnew}
+
+{p 0 0 0}Some bug fixes and minor improvements to setup, meta, forest
+
+{p 0 0 0}{cmd:network compare}
+
+
+{title:Future developments}{marker future}
+
+{p 0 0 0}{cmd:network bayes} (currently under test) writes WinBUGS models,
+runs WinBUGS and reads the MCMC samples back into Stata.
+
+{p 0 0 0}{cmd:network import} from standard format.
+
+
 {title:References}{marker refs}
 
 {phang}{marker Dias++10}
@@ -288,11 +306,11 @@ Clinical Trials 2005; 2: 141-151.
 
 {title:Author and updates}{marker updates}
 
-{p}Ian White, MRC Biostatistics Unit, Cambridge, UK. 
-Email {browse "mailto:ian.white@mrc-bsu.cam.ac.uk":ian.white@mrc-bsu.cam.ac.uk}.
+{p}Ian White, MRC Clinical  Trials Unit at UCL, London, UK. 
+Email {browse "mailto:ian.white@ucl.ac.uk":ian.white@ucl.ac.uk}.
 
 {p}You can get the latest version of this and my other Stata software using 
-{stata "net from http://www.mrc-bsu.cam.ac.uk/IW_Stata/"}.
+{stata "net from http://www.homepages.ucl.ac.uk/~rmjwiww/stata/"}.
 
 
 {title:See Also}

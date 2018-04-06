@@ -1,5 +1,7 @@
 /*
-*! version 1.4 # Ian White # 5jan2018 
+*! version 1.5.0 # Ian White # 6apr2018 # RELEASE
+	minor improvements to setup, meta, forest
+version 1.4 # Ian White # 5jan2018 
 	add network loopsplit
 version 1.3.3 # Ian White # 20nov2017 
 	network bayes doesn't require setup or unsetup
@@ -16,7 +18,7 @@ version 1.2.2 # Ian White # 21dec2015
     improvements to checking for connectedness
         in network_components
         in network_meta
-version 1.2.1 # Ian White # 22jul2015
+version 1.2.1 # Ian White # 22jul2015 # RELEASE
     requires version 13 (otherwise selectindex() fails in network_components)
 version 1.2.0 # Ian White # 3jul2015
     changes to setup, meta and sidesplit to accommodate metamiss2
@@ -63,7 +65,7 @@ local subcmds0 setup import // start
 local subcmds1 convert query unset table /// utilities
     meta sidesplit rank loopsplit /// analyses
     forest pattern map // graphs
-* subcmds not minding  whether data are network set
+* subcmds not minding whether data are network set
 local subcmds2 bayes
 * all known subcommands
 local subcmds `subcmds0' `subcmds1' `subcmds'

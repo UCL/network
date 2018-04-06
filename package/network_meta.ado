@@ -140,11 +140,11 @@ else {
     cap vercheck mvmeta `minmvmetaversion'
     if _rc {
         if _rc == 601 {
-            di as error `"network requires mvmeta: click {stata "net install mvmeta, from(http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta)":here} to install"'
+            di as error `"network requires mvmeta: click {stata "net install mvmeta, from(http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta)":here} to install"'
         }
         else if _rc == 498 {
             di as error "network requires mvmeta version `minmvmetaversion' or later"
-            di as error `"Click {stata "net install mvmeta, from(http://www.mrc-bsu.cam.ac.uk/IW_Stata/meta) replace":here} to update your version of mvmeta"'
+            di as error `"Click {stata "net install mvmeta, from(http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta) replace":here} to update your version of mvmeta"'
         }
         else di as error "vercheck: unknown error"
         exit _rc

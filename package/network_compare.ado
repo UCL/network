@@ -1,5 +1,11 @@
-* 17 March 2015
-prog def networkcompare
+/*
+*! Ian White # 6apr2018
+	included in network package 
+	added measure() option
+	corrected in pairs format
+Created 17 March 2015
+*/
+prog def network_compare
 syntax, [CLear Format(string) SAving(string) Replace STUBWidth(int 10) EForm Level(cilevel) *]
 local outputformat = cond(mi("`format'"),"%6.3f","`format'")
 
@@ -12,8 +18,9 @@ foreach thing in `_dta[network_allthings]' {
     local `thing' : char _dta[network_`thing']
 }
 
-if e(network) != "consistency" {
-    di as error "Last mvmeta model wasn't a consistency model"
+
+if "`e(network)'" != "consistency" & "`e(cmd)'" != "metareg" {
+    di as error "network compare must follow network meta consistency"
     exit 459
 }
 
@@ -29,7 +36,8 @@ foreach trt1 in `trtlist' {
     if "`trt1'" != "`ref'" {
         if "`format'"=="augmented" local lincom lincom [`y'_`trt1']_cons 
         if "`format'"=="standard"  local lincom lincom [`y'_1]`trtdiff'1_`trt1'
-        if "`format'"=="pairs"     local lincom lincom [`y']`trtdiff'_`trt1'
+*        if "`format'"=="pairs"     local lincom lincom [`y']`trtdiff'_`trt1'
+        if "`format'"=="pairs"     local lincom lincom `trtdiff'_`trt1'
     }
     else local lincom lincom 
     foreach trt2 in `trtlist' {
@@ -38,7 +46,8 @@ foreach trt1 in `trtlist' {
         else {
             if "`format'"=="augmented" local lincom2 `lincom' -[`y'_`trt2']_cons 
             if "`format'"=="standard"  local lincom2 `lincom' -[`y'_1]`trtdiff'1_`trt2'
-            if "`format'"=="pairs"     local lincom2 `lincom' -[`y']`trtdiff'_`trt2'
+*            if "`format'"=="pairs"     local lincom2 `lincom' -[`y']`trtdiff'_`trt2'
+            if "`format'"=="pairs"     local lincom2 `lincom' -`trtdiff'_`trt2'
         }
         qui `lincom2'
         post `post' ("`trt1'") ("`trt2'") (-r(estimate)) (r(se))

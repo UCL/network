@@ -1,5 +1,9 @@
 /*
-*! version 1.4.1 # Ian White # 4apr2018
+*! Ian White # 6apr2018
+	aborts if #events out of range
+	aborts if treatment names are longer than 32 characters 
+		(which previously caused network map to fail)
+version 1.4.1 # Ian White # 4apr2018
 	bug fix: in wide format, existence of another variable with same stem caused failure
 	default changed from augment(1E-3) to augment(1E-5)
 version 1.3.1 # Ian White # 9oct2017
@@ -217,7 +221,11 @@ if "`trtvar'"!="" {
     tempvar trtcode
     qui gen `trtcode' = ""
     foreach trt in `trtlist' {
-        local ++r
+        if length("`trt'")>32 { // check added 6apr2018
+			di as error "Treatment name exceeds the 32 character limit: `trt'"
+			exit 498
+		}
+		local ++r
         if "`codes'"=="nocodes" { // don't code
             local thistrtcode = strtoname("`trt'",0)
         }
@@ -547,8 +555,14 @@ if !mi("`augmentstudies'") & "`targetformat'"=="augmented" {
 // COMPUTE CONTRASTS AND THEIR VARIANCES
 if "`outcome'"=="count" {
     tempvar variance
-    foreach trt in `trtcodes' {
-        if "`or'"=="or" {
+    foreach trt in `trtcodes' { 
+		// check added 6apr2018
+		qui count if (`d'`trt'<0 | `d'`trt'>`n'`trt') & !mi(`d'`trt',`n'`trt') 
+		if r(N) {
+			di as error "Must have 0<#events<#total for treatment `trt'"
+			exit 498
+		}
+		if "`or'"=="or" {
             qui gen double `y'_`trt' = log(`d'`trt'/(`n'`trt'-`d'`trt'))
             qui gen double `variance'`trt' = 1/`d'`trt'+1/(`n'`trt'-`d'`trt')
         }

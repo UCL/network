@@ -1,5 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+6apr2018:  added network compare
 13mar2017: CTU file locations; added connectedness check
 21dec2015: corrected treat to trt for smoking data (now follows SJ article)
 8jun2015: added other effect measures
@@ -72,6 +73,13 @@ network table
 network meta c, print(bscov)
 local tau = [tau]_b[_cons]
 
+network compare
+network compare, eform format(%6.2f) saving(z) replace level(99)
+preserve
+network compare, clear
+restore
+
+
 network convert st
 network meta c, print(bscov)
 local reldiff = 100*([tau]_b[_cons]/`tau'-1)
@@ -122,6 +130,7 @@ network meta c, z
 
 network conv st
 network meta c, nounc print(bscov)
+network compare
 
 network conv aug
 network meta c, nounc print(bscov)
@@ -136,13 +145,13 @@ network conv aug
 network meta i, nounc print(bscov)
 
 
-
 // forest plot
 
 use "coronary artery disease pairwise", clear
-network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+network import, tr(t1 t2) eff(logOR) study(study) stderr(se) measure(mean diff)
 network conv aug
 network meta c, 
+network compare
 network meta i, 
 network forest, msize(*0.2)
 
@@ -165,6 +174,7 @@ list study _y* _S*, noo sepby(_design)
 network table
 network query
 network meta c, force
+network compare
 
 // Check everything works for all formats and refcats
 
@@ -207,6 +217,7 @@ foreach format in augmented standard pairs {
 	network map, random(9) improve(2) name(map`format'`ref'random, replace)
 	local force = cond("`format'"=="pairs","force","")
 	network meta c, i2 `force'
+	network compare
 	network meta i, `force'
 	network que
 	network forest, debug name(forest_`format', replace)
@@ -243,6 +254,7 @@ foreach format in aug st {
 		name(thromb_forest1_`format', replace) 
 	local force = cond("`format'"=="pairs","force","")
 	network meta c, `force'
+	network compare
 	network meta i, `force'
 	network forest, title(Thrombolytics network) `opts' ///
 		name(thromb_forest2_`format', replace) 
@@ -290,6 +302,7 @@ foreach measure in rr or rd hr {
 	keep study treat r n
     network setup r n, studyvar(stud) trtvar(treat) `measure'
     network meta c
+	network compare
     network meta i
     network forest, name(`measure', replace)
 } 

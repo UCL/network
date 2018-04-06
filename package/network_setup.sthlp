@@ -1,4 +1,5 @@
 {smcl}
+{* *! 6apr018 - limit on treatment name length}{...}
 {* *! version 1.4.1 4apr018 - more on maxvar}{...}
 {* *! version 1.2.5 13mar2017}{...}
 {vieweralsosee "Main network help page" "network"}{...}
@@ -207,6 +208,8 @@ in which the variables refer to the 1st, 2nd etc. study arms, as follows:
         {cmd:drop if missing(trt)}
         {cmd:drop arm}
         {cmd:network setup d n, studyvar(study) trtvar(trt)}
+
+{pstd}Treatment names may not exceed 32 characters in length in any format.
 
 
 {marker manytrts}{...}
