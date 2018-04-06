@@ -127,6 +127,10 @@ you will need to override {cmd:network meta}'s default with the {cmd:force} opti
 
 {pin}. {stata "network meta consistency, eq(_y*:x)"}{txt}
         
+{pstd}Short way to do the same:
+
+{pin}. {stata "network meta consistency, regress(x)"}{txt}
+        
 {pstd}Fit the inconsistency model:
 
 {pin}. {stata network meta inconsistency}{txt}

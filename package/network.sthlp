@@ -63,6 +63,9 @@ Analyses
 {col 7}{bf:{help network_sidesplit:network sidesplit}}{...}
 {col 30}fit side-splitting (node-splitting) model(s)
 
+{col 7}{bf:{help network_compare:network compare}}{...}
+{col 30}tabulate all comparisons estimated from the network
+
 Graphs of results
 
 {col 7}{bf:{help network_forest:network forest}}{...}
@@ -148,6 +151,8 @@ Try {cmd:set scheme s2color}.
 not of their codes.
 
 {pstd}{cmd:network rank} and {cmd:network sidesplit} only work when the data are in augmented format.
+
+{pstd}A page of frequently asked questions is available at {browse "http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/networkFAQs.htm"}.
 
 
 {marker examples}{...}
@@ -244,11 +249,14 @@ The problem arises with augmented format and I hope to find a workaround in futu
 {p 0 0 0}Please report any other problems to ian.white@ucl.ac.uk.
 
 
-{title:Changes from version 1.2.x to version 1.5}{marker whatsnew}
+{title:Changes from version 1.2.1 to version 1.5}{marker whatsnew}
 
-{p 0 0 0}Some bug fixes and minor improvements to setup, meta, forest
+{p 0 0 0}I have made some bug fixes and minor improvements to {help  network setup}, {help  network meta} and {help  network forest}.
 
-{p 0 0 0}{cmd:network compare}
+{p 0 0 0}{help  network compare} may be run after {cmd:network meta consistency}.
+It outputs a table of all comparisons estimated from the network.
+
+{p 0 0 0}{help  network setup} assesses the network to see whether it is disconnected.
 
 
 {title:Future developments}{marker future}
