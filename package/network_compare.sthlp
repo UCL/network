@@ -40,7 +40,7 @@
 {title:Description}
 
 {pstd}
-{cmd:network_compare} follows fitting a consistency model using {help network meta}.
+{cmd:network compare} follows fitting a consistency model using {help network meta}.
 It estimates the treatment effect between all pairs of treatments and displays them in a table.
 
 {marker examples}{...}

@@ -1,4 +1,5 @@
 {smcl}
+{* *! version 1.5.1 2may2018}{...}
 {* *! version 1.3.2 30aug2017}{...}
 {* *! version 1.1 27may2015}{...}
 {vieweralsosee "mvmeta (if installed)" "mvmeta"}{...}
@@ -12,6 +13,7 @@
 {viewerjumpto "References" "network##refs"}{...}
 {viewerjumpto "Changes from version 1.2.x to version 1.5" "network##whatsnew"}{...}
 {viewerjumpto "Future developments" "network##future"}{...}
+{viewerjumpto "Please cite this package as" "network##citation"}{...}
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
 
@@ -89,6 +91,10 @@ or as mean, standard deviation and number of individuals for a quantitative vari
 {cmd:network} is primarily aimed to simplify the task of data analysis.
 However, it also has several features of interest to methodologists: 
 see {help network##formethodologists:Features of interest to methodologists}.
+
+{pstd}
+An {help network##citation:article in the Stata Journal} describes version 1.2.1 of the package. 
+Later changes are described {help network##whatsnew:below}.
 
 
 {marker formats}{...}
@@ -310,6 +316,12 @@ Standardised mean differences in individually-randomised and cluster-randomised 
 with applications to meta-analysis. 
 Clinical Trials 2005; 2: 141-151.
 {browse "http://ctj.sagepub.com/content/2/2/141.short"}
+
+
+{title:Please cite this package as}{marker citation}
+
+{phang}White IR. Network meta-analysis. Stata Journal 2015; 15: 1–34.
+{browse "https://www.stata-journal.com/article.html?article=st0410"}
 
 
 {title:Author and updates}{marker updates}
