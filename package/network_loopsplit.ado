@@ -2,7 +2,9 @@
 Version 1
 5 Jan 2018
 Loop-split ABC by DIY method
-To do: tempvars
+To do: 
+	tempvars
+	allow standard network meta options
 */
 program define network_loopsplit
 

@@ -1,4 +1,7 @@
 /*
+*! version 1.5.1 # Ian White # 9may2018 
+	citation added to help file
+	bug fix to network sidesplit, bscovariance()
 *! version 1.5.0 # Ian White # 6apr2018 
 	RELEASED TO UCL AND SSC
 	new: network compare

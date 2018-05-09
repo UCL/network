@@ -30,8 +30,8 @@ Not applicable for {cmdab:network sidesplit all}.{p_end}
 {synopt:{opt nosy:mmetric}}Uses the node-splitting model
 as originally specified by {help network##Dias++10:Dias et al}.
 In the presence of multi-arm studies, this can be asymmetrical:
-that is, {cmd:network sidesplit A B} can give different results from {cmd:network 
-sidesplit B A}.
+that is, {cmd:network sidesplit A B} can give different results from 
+{cmd:network sidesplit B A}.
 The default is a new symmetrical version
 which can be understood as being intermediate between these two alternatives.{p_end}
 {synopt:{opt tau}}Additionally outputs tau, the standard deviation of the between-studies 
