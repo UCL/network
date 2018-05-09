@@ -1,5 +1,7 @@
 /*
-*! version 1.2.0 # Ian White # 3jul2015
+*! Ian White # 3jul2015
+*! version 1.2.0 # Ian White # 8may2018
+	bscovariance() only worked if abbreviated to bscov() - fixed
     prints warning if MNAR has been set
 version 1.1 # Ian White # 8jun2015
 28may2015
@@ -134,7 +136,7 @@ if "`anything'"=="all" {
 
 // CALL IS -NETWORK SIDESPLIT TRT1 TRT2- 
 syntax [anything] [if] [in], [show noSYmmetric tau /// documented
-    Level(cilevel) nof9 bscov(passthru) /// trivial but undocumented
+    Level(cilevel) nof9 BSCOVariance(passthru) /// trivial but undocumented
     * /// mvmeta options
     ]
 tokenize "`anything'"
@@ -148,7 +150,7 @@ if mi("`2'") | !mi("`3'") {
 istrt `side1'
 istrt `side2'
 
-if mi("`bscov'") local bscov bscov(exch 0.5)
+if mi("`bscovariance'") local bscovariance bscovariance(exch 0.5)
 
 // SET UP
 preserve // -restore, not- later
@@ -254,7 +256,7 @@ else if "`format'"=="standard" { // taken from network_meta.ado
     }
 }
 
-local mvmetacmd mvmeta `y' `S' `if' `in', `bscov' `options' eq(`eqs') commonparm noconst network(sidesplit) suppress(uv mm)
+local mvmetacmd mvmeta `y' `S' `if' `in', `bscovariance' `options' eq(`eqs') commonparm noconst network(sidesplit) suppress(uv mm)
 if substr("`indirect'",1,1)=="+" local indirect : subinstr local indirect "+" ""
 local direct `indirect' + `diff'
 
