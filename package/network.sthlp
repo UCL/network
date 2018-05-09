@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.5.1 2may2018}{...}
+{* *! version 1.5.1 9may2018}{...}
 {* *! version 1.3.2 30aug2017}{...}
 {* *! version 1.1 27may2015}{...}
 {vieweralsosee "mvmeta (if installed)" "mvmeta"}{...}

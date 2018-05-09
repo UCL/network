@@ -1,5 +1,5 @@
 /*
-*! Ian White # 8may2018
+*! Ian White # 9may2018
 	bscovariance() only worked if abbreviated to bscov() - fixed
 version 1.2.0 # Ian White # 3jul2015
     prints warning if MNAR has been set
