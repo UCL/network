@@ -1,9 +1,10 @@
 {smcl}
+{* *! 18may2018 - corrected viewerjumpto's}{...}
 {* *! version 1.1 8jun2015}{...}
 {vieweralsosee "Main network help page" "network"}{...}
-{viewerjumpto "Syntax" "examplehelpfile##syntax"}{...}
-{viewerjumpto "Description" "examplehelpfile##description"}{...}
-{viewerjumpto "Examples" "examplehelpfile##examples"}{...}
+{viewerjumpto "Syntax" "network_import##syntax"}{...}
+{viewerjumpto "Description" "network_import##description"}{...}
+{viewerjumpto "Examples" "network_import##examples"}{...}
 {title:Title}
 
 {phang}
