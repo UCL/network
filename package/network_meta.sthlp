@@ -44,8 +44,9 @@ the reference treatment should not be included in this argument as it is always 
 This option is only available in augmented format.{p_end}
 {synopt:{opt force}}Force model fitting when {cmd:network meta} detects one of the difficulties described {help network_meta##Difficulties:below}.{p_end}
 {synopt:{opt nowar:nings}}Suppress warning messages (not recommended).{p_end}
-{synopt:{it:mvmeta_options}}Other options for {help mvmeta}: 
-for example, {cmd:bscov(uns)} could be used to over-ride the standard "common heterogeneity" model.{p_end}
+{synopt:{it:mvmeta_options}}Other options for {help mvmeta} (if data are in augmented or standard format)
+or {help metareg} (if data are in pairs format).
+For example, {cmd:bscov(uns)} could be used to over-ride the standard "common heterogeneity" model.{p_end}
 {synoptline}
 {p2colreset}{...}
 {p 4 6 2}
@@ -82,12 +83,16 @@ assumes that all treatment contrasts have the same heterogeneity variance.
 
 {title:Which network format is best? }
 
+{pstd}Network data formats are described {help network##formats:here}.
+
 {pstd}You should be able to get identical results using the {cmd:standard} and {cmd:augmented} formats. 
-You should be able to match these results using the {cmd:pairs} format 
+However, if you want to estimate the best treatment (see {help network rank}),
+then you will need to fit the models using the {cmd:augmented} format. 
+
+{pstd}You should be able to match these results using the {cmd:pairs} format 
 provided you have only two-arm trials, 
 but if you have multi-arm trials then the results using the {cmd:pairs} format will be wrong.
-If you want to estimate the best treatment (see {help network rank}),
-then you will need to fit the models using the {cmd:augmented} format. 
+The {cmd:pairs} format does not allow standard options such as {cmd:fixed} for the fixed-effect (common-effect) model.
 
 
 {marker Difficulties}{...}

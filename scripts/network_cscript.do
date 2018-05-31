@@ -1,12 +1,13 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+31may2018: added checks of matrix output of network meta, and hairy trtcodes
 6apr2018:  added network compare
 13mar2017: CTU file locations; added connectedness check
 21dec2015: corrected treat to trt for smoking data (now follows SJ article)
-8jun2015: added other effect measures
+8jun2015:  added other effect measures
 25may2015: added network meta i, luades and network rank
 15may2015: force option added to network meta in pairs format
-2apr2015: data sets now assumed to be in current directory:
+2apr2015:  data sets now assumed to be in current directory:
     smoking.dta
     thromb.dta
     coronary artery disease pairwise.dta
@@ -344,4 +345,63 @@ matrix list network_components // assigns treatments to components
 assert rowsof(network_components) == 8
 assert colsof(network_components) == 2
 
+// Check variances aren't deleted when one trtcode starts with reference trtcode
+clear
+input trial str10 trt n d
+1 "A" 100 10
+1 "AB" 100 10
+end
+network setup d n, study(trial) trt(trt) nocode
+l _S_AB_AB
 
+
+// Check matrices output by network meta
+// Uses tough nested treatment codes
+// 31may2018
+
+clear
+set obs 18
+gen study = _n
+gen trt1 = cond(study<=12,1,7)
+gen trt2 = cond(study<=12,mod(_n-1,6)+2,mod(_n-1,6)+1)
+reshape long trt, i(study) j(arm)
+gen n=100
+gen r=20+study+5*trt
+label def trt 1 "AA" 2 "AAB" 3 "AABC" 4 "BC" 5 "B" 6 "BD" 7 "A" 
+label val trt trt
+drop arm
+l, sepby(study)
+network setup r n , study(study) trt(trt) nocode
+
+network meta c, fixed
+mat nc = _network_consistency
+network meta i, fixed
+mat ni = _network_inconsistency
+foreach format in standard pairs augmented {
+	network convert `format'
+	network meta c
+	assert mreldif(nc,_network_consistency)<1E-6
+	network meta i
+	assert mreldif(ni,_network_inconsistency)<1E-6
+	// worst is about 5E-7
+}
+
+// Check setup aborts when designs are potentially ambiguous
+// 31may2018
+pda
+clear
+input trial trt n d
+1 1 100 10
+1 2 100 10
+1 3 100 10
+1 4 100 10
+1 5 100 10
+2 2 100 10
+2 3 100 10
+3 4 100 10
+3 5 100 10
+end
+label def trt 1 "A" 2 "B" 3 "CD" 4 "BC" 5 "D"
+label val trt trt
+cap network setup d n, study(trial) trt(trt) nocode
+assert _rc==498

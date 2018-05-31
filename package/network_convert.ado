@@ -1,5 +1,8 @@
 /*
-*! Ian White # 4apr2018
+*! Ian White # 31may2018
+31may2018
+	minor bug fix in std2aug: now works when one treatment name contains another
+4apr2018
 	default changed from large(1E4) to large(1E5)
 version 1.1 # Ian White # 8jun2015
 8jun2015
@@ -200,7 +203,9 @@ forvalues r1=1/`maxdim' {
 foreach trt1 in `trtlistnoref' {
 	rename _`y'_`trt1' `y'_`trt1'
 	foreach trt2 in `trtlistnoref' {
-		cap rename _`S'_`trt1'_`trt2' `S'_`trt1'_`trt2'
+		// next 2 lines fix bug when one treatment name contains another
+		if "`trt2'" < "`trt1'" continue
+		rename _`S'_`trt1'_`trt2' `S'_`trt1'_`trt2'
 	}
 }
 foreach rawvar in `rawvars' {

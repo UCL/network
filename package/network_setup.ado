@@ -1,5 +1,14 @@
 /*
-*! Ian White # 6apr2018
+*! Ian White # 31may2018
+31may2018
+	corrected to avoid dropping e.g. S_AB_AB when ref=A
+	treatment codes may not include '_'
+		avoids problems e.g. if treatments are ref B C_D B_C D so S_B_C_D is ambiguous
+	bug avoider: some choices of treatment codes made designs appear non-unique once spaces are removed
+		e.g. design  "B CD" = "BC D"
+		this caused error in network meta i
+		avoided by returning error here if space-removed designs are non-unique 
+6apr2018
 	aborts if #events out of range
 	aborts if treatment names are longer than 32 characters 
 		(which previously caused network map to fail)
@@ -383,6 +392,14 @@ else {
 // Data now should be wide with vars `studyvar' `n'A, `n'B etc.
 `ifdebugnoi' di as text "(data are now in common format)"
 
+// Check trtcodes
+foreach trtcode of local trtcodes {
+	if index("`trtcode'","_") {
+		di as error "Sorry, treatment codes must not include the underscore character"
+		exit 498
+	}
+}
+
 // Count valid studies
 tempvar narms
 gen `narms'=0
@@ -408,6 +425,19 @@ forvalues i=1/`=_N' {
 	local thisdesign = `design'[`i']
 	local thisdesign : list sort thisdesign
 	qui replace `design' = "`thisdesign'" in `i'
+}
+
+// check for ambiguous designs - in network setup and network import
+qui levelsof `design', local(designs)
+foreach des1 of local designs {
+	foreach des2 of local designs {
+		if "`des1'"=="`des2'" continue
+		if subinstr("`des1'"," ","",.) == subinstr("`des2'"," ","",.) {
+			di as error "Sorry, designs " as result "`des1'" as error " and " as result "`des2'" as error " are too similar."
+			di as error "To avoid possible problems in fitting inconsistency models, please change your treatment codes."
+			exit 498
+		}
+	}
 }
 
 // Generate study components
@@ -590,8 +620,11 @@ if "`outcome'"=="count" {
                 label var `S'_`trt'_`trt2' "Covariance of `y'_`trt' and `y'_`trt2'"
             }
         }
-        cap drop `S'_`trt'_`ref'
-        cap drop `S'_`ref'_`trt'
+		// next 4 lines corrected 30may2018 to avoid dropping e.g. S_AB_AB when ref=A
+        cap confirm variable `S'_`trt'_`ref', exact
+		if !_rc drop `S'_`trt'_`ref'
+        cap confirm variable `S'_`ref'_`trt', exact
+		if !_rc drop `S'_`ref'_`trt'
     }
     foreach trt in `trtcodes' {
         drop `variance'`trt'

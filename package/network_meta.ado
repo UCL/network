@@ -1,8 +1,16 @@
 /*
+31may2018
+	bug fix (introduced 29jun2017): 
+		with nested treatment codes, if working in standard & pairs formats, 
+		the output matrices were wrong & hence the network forest plot was wrong.
+	bug avoider: some choices of treatment codes made designs appear non-unique once spaces are removed
+		e.g. design  "B CD" = "BC D"
+		avoided by returning error in network setup/import if space-removed designs are non-unique 
 *! Ian White # 4apr2018
 	better error message for network meta without c/i or previous model
 version 1.2.1 # Ian White # 29jun2017 
 	- attempted bug fix in standard format with nested trt names - see line 467
+	THIS INTRODUCED ERRORS IN OUTPUT MATRIX AND HENCE FOREST PLOT
 version 1.2.0 # Ian White # 3jul2015
     prints warning if MNAR has been set
 version 1.1.4 # Ian White # 1jul2015
@@ -151,18 +159,21 @@ else {
     }
 }
 
+// CHECK 
+
 // DEAL WITH SUBSET
 * recreate trtlistnoref to account for subsetting (if, in)
 qui levelsof `design' `if' `in', local(trtlist) clean
 local trtlist : list uniq trtlist
-local trtlist : list sort trtlist
+*local trtlist : list sort trtlist
 local ok : list ref in trtlist
 if !`ok' & "`format'"=="augmented" {
     di as error "Reference treatment is not included in studies"
     exit 498
 }
 local trtlistnoref2 : list trtlist - ref
-if "`trtlistnoref2'" != "`trtlistnoref'" {
+local nomissingtrts : list trtlistnoref2 === trtlistnoref // corrected 31may2018
+if !`nomissingtrts' {
     local losttrts : list trtlistnoref - trtlistnoref2
     di as text "Treatments not found in subset: " as result "`losttrts'"
     local trtlistnoref `trtlistnoref2'
@@ -251,6 +262,7 @@ if !mi("`model'") {
         qui levelsof `design' if `touse', local(desnames) // desnames: quoted and with spaces
         foreach des in `desnames' {
             local des2 = subinstr("`des'"," ","",.)
+            *local des2 = subinstr("`des'"," ","_",.) // possible change 31may2018: underscores separate trts in designs 
             qui gen des_`des2' = `design'==`"`des'"' if `touse'
             local metavars `metavars' des_`des2'
             local desnames2 `desnames2' `des2' // desnames2: unquoted and without spaces
@@ -280,7 +292,7 @@ if !mi("`model'") {
             else local thisdesign2 = word("`desnames2'",1)
         	local desnames2 : list desnames2 - thisdesign2
         	qui levelsof `design' if des_`thisdesign2' & `touse', local(thisdesign) clean
-        `ifdebugdi' `"Looking at design "' as result `"`thisdesign'"'
+			`ifdebugdi' `"Looking at design "' as result `"`thisdesign'"'
         	if `i'==1 {
                 local thisdesignnoref : list thisdesign - ref		
                 local trtsused `ref' `thisdesignnoref'
@@ -468,16 +480,20 @@ foreach thisdes of local designs {
                     }
                 }
                 else if "`format'"=="standard" { 
-                    foreach term in `e(xvars_1)' {
-                        local termtrt = substr("`term'", length("`trtdiff'1_")+1,length("`trt'")) 
-                        local termtrt = substr("`term'", length("`trtdiff'1_")+1,.) // CORRECTION??
+					foreach term in `e(xvars_1)' {
+                        * `term' is of form: `trtdiff'1_<termtrt> or `trtdiff'1_<termtrt>_des_<design>
+						* next commands pick out <termtrt>
+						* uses requirement that trtcodes can't include string '_des'
+                        local termtrt = substr("`term'", length("`trtdiff'1_")+1, .) 
+						local desindex = index("`termtrt'","_des") 
+						if `desindex' local termtrt = substr("`termtrt'", 1, `desindex'-1)
                         if "`termtrt'" != "`trt'" continue
     					local mult1 = (("`t2'"=="`termtrt'") - ("`t1'"=="`termtrt'")) 
                         local termdes = substr("`term'", length("`trtdiff'1_`trt'_")+1,.) 
                         if !mi("`termdes'") {
-                            noi summ `termdes' if `design'=="`thisdes'", meanonly
+                            summ `termdes' if `design'=="`thisdes'", meanonly
                             if r(max)>r(min) | r(N)==0 {
-*                                di as error "Problem with covariate `termdes' in design `thisdes'"
+*                                di as error "Problem with covariate `term' in design `thisdes'"
                                 local forestproblem 2
                             }
                             local mult = `mult1' * r(mean)
@@ -490,7 +506,12 @@ foreach thisdes of local designs {
                 else if "`format'"=="pairs" {
                     local xvars : colnames e(b)
                     foreach term in `xvars' {
-                        local termtrt = substr("`term'", length("`trtdiff'_")+1,length("`trt'")) 
+                        * `term' is of form: `trtdiff'_<termtrt> or `trtdiff'_<termtrt>_des_<design>
+						* next commands pick out <termtrt>
+						* uses requirement that trtcodes can't include string '_des'
+                        local termtrt = substr("`term'", length("`trtdiff'_")+1, .) 
+						local desindex = index("`termtrt'","_des") 
+						if `desindex' local termtrt = substr("`termtrt'", 1, `desindex'-1)
                         if "`termtrt'" != "`trt'" continue
     					local mult1 = (("`t2'"=="`termtrt'") - ("`t1'"=="`termtrt'")) 
                         local termdes = substr("`term'", length("`trtdiff'_`trt'_")+1,.) 

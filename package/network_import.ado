@@ -1,4 +1,9 @@
 /*
+31may2018
+	bug avoider: some choices of treatment codes made designs appear non-unique once spaces are removed
+		e.g. design  "B CD" = "BC D"
+		this caused error in network meta i
+		avoided by returning error here if space-removed designs are non-unique 
 *! Ian White # 6apr2018
 	new measure() option
 version 1.1 # Ian White # 27may2015
@@ -48,6 +53,8 @@ di as text "Importing from " as result "`from'" as text " format"
 if mi("`measure'") local measure (unidentified measure)
 
 // END OF PARSING
+
+preserve // only in case of error - see restore, not later
 
 if "`from'"=="pairs" {
 
@@ -213,6 +220,19 @@ else if "`from'"=="augmented" {
 
 } // end of importing augmented data
 
+// check for ambiguous designs - in network setup and network import
+qui levelsof `design', local(designs)
+foreach des1 of local designs {
+	foreach des2 of local designs {
+		if "`des1'"=="`des2'" continue
+		if subinstr("`des1'"," ","",.) == subinstr("`des2'"," ","",.) {
+			di as error "Sorry, designs " as result "`des1'" as error " and " as result "`des2'" as error " are too similar."
+			di as error "To avoid possible problems in fitting inconsistency models, please change your treatment codes."
+			exit 498
+		}
+	}
+}
+
 // GENERATE STUDY COMPONENTS
 network_components, design(`design') trtlist(`ref' `trtlistnoref') gen(`component')
 assert !mi(`component')
@@ -235,4 +255,7 @@ foreach thing in `allthings' {
 
 cap estimates drop consistency
 cap estimates drop inconsistency 
+
+restore, not 
+
 end

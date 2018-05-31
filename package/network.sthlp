@@ -17,7 +17,6 @@
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
 
-
 {phang}
 {bf:network} {hline 2} Suite of commands for network meta-analysis
 
