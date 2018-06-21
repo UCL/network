@@ -1,5 +1,10 @@
 /*
-*! version 1.4 - Ian White - 16mar2018
+*! Ian White - 21jun2018
+21jun2018
+	add model AB2 = arm-based model of Piepho et al (2012)
+	rename AB as AB4
+	simplify inits using new subroutine writeinits
+	NB wbstats now copes with parm or parm* - need to check
 v1.4 16mar2018: 
 	changing parameterisation to match paper:
 		W(fR,nu) not W(nu*fR,nu)
@@ -98,7 +103,7 @@ foreach option of local prior_options_respect_case {
 syntax, [ ///
 	name(name) model(string) noCOMmonhet PRIORonly /// model specification
 	seed(int 0) BUrnin(int 1000) UPdates(int 1000) THin(int 1) dryrun /// MCMC 
-	WINBUGSdir(string) parms(string) Quitbugs noTImer SAVedir(string) /// WinBUGS
+	WINBUGSdir(string) PARMs(string) Quitbugs noTImer SAVedir(string) /// WinBUGS
     `prior_options' /// prior options (from above)
 	ac AC2(string) notrace TRACE2(string) DENsity DENsity2(string) nostats clear /// output options
 	debug /// undocumented options
@@ -132,7 +137,7 @@ else {
 }
 local filepath `filepath'/
 
-local modellist CB1 CB2 CB3 AB
+local modellist CB1 CB2 CB3 AB2 AB4
 if !`: list model in modellist' {
     di as error "Model `model' not yet allowed"
     exit 198
@@ -146,6 +151,7 @@ if inlist("`model'", "CB1") & !`commonhet' {
 	exit 198
 }
 if mi("`quitbugs'") local timer notimer
+
 * parms to monitor
 local setsigA2  = ("`model'"=="AB" & `commonhet') | "`model'"=="CB3"
 local setSigmaA = "`model'"=="AB" & !`commonhet'
@@ -191,17 +197,20 @@ if "`model'"!="" {
 	di as text "Heterogeneity:" `col2' "`commonhetname'"
 	di as text "Sampling from:" `col2' cond("`prioronly'"=="","Posterior","Prior")
 	* parameters
-	local modelparms alphaA muA muC sigA sigC logsigA logsigC df rho
+	local modelparms alphaA muA muC sigA sigC logsigA logsigC df rho // need priors if present
+	local modelparmsnoprior deltaC etaA // don't need priors if present
 	* which parameters are used
-	local hasalphaA  = inlist("`model'","CB1","CB2") 
-	local hasmuA     = inlist("`model'","CB3","AB") 
-	local hasmuC     = !inlist("`model'","AB")
+	local hasalphaA  = inlist("`model'","CB1","CB2","AB2") 
+	local hasmuA     = inlist("`model'","AB2","CB3","AB4") 
+	local hasmuC     = !inlist("`model'","AB4")
 	local hassigA    = inlist("`model'","CB3")
 	local hassigC    = `commonhet'
-	local haslogsigA = inlist("`model'","AB") & !`commonhet'
+	local haslogsigA = inlist("`model'","AB4") & !`commonhet'
 	local haslogsigC = !`commonhet'
 	local hasdf      = !`commonhet'
-	local hasrho     = inlist("`model'","AB") & `commonhet'
+	local hasrho     = inlist("`model'","AB4") & `commonhet'
+	local hasdeltaC  = inlist("`model'","CB1","CB2","CB3")
+	local hasetaA    = inlist("`model'","AB2","AB4") 
 	* how their priors are specified
 	local alphaAspec  prec  
 	local muAspec     prec     
@@ -224,8 +233,15 @@ if "`model'"!="" {
 	local sigCdefault     dunif(0,10)
 	local logsigCdefault  0
 	local logsigAdefault  0
-	local dfdefault       = `NT' - 1 + inlist("`model'","AB")
+	local dfdefault       = `NT' - 1 + inlist("`model'","AB2","AB4")
 	local rhodefault      dunif(0,1)
+	* check on code
+	foreach parm of local modelparms {
+		if mi(`has`parm'',"`parm`spec''","`parm`default''") {
+			di as error "Program error for parm `parm'"
+			exit 498
+		}
+	}
 	* set up prior parameters and output
 	foreach parm of local modelparms {
 		local spec ``parm'spec'
@@ -382,7 +398,10 @@ if "`model'"!="" {
 	if "`model'"=="CB1" {
 		`fwm' "alphaA[s[o]] + deltaC[o]*(1-equals(t[o],b[o]))" 
     }
-	else if "`model'"=="AB" {
+	else if "`model'"=="AB2" {
+		`fwm' "alphaA[s[o]] + muC[t[o]] + etaA[s[o],t[o]]" 
+    }
+	else if "`model'"=="AB4" {
 		`fwm' "muA[t[o]] + etaA[s[o],t[o]]" 
     }
 	else {
@@ -393,7 +412,7 @@ if "`model'"!="" {
     `fwm1' "}" _n
 	
 	`fwm1' _n "## MODEL STUDY MAIN EFFECTS" _n
-	if inlist("`model'","CB1","CB2") {
+	if inlist("`model'","CB1","CB2","AB2") {
 		`fwm1' "for (i in 1:NS) {" _n
 		`fwm2' "alphaA[i] ~ dnorm(0, `alphaAprec')" _n
 		`fwm1' "}" _n
@@ -413,11 +432,11 @@ if "`model'"!="" {
 			`fwm1' "sigA ~ `sigAprior'" _n
 		}
 	}
-	else if "`model'"=="AB" {
+	else if "`model'"=="AB4" {
 		`fwm1' "## (none)" _n
 	}
 
-	if "`model'"!="AB" {
+	if "`model'"!="AB4" {
 		`fwm1' _n "## MODEL OVERALL TREATMENT EFFECTS" _n
 		`fwm1' "muC[1] <- 0" _n
 		`fwm1' "for (k in 2:NT) {" _n
@@ -455,7 +474,7 @@ if "`model'"!="" {
 			`fwm1' "}" _n
 		}
     }
-	else if "`model'"=="AB" {
+	else if inlist("`model'","AB2","AB4") {
 	    `fwm1' "for (i in 1:NS) { " _n
         `fwm2' "etaA[i,1:NT] ~ dmnorm(zero[1:NT], invSigmaA[1:NT,1:NT])" _n
     	`fwm1' "}" _n
@@ -470,133 +489,170 @@ if "`model'"!="" {
     	`fwm1' "}" _n
     }
 
-
-	`fwm1' _n "## PRIOR FOR HETEROGENEITY VARIANCE" _n
-	if inlist("`model'","CB1") & `commonhet' {
-        if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-        else {
-			`fwm1' "sigC2 <- pow(sigC,2)" _n
-			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+	if `commonhet' {
+		`fwm1' _n "## PRIOR FOR COMMON HETEROGENEITY VARIANCE" _n
+		if inlist("`model'","CB1") {
+			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
+			else {
+				`fwm1' "sigC2 <- pow(sigC,2)" _n
+				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+			}
 		}
+		else if inlist("`model'","CB2","CB3") {
+			`fwm1' "for (k in 1:NT-1) {" _n
+			`fwm2' "for (l in 1:NT-1) {" _n
+			`fwm3' "invSigmaC[k,l] <- 2 * (equals(k,l) - 1/NT) / sigC2" _n // invsigC2*inv(P)
+			`fwm3' "## this is the inverse of sigC2 * P" _n
+			`fwm3' "## where P is (NT-1)x(NT-1) matrix of diagonal 1's" _n
+			`fwm3' "## and off-diagonal 0.5's" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n
+			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
+			else {
+				`fwm1' "sigC2 <- pow(sigC,2)" _n
+				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+			}
+	   }
+		else if inlist("`model'","AB2") {
+			`fwm1' "for (k in 1:NT) {" _n
+			`fwm2' "for (l in 1:NT) {" _n
+			`fwm3' "invSigmaA[k,l] <- 2 * equals(k,l) / sigC2" _n 
+			`fwm2' "}" _n
+			`fwm1' "}" _n
+			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
+			else {
+				`fwm1' "sigC2 <- pow(sigC,2)" _n
+				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+			}
+	   }
+		else if inlist("`model'","AB4") {
+			`fwm1' "for (k in 1:NT) {" _n
+			`fwm2' "for (l in 1:NT) {" _n
+			`fwm3' "invSigmaA[k,l] <- (2/sigC2) * ( equals(k,l) - rho / (1-rho+NT*rho) )" _n
+			`fwm3' "## exchangeable correlation structure" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n
+			`fwm1' "rho ~ `rhoprior' ## correlation in compound symmetrical SigmaA" _n
+			 if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
+			else {
+				`fwm1' "sigC2 <- pow(sigC,2)" _n
+				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+			}
+			`fwm1' "## useful summaries" _n
+			`fwm1' "sigA2 <- sigC2 / (2*(1-rho)) ## arm heterogeneity variance" _n
+		}
+		else di as error "Program error: model not coded"
 	}
-	else if inlist("`model'","CB2","CB3") & `commonhet' {
-        `fwm1' "for (k in 1:NT-1) {" _n
-        `fwm2' "for (l in 1:NT-1) {" _n
-        `fwm3' "invSigmaC[k,l] <- 2 * (equals(k,l) - 1/NT) / sigC2" _n // invsigC2*inv(P)
-		`fwm3' "## this is the inverse of sigC2 * P" _n
-	    `fwm3' "## where P is (NT-1)x(NT-1) matrix of diagonal 1's" _n
-	    `fwm3' "## and off-diagonal 0.5's" _n
-        `fwm2' "}" _n
-        `fwm1' "}" _n
-         if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-        else {
-			`fwm1' "sigC2 <- pow(sigC,2)" _n
-			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+	else {
+		`fwm1' _n "## PRIOR FOR NON-COMMON HETEROGENEITY VARIANCE" _n
+		if inlist("`model'","CB2","CB3") {
+			if `df'==0 {
+				di as text "Taking df=NT-1"
+				local df = `NT'-1
+			}
+			if `df'<`NT'-1 {
+				di as error "`model' model requires df>#treatments-1
+				exit 498
+			}
+			local sigmascale = 2 * exp( 2*`logsigCmean' + digamma((`df'-`NT'+2)/2))
+			`fwm1' "SigmaC.nu <- `df'" _n
+			`fwm1' "SigmaC.f <- `sigmascale'" _n
+			`fwm1' "for (k in 1:NT-1) {" _n
+			`fwm2' "for (l in 1:NT-1) {" _n
+			`fwm3' "SigmaC.R[k,l] <- SigmaC.f * (equals(k,l)+1) / 2" _n 
+			`fwm3' "    ## SigmaC.R = SigmaC.f * P(1/2)" _n 
+			`fwm2' "}" _n
+			`fwm1' "}" _n
+			`fwm1' "invSigmaC[1:NT-1,1:NT-1] ~ dwish(SigmaC.R[1:NT-1,1:NT-1], SigmaC.nu)" _n
+			`fwm1' "    ## E[invSigmaC] = inv((SigmaC.f/SigmaC.nu) * P(1/2))" _n
+			`fwm1' "" _n
+			`fwm1' "## useful summaries" _n
+			`fwm1' "SigmaC[1:NT-1,1:NT-1] <- inverse(invSigmaC[1:NT-1,1:NT-1])" _n
+			`fwm1' "sigC2[1,1] <- 0" _n
+			`fwm1' "for (k in 2:NT) {" _n
+			`fwm2' "sigC2[k,1] <- SigmaC[k-1,k-1]" _n
+			`fwm2' "sigC2[1,k] <- SigmaC[k-1,k-1]" _n
+			`fwm2' "for (l in 2:NT) {" _n
+			`fwm3' "sigC2[k,l] <- SigmaC[k-1,k-1]+SigmaC[l-1,l-1]-2*SigmaC[k-1,l-1]" _n
+			`fwm3' "## contrast heterogeneity variance for k vs l" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n 
 		}
-   }
-	else if inlist("`model'","CB2","CB3") & !`commonhet' {
-		if `df'==0 {
-			di as text "Taking df=NT-1"
-			local df = `NT'-1
+		else if inlist("`model'","AB2") {
+			if `df'==0 {
+				di as text "Taking df=NT"
+				local df = `NT'
+			}
+			if `df'<`NT' {
+				di as error "`model' model requires df>#treatments
+				exit 498
+			}
+			local sigmascale = exp(`logsigCmean' + digamma((`df'-`NT'+1)/2))
+			`fwm1' "invSigmaA[1:NT,1:NT] ~ dwish(SigmaA.R[1:NT,1:NT], SigmaA.nu)" _n
+			`fwm1' "SigmaA.nu <- `df'" _n
+			`fwm1' "SigmaA.f <- `sigmascale'" _n
+			`fwm1' "for (k in 1:NT) {" _n
+			`fwm2' "for (l in 1:NT) {" _n
+			`fwm3' "SigmaA.R[k,l] <- SigmaA.f * equals(k,l)" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n
+			`fwm1' "" _n
+			`fwm1' "## useful summaries" _n
+			`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
+			`fwm1' "for (k in 1:NT) {" _n
+			`fwm2' "for (l in 1:NT) {" _n
+			`fwm3' "sigC2[k,l] <- SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l]" _n
+			`fwm3' "    ## contrast heterogeneity variance for k vs l" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n
 		}
-		if `df'<`NT'-1 {
-			di as error "`model' model requires df>#treatments-1
-			exit 498
+		else if inlist("`model'","AB4") {
+			if `df'==0 {
+				di as text "Taking df=NT"
+				local df = `NT'
+			}
+			if `df'<`NT' {
+				di as error "`model' model requires df>#treatments
+				exit 498
+			}
+			local sigmascale = 2 * exp(2*`logsigAmean' + digamma((`df'-`NT'+1)/2))
+			local r = 1 - 0.5*exp(2*`logsigCmean' - 2*`logsigAmean')
+			`fwm1' "SigmaA.nu <- `df'" _n
+			`fwm1' "SigmaA.f <- `sigmascale'" _n
+			`fwm1' "SigmaA.r <- `r'" _n
+			`fwm1' "invSigmaA[1:NT,1:NT] ~ dwish(SigmaA.R[1:NT,1:NT], SigmaA.nu)" _n
+			`fwm1' "    ## E[invSigmaA] = inv((SigmaA.f/SigmaA.nu) * P(SigmaA.r))" _n
+			`fwm1' "for (k in 1:NT) {" _n
+			`fwm2' "for (l in 1:NT) {" _n
+			`fwm3' "SigmaA.R[k,l] <- SigmaA.f * ((1-SigmaA.r)*equals(k,l)+SigmaA.r)" _n
+			`fwm3' "    ## SigmaA.R = SigmaA.f * P(SigmaA.r)" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n
+			`fwm1' "" _n
+			`fwm1' "## useful summaries" _n
+			`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
+			`fwm1' "for (k in 1:NT) {" _n
+			`fwm2' "sigA2[k] <- SigmaA[k,k] ## arm heterogeneity variance for k" _n 
+			`fwm2' "for (l in 1:NT) {" _n
+			`fwm3' "sigC2[k,l] <- SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l]" _n
+			`fwm3' "    ## contrast heterogeneity variance for k vs l" _n
+			`fwm2' "}" _n
+			`fwm1' "}" _n
 		}
-		local sigmascale = 2 * exp( 2*`logsigCmean' + digamma((`df'-`NT'+2)/2))
-		`fwm1' "SigmaC.nu <- `df'" _n
-		`fwm1' "SigmaC.f <- `sigmascale'" _n
-		`fwm1' "for (k in 1:NT-1) {" _n
-		`fwm2' "for (l in 1:NT-1) {" _n
-		`fwm3' "SigmaC.R[k,l] <- SigmaC.f * (equals(k,l)+1) / 2" _n 
-		`fwm3' "    ## SigmaC.R = SigmaC.f * P(1/2)" _n 
-		`fwm2' "}" _n
-		`fwm1' "}" _n
-		`fwm1' "invSigmaC[1:NT-1,1:NT-1] ~ dwish(SigmaC.R[1:NT-1,1:NT-1], SigmaC.nu)" _n
-		`fwm1' "    ## E[invSigmaC] = inv((SigmaC.f/SigmaC.nu) * P(1/2))" _n
-		`fwm1' "" _n
-		`fwm1' "## useful summaries" _n
-		`fwm1' "SigmaC[1:NT-1,1:NT-1] <- inverse(invSigmaC[1:NT-1,1:NT-1])" _n
-		`fwm1' "sigC2[1,1] <- 0" _n
-		`fwm1' "for (k in 2:NT) {" _n
-		`fwm2' "sigC2[k,1] <- SigmaC[k-1,k-1]" _n
-		`fwm2' "sigC2[1,k] <- SigmaC[k-1,k-1]" _n
-		`fwm2' "for (l in 2:NT) {" _n
-		`fwm3' "sigC2[k,l] <- SigmaC[k-1,k-1]+SigmaC[l-1,l-1]-2*SigmaC[k-1,l-1]" _n
-		`fwm3' "## contrast heterogeneity variance for k vs l" _n
-		`fwm2' "}" _n
-		`fwm1' "}" _n 
+		else di as error "Program error: model not coded"
 	}
-	else if inlist("`model'","AB") & `commonhet' {
-        `fwm1' "for (k in 1:NT) {" _n
-        `fwm2' "for (l in 1:NT) {" _n
-        `fwm3' "invSigmaA[k,l] <- (2/sigC2) * ( equals(k,l) - rho / (1-rho+NT*rho) )" _n
-		`fwm3' "## exchangeable correlation structure" _n
-        `fwm2' "}" _n
-        `fwm1' "}" _n
-        `fwm1' "rho ~ `rhoprior' ## correlation in compound symmetrical SigmaA" _n
-         if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-        else {
-			`fwm1' "sigC2 <- pow(sigC,2)" _n
-			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
-		}
-		`fwm1' "## useful summaries" _n
-		`fwm1' "sigA2 <- sigC2 / (2*(1-rho)) ## arm heterogeneity variance" _n
-	}
-	else if inlist("`model'","AB") & !`commonhet' {
-		if `df'==0 {
-			di as text "Taking df=NT"
-			local df = `NT'
-		}
-		if `df'<`NT' {
-			di as error "`model' model requires df>#treatments
-			exit 498
-		}
-		local sigmascale = 2 * exp(2*`logsigAmean' + digamma((`df'-`NT'+1)/2))
-		local r = 1 - 0.5*exp(2*`logsigCmean' - 2*`logsigAmean')
-		`fwm1' "SigmaA.nu <- `df'" _n
-		`fwm1' "SigmaA.f <- `sigmascale'" _n
-		`fwm1' "SigmaA.r <- `r'" _n
-		`fwm1' "invSigmaA[1:NT,1:NT] ~ dwish(SigmaA.R[1:NT,1:NT], SigmaA.nu)" _n
-		`fwm1' "    ## E[invSigmaA] = inv((SigmaA.f/SigmaA.nu) * P(SigmaA.r))" _n
-		`fwm1' "for (k in 1:NT) {" _n
-		`fwm2' "for (l in 1:NT) {" _n
-		`fwm3' "SigmaA.R[k,l] <- SigmaA.f * ((1-SigmaA.r)*equals(k,l)+SigmaA.r)" _n
-		`fwm3' "    ## SigmaA.R = SigmaA.f * P(SigmaA.r)" _n
-		`fwm2' "}" _n
-		`fwm1' "}" _n
-		`fwm1' "" _n
-		`fwm1' "## useful summaries" _n
-		`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
-		`fwm1' "for (k in 1:NT) {" _n
-		`fwm2' "sigA2[k] <- SigmaA[k,k] ## arm heterogeneity variance for k" _n 
-		`fwm2' "for (l in 1:NT) {" _n
-		`fwm3' "sigC2[k,l] <- SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l]" _n
-		`fwm3' "    ## contrast heterogeneity variance for k vs l" _n
-		`fwm2' "}" _n
-		`fwm1' "}" _n
-	}
-	else exit 496
-
+	`fwm0' _n "}" _n
 
     * WRITE SCALARS OUT IN WINBUGS FORMAT
-	file write scalars "list(" _n
-    file write scalars "N=" (`N') ", NS=" (`NS') ", NT=" (`NT')
-//     if "`model'"!="AB" {
-// 		file write scalars ", muCprec=" (`muCprec') 
-// 	}
-	file write scalars _n ")" _n
-	`fwm' _n "}" _n
+	file write scalars "list(N=" (`N') ", NS=" (`NS') ", NT=" (`NT') ")" _n
 
     * WRITE INITS OUT IN WINBUGS FORMAT
 	file write inits "list(" _n
-	local hasinits 0
 	* inits for parms with arbitrary prior
 	* middle of a uniform, otherwise 1
     foreach parm in sigC sigA rho {
 		if !`has`parm'' continue
 		local parm2 = cond(`has`parm''==2,"`parm'2","`parm'")
-		if `hasinits' file write inits "," _n
     	local 0, ``parm2'prior'
 		syntax, [dunif(string) dbeta(string) *]
 		local `parm2' 1
@@ -608,75 +664,33 @@ if "`model'"!="" {
 			tokenize "`dbeta'", parse(",")
 			local `parm2' = `1' / (`1' + `3')
 		}
-    	file write inits "`parm2'=" (``parm2'')
-		local hasinits 1
+    	file write inits "`parm2'=" (``parm2'') "," _n
     }
-	* inits for deltaC
-	if `hasinits' file write inits "," _n
-	if "`model'"=="AB" {
-		file write inits "etaA=structure(" 
-		file write inits _col(5) ".Data=c("
-		forvalues i=1/`NS' {
-			forvalues j=1/`NT' {
-				file write inits (0)
-				if `i'<`NS' | `j'<`NT' file write inits ","
-				else file write inits ")," 
-			}
-		}
-		file write inits _col(5) ".Dim=c(`NS',`NT')" _n
-		file write inits ")"
-	}
-	else if "`model'" == "CB1" {
-		file write inits "deltaC=c("
-		forvalues i=1/`N' {
-			file write inits (0)
-			if `i'<`N' file write inits ","
-			else file write inits ")"
-		}
-	}
-	else {
-		file write inits "deltaC=structure(" 
-		file write inits _col(5) ".Data=c("
-		forvalues i=1/`NS' {
-			forvalues j=1/`NT' {
-				if `j'==1 file write inits "NA"
-				else file write inits (0)
-				if `i'<`NS' | `j'<`NT' file write inits ","
-				else file write inits ")," 
-			}
-		}
-		file write inits _col(5) ".Dim=c(`NS',`NT')" _n
-		file write inits ")"
-	}
 	* inits for alphaA/muA
-	local parm = cond("`model'"=="AB", "muA", "alphaA")
-	local length = cond("`model'"=="AB", `NT', `NS')
-	file write inits "," _n
-	file write inits "`parm'=c("
-	forvalues i=1/`length' {
-		file write inits (0)
-		if `i'<`length' file write inits ","
-		else file write inits ")"
+	if `hasalphaA' writeinits alphaA, dim(`NS')
+	if `hasmuA' {
+		if "`model'"=="CB3" writeinits muA
+		else if "`model'"=="AB4" writeinits muA, dim(`NT')
 	}
 	* inits for muC
-	if "`model'"!="AB" {
-		file write inits "," _n
-		file write inits "muC=c("
-		forvalues i=1/`NT' {
-			if `i'==1 file write inits "NA"
-			else file write inits (0)
-			if `i'<`NT' file write inits ","
-			else file write inits ")"
-		}
+	if `hasmuC' writeinits muC, dim(`NT') na(1)
+	* end of inits
+	* inits for etaA
+	if `hasetaA' writeinits etaA, dim(`NS',`NT') 
+	* inits for deltaC
+	if `hasdeltaC' {
+		if "`model'" == "CB1" writeinits deltaC, dim(`N')
+		else writeinits deltaC, dim(`NS',`NT') na(.,1) 
 	}
-	
-	file write inits _n ")" _n
+	* inits for invSigmaA
+* REVISIT!!	if 
+	file write inits ")" _n
 	
 	* PARAMETERS OF INTEREST
 	local extraparms `parms'
 	local parms muC sigC2
 	if `setSigmaA' | `setsigA2'  local parms `parms' sigA2
-	local allparms : list parms | extraparms
+	local setparms : list parms | extraparms
 
     * WRITE WINBUGS SCRIPT
     file write script "## SCRIPT TO FIT NMA MODEL `model' WITH `commonword' HETEROGENEITY" _n
@@ -690,7 +704,7 @@ if "`model'"!="" {
     file write script "inits(1,'`initsfile'')" _n
     file write script "gen.inits()" _n
     file write script "update(`burnin')" _n
-    foreach setparm of local allparms {
+    foreach setparm of local setparms {
 		file write script "set(`setparm')" _n
 	}
     file write script "thin.samples(`thin')" _n
@@ -741,24 +755,22 @@ if "`model'"!="" {
 	}
 	else di
 
-*set tracedepth 1
-*set trace on
-
     // READ CODA DATA
     wbcoda, root(`filepath'`name'_coda) clear
+	
     * rename contrasts
     if !mi("`debug'") summ
     forvalues i = 2/`NT' { // assumes muC is a NT-1 vector
     	rename muC_`i' diff_`trt`i''_`ref'
     	label var diff_`trt`i''_`ref' "Mean diff `trt`i'' vs `ref'"
     }
-    if "`model'"=="AB" & !`commonhet' {
+    if "`model'"=="AB4" & !`commonhet' {
         drop muC_1 sigC2_1_1
     }
     if !`commonhet' { // assumes sigC2 is a NT by NT matrix
         forvalues i = 1/`NT' {
             forvalues j = 1/`NT' {
-                if `i'==1 & `j'==1 continue
+                if `i'==1 & `j'==1 & "`model'"!="AB2" continue
                 rename sigC2_`i'_`j' sigC2_`trt`i''_`trt`j''
                 label var sigC2_`trt`i''_`trt`j'' "Het SD, contrast `trt`j'' vs `trt`i''"
                 if `j'<=`i' drop sigC2_`trt`i''_`trt`j''
@@ -799,11 +811,25 @@ else local parms diff_* sigC2_*
 if `setsigA2' local parms `parms' sigA2_`ref'
 if `setSigmaA' local parms `parms' sigA2_*
 local parms : list parms | extraparms
+* check if any 
+foreach parm of local parms {
+	cap unab junk : `parm'
+	if !_rc { // var or varlist exists as named
+		local wbparms `wbparms' `parm'
+		continue
+	}
+	cap unab junk : `parm'*
+	if !_rc {
+		local wbparms `wbparms' `parm'*
+		continue
+	}
+	di as error "Program error: parameter `parm' not found"
+}
 * do results
-if mi("`stats'") wbstats `parms'
-if !mi("`ac'`ac2'") fastac `parms', `ac2'
+if mi("`stats'") dicmd wbstats `wbparms'
+if !mi("`ac'`ac2'") fastac `wbparms', `ac2'
 if mi("`trace'") fasttrace, `trace2'
-if !mi("`density'`density2'") wbdensity `parms', `density2'
+if !mi("`density'`density2'") wbdensity `wbparms', `density2'
 
 // RESTORE OR NOT
 if !mi("`clear'") {
@@ -813,7 +839,9 @@ if !mi("`clear'") {
 
 end
 
-***************************************************************
+****************** END OF NETWORK_BAYES *********************************************
+
+********************* PROGRAM FASTTRACE ******************************************
 
 prog def fasttrace
 // quick trace
@@ -829,7 +857,7 @@ line value order, by(parm, yrescale note("") `byopts' `title' `note') ///
 	xtitle("Samples") ytitle("") `options'
 end
 
-***************************************************************
+********************* PROGRAM FASTAC ******************************************
 
 prog def fastac
 // quick trace
@@ -874,4 +902,88 @@ else {
 }
 end
 
-***************************************************************
+********************* PROGRAM WRITEINITS ******************************************
+
+/*
+Example of use:
+	file open inits using zinits.txt, write replace
+	writeinits A, dim(24,4) na(.,1)
+	writeinits B, dim(6) value(1) na(3)
+	writeinits C, value(2)
+	file close inits
+*/
+prog def writeinits
+syntax name, [dim(string) value(real 0) na(string) IDentity]
+local name `namelist'
+if mi("`dim'") {
+	if !mi("`na'") exit198 "writeinits: can't have na() without dim()"
+	local dims 0
+}
+else {
+	tokenize "`dim'", parse(",")
+	if !mi("`4'") exit198 "dim() too long"
+	if !inlist("`2'","",",") exit198 "writeinits: wrong dim()"
+	if mi("`3'") {
+		local dims 1
+		local n1 `1'
+		if !mi("`na'") {
+			tokenize "`na'", parse(",")
+			if "`2'"!="" exit198 "writeinits: wrong dim() for 1dim"
+			local na1 `1'
+		}
+		else local na1 .
+	}
+	else {
+		local dims 2
+		local n1 `1'
+		local n2 `3'
+		if !mi("`na'") {
+			tokenize "`na'", parse(",")
+			if "`2'"!="," exit198 "writeinits: wrong dim() for 2dim"
+			local na1 `1'
+			local na2 `3'
+		}
+		else {
+			local na1 .
+			local na2 .
+		}
+	}
+}
+if !mi("`identity'") & (`dims'<2 | "`n1'"!="`n2'" | !mi("`na'") | `value' != 0) {
+	exit198 "writeinits: error in identity"
+}
+
+if `dims'==2 {
+	file write inits "`name'=structure(" _n
+	file write inits _col(5) ".Data=c("
+	forvalues i=1/`n1' {
+		forvalues j=1/`n2' {
+			if !mi("`identity'") file write inits (`=`i'==`j'')
+			else if `i'==`na1' | `j'==`na2' file write inits "NA"
+			else file write inits (`value')
+			if `i'<`n1' | `j'<`n2' file write inits ","
+			else file write inits ")," _n
+		}
+	}
+	file write inits _col(5) ".Dim=c(`n1',`n2'))," _n
+}
+	
+if `dims'==1 {
+	file write inits "`name'=c("
+	forvalues i=1/`n1' {
+		if `i'==`na1' file write inits "NA"
+		else file write inits (`value')
+		if `i'<`n1' file write inits ","
+		else file write inits ")," _n
+	}
+}
+if `dims'==0 {
+   	file write inits "`name'=" (`value') "," _n
+}
+
+end
+
+prog def exit198
+di as error `0'
+exit 198
+end
