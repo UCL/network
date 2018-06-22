@@ -1,4 +1,5 @@
 /*
+22jun2018: better error message for "network convert, ..."
 *! Ian White # 31may2018
 31may2018
 	minor bug fix in std2aug: now works when one treatment name contains another
@@ -27,13 +28,14 @@ local maxdim = `maxarms'-1
 local oldref `ref'
 
 // PARSE
-syntax anything, [large(real 0) ref(string) noWarning]
-local newformat `anything'
+syntax [name], [large(real 0) ref(string) noWarning]
+
+local newformat `namelist'
 local oldformat `format'
 if strpos("augmented","`newformat'")==1 local newformat augmented
 if strpos("standard","`newformat'")==1 local newformat standard
 if strpos("pairs","`newformat'")==1 local newformat pairs
-if !inlist("`newformat'","augmented","standard","pairs") {
+if !inlist("`newformat'","augmented","standard","pairs") | mi("`namelist'") {
     di as error "Syntax: network convert augmented|standard|pairs"
     exit 198
 }
@@ -47,6 +49,7 @@ if "`newformat'"=="augmented" {
 else if `large'!=0 {
     `diaserror' "large(`large') ignored because we're not converting to augmented format"
 }
+
 
 * new reference treatment
 if "`newformat'"!="augmented" & !mi("`ref'") {
@@ -70,7 +73,6 @@ if !mi("`ref'") {
     }
 }
 else local ref `oldref'
-
 if "`newformat'"=="`oldformat'" & mi("`newref'") {
     `diaserror' "Data are already in `newformat' format"
     exit

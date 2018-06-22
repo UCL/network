@@ -1,45 +1,78 @@
 /*
 Cscript for network bayes 
-Updated 20nov2017
+Updated 20nov2017 & 22jun2018
+RUN IN NETWORK SCRIPTS DIRECTORY
 */
 
 set more off
-adopath ++ c:\ado\network\
-adopath ++BASE
-adopath ++SITE
+do network_adopath
 pda
 
 which network
+which network_bayes
 
-use "C:\ado\network\smoking.dta", clear
-network setup d n, studyvar(study) trtvar(trt)
 
-local opts name(cscript) quit savedir(temp, create)
+local opts updates(1000) name(cscript) quit savedir(c:\temp\bugsfiles) clear
 
 set tracedepth 2
 set trace off
+local pm -1
+local psd .5
+local muCprec 1
 
-network bayes, model(LA) `opts' 
+// CHECK PRIORS: CH MODELS
+set seed 467164
 
-local opts name(cscript) quit savedir(temp)
+foreach model in CB1 CB2 AB2 CB3 AB4 {
+	use "smoking.dta", clear
+	qui network setup d n, studyvar(study) trtvar(trt)
+	network bayes, model(`model') commonhet ///
+		muCprec(`muCprec') ///
+		prioronly sigCprior(dnorm(`pm',`=1/`psd'^2')) `opts'
+	ttest sigC==`pm'
+	assert r(p)>0.001
+	sdtest sigC==`psd'
+	assert r(p)>0.001
+	if "`model'"!="AB4" {
+		ttest muC_B_A==0
+		assert r(p)>0.001
+		sdtest muC_B_A==`=1/sqrt(`muCprec')'
+		assert r(p)>0.001
+	}
+	exit
+}
 
-network bayes, model(LA) `opts' sigCprior(dlnorm(-1.005,1.487))
+// CHECK PRIORS: NCH MODELS
+set seed 571894198
+foreach model in CB2 AB2 CB3 AB4 {
+	use "smoking.dta", clear
+	qui network setup d n, studyvar(study) trtvar(trt)
+	network bayes, model(`model') nocommonhet ///
+		prioronly logsigCmean(`pm') `opts'
+	gen logsigC = log(sigC_A_B)
+	ttest logsigC==`pm'
+	assert r(p)>0.001
+}
 
-network bayes, notrace ac savedir(temp)
+local opts burnin(50000) updates(50000) thin(5) name(cscript) quit savedir(c:\temp\bugsfiles) clear
 
-network bayes, model(LA) `opts' sigCprior(dlnorm(-1.005,1.487)) burnin(10000) updates(10000) thin(10)
+// CHECK SMOKING RESULTS: CH MODELS
+set seed 571894198
+foreach model in CB1 CB2 AB2 CB3 AB4 {
+	use "smoking.dta", clear
+	qui network setup d n, studyvar(study) trtvar(trt)
+	network bayes, model(`model') commonhet `opts'
+	wbstats muC_C_A
+	assert abs(r(mn1)-0.8)<0.1
+}
 
-local opts `opts' notrace
-
-network bayes, model(LAplus) sigCprior(dlnorm(-1.005,1.487)) commonhet `opts' 
-
-network bayes, model(LAplus) logsigCmean(-1) nocommonhet `opts'  
-
-network bayes, model(CB) sigCprior(dlnorm(-1.005,1.487)) commonhet `opts' 
-
-network bayes, model(CB) logsigCmean(-1) nocommonhet `opts' 
-
-network bayes, model(AB) sigCprior(dlnorm(-1.005,1.487)) commonhet `opts' 
-
-network bayes, model(AB) logsigCmean(-1) nocommonhet `opts' 
+// CHECK SMOKING RESULTS: NCH MODELS
+set seed 571894198
+foreach model in CB2 AB2 CB3 AB4 {
+	use "smoking.dta", clear
+	qui network setup d n, studyvar(study) trtvar(trt)
+	network bayes, model(`model') nocommonhet `opts'
+	wbstats muC_C_A
+	assert abs(r(mn1)-0.8)<0.1
+}
 

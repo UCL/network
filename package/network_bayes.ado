@@ -1,5 +1,8 @@
 /*
 *! Ian White - 21jun2018
+22jun2018
+	sigC is default output instead of sigC2
+	ditto sigA
 21jun2018
 	add model AB2 = arm-based model of Piepho et al (2012)
 	rename AB as AB4
@@ -153,7 +156,7 @@ if inlist("`model'", "CB1") & !`commonhet' {
 if mi("`quitbugs'") local timer notimer
 
 * parms to monitor
-local setsigA2  = ("`model'"=="AB" & `commonhet') | "`model'"=="CB3"
+local setsigA  = ("`model'"=="AB" & `commonhet') | "`model'"=="CB3"
 local setSigmaA = "`model'"=="AB" & !`commonhet'
 
 if !mi("`prioronly'") {
@@ -539,7 +542,7 @@ if "`model'"!="" {
 				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 			}
 			`fwm1' "## useful summaries" _n
-			`fwm1' "sigA2 <- sigC2 / (2*(1-rho)) ## arm heterogeneity variance" _n
+			`fwm1' "sigA <- sqrt(sigC2 / (2*(1-rho))) ## arm heterogeneity SD" _n
 		}
 		else di as error "Program error: model not coded"
 	}
@@ -568,12 +571,12 @@ if "`model'"!="" {
 			`fwm1' "" _n
 			`fwm1' "## useful summaries" _n
 			`fwm1' "SigmaC[1:NT-1,1:NT-1] <- inverse(invSigmaC[1:NT-1,1:NT-1])" _n
-			`fwm1' "sigC2[1,1] <- 0" _n
+			`fwm1' "sigC[1,1] <- 0" _n
 			`fwm1' "for (k in 2:NT) {" _n
-			`fwm2' "sigC2[k,1] <- SigmaC[k-1,k-1]" _n
-			`fwm2' "sigC2[1,k] <- SigmaC[k-1,k-1]" _n
+			`fwm2' "sigC[k,1] <- sqrt(SigmaC[k-1,k-1])" _n
+			`fwm2' "sigC[1,k] <- sqrt(SigmaC[k-1,k-1])" _n
 			`fwm2' "for (l in 2:NT) {" _n
-			`fwm3' "sigC2[k,l] <- SigmaC[k-1,k-1]+SigmaC[l-1,l-1]-2*SigmaC[k-1,l-1]" _n
+			`fwm3' "sigC[k,l] <- sqrt(SigmaC[k-1,k-1]+SigmaC[l-1,l-1]-2*SigmaC[k-1,l-1])" _n
 			`fwm3' "## contrast heterogeneity variance for k vs l" _n
 			`fwm2' "}" _n
 			`fwm1' "}" _n 
@@ -587,7 +590,7 @@ if "`model'"!="" {
 				di as error "`model' model requires df>#treatments
 				exit 498
 			}
-			local sigmascale = exp(`logsigCmean' + digamma((`df'-`NT'+1)/2))
+			local sigmascale = exp(2*`logsigCmean' + digamma((`df'-`NT'+1)/2))
 			`fwm1' "invSigmaA[1:NT,1:NT] ~ dwish(SigmaA.R[1:NT,1:NT], SigmaA.nu)" _n
 			`fwm1' "SigmaA.nu <- `df'" _n
 			`fwm1' "SigmaA.f <- `sigmascale'" _n
@@ -601,8 +604,8 @@ if "`model'"!="" {
 			`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
 			`fwm1' "for (k in 1:NT) {" _n
 			`fwm2' "for (l in 1:NT) {" _n
-			`fwm3' "sigC2[k,l] <- SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l]" _n
-			`fwm3' "    ## contrast heterogeneity variance for k vs l" _n
+			`fwm3' "sigC[k,l] <- sqrt(SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l])" _n
+			`fwm3' "    ## contrast heterogeneity SD for k vs l" _n
 			`fwm2' "}" _n
 			`fwm1' "}" _n
 		}
@@ -632,10 +635,10 @@ if "`model'"!="" {
 			`fwm1' "## useful summaries" _n
 			`fwm1' "SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])" _n
 			`fwm1' "for (k in 1:NT) {" _n
-			`fwm2' "sigA2[k] <- SigmaA[k,k] ## arm heterogeneity variance for k" _n 
+			`fwm2' "sigA[k] <- sqrt(SigmaA[k,k]) ## arm heterogeneity SD for k" _n 
 			`fwm2' "for (l in 1:NT) {" _n
-			`fwm3' "sigC2[k,l] <- SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l]" _n
-			`fwm3' "    ## contrast heterogeneity variance for k vs l" _n
+			`fwm3' "sigC[k,l] <- sqrt(SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l])" _n
+			`fwm3' "    ## contrast heterogeneity SD for k vs l" _n
 			`fwm2' "}" _n
 			`fwm1' "}" _n
 		}
@@ -688,8 +691,8 @@ if "`model'"!="" {
 	
 	* PARAMETERS OF INTEREST
 	local extraparms `parms'
-	local parms muC sigC2
-	if `setSigmaA' | `setsigA2'  local parms `parms' sigA2
+	local parms muC sigC
+	if `setSigmaA' | `setsigA'  local parms `parms' sigA
 	local setparms : list parms | extraparms
 
     * WRITE WINBUGS SCRIPT
@@ -761,32 +764,33 @@ if "`model'"!="" {
     * rename contrasts
     if !mi("`debug'") summ
     forvalues i = 2/`NT' { // assumes muC is a NT-1 vector
-    	rename muC_`i' diff_`trt`i''_`ref'
-    	label var diff_`trt`i''_`ref' "Mean diff `trt`i'' vs `ref'"
+    	rename muC_`i' muC_`trt`i''_`ref'
+    	label var muC_`trt`i''_`ref' "Mean diff `trt`i'' vs `ref'"
     }
-    if "`model'"=="AB4" & !`commonhet' {
-        drop muC_1 sigC2_1_1
+    if "`model'"=="AB4" {
+        drop muC_1 
+		if !`commonhet' drop sigC_1_1
     }
-    if !`commonhet' { // assumes sigC2 is a NT by NT matrix
+    if !`commonhet' { // assumes sigC is a NT by NT matrix
         forvalues i = 1/`NT' {
             forvalues j = 1/`NT' {
                 if `i'==1 & `j'==1 & "`model'"!="AB2" continue
-                rename sigC2_`i'_`j' sigC2_`trt`i''_`trt`j''
-                label var sigC2_`trt`i''_`trt`j'' "Het SD, contrast `trt`j'' vs `trt`i''"
-                if `j'<=`i' drop sigC2_`trt`i''_`trt`j''
+                rename sigC_`i'_`j' sigC_`trt`i''_`trt`j''
+                label var sigC_`trt`i''_`trt`j'' "Het SD, contrast `trt`j'' vs `trt`i''"
+                if `j'<=`i' drop sigC_`trt`i''_`trt`j''
             }
         }
     }
-    else label var sigC2 "Het SD (all contrasts)"
+    else label var sigC "Het SD (all contrasts)"
 
-    if `setsigA2' {
-		rename sigA2 sigA2_`ref'
-		label var sigA2_`ref' "Het SD, arm `trt1'"
+    if `setsigA' {
+		rename sigA sigA_`ref'
+		label var sigA_`ref' "Het SD, arm `trt1'"
 	}
     if `setSigmaA' {
 		forvalues i = 1/`NT' {
-			rename sigA2_`i' sigA2_`trt`i''
-			label var sigA2_`trt`i'' "Het var, arm `trt`i''"
+			rename sigA_`i' sigA_`trt`i''
+			label var sigA_`trt`i'' "Het SD, arm `trt`i''"
 		}
 	}
 	local sampledfrom = cond("`prioronly'"=="","posterior","prior")
@@ -806,27 +810,35 @@ else {
 // OUTPUT RESULTS
 di as text "" _c // just gets font right for next
 * identify parms of interest
-if `commonhet' local parms diff_* sigC2
-else local parms diff_* sigC2_*
-if `setsigA2' local parms `parms' sigA2_`ref'
-if `setSigmaA' local parms `parms' sigA2_*
+if `commonhet' local parms muC_* sigC
+else local parms muC_* sigC_*
+if `setsigA' local parms `parms' sigA_`ref'
+if `setSigmaA' local parms `parms' sigA_*
 local parms : list parms | extraparms
-* check if any 
+* check if any parm should be replaced by parm*
 foreach parm of local parms {
 	cap unab junk : `parm'
 	if !_rc { // var or varlist exists as named
-		local wbparms `wbparms' `parm'
+		local wbparms0 `wbparms0' `parm'
 		continue
 	}
 	cap unab junk : `parm'*
 	if !_rc {
-		local wbparms `wbparms' `parm'*
+		local wbparms0 `wbparms0' `parm'*
 		continue
 	}
 	di as error "Program error: parameter `parm' not found"
 }
+* check if any parm has zero variance (crashed wbstats)
+foreach parm of local wbparms0 {
+	qui summ `parm'
+	if r(sd)==0 {
+		di as error "Parameter `parm' does not vary - ignored"
+	}
+	else local wbparms `wbparms' `parm'
+}
 * do results
-if mi("`stats'") dicmd wbstats `wbparms'
+if mi("`stats'") wbstats `wbparms'
 if !mi("`ac'`ac2'") fastac `wbparms', `ac2'
 if mi("`trace'") fasttrace, `trace2'
 if !mi("`density'`density2'") wbdensity `wbparms', `density2'
