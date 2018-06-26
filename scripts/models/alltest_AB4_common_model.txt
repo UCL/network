@@ -1,0 +1,50 @@
+## NMA MODEL AB4 WITH COMMON HETEROGENEITY
+## WRITTEN BY NETWORK_BAYES.ADO AT 18:02:07 ON 22 Jun 2018 
+## In this code:
+##   Data s[], r[], n[] represent Stata variables study, d, n
+##   Scalars N=50, NS=24, NT=4 are #arms, #studies, #treatments
+
+model {
+    
+## LINK DATA TO THETA
+    for (o in 1:N) {
+        r[o] ~ dbin(theta[o],n[o])
+    }
+    
+## MODEL THETA
+    for (o in 1:N) {
+        logit(theta[o]) <- muA[t[o]] + etaA[s[o],t[o]]
+    }
+    
+## MODEL STUDY MAIN EFFECTS
+    ## (none)
+    
+## MODEL OVERALL TREATMENT MEANS
+    for (k in 1:NT) {
+        muA[k] ~ dnorm(0, 0.001)
+        ## useful summaries
+        muC[k] <- muA[k] - muA[1]
+    }
+    
+## MODEL HETEROGENEITY EFFECTS
+    for (i in 1:NS) { 
+        etaA[i,1:NT] ~ dmnorm(zero[1:NT], invSigmaA[1:NT,1:NT])
+    }
+    for (k in 1:NT) { 
+        zero[k] <- 0
+    }
+    
+## PRIOR FOR COMMON HETEROGENEITY VARIANCE
+    for (k in 1:NT) {
+        for (l in 1:NT) {
+            invSigmaA[k,l] <- (2/sigC2) * ( equals(k,l) - rho / (1-rho+NT*rho) )
+            ## exchangeable correlation structure
+        }
+    }
+    rho ~ dunif(0,1) ## correlation in compound symmetrical SigmaA
+    sigC2 <- pow(sigC,2)
+    sigC ~ dunif(0,10) ## contrast heterogeneity SD
+    ## useful summaries
+    sigA <- sqrt(sigC2 / (2*(1-rho))) ## arm heterogeneity SD
+
+}

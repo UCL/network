@@ -1,0 +1,57 @@
+## NMA MODEL AB2 WITH NON-COMMON HETEROGENEITY
+## WRITTEN BY NETWORK_BAYES.ADO AT 18:00:19 ON 22 Jun 2018 
+## In this code:
+##   Data s[], r[], n[] represent Stata variables study, d, n
+##   Scalars N=50, NS=24, NT=4 are #arms, #studies, #treatments
+
+model {
+    
+## LINK DATA TO THETA
+    for (o in 1:N) {
+        r[o] ~ dbin(theta[o],n[o])
+    }
+    
+## MODEL THETA
+    for (o in 1:N) {
+        logit(theta[o]) <- alphaA[s[o]] + muC[t[o]] + etaA[s[o],t[o]]
+    }
+    
+## MODEL STUDY MAIN EFFECTS
+    for (i in 1:NS) {
+        alphaA[i] ~ dnorm(0, 0.001)
+    }
+    
+## MODEL OVERALL TREATMENT EFFECTS
+    muC[1] <- 0
+    for (k in 2:NT) {
+        muC[k] ~ dnorm(0, 0.001)
+    }
+    
+## MODEL HETEROGENEITY EFFECTS
+    for (i in 1:NS) { 
+        etaA[i,1:NT] ~ dmnorm(zero[1:NT], invSigmaA[1:NT,1:NT])
+    }
+    for (k in 1:NT) { 
+        zero[k] <- 0
+    }
+    
+## PRIOR FOR NON-COMMON HETEROGENEITY VARIANCE
+    invSigmaA[1:NT,1:NT] ~ dwish(SigmaA.R[1:NT,1:NT], SigmaA.nu)
+    SigmaA.nu <- 4
+    SigmaA.f <- .1403648708917783
+    for (k in 1:NT) {
+        for (l in 1:NT) {
+            SigmaA.R[k,l] <- SigmaA.f * equals(k,l)
+        }
+    }
+    
+    ## useful summaries
+    SigmaA[1:NT,1:NT] <- inverse(invSigmaA[1:NT,1:NT])
+    for (k in 1:NT) {
+        for (l in 1:NT) {
+            sigC[k,l] <- sqrt(SigmaA[k,k]+SigmaA[l,l]-2*SigmaA[k,l])
+                ## contrast heterogeneity SD for k vs l
+        }
+    }
+
+}

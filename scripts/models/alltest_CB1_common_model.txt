@@ -1,0 +1,48 @@
+## NMA MODEL CB1 WITH COMMON HETEROGENEITY
+## WRITTEN BY NETWORK_BAYES.ADO AT 17:49:37 ON 22 Jun 2018 
+## In this code:
+##   Data s[], r[], n[] represent Stata variables study, d, n
+##   Scalars N=50, NS=24, NT=4 are #arms, #studies, #treatments
+
+model {
+    
+## LINK DATA TO THETA
+    for (o in 1:N) {
+        r[o] ~ dbin(theta[o],n[o])
+    }
+    
+## MODEL THETA
+    for (o in 1:N) {
+        logit(theta[o]) <- alphaA[s[o]] + deltaC[o]*(1-equals(t[o],b[o]))
+    }
+    
+## MODEL STUDY MAIN EFFECTS
+    for (i in 1:NS) {
+        alphaA[i] ~ dnorm(0, 0.001)
+    }
+    
+## MODEL OVERALL TREATMENT EFFECTS
+    muC[1] <- 0
+    for (k in 2:NT) {
+        muC[k] ~ dnorm(0, 0.001)
+    }
+    
+## MODEL HETEROGENEITY EFFECTS
+    for (o in 1:N) {
+        deltaC[o] ~ dnorm(md[o], taud[o])
+        md[o] <- muC[t[o]] - muC[b[o]] + offset[o]
+        taud[o] <- (1/sigC2) * (1 + step(m[o]-3)*(1-2/m[o]))
+        ## includes variance correction for multi-arm studies
+    }
+    ## mean correction for multi-arm studies
+    offset[1] <- 0
+    offset[2] <- 0
+    for (o in 3:N) {
+        offset[o] <- step(m[o]-3) * ( (m[o]-2)*offset[o-1] + (deltaC[o-1]-muC[t[o-1]]+muC[b[o-1]]) ) /(m[o]-1)
+    }
+    
+## PRIOR FOR COMMON HETEROGENEITY VARIANCE
+    sigC2 <- pow(sigC,2)
+    sigC ~ dunif(0,10) ## contrast heterogeneity SD
+
+}

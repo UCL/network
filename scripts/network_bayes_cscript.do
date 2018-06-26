@@ -12,7 +12,7 @@ which network
 which network_bayes
 
 
-local opts updates(1000) name(cscript) quit savedir(c:\temp\bugsfiles) clear
+local opts updates(10000) name(cscript) quit savedir(c:\temp\bugsfiles) clear
 
 set tracedepth 2
 set trace off
@@ -23,28 +23,26 @@ local muCprec 1
 // CHECK PRIORS: CH MODELS
 set seed 467164
 
-foreach model in CB1 CB2 AB2 CB3 AB4 {
+foreach model in 1CB 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
 	network bayes, model(`model') commonhet ///
-		muCprec(`muCprec') ///
-		prioronly sigCprior(dnorm(`pm',`=1/`psd'^2')) `opts'
-	ttest sigC==`pm'
+		muCprec(`muCprec') muAprec(`=`muCprec'*2') ///
+		prioronly sigCprior(dlnorm(`pm',`=1/`psd'^2')) `opts'
+	gen logsigC = log(sigC)
+	ttest logsigC==`pm'
 	assert r(p)>0.001
-	sdtest sigC==`psd'
+	sdtest logsigC==`psd'
 	assert r(p)>0.001
-	if "`model'"!="AB4" {
-		ttest muC_B_A==0
-		assert r(p)>0.001
-		sdtest muC_B_A==`=1/sqrt(`muCprec')'
-		assert r(p)>0.001
-	}
-	exit
+	ttest muC_B_A==0
+	assert r(p)>0.001
+	sdtest muC_B_A==`=1/sqrt(`muCprec')'
+	assert r(p)>0.001
 }
 
 // CHECK PRIORS: NCH MODELS
 set seed 571894198
-foreach model in CB2 AB2 CB3 AB4 {
+foreach model in 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
 	network bayes, model(`model') nocommonhet ///
@@ -58,7 +56,7 @@ local opts burnin(50000) updates(50000) thin(5) name(cscript) quit savedir(c:\te
 
 // CHECK SMOKING RESULTS: CH MODELS
 set seed 571894198
-foreach model in CB1 CB2 AB2 CB3 AB4 {
+foreach model in 1CB 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
 	network bayes, model(`model') commonhet `opts'
@@ -68,7 +66,7 @@ foreach model in CB1 CB2 AB2 CB3 AB4 {
 
 // CHECK SMOKING RESULTS: NCH MODELS
 set seed 571894198
-foreach model in CB2 AB2 CB3 AB4 {
+foreach model in 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
 	network bayes, model(`model') nocommonhet `opts'

@@ -1,0 +1,47 @@
+## NMA MODEL AB2 WITH COMMON HETEROGENEITY
+## WRITTEN BY NETWORK_BAYES.ADO AT 17:58:40 ON 22 Jun 2018 
+## In this code:
+##   Data s[], r[], n[] represent Stata variables study, d, n
+##   Scalars N=50, NS=24, NT=4 are #arms, #studies, #treatments
+
+model {
+    
+## LINK DATA TO THETA
+    for (o in 1:N) {
+        r[o] ~ dbin(theta[o],n[o])
+    }
+    
+## MODEL THETA
+    for (o in 1:N) {
+        logit(theta[o]) <- alphaA[s[o]] + muC[t[o]] + etaA[s[o],t[o]]
+    }
+    
+## MODEL STUDY MAIN EFFECTS
+    for (i in 1:NS) {
+        alphaA[i] ~ dnorm(0, 0.001)
+    }
+    
+## MODEL OVERALL TREATMENT EFFECTS
+    muC[1] <- 0
+    for (k in 2:NT) {
+        muC[k] ~ dnorm(0, 0.001)
+    }
+    
+## MODEL HETEROGENEITY EFFECTS
+    for (i in 1:NS) { 
+        etaA[i,1:NT] ~ dmnorm(zero[1:NT], invSigmaA[1:NT,1:NT])
+    }
+    for (k in 1:NT) { 
+        zero[k] <- 0
+    }
+    
+## PRIOR FOR COMMON HETEROGENEITY VARIANCE
+    for (k in 1:NT) {
+        for (l in 1:NT) {
+            invSigmaA[k,l] <- 2 * equals(k,l) / sigC2
+        }
+    }
+    sigC2 <- pow(sigC,2)
+    sigC ~ dunif(0,10) ## contrast heterogeneity SD
+
+}

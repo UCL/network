@@ -1,10 +1,12 @@
 /*
 *! Ian White - 21jun2018
+23jun2018
+	rename CB1 as 1CB, etc.
 22jun2018
 	sigC is default output instead of sigC2
 	ditto sigA
 21jun2018
-	add model AB2 = arm-based model of Piepho et al (2012)
+	add model 2AB = arm-based model of Piepho et al (2012)
 	rename AB as AB4
 	simplify inits using new subroutine writeinits
 	NB wbstats now copes with parm or parm* - need to check
@@ -59,7 +61,7 @@ TO DO
     optionally output all differences (e.g. C-B)
     slicker names for graphs - requires parsing `trace2' to detect cgoptions()
 	make it store name for future reference - but not as rclass (which is where wbstats are returned)
-	drop gen.inits() - FIND  OUT WHY IT'S NEEDED FOR MODEL(CB3)
+	drop gen.inits() - FIND  OUT WHY IT'S NEEDED FOR MODEL(3CB)
 	need to save results for replay mode (fails for ABc model)
 	utility to look at logsigC instead of sigC?
 	should default name = model?
@@ -140,7 +142,7 @@ else {
 }
 local filepath `filepath'/
 
-local modellist CB1 CB2 CB3 AB2 AB4
+local modellist 1CB 2CB 3CB 2AB 4AB
 if !`: list model in modellist' {
     di as error "Model `model' not yet allowed"
     exit 198
@@ -149,14 +151,14 @@ if !`: list model in modellist' {
 local commonhet = mi("`commonhet'") 
 local commonhetname = cond(`commonhet',"Common","Non-common")
 local commonhetabb = cond(`commonhet',"CH","NCH")
-if inlist("`model'", "CB1") & !`commonhet' {
-	di as error "Option nocommonhet not allowed with model CB1"
+if inlist("`model'", "1CB") & !`commonhet' {
+	di as error "Option nocommonhet not allowed with model 1CB"
 	exit 198
 }
 if mi("`quitbugs'") local timer notimer
 
 * parms to monitor
-local setsigA  = ("`model'"=="AB" & `commonhet') | "`model'"=="CB3"
+local setsigA  = ("`model'"=="AB" & `commonhet') | "`model'"=="3CB"
 local setSigmaA = "`model'"=="AB" & !`commonhet'
 
 if !mi("`prioronly'") {
@@ -203,17 +205,17 @@ if "`model'"!="" {
 	local modelparms alphaA muA muC sigA sigC logsigA logsigC df rho // need priors if present
 	local modelparmsnoprior deltaC etaA // don't need priors if present
 	* which parameters are used
-	local hasalphaA  = inlist("`model'","CB1","CB2","AB2") 
-	local hasmuA     = inlist("`model'","AB2","CB3","AB4") 
-	local hasmuC     = !inlist("`model'","AB4")
-	local hassigA    = inlist("`model'","CB3")
+	local hasalphaA  = inlist("`model'","1CB","2CB","2AB") 
+	local hasmuA     = inlist("`model'","2AB","3CB","4AB") 
+	local hasmuC     = !inlist("`model'","4AB")
+	local hassigA    = inlist("`model'","3CB")
 	local hassigC    = `commonhet'
-	local haslogsigA = inlist("`model'","AB4") & !`commonhet'
+	local haslogsigA = inlist("`model'","4AB") & !`commonhet'
 	local haslogsigC = !`commonhet'
 	local hasdf      = !`commonhet'
-	local hasrho     = inlist("`model'","AB4") & `commonhet'
-	local hasdeltaC  = inlist("`model'","CB1","CB2","CB3")
-	local hasetaA    = inlist("`model'","AB2","AB4") 
+	local hasrho     = inlist("`model'","4AB") & `commonhet'
+	local hasdeltaC  = inlist("`model'","1CB","2CB","3CB")
+	local hasetaA    = inlist("`model'","2AB","4AB") 
 	* how their priors are specified
 	local alphaAspec  prec  
 	local muAspec     prec     
@@ -236,7 +238,7 @@ if "`model'"!="" {
 	local sigCdefault     dunif(0,10)
 	local logsigCdefault  0
 	local logsigAdefault  0
-	local dfdefault       = `NT' - 1 + inlist("`model'","AB2","AB4")
+	local dfdefault       = `NT' - 1 + inlist("`model'","2AB","4AB")
 	local rhodefault      dunif(0,1)
 	* check on code
 	foreach parm of local modelparms {
@@ -345,7 +347,7 @@ if "`model'"!="" {
     else if "`outcome'" == "quantitative" local vars2 mean sd n
 	rename (`studyvar' `trtvar' `vars') (s t `vars2')
 	sort s t
-    if "`model'"=="CB1" {
+    if "`model'"=="1CB" {
     	egen b=min(t), by(s)
     	by s: gen m = _n
     	summ m, meanonly
@@ -398,13 +400,13 @@ if "`model'"!="" {
 	if !mi("`link'") `fwm2' "`link'(theta[o]) <- "
 	else `fwm2' "theta[o] <- "
 	if "`prioronly'"=="prioronly" `fwm' "0*(" 
-	if "`model'"=="CB1" {
+	if "`model'"=="1CB" {
 		`fwm' "alphaA[s[o]] + deltaC[o]*(1-equals(t[o],b[o]))" 
     }
-	else if "`model'"=="AB2" {
+	else if "`model'"=="2AB" {
 		`fwm' "alphaA[s[o]] + muC[t[o]] + etaA[s[o],t[o]]" 
     }
-	else if "`model'"=="AB4" {
+	else if "`model'"=="4AB" {
 		`fwm' "muA[t[o]] + etaA[s[o],t[o]]" 
     }
 	else {
@@ -415,12 +417,12 @@ if "`model'"!="" {
     `fwm1' "}" _n
 	
 	`fwm1' _n "## MODEL STUDY MAIN EFFECTS" _n
-	if inlist("`model'","CB1","CB2","AB2") {
+	if inlist("`model'","1CB","2CB","2AB") {
 		`fwm1' "for (i in 1:NS) {" _n
 		`fwm2' "alphaA[i] ~ dnorm(0, `alphaAprec')" _n
 		`fwm1' "}" _n
 	}
-	else if "`model'"=="CB3" {
+	else if "`model'"=="3CB" {
 		`fwm1' "for (i in 1:NS) {" _n
 		`fwm2' "alphaA[i] ~ dnorm(muA, invsigA2)" _n
 		`fwm1' "}" _n
@@ -435,11 +437,11 @@ if "`model'"!="" {
 			`fwm1' "sigA ~ `sigAprior'" _n
 		}
 	}
-	else if "`model'"=="AB4" {
+	else if "`model'"=="4AB" {
 		`fwm1' "## (none)" _n
 	}
 
-	if "`model'"!="AB4" {
+	if "`model'"!="4AB" {
 		`fwm1' _n "## MODEL OVERALL TREATMENT EFFECTS" _n
 		`fwm1' "muC[1] <- 0" _n
 		`fwm1' "for (k in 2:NT) {" _n
@@ -457,7 +459,7 @@ if "`model'"!="" {
 
 
 	`fwm1' _n "## MODEL HETEROGENEITY EFFECTS" _n
-	if "`model'"=="CB1" {
+	if "`model'"=="1CB" {
 		`fwm1' "for (o in 1:N) {" _n
 		`fwm2' "deltaC[o] ~ dnorm(md[o], taud[o])" _n
 		if `mmax'==2 `fwm2' "md[o] <- muC[t[o]] - muC[b[o]]" _n
@@ -477,7 +479,7 @@ if "`model'"!="" {
 			`fwm1' "}" _n
 		}
     }
-	else if inlist("`model'","AB2","AB4") {
+	else if inlist("`model'","2AB","4AB") {
 	    `fwm1' "for (i in 1:NS) { " _n
         `fwm2' "etaA[i,1:NT] ~ dmnorm(zero[1:NT], invSigmaA[1:NT,1:NT])" _n
     	`fwm1' "}" _n
@@ -494,14 +496,14 @@ if "`model'"!="" {
 
 	if `commonhet' {
 		`fwm1' _n "## PRIOR FOR COMMON HETEROGENEITY VARIANCE" _n
-		if inlist("`model'","CB1") {
+		if inlist("`model'","1CB") {
 			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
 			else {
 				`fwm1' "sigC2 <- pow(sigC,2)" _n
 				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 			}
 		}
-		else if inlist("`model'","CB2","CB3") {
+		else if inlist("`model'","2CB","3CB") {
 			`fwm1' "for (k in 1:NT-1) {" _n
 			`fwm2' "for (l in 1:NT-1) {" _n
 			`fwm3' "invSigmaC[k,l] <- 2 * (equals(k,l) - 1/NT) / sigC2" _n // invsigC2*inv(P)
@@ -516,7 +518,7 @@ if "`model'"!="" {
 				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 			}
 	   }
-		else if inlist("`model'","AB2") {
+		else if inlist("`model'","2AB") {
 			`fwm1' "for (k in 1:NT) {" _n
 			`fwm2' "for (l in 1:NT) {" _n
 			`fwm3' "invSigmaA[k,l] <- 2 * equals(k,l) / sigC2" _n 
@@ -528,7 +530,7 @@ if "`model'"!="" {
 				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
 			}
 	   }
-		else if inlist("`model'","AB4") {
+		else if inlist("`model'","4AB") {
 			`fwm1' "for (k in 1:NT) {" _n
 			`fwm2' "for (l in 1:NT) {" _n
 			`fwm3' "invSigmaA[k,l] <- (2/sigC2) * ( equals(k,l) - rho / (1-rho+NT*rho) )" _n
@@ -548,7 +550,7 @@ if "`model'"!="" {
 	}
 	else {
 		`fwm1' _n "## PRIOR FOR NON-COMMON HETEROGENEITY VARIANCE" _n
-		if inlist("`model'","CB2","CB3") {
+		if inlist("`model'","2CB","3CB") {
 			if `df'==0 {
 				di as text "Taking df=NT-1"
 				local df = `NT'-1
@@ -581,7 +583,7 @@ if "`model'"!="" {
 			`fwm2' "}" _n
 			`fwm1' "}" _n 
 		}
-		else if inlist("`model'","AB2") {
+		else if inlist("`model'","2AB") {
 			if `df'==0 {
 				di as text "Taking df=NT"
 				local df = `NT'
@@ -609,7 +611,7 @@ if "`model'"!="" {
 			`fwm2' "}" _n
 			`fwm1' "}" _n
 		}
-		else if inlist("`model'","AB4") {
+		else if inlist("`model'","4AB") {
 			if `df'==0 {
 				di as text "Taking df=NT"
 				local df = `NT'
@@ -672,8 +674,8 @@ if "`model'"!="" {
 	* inits for alphaA/muA
 	if `hasalphaA' writeinits alphaA, dim(`NS')
 	if `hasmuA' {
-		if "`model'"=="CB3" writeinits muA
-		else if "`model'"=="AB4" writeinits muA, dim(`NT')
+		if "`model'"=="3CB" writeinits muA
+		else if "`model'"=="4AB" writeinits muA, dim(`NT')
 	}
 	* inits for muC
 	if `hasmuC' writeinits muC, dim(`NT') na(1)
@@ -682,7 +684,7 @@ if "`model'"!="" {
 	if `hasetaA' writeinits etaA, dim(`NS',`NT') 
 	* inits for deltaC
 	if `hasdeltaC' {
-		if "`model'" == "CB1" writeinits deltaC, dim(`N')
+		if "`model'" == "1CB" writeinits deltaC, dim(`N')
 		else writeinits deltaC, dim(`NS',`NT') na(.,1) 
 	}
 	* inits for invSigmaA
@@ -767,14 +769,14 @@ if "`model'"!="" {
     	rename muC_`i' muC_`trt`i''_`ref'
     	label var muC_`trt`i''_`ref' "Mean diff `trt`i'' vs `ref'"
     }
-    if "`model'"=="AB4" {
+    if "`model'"=="4AB" {
         drop muC_1 
 		if !`commonhet' drop sigC_1_1
     }
     if !`commonhet' { // assumes sigC is a NT by NT matrix
         forvalues i = 1/`NT' {
             forvalues j = 1/`NT' {
-                if `i'==1 & `j'==1 & "`model'"!="AB2" continue
+                if `i'==1 & `j'==1 & "`model'"!="2AB" continue
                 rename sigC_`i'_`j' sigC_`trt`i''_`trt`j''
                 label var sigC_`trt`i''_`trt`j'' "Het SD, contrast `trt`j'' vs `trt`i''"
                 if `j'<=`i' drop sigC_`trt`i''_`trt`j''
