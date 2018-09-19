@@ -1,5 +1,8 @@
 /*
-*! Ian White - 21jun2018
+*! Ian White 19sep2018
+
+19sep2018 
+	allowed model(#) as shortcut for model(#XX) to match code in abcb paper
 23jun2018
 	rename CB1 as 1CB, etc.
 22jun2018
@@ -142,11 +145,17 @@ else {
 }
 local filepath `filepath'/
 
+* models
+if "`model'"=="1" local model 1CB
+if "`model'"=="2" local model 2CB
+if "`model'"=="3" local model 3CB
+if "`model'"=="4" local model 4AB
 local modellist 1CB 2CB 3CB 2AB 4AB
 if !`: list model in modellist' {
     di as error "Model `model' not yet allowed"
     exit 198
 }
+
 * recode commonhet as 0/1
 local commonhet = mi("`commonhet'") 
 local commonhetname = cond(`commonhet',"Common","Non-common")
