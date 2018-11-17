@@ -1,4 +1,5 @@
 /*
+17nov2018 Improved error message when no source of inconsistency or heterogeneity
 31may2018
 	bug fix (introduced 29jun2017): 
 		with nested treatment codes, if working in standard & pairs formats, 
@@ -97,9 +98,9 @@ else if `ncomponents'>1 {
 }
 if mi("`df_inconsistency'") di as error "Warning: can't check df for inconsistency"
 else if `df_inconsistency'==0 & "`model'"=="inconsistency" {
-    if mi("`force'") | `warn' di as error "Warning: inconsistency model requested, but there is no source of inconsistency" 
+    if mi("`force'") | `warn' di as error "Warning: inconsistency model requested, but your data contain no potential source of inconsistency" 
     if mi("`force'") {
-        di as error "(Use force option to override - at your own risk)"
+        di as error "(Use the force option to override - at your own risk)"
         exit 498
     }
 }
@@ -108,9 +109,9 @@ else if `df_heterogeneity'==0 {
 	local bscov1=word("`bscovariance'",1)
 	if !mi("`bscov1'") & "`bscov1'"==substr("equals",1,length("`bscov1'")) local bscov1 equals
 	if mi("`fixed'") & "`bscov1'"!="equals" {
-        if mi("`force'") | `warn' di as error "Warning: heterogeneity model requested, but there is no source of heterogeneity: consider the fixed option"
+        if mi("`force'") | `warn' di as error "Warning: heterogeneity model requested, but your data contain no potential source of heterogeneity" _n "Consider using the fixed option"
         if mi("`force'") {
-            di as error "(Use force option to override - at your own risk)"
+            di as error "(Use the force option to override - at your own risk)"
             exit 498
         }
     }
