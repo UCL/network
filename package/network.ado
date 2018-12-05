@@ -1,5 +1,7 @@
 /*
-*! version 1.5.1 # Ian White # 9may2018 
+*! version 1.5.2 # Ian White # 5dec2018 
+	network which continues if file not found
+version 1.5.1 # Ian White # 9may2018 
 	citation added to help file
 	bug fix to network sidesplit, bscovariance()
 version 1.5.0 # Ian White # 6apr2018 
@@ -82,7 +84,7 @@ if mi("`anything'") {
 if "`anything'"=="which" {
 	which network
 	foreach subcmd of local subcmds {
-		which network_`subcmd'
+		cap noi which network_`subcmd'
 	}
 	exit
 }
