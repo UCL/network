@@ -1,6 +1,8 @@
 /*
 *! version 1.5.2 # Ian White # 5dec2018 
-	network which continues if file not found
+	network which:
+		continues if file not found
+		also checks mvmeta
 version 1.5.1 # Ian White # 9may2018 
 	citation added to help file
 	bug fix to network sidesplit, bscovariance()
@@ -86,6 +88,8 @@ if "`anything'"=="which" {
 	foreach subcmd of local subcmds {
 		cap noi which network_`subcmd'
 	}
+	di
+	which mvmeta
 	exit
 }
 
