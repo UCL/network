@@ -1,0 +1,1082 @@
+-------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\ado\ian\network\scripts\bayes_test_each_model.log
+  log type:  text
+ opened on:   4 Apr 2019, 12:25:20
+Log file bayes_test_each_model.log opened on  4 Apr 2019 at 12:25:20
+
+. /* network bayes: test each model 
+> Draw from the priors as an easy way to test the models
+> Use simplified priors 
+> */
+. pda
+
+. use "C:\copyofN\ABCB\analysis\hyp18\hyp186a.dta", clear
+(Hypothetical data 6a for ABCB August 2017)
+
+. network setup d n, studyvar(study)
+Treatments used
+   A (reference):                      1
+   B:                                  2
+   C:                                  3
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        11
+   IDs with zero cells:                [none]
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             0
+   D.f. for heterogeneity:             9
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. save c:\temp\network_bayes_test, replace
+file c:\temp\network_bayes_test.dta saved
+
+. 
+. local opts savedir(c:\temp\bugsfiles) burnin(0) updates(1000) thin(1) quit clear
+
+. 
+. #delimit ;
+delimiter now ;
+. * Model 1CB/CH;
+. foreach prior in sigCprior(dlnorm(-1,4)) sigC2prior(dlnorm(-2,1)) {;
+  2. use c:\temp\network_bayes_test, clear;
+  3. network bayes, model(1CB) name(model1CB) commonhet prioronly 
+>         `prior' `opts'
+> ;
+  4. cap gen sigC=sqrt(sigC2);
+  5. cap gen sigC2=sigC^2;
+  6. for var sig*: gen logX=log(X);
+  7. summ logsigC logsigC2;
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        1CB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model1CB_data.txt
+                  scalars to c:\temp\bugsfiles/model1CB_scalars.txt
+                  inits to c:\temp\bugsfiles/model1CB_inits.txt
+                  model to c:\temp\bugsfiles/model1CB_model.txt
+                  script to c:\temp\bugsfiles/model1CB_script.txt
+Running Winbugs ... finished (run time 2.217 seconds)
+Bugs output saved in c:\temp\bugsfiles/model1CB_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.239  31.599  0.9656  -0.326 ( -61.388,  61.137 )
+muC_C_A       1000   1.142  31.529  1.0228   1.342 ( -63.409,  62.057 )
+sigC          1000   0.423   0.231  0.0073   0.366 (   0.143,   1.007 )
+Bugs output is now loaded into memory
+
+->  gen logsigC=log(sigC)
+
+->  gen logsigC2=log(sigC2)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigC |      1,000   -.9930185    .5141234   -2.90644   .6178847
+    logsigC2 |      1,000   -1.986037    1.028247  -5.812881   1.235769
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        1CB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigC2prior:                   dlnorm(-2,1)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model1CB_data.txt
+                  scalars to c:\temp\bugsfiles/model1CB_scalars.txt
+                  inits to c:\temp\bugsfiles/model1CB_inits.txt
+                  model to c:\temp\bugsfiles/model1CB_model.txt
+                  script to c:\temp\bugsfiles/model1CB_script.txt
+Running Winbugs ... finished (run time 2.183 seconds)
+Bugs output saved in c:\temp\bugsfiles/model1CB_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.239  31.599  0.9656  -0.326 ( -61.388,  61.137 )
+muC_C_A       1000   1.142  31.529  1.0228   1.342 ( -63.409,  62.057 )
+sigC          1000   0.423   0.231  0.0073   0.366 (   0.143,   1.007 )
+Bugs output is now loaded into memory
+
+->  gen logsigC=log(sigC)
+
+->  gen logsigC2=log(sigC2)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigC |      1,000   -.9930185    .5141234   -2.90644   .6178847
+    logsigC2 |      1,000   -1.986037    1.028247  -5.812881   1.235769
+
+. * Model 2CB/CH;
+. #delimit ;
+delimiter now ;
+. foreach prior in sigCprior(dlnorm(-1,4)) sigC2prior(dlnorm(-2,1)) {;
+  2. use c:\temp\network_bayes_test, clear;
+  3. network bayes, model(2CB) name(model2CB_CH) commonhet prioronly 
+>         `prior' `opts'
+> ;
+  4. cap gen sigC=sqrt(sigC2);
+  5. cap gen sigC2=sigC^2;
+  6. for var sig*: gen logX=log(X);
+  7. summ logsigC logsigC2;
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2CB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model2CB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2CB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model2CB_CH_model.txt
+                  script to c:\temp\bugsfiles/model2CB_CH_script.txt
+Running Winbugs ... finished (run time 2.2 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2CB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.239  31.599  0.9656  -0.326 ( -61.388,  61.137 )
+muC_C_A       1000   1.142  31.529  1.0228   1.342 ( -63.409,  62.057 )
+sigC          1000   0.423   0.231  0.0073   0.366 (   0.143,   1.007 )
+Bugs output is now loaded into memory
+
+->  gen logsigC=log(sigC)
+
+->  gen logsigC2=log(sigC2)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigC |      1,000   -.9930185    .5141234   -2.90644   .6178847
+    logsigC2 |      1,000   -1.986037    1.028247  -5.812881   1.235769
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigC2prior:                   dlnorm(-2,1)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2CB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model2CB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2CB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model2CB_CH_model.txt
+                  script to c:\temp\bugsfiles/model2CB_CH_script.txt
+Running Winbugs ... finished (run time 2.187 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2CB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.239  31.599  0.9656  -0.326 ( -61.388,  61.137 )
+muC_C_A       1000   1.142  31.529  1.0228   1.342 ( -63.409,  62.057 )
+sigC          1000   0.423   0.231  0.0073   0.366 (   0.143,   1.007 )
+Bugs output is now loaded into memory
+
+->  gen logsigC=log(sigC)
+
+->  gen logsigC2=log(sigC2)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigC |      1,000   -.9930185    .5141234   -2.90644   .6178847
+    logsigC2 |      1,000   -1.986037    1.028247  -5.812881   1.235769
+
+. * Model 2CB/NCH;
+. #delimit ;
+delimiter now ;
+. foreach prior in logsigCmean(-1) logsigC2mean(-2) {;
+  2. use c:\temp\network_bayes_test, clear;
+  3. network bayes, model(2CB) name(model2CB_NCH) nocommonhet prioronly 
+>         `prior' `opts'
+> ;
+  4. for var sig*: gen logX=log(X);
+  5. summ log*;
+  6. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  -1
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2CB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model2CB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2CB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model2CB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model2CB_NCH_script.txt
+Running Winbugs ... finished (run time 2.193 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2CB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.508  29.744  0.9394   0.787 ( -57.632,  60.374 )
+muC_C_A       1000  -0.419  30.622  0.9423  -0.427 ( -61.301,  62.725 )
+sigC_A_B      1000   1.745  15.830  0.4978   0.289 (   0.081,   7.074 )
+sigC_A_C      1000   1.275   7.941  0.2489   0.282 (   0.084,   7.059 )
+sigC_B_C      1000   1.642  20.472  0.6459   0.282 (   0.088,   5.385 )
+Bugs output is now loaded into memory
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logsigC_A_B |      1,000   -.9970388    1.168499  -2.811246   6.008567
+ logsigC_A_C |      1,000   -1.016955    1.120946  -2.746687   5.344724
+ logsigC_B_C |      1,000   -1.029592    1.080339  -2.814578   6.424058
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+logsigC2mean:                 -2
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2CB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model2CB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2CB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model2CB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model2CB_NCH_script.txt
+Running Winbugs ... finished (run time 2.193 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2CB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.508  29.744  0.9394   0.787 ( -57.632,  60.374 )
+muC_C_A       1000  -0.419  30.622  0.9423  -0.427 ( -61.301,  62.725 )
+sigC_A_B      1000   1.745  15.830  0.4978   0.289 (   0.081,   7.074 )
+sigC_A_C      1000   1.275   7.941  0.2489   0.282 (   0.084,   7.059 )
+sigC_B_C      1000   1.642  20.472  0.6459   0.282 (   0.088,   5.385 )
+Bugs output is now loaded into memory
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logsigC_A_B |      1,000   -.9970388    1.168499  -2.811246   6.008567
+ logsigC_A_C |      1,000   -1.016955    1.120946  -2.746687   5.344724
+ logsigC_B_C |      1,000   -1.029592    1.080339  -2.814578   6.424058
+
+. * Model 2AB/CH;
+. #delimit ;
+delimiter now ;
+. foreach prior in sigCprior(dlnorm(-1,4)) sigC2prior(dlnorm(-2,1)) {;
+  2. use c:\temp\network_bayes_test, clear;
+  3. network bayes, model(2AB) name(model2AB_CH) commonhet prioronly 
+>         `prior' `opts'
+> ;
+  4. cap gen sigC=sqrt(sigC2);
+  5. cap gen sigC2=sigC^2;
+  6. for var sig*: gen logX=log(X);
+  7. summ logsig*;
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2AB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model2AB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2AB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model2AB_CH_model.txt
+                  script to c:\temp\bugsfiles/model2AB_CH_script.txt
+Running Winbugs ... finished (run time 2.201 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2AB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   1.495  30.250  0.9690   0.457 ( -58.632,  63.272 )
+muC_C_A       1000   0.182  30.899  0.9550   0.915 ( -62.234,  57.933 )
+sigC          1000   0.415   0.229  0.0072   0.370 (   0.133,   1.015 )
+Bugs output is now loaded into memory
+
+->  gen logsigC=log(sigC)
+
+->  gen logsigC2=log(sigC2)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigC |      1,000   -1.003351    .4952531    -2.5138   .8561161
+    logsigC2 |      1,000   -2.006702    .9905061    -5.0276   1.712232
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigC2prior:                   dlnorm(-2,1)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2AB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model2AB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2AB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model2AB_CH_model.txt
+                  script to c:\temp\bugsfiles/model2AB_CH_script.txt
+Running Winbugs ... finished (run time 2.194 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2AB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   1.495  30.250  0.9690   0.457 ( -58.632,  63.272 )
+muC_C_A       1000   0.182  30.899  0.9550   0.915 ( -62.234,  57.933 )
+sigC          1000   0.415   0.229  0.0072   0.370 (   0.133,   1.015 )
+Bugs output is now loaded into memory
+
+->  gen logsigC=log(sigC)
+
+->  gen logsigC2=log(sigC2)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigC |      1,000   -1.003351    .4952531    -2.5138   .8561161
+    logsigC2 |      1,000   -2.006702    .9905061    -5.0276   1.712232
+
+. * Model 2AB/NCH;
+. #delimit ;
+delimiter now ;
+. foreach prior in logsigCmean(-1) logsigC2mean(-2) {;
+  2. use c:\temp\network_bayes_test, clear;
+  3. network bayes, model(2AB) name(model2AB_NCH) nocommonhet prioronly 
+>         `prior' `opts'
+> ;
+  4. cap gen sigC=sqrt(sigC2);
+  5. cap gen sigC2=sigC^2;
+  6. for var sig*: gen logX=log(X);
+  7. summ logsig*;
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  -1
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2AB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model2AB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2AB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model2AB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model2AB_NCH_script.txt
+Running Winbugs ... finished (run time 2.192 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2AB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.475  30.888  0.9754   0.742 ( -61.781,  60.843 )
+muC_C_A       1000  -1.104  30.160  0.9683  -1.454 ( -58.878,  59.427 )
+sigC_A_B      1000   1.625  14.485  0.4552   0.288 (   0.085,   8.453 )
+sigC_A_C      1000   1.940  28.489  0.8986   0.275 (   0.091,   5.823 )
+sigC_B_C      1000   1.440  15.407  0.4854   0.278 (   0.089,   6.660 )
+Bugs output is now loaded into memory
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logsigC_A_B |      1,000   -.9830335    1.143083  -2.824977   6.033086
+ logsigC_A_C |      1,000   -.9825981    1.135482  -2.929757   6.793578
+ logsigC_B_C |      1,000   -.9997895    1.099602  -2.696517   6.163525
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+logsigC2mean:                 -2
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model2AB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model2AB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model2AB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model2AB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model2AB_NCH_script.txt
+Running Winbugs ... finished (run time 2.193 seconds)
+Bugs output saved in c:\temp\bugsfiles/model2AB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.475  30.888  0.9754   0.742 ( -61.781,  60.843 )
+muC_C_A       1000  -1.104  30.160  0.9683  -1.454 ( -58.878,  59.427 )
+sigC_A_B      1000   1.625  14.485  0.4552   0.288 (   0.085,   8.453 )
+sigC_A_C      1000   1.940  28.489  0.8986   0.275 (   0.091,   5.823 )
+sigC_B_C      1000   1.440  15.407  0.4854   0.278 (   0.089,   6.660 )
+Bugs output is now loaded into memory
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logsigC_A_B |      1,000   -.9830335    1.143083  -2.824977   6.033086
+ logsigC_A_C |      1,000   -.9825981    1.135482  -2.929757   6.793578
+ logsigC_B_C |      1,000   -.9997895    1.099602  -2.696517   6.163525
+
+. * Model 3CB/CH;
+. #delimit ;
+delimiter now ;
+. foreach prior in sigCprior(dlnorm(-1,4)) sigC2prior(dlnorm(-2,1)) {;
+  2. foreach priorA in sigAprior(dlnorm(-0.5,4)) sigA2prior(dlnorm(-1,1)) {;
+  3. use c:\temp\network_bayes_test, clear;
+  4. network bayes, model(3CB) name(model3CB_CH) commonhet prioronly 
+>         `prior' `priorA' `opts'
+> ;
+  5. for var sig*: gen logX=log(X);
+  6. summ logsig*;
+  7. };
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dlnorm(-0.5,4)
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_CH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_CH_script.txt
+Running Winbugs ... finished (run time 2.196 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.077  31.819  1.0109  -1.859 ( -60.817,  62.007 )
+muC_C_A       1000  -1.137  30.841  0.9522  -1.536 ( -59.040,  57.976 )
+sigC          1000   0.416   0.222  0.0072   0.361 (   0.149,   1.041 )
+sigA_A        1000   0.681   0.370  0.0116   0.593 (   0.211,   1.639 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC=log(sigC)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5152495    .5128786  -2.371828   1.010873
+     logsigC |      1,000   -1.000343    .4895624  -2.507889   .4440446
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigA2prior:                   dlnorm(-1,1)
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_CH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_CH_script.txt
+Running Winbugs ... finished (run time 2.307 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.077  31.819  1.0109  -1.859 ( -60.817,  62.007 )
+muC_C_A       1000  -1.137  30.841  0.9522  -1.536 ( -59.040,  57.976 )
+sigC          1000   0.416   0.222  0.0072   0.361 (   0.149,   1.041 )
+sigA_A        1000   0.681   0.370  0.0116   0.593 (   0.211,   1.639 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC=log(sigC)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5152495    .5128786  -2.371828   1.010873
+     logsigC |      1,000   -1.000343    .4895624  -2.507889   .4440446
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dlnorm(-0.5,4)
+sigC2prior:                   dlnorm(-2,1)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_CH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_CH_script.txt
+Running Winbugs ... finished (run time 2.303 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.077  31.819  1.0109  -1.859 ( -60.817,  62.007 )
+muC_C_A       1000  -1.137  30.841  0.9522  -1.536 ( -59.040,  57.976 )
+sigC          1000   0.416   0.222  0.0072   0.361 (   0.149,   1.041 )
+sigA_A        1000   0.681   0.370  0.0116   0.593 (   0.211,   1.639 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC=log(sigC)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5152495    .5128786  -2.371828   1.010873
+     logsigC |      1,000   -1.000343    .4895624  -2.507889   .4440446
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigA2prior:                   dlnorm(-1,1)
+sigC2prior:                   dlnorm(-2,1)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_CH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_CH_script.txt
+Running Winbugs ... finished (run time 2.198 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000   0.077  31.819  1.0109  -1.859 ( -60.817,  62.007 )
+muC_C_A       1000  -1.137  30.841  0.9522  -1.536 ( -59.040,  57.976 )
+sigC          1000   0.416   0.222  0.0072   0.361 (   0.149,   1.041 )
+sigA_A        1000   0.681   0.370  0.0116   0.593 (   0.211,   1.639 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC=log(sigC)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5152495    .5128786  -2.371828   1.010873
+     logsigC |      1,000   -1.000343    .4895624  -2.507889   .4440446
+
+. * Model 3CB/NCH;
+. #delimit ;
+delimiter now ;
+. foreach prior in logsigCmean(-1) logsigC2mean(-2) {;
+  2. foreach priorA in sigAprior(dlnorm(-0.5,4)) sigA2prior(dlnorm(-1,1)) {;
+  3. use c:\temp\network_bayes_test, clear;
+  4. network bayes, model(3CB) name(model3CB_NCH) nocommonhet prioronly 
+>         `prior' `priorA' `opts'
+> ;
+  5. for var sig*: gen logX=log(X);
+  6. summ logsig*;
+  7. };
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dlnorm(-0.5,4)
+logsigCmean:                  -1
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_NCH_script.txt
+Running Winbugs ... finished (run time 2.309 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.544  31.615  0.9896  -0.062 ( -64.785,  60.015 )
+muC_C_A       1000  -0.135  31.942  1.0087  -0.317 ( -63.403,  62.148 )
+sigC_A_B      1000   1.403   9.250  0.2942   0.297 (   0.086,   6.426 )
+sigC_A_C      1000   1.441   9.457  0.2964   0.282 (   0.087,   5.870 )
+sigC_B_C      1000   1.339   7.331  0.2322   0.305 (   0.086,   7.302 )
+sigA_A        1000   0.692   0.372  0.0121   0.607 (   0.206,   1.747 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.4999854    .5166515  -2.321157   1.072268
+ logsigC_A_B |      1,000   -.9842501    1.116285  -2.704257   5.377129
+ logsigC_A_C |      1,000   -1.006398    1.119466  -2.786444   5.269403
+ logsigC_B_C |      1,000   -.9948891    1.123178  -2.739851   4.973971
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigA2prior:                   dlnorm(-1,1)
+logsigCmean:                  -1
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_NCH_script.txt
+Running Winbugs ... finished (run time 2.202 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.544  31.615  0.9896  -0.062 ( -64.785,  60.015 )
+muC_C_A       1000  -0.135  31.942  1.0087  -0.317 ( -63.403,  62.148 )
+sigC_A_B      1000   1.403   9.250  0.2942   0.297 (   0.086,   6.426 )
+sigC_A_C      1000   1.441   9.457  0.2964   0.282 (   0.087,   5.870 )
+sigC_B_C      1000   1.339   7.331  0.2322   0.305 (   0.086,   7.302 )
+sigA_A        1000   0.692   0.372  0.0121   0.607 (   0.206,   1.747 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.4999854    .5166515  -2.321157   1.072268
+ logsigC_A_B |      1,000   -.9842501    1.116285  -2.704257   5.377129
+ logsigC_A_C |      1,000   -1.006398    1.119466  -2.786444   5.269403
+ logsigC_B_C |      1,000   -.9948891    1.123178  -2.739851   4.973971
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dlnorm(-0.5,4)
+logsigC2mean:                 -2
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_NCH_script.txt
+Running Winbugs ... finished (run time 2.304 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.544  31.615  0.9896  -0.062 ( -64.785,  60.015 )
+muC_C_A       1000  -0.135  31.942  1.0087  -0.317 ( -63.403,  62.148 )
+sigC_A_B      1000   1.403   9.250  0.2942   0.297 (   0.086,   6.426 )
+sigC_A_C      1000   1.441   9.457  0.2964   0.282 (   0.087,   5.870 )
+sigC_B_C      1000   1.339   7.331  0.2322   0.305 (   0.086,   7.302 )
+sigA_A        1000   0.692   0.372  0.0121   0.607 (   0.206,   1.747 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.4999854    .5166515  -2.321157   1.072268
+ logsigC_A_B |      1,000   -.9842501    1.116285  -2.704257   5.377129
+ logsigC_A_C |      1,000   -1.006398    1.119466  -2.786444   5.269403
+ logsigC_B_C |      1,000   -.9948891    1.123178  -2.739851   4.973971
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigA2prior:                   dlnorm(-1,1)
+logsigC2mean:                 -2
+df:                           2 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model3CB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model3CB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model3CB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model3CB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model3CB_NCH_script.txt
+Running Winbugs ... finished (run time 2.296 seconds)
+Bugs output saved in c:\temp\bugsfiles/model3CB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.544  31.615  0.9896  -0.062 ( -64.785,  60.015 )
+muC_C_A       1000  -0.135  31.942  1.0087  -0.317 ( -63.403,  62.148 )
+sigC_A_B      1000   1.403   9.250  0.2942   0.297 (   0.086,   6.426 )
+sigC_A_C      1000   1.441   9.457  0.2964   0.282 (   0.087,   5.870 )
+sigC_B_C      1000   1.339   7.331  0.2322   0.305 (   0.086,   7.302 )
+sigA_A        1000   0.692   0.372  0.0121   0.607 (   0.206,   1.747 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.4999854    .5166515  -2.321157   1.072268
+ logsigC_A_B |      1,000   -.9842501    1.116285  -2.704257   5.377129
+ logsigC_A_C |      1,000   -1.006398    1.119466  -2.786444   5.269403
+ logsigC_B_C |      1,000   -.9948891    1.123178  -2.739851   4.973971
+
+. * Model 4AB/CH;
+. #delimit ;
+delimiter now ;
+. foreach prior in sigCprior(dlnorm(-1,4)) sigC2prior(dlnorm(-2,1)) {;
+  2. foreach priorrho in rhoprior(dbeta(60,2)) {;
+  3. use c:\temp\network_bayes_test, clear;
+  4. network bayes, model(4AB) name(model4AB_CH) commonhet prioronly 
+>         `prior' `priorrho' `opts' 
+> ;
+  5. for var sig*: gen logX=log(X);
+  6. summ log*;
+  7. };
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+sigCprior:                    dlnorm(-1,4)
+rhoprior:                     dbeta(60,2)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model4AB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model4AB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model4AB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model4AB_CH_model.txt
+                  script to c:\temp\bugsfiles/model4AB_CH_script.txt
+Running Winbugs ... finished (run time 2.298 seconds)
+Bugs output saved in c:\temp\bugsfiles/model4AB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -2.120  43.730  1.4538  -2.778 ( -88.780,  84.500 )
+muC_C_A       1000  -0.616  43.862  1.3977  -0.093 ( -89.629,  87.139 )
+sigC          1000   0.412   0.217  0.0070   0.367 (   0.135,   0.960 )
+sigA          1000   1.995   1.569  0.0495   1.599 (   0.469,   6.415 )
+Bugs output is now loaded into memory
+
+->  gen logsigA=log(sigA)
+
+->  gen logsigC=log(sigC)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigA |      1,000    .4704315    .6508135  -1.954043   2.758109
+     logsigC |      1,000    -1.00934    .4997069  -2.921553   .5754892
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+sigC2prior:                   dlnorm(-2,1)
+rhoprior:                     dbeta(60,2)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model4AB_CH_data.txt
+                  scalars to c:\temp\bugsfiles/model4AB_CH_scalars.txt
+                  inits to c:\temp\bugsfiles/model4AB_CH_inits.txt
+                  model to c:\temp\bugsfiles/model4AB_CH_model.txt
+                  script to c:\temp\bugsfiles/model4AB_CH_script.txt
+Running Winbugs ... finished (run time 2.19 seconds)
+Bugs output saved in c:\temp\bugsfiles/model4AB_CH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -2.120  43.730  1.4538  -2.778 ( -88.780,  84.500 )
+muC_C_A       1000  -0.616  43.862  1.3977  -0.093 ( -89.629,  87.139 )
+sigC          1000   0.412   0.217  0.0070   0.367 (   0.135,   0.960 )
+sigA          1000   1.995   1.569  0.0495   1.599 (   0.469,   6.415 )
+Bugs output is now loaded into memory
+
+->  gen logsigA=log(sigA)
+
+->  gen logsigC=log(sigC)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     logsigA |      1,000    .4704315    .6508135  -1.954043   2.758109
+     logsigC |      1,000    -1.00934    .4997069  -2.921553   .5754892
+
+. * Model 4AB/NCH;
+. #delimit ;
+delimiter now ;
+. foreach prior in logsigCmean(-1) logsigC2mean(-2) {;
+  2. foreach priorA in logsigAmean(-0.5) logsigA2mean(-1) {;
+  3. use c:\temp\network_bayes_test, clear;
+  4. network bayes, model(4AB) name(model4AB_NCH) nocommonhet prioronly 
+>         `prior' `priorA' `opts' 
+> ;
+  5. for var sig*: gen logX=log(X);
+  6. summ log*;
+  7. };
+  8. };
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+logsigAmean:                  -0.5
+logsigCmean:                  -1
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model4AB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model4AB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model4AB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model4AB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model4AB_NCH_script.txt
+Running Winbugs ... finished (run time 2.297 seconds)
+Bugs output saved in c:\temp\bugsfiles/model4AB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.082  43.986  1.4138   0.071 ( -84.777,  84.947 )
+muC_C_A       1000  -1.330  44.054  1.3609  -1.723 ( -87.796,  85.354 )
+sigC_A_B      1000   1.589  15.219  0.4905   0.278 (   0.085,   6.319 )
+sigC_A_C      1000   1.531  15.439  0.4999   0.291 (   0.084,   6.567 )
+sigC_B_C      1000   0.979   4.654  0.1539   0.286 (   0.084,   4.533 )
+sigA_A        1000   2.340  19.770  0.6529   0.444 (   0.141,  10.199 )
+sigA_B        1000   2.554  30.646  0.9887   0.442 (   0.145,  12.216 )
+sigA_C        1000   2.729  32.538  1.0767   0.462 (   0.144,  12.070 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigA_B=log(sigA_B)
+
+->  gen logsigA_C=log(sigA_C)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5640509    1.107045  -2.397006   6.271367
+   logsigA_B |      1,000   -.5340594    1.097961  -2.272056   6.859195
+   logsigA_C |      1,000   -.5318294    1.114831  -2.387163   6.902944
+ logsigC_A_B |      1,000   -1.036491    1.120622  -2.873161   6.048317
+ logsigC_A_C |      1,000    -1.00597    1.123124  -2.885086   6.144186
+-------------+---------------------------------------------------------
+ logsigC_B_C |      1,000   -1.038949     1.05895  -2.813577   4.776599
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+logsigA2mean:                 -1
+logsigCmean:                  -1
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model4AB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model4AB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model4AB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model4AB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model4AB_NCH_script.txt
+Running Winbugs ... finished (run time 2.306 seconds)
+Bugs output saved in c:\temp\bugsfiles/model4AB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.082  43.986  1.4138   0.071 ( -84.777,  84.947 )
+muC_C_A       1000  -1.330  44.054  1.3609  -1.723 ( -87.796,  85.354 )
+sigC_A_B      1000   1.589  15.219  0.4905   0.278 (   0.085,   6.319 )
+sigC_A_C      1000   1.531  15.439  0.4999   0.291 (   0.084,   6.567 )
+sigC_B_C      1000   0.979   4.654  0.1539   0.286 (   0.084,   4.533 )
+sigA_A        1000   2.340  19.770  0.6529   0.444 (   0.141,  10.199 )
+sigA_B        1000   2.554  30.646  0.9887   0.442 (   0.145,  12.216 )
+sigA_C        1000   2.729  32.538  1.0767   0.462 (   0.144,  12.070 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigA_B=log(sigA_B)
+
+->  gen logsigA_C=log(sigA_C)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5640509    1.107045  -2.397006   6.271367
+   logsigA_B |      1,000   -.5340594    1.097961  -2.272056   6.859195
+   logsigA_C |      1,000   -.5318294    1.114831  -2.387163   6.902944
+ logsigC_A_B |      1,000   -1.036491    1.120622  -2.873161   6.048317
+ logsigC_A_C |      1,000    -1.00597    1.123124  -2.885086   6.144186
+-------------+---------------------------------------------------------
+ logsigC_B_C |      1,000   -1.038949     1.05895  -2.813577   4.776599
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+logsigAmean:                  -0.5
+logsigC2mean:                 -2
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model4AB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model4AB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model4AB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model4AB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model4AB_NCH_script.txt
+Running Winbugs ... finished (run time 2.299 seconds)
+Bugs output saved in c:\temp\bugsfiles/model4AB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.082  43.986  1.4138   0.071 ( -84.777,  84.947 )
+muC_C_A       1000  -1.330  44.054  1.3609  -1.723 ( -87.796,  85.354 )
+sigC_A_B      1000   1.589  15.219  0.4905   0.278 (   0.085,   6.319 )
+sigC_A_C      1000   1.531  15.439  0.4999   0.291 (   0.084,   6.567 )
+sigC_B_C      1000   0.979   4.654  0.1539   0.286 (   0.084,   4.533 )
+sigA_A        1000   2.340  19.770  0.6529   0.444 (   0.141,  10.199 )
+sigA_B        1000   2.554  30.646  0.9887   0.442 (   0.145,  12.216 )
+sigA_C        1000   2.729  32.538  1.0767   0.462 (   0.144,  12.070 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigA_B=log(sigA_B)
+
+->  gen logsigA_C=log(sigA_C)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5640509    1.107045  -2.397006   6.271367
+   logsigA_B |      1,000   -.5340594    1.097961  -2.272056   6.859195
+   logsigA_C |      1,000   -.5318294    1.114831  -2.387163   6.902944
+ logsigC_A_B |      1,000   -1.036491    1.120622  -2.873161   6.048317
+ logsigC_A_C |      1,000    -1.00597    1.123124  -2.885086   6.144186
+-------------+---------------------------------------------------------
+ logsigC_B_C |      1,000   -1.038949     1.05895  -2.813577   4.776599
+(Hypothetical data 6a for ABCB August 2017)
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+logsigA2mean:                 -1
+logsigC2mean:                 -2
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/model4AB_NCH_data.txt
+                  scalars to c:\temp\bugsfiles/model4AB_NCH_scalars.txt
+                  inits to c:\temp\bugsfiles/model4AB_NCH_inits.txt
+                  model to c:\temp\bugsfiles/model4AB_NCH_model.txt
+                  script to c:\temp\bugsfiles/model4AB_NCH_script.txt
+Running Winbugs ... finished (run time 2.3 seconds)
+Bugs output saved in c:\temp\bugsfiles/model4AB_NCH_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A       1000  -0.082  43.986  1.4138   0.071 ( -84.777,  84.947 )
+muC_C_A       1000  -1.330  44.054  1.3609  -1.723 ( -87.796,  85.354 )
+sigC_A_B      1000   1.589  15.219  0.4905   0.278 (   0.085,   6.319 )
+sigC_A_C      1000   1.531  15.439  0.4999   0.291 (   0.084,   6.567 )
+sigC_B_C      1000   0.979   4.654  0.1539   0.286 (   0.084,   4.533 )
+sigA_A        1000   2.340  19.770  0.6529   0.444 (   0.141,  10.199 )
+sigA_B        1000   2.554  30.646  0.9887   0.442 (   0.145,  12.216 )
+sigA_C        1000   2.729  32.538  1.0767   0.462 (   0.144,  12.070 )
+Bugs output is now loaded into memory
+
+->  gen logsigA_A=log(sigA_A)
+
+->  gen logsigA_B=log(sigA_B)
+
+->  gen logsigA_C=log(sigA_C)
+
+->  gen logsigC_A_B=log(sigC_A_B)
+
+->  gen logsigC_A_C=log(sigC_A_C)
+
+->  gen logsigC_B_C=log(sigC_B_C)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   logsigA_A |      1,000   -.5640509    1.107045  -2.397006   6.271367
+   logsigA_B |      1,000   -.5340594    1.097961  -2.272056   6.859195
+   logsigA_C |      1,000   -.5318294    1.114831  -2.387163   6.902944
+ logsigC_A_B |      1,000   -1.036491    1.120622  -2.873161   6.048317
+ logsigC_A_C |      1,000    -1.00597    1.123124  -2.885086   6.144186
+-------------+---------------------------------------------------------
+ logsigC_B_C |      1,000   -1.038949     1.05895  -2.813577   4.776599
+
+. 
+end of do-file
+Log file bayes_test_each_model.log completed on  4 Apr 2019 at 12:26:27
+      name:  <unnamed>
+       log:  C:\ado\ian\network\scripts\bayes_test_each_model.log
+  log type:  text
+ closed on:   4 Apr 2019, 12:26:27
+-------------------------------------------------------------------------------------------------------

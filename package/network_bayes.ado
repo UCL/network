@@ -64,7 +64,9 @@ TO DO
     optionally output all differences (e.g. C-B)
     slicker names for graphs - requires parsing `trace2' to detect cgoptions()
 	make it store name for future reference - but not as rclass (which is where wbstats are returned)
-	drop gen.inits() - FIND  OUT WHY IT'S NEEDED FOR MODEL(3CB)
+	drop gen.inits() 
+		- find out why it's needed for model(3CB)
+		- choose inits for invSigmaA
 	need to save results for replay mode (fails for ABc model)
 	utility to look at logsigC instead of sigC?
 	should default name = model?
@@ -167,8 +169,8 @@ if inlist("`model'", "1CB") & !`commonhet' {
 if mi("`quitbugs'") local timer notimer
 
 * parms to monitor
-local setsigA  = ("`model'"=="AB" & `commonhet') | "`model'"=="3CB"
-local setSigmaA = "`model'"=="AB" & !`commonhet'
+local setsigA  = ("`model'"=="4AB" & `commonhet') | "`model'"=="3CB"
+local setSigmaA = "`model'"=="4AB" & !`commonhet'
 
 if !mi("`prioronly'") {
 	local trace notrace
@@ -440,6 +442,7 @@ if "`model'"!="" {
 		`fwm1' "invsigA2 <- 1/sigA2" _n
 		if `hassigA'==2 {
 			`fwm1' "sigA2 ~ `sigA2prior'" _n
+			`fwm1' "sigA <- sqrt(sigA2)" _n
 		}
 		else {
 			`fwm1' "sigA2 <- pow(sigA,2)" _n
@@ -506,11 +509,6 @@ if "`model'"!="" {
 	if `commonhet' {
 		`fwm1' _n "## PRIOR FOR COMMON HETEROGENEITY VARIANCE" _n
 		if inlist("`model'","1CB") {
-			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-			else {
-				`fwm1' "sigC2 <- pow(sigC,2)" _n
-				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
-			}
 		}
 		else if inlist("`model'","2CB","3CB") {
 			`fwm1' "for (k in 1:NT-1) {" _n
@@ -521,11 +519,6 @@ if "`model'"!="" {
 			`fwm3' "## and off-diagonal 0.5's" _n
 			`fwm2' "}" _n
 			`fwm1' "}" _n
-			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-			else {
-				`fwm1' "sigC2 <- pow(sigC,2)" _n
-				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
-			}
 	   }
 		else if inlist("`model'","2AB") {
 			`fwm1' "for (k in 1:NT) {" _n
@@ -533,11 +526,6 @@ if "`model'"!="" {
 			`fwm3' "invSigmaA[k,l] <- 2 * equals(k,l) / sigC2" _n 
 			`fwm2' "}" _n
 			`fwm1' "}" _n
-			if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-			else {
-				`fwm1' "sigC2 <- pow(sigC,2)" _n
-				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
-			}
 	   }
 		else if inlist("`model'","4AB") {
 			`fwm1' "for (k in 1:NT) {" _n
@@ -547,15 +535,16 @@ if "`model'"!="" {
 			`fwm2' "}" _n
 			`fwm1' "}" _n
 			`fwm1' "rho ~ `rhoprior' ## correlation in compound symmetrical SigmaA" _n
-			 if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
-			else {
-				`fwm1' "sigC2 <- pow(sigC,2)" _n
-				`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
-			}
-			`fwm1' "## useful summaries" _n
-			`fwm1' "sigA <- sqrt(sigC2 / (2*(1-rho))) ## arm heterogeneity SD" _n
 		}
 		else di as error "Program error: model not coded"
+		if `hassigC'==2 `fwm1' "sigC2 ~ `sigC2prior' ## contrast heterogeneity variance" _n
+		else {
+			`fwm1' "sigC2 <- pow(sigC,2)" _n
+			`fwm1' "sigC ~ `sigCprior' ## contrast heterogeneity SD" _n
+		}
+		if inlist("`model'","4AB") | `hassigC'==2 `fwm1' "## useful summaries" _n
+		if inlist("`model'","4AB") `fwm1' "sigA <- sqrt(sigC2 / (2*(1-rho))) ## arm heterogeneity SD" _n
+		if `hassigC'==2 `fwm1' "sigC <- sqrt(sigC2)" _n
 	}
 	else {
 		`fwm1' _n "## PRIOR FOR NON-COMMON HETEROGENEITY VARIANCE" _n
@@ -696,14 +685,13 @@ if "`model'"!="" {
 		if "`model'" == "1CB" writeinits deltaC, dim(`N')
 		else writeinits deltaC, dim(`NS',`NT') na(.,1) 
 	}
-	* inits for invSigmaA
-* REVISIT!!	if 
+	* inits for invSigmaA: to be done (not needed?)
 	file write inits ")" _n
 	
 	* PARAMETERS OF INTEREST
 	local extraparms `parms'
 	local parms muC sigC
-	if `setSigmaA' | `setsigA'  local parms `parms' sigA
+	if `setSigmaA' | `setsigA' local parms `parms' sigA
 	local setparms : list parms | extraparms
 
     * WRITE WINBUGS SCRIPT
@@ -771,7 +759,6 @@ if "`model'"!="" {
 
     // READ CODA DATA
     wbcoda, root(`filepath'`name'_coda) clear
-	
     * rename contrasts
     if !mi("`debug'") summ
     forvalues i = 2/`NT' { // assumes muC is a NT-1 vector
@@ -795,8 +782,14 @@ if "`model'"!="" {
     else label var sigC "Het SD (all contrasts)"
 
     if `setsigA' {
-		rename sigA sigA_`ref'
-		label var sigA_`ref' "Het SD, arm `trt1'"
+		if "`model'"=="4AB" {
+			label var sigA "Het SD" // leave as sigA for model 4
+		}
+		else if "`model'"=="3CB" {
+			rename sigA sigA_`ref'  
+			label var sigA_`ref' "Het SD, arm `trt1'"
+		}
+		else di as error "Program error"
 	}
     if `setSigmaA' {
 		forvalues i = 1/`NT' {
@@ -823,7 +816,10 @@ di as text "" _c // just gets font right for next
 * identify parms of interest
 if `commonhet' local parms muC_* sigC
 else local parms muC_* sigC_*
-if `setsigA' local parms `parms' sigA_`ref'
+if `setsigA' {	
+	if "`model'"=="3CB" local parms `parms' sigA_`ref'
+	else local parms `parms' sigA
+}
 if `setSigmaA' local parms `parms' sigA_*
 local parms : list parms | extraparms
 * check if any parm should be replaced by parm*
