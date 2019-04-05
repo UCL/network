@@ -1,6 +1,7 @@
 /* network bayes: test each model 
 Draw from the priors as an easy way to test the models
 Use simplified priors 
+Run in any directory
 */
 pda
 use "C:\copyofN\ABCB\analysis\hyp18\hyp186a.dta", clear

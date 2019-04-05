@@ -67,13 +67,13 @@ TO DO
 	drop gen.inits() 
 		- find out why it's needed for model(3CB)
 		- choose inits for invSigmaA
-	need to save results for replay mode (fails for ABc model)
+	need to save results for replay mode (fails for model 4AB?)
 	utility to look at logsigC instead of sigC?
 	should default name = model?
 	wbac produces nasty plots
-	change model names to match paper
 	consider using fast tracei.ado
 	allow direct specification of mean of inverse Wisharts (rather than via mean of logsigC)
+	check whether ref() is respected
 
 NOTE
 	sigC2 is scalar (with prior sigC2prior)
@@ -212,10 +212,9 @@ if "`model'"!="" {
 	di as text "Model:" `col2' "`model'"
 	di as text "Heterogeneity:" `col2' "`commonhetname'"
 	di as text "Sampling from:" `col2' cond("`prioronly'"=="","Posterior","Prior")
-	* parameters
+	* possible parameters
 	local modelparms alphaA muA muC sigA sigC logsigA logsigC df rho // need priors if present
-	local modelparmsnoprior deltaC etaA // don't need priors if present
-	* which parameters are used
+	* which parameters are used (coded 0/1)
 	local hasalphaA  = inlist("`model'","1CB","2CB","2AB") 
 	local hasmuA     = inlist("`model'","2AB","3CB","4AB") 
 	local hasmuC     = !inlist("`model'","4AB")
@@ -227,7 +226,7 @@ if "`model'"!="" {
 	local hasrho     = inlist("`model'","4AB") & `commonhet'
 	local hasdeltaC  = inlist("`model'","1CB","2CB","3CB")
 	local hasetaA    = inlist("`model'","2AB","4AB") 
-	* how their priors are specified
+	* how their priors are specified (prec=precision only, prior=full prior)
 	local alphaAspec  prec  
 	local muAspec     prec     
 	local muCspec     prec     
@@ -814,16 +813,16 @@ else {
 // OUTPUT RESULTS
 di as text "" _c // just gets font right for next
 * identify parms of interest
-if `commonhet' local parms muC_* sigC
-else local parms muC_* sigC_*
+if `commonhet' local outparms muC_* sigC
+else local outparms muC_* sigC_*
 if `setsigA' {	
-	if "`model'"=="3CB" local parms `parms' sigA_`ref'
-	else local parms `parms' sigA
+	if "`model'"=="3CB" local outparms `outparms' sigA_`ref'
+	else local outparms `outparms' sigA
 }
-if `setSigmaA' local parms `parms' sigA_*
-local parms : list parms | extraparms
+if `setSigmaA' local outparms `outparms' sigA_*
+local outparms : list outparms | extraparms
 * check if any parm should be replaced by parm*
-foreach parm of local parms {
+foreach parm of local outparms {
 	cap unab junk : `parm'
 	if !_rc { // var or varlist exists as named
 		local wbparms0 `wbparms0' `parm'
