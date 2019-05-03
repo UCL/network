@@ -1,5 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+3may2019:  added log file
 31may2018: added checks of matrix output of network meta, and hairy trtcodes
 6apr2018:  added network compare
 13mar2017: CTU file locations; added connectedness check
@@ -13,6 +14,11 @@ REQUIRES: MVMETA, METAREG
     coronary artery disease pairwise.dta
 11jul2014: fails with long names
 */
+
+local networkdir c:\ado\ian\network\
+cd `networkdir'scripts
+log using `networkdir'testlogs\network_cscript.log
+
 cls
 cscript network
 set trace off
@@ -21,9 +27,7 @@ pause on
 prog drop _all
 local mvmetadir c:\ado\ian\mvmeta\
 adopath ++ `mvmetadir'package
-local networkdir c:\ado\ian\network\
 adopath ++ `networkdir'package
-cd `networkdir'scripts
 
 which mvmeta
 which network
@@ -405,3 +409,5 @@ label def trt 1 "A" 2 "B" 3 "CD" 4 "BC" 5 "D"
 label val trt trt
 cap network setup d n, study(trial) trt(trt) nocode
 assert _rc==498
+
+log close
