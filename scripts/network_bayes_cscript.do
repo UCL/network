@@ -1,8 +1,14 @@
 /*
 Cscript for network bayes 
 Updated 20nov2017 & 22jun2018
+3may2019 - add directory and log file
 RUN IN NETWORK SCRIPTS DIRECTORY
 */
+
+
+local networkdir c:\ado\ian\network\
+cd `networkdir'scripts
+log using `networkdir'testlogs\network_bayes_cscript.log
 
 set more off
 do network_adopath
@@ -21,8 +27,6 @@ local psd .5
 local muCprec 1
 
 // CHECK PRIORS: CH MODELS
-set seed 467164
-
 foreach model in 1CB 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
@@ -41,7 +45,6 @@ foreach model in 1CB 2CB 2AB 3CB 4AB {
 }
 
 // CHECK PRIORS: NCH MODELS
-set seed 571894198
 foreach model in 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
@@ -55,7 +58,6 @@ foreach model in 2CB 2AB 3CB 4AB {
 local opts burnin(50000) updates(50000) thin(5) name(cscript) quit savedir(c:\temp\bugsfiles) clear
 
 // CHECK SMOKING RESULTS: CH MODELS
-set seed 571894198
 foreach model in 1CB 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
@@ -65,7 +67,6 @@ foreach model in 1CB 2CB 2AB 3CB 4AB {
 }
 
 // CHECK SMOKING RESULTS: NCH MODELS
-set seed 571894198
 foreach model in 2CB 2AB 3CB 4AB {
 	use "smoking.dta", clear
 	qui network setup d n, studyvar(study) trtvar(trt)
@@ -74,3 +75,4 @@ foreach model in 2CB 2AB 3CB 4AB {
 	assert abs(r(mn1)-0.8)<0.1
 }
 
+log close

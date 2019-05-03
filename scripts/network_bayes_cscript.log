@@ -1,0 +1,980 @@
+---------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\ado\ian\network\scripts\network_bayes_cscript.log
+  log type:  text
+ opened on:  23 Jun 2018, 12:54:34
+Log file network_bayes_cscript.log opened on 23 Jun 2018 at 12:54:34
+
+. /*
+> Cscript for network bayes 
+> Updated 20nov2017 & 22jun2018
+> RUN IN NETWORK SCRIPTS DIRECTORY
+> */
+. 
+. set more off
+
+. do network_adopath
+
+. // adopath for latest mvmeta & network versions
+. adopath + C:\ado\ian\mvmeta\package
+  [1]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
+  [2]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [3]              "."
+  [4]              "C:\ado\ian\network\package"
+  [5]  (PERSONAL)  "c:\ado\personal/"
+  [6]  (PLUS)      "c:\ado\stbplus/"
+  [7]              "C:\ado\ian\mvmeta\package"
+
+. adopath + "C:\ado\ian\network\package"
+  [1]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
+  [2]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [3]              "."
+  [4]  (PERSONAL)  "c:\ado\personal/"
+  [5]  (PLUS)      "c:\ado\stbplus/"
+  [6]              "C:\ado\ian\mvmeta\package"
+  [7]              "C:\ado\ian\network\package"
+
+. adopath - PERSONAL
+  [1]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
+  [2]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [3]              "."
+  [4]  (PLUS)      "c:\ado\stbplus/"
+  [5]              "C:\ado\ian\mvmeta\package"
+  [6]              "C:\ado\ian\network\package"
+
+. adopath + PERSONAL
+  [1]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
+  [2]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [3]              "."
+  [4]  (PLUS)      "c:\ado\stbplus/"
+  [5]              "C:\ado\ian\mvmeta\package"
+  [6]              "C:\ado\ian\network\package"
+  [7]  (PERSONAL)  "c:\ado\personal/"
+
+. adopath - PLUS
+  [1]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
+  [2]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [3]              "."
+  [4]              "C:\ado\ian\mvmeta\package"
+  [5]              "C:\ado\ian\network\package"
+  [6]  (PERSONAL)  "c:\ado\personal/"
+
+. adopath + PLUS
+  [1]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
+  [2]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [3]              "."
+  [4]              "C:\ado\ian\mvmeta\package"
+  [5]              "C:\ado\ian\network\package"
+  [6]  (PERSONAL)  "c:\ado\personal/"
+  [7]  (PLUS)      "c:\ado\stbplus/"
+
+. cap adopath - OLDPLACE
+
+. which mvmeta, all
+
+C:\ado\ian\mvmeta\package\mvmeta.ado
+*! version 3.2.0 # Ian White # 6apr2018
+
+c:\ado\personal\mvmeta.ado
+*! version 3.1.3  Ian White  22jul2015
+
+c:\ado\stbplus\m\mvmeta.ado
+*! version 3.1.3  Ian White  22jul2015
+
+. which network, all
+
+C:\ado\ian\network\package\network.ado
+*! version 1.5.1 # Ian White # 9may2018 
+
+c:\ado\personal\network.ado
+*! version 1.2.1 # Ian White # 22jul2015
+
+c:\ado\stbplus\n\network.ado
+*! version 1.5.0 # Ian White # 6apr2018 
+
+. 
+. 
+end of do-file
+
+. pda
+
+. 
+. which network
+C:\ado\ian\network\package\network.ado
+*! version 1.5.1 # Ian White # 9may2018 
+
+. which network_bayes
+C:\ado\ian\network\package\network_bayes.ado
+*! Ian White - 21jun2018
+
+. 
+. 
+. local opts updates(10000) name(cscript) quit savedir(c:\temp\bugsfiles) clear
+
+. 
+. set tracedepth 2
+
+. set trace off
+
+. local pm -1
+
+. local psd .5
+
+. local muCprec 1
+
+. 
+. // CHECK PRIORS: CH MODELS
+. set seed 467164
+
+. 
+. foreach model in 1CB 2CB 2AB 3CB 4AB {
+  2.         use "smoking.dta", clear
+  3.         qui network setup d n, studyvar(study) trtvar(trt)
+  4.         network bayes, model(`model') commonhet ///
+>                 muCprec(`muCprec') muAprec(`=`muCprec'*2') ///
+>                 prioronly sigCprior(dlnorm(`pm',`=1/`psd'^2')) `opts'
+  5.         gen logsigC = log(sigC)
+  6.         ttest logsigC==`pm'
+  7.         assert r(p)>0.001
+  8.         sdtest logsigC==`psd'
+  9.         assert r(p)>0.001
+ 10.         ttest muC_B_A==0
+ 11.         assert r(p)>0.001
+ 12.         sdtest muC_B_A==`=1/sqrt(`muCprec')'
+ 13.         assert r(p)>0.001
+ 14. }
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        1CB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+Option muAprec(2) ignored
+muCprec:                      1
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 7.768 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000  -0.006   0.994  0.0099  -0.009 (  -1.950,   1.922 )
+muC_C_A      10000  -0.020   1.016  0.0102  -0.028 (  -2.001,   1.979 )
+muC_D_A      10000  -0.010   0.999  0.0100  -0.019 (  -1.961,   1.945 )
+sigC         10000   0.415   0.217  0.0022   0.367 (   0.139,   0.968 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -1.000063    .0049135      .49135   -1.009694   -.9904315
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =  -0.0128
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.4949         Pr(|T| > |t|) = 0.9898          Pr(T > t) = 0.5051
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -1.000063    .0049135      .49135   -1.009694   -.9904315
+------------------------------------------------------------------------------
+    sd = sd(logsigC)                                       c = chi2 =  9.7e+03
+Ho: sd = .5                                      degrees of freedom =     9999
+
+     Ha: sd < .5                 Ha: sd != .5                   Ha: sd > .5
+  Pr(C < c) = 0.0072         2*Pr(C < c) = 0.0143           Pr(C > c) = 0.9928
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000   -.0062979    .0099382    .9938196   -.0257788    .0131829
+------------------------------------------------------------------------------
+    mean = mean(muC_B_A)                                          t =  -0.6337
+Ho: mean = 0                                     degrees of freedom =     9999
+
+    Ha: mean < 0                 Ha: mean != 0                 Ha: mean > 0
+ Pr(T < t) = 0.2631         Pr(|T| > |t|) = 0.5263          Pr(T > t) = 0.7369
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000   -.0062979    .0099382    .9938196   -.0257788    .0131829
+------------------------------------------------------------------------------
+    sd = sd(muC_B_A)                                       c = chi2 =  9.9e+03
+Ho: sd = 1                                       degrees of freedom =     9999
+
+     Ha: sd < 1                   Ha: sd != 1                   Ha: sd > 1
+  Pr(C < c) = 0.1921         2*Pr(C < c) = 0.3842           Pr(C > c) = 0.8079
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+Option muAprec(2) ignored
+muCprec:                      1
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 7.753 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000  -0.010   1.005  0.0101   0.001 (  -2.012,   1.968 )
+muC_C_A      10000   0.014   0.993  0.0099   0.010 (  -1.920,   1.918 )
+muC_D_A      10000   0.001   0.984  0.0099   0.013 (  -1.902,   1.895 )
+sigC         10000   0.416   0.221  0.0022   0.369 (   0.140,   0.985 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -1.001084    .0049956    .4995642   -1.010877   -.9912918
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =  -0.2170
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.4141         Pr(|T| > |t|) = 0.8282          Pr(T > t) = 0.5859
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -1.001084    .0049956    .4995642   -1.010877   -.9912918
+------------------------------------------------------------------------------
+    sd = sd(logsigC)                                       c = chi2 =  1.0e+04
+Ho: sd = .5                                      degrees of freedom =     9999
+
+     Ha: sd < .5                 Ha: sd != .5                   Ha: sd > .5
+  Pr(C < c) = 0.4528         2*Pr(C < c) = 0.9056           Pr(C > c) = 0.5472
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000    -.009736    .0100468    1.004677   -.0294297    .0099577
+------------------------------------------------------------------------------
+    mean = mean(muC_B_A)                                          t =  -0.9691
+Ho: mean = 0                                     degrees of freedom =     9999
+
+    Ha: mean < 0                 Ha: mean != 0                 Ha: mean > 0
+ Pr(T < t) = 0.1663         Pr(|T| > |t|) = 0.3325          Pr(T > t) = 0.8337
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000    -.009736    .0100468    1.004677   -.0294297    .0099577
+------------------------------------------------------------------------------
+    sd = sd(muC_B_A)                                       c = chi2 =  1.0e+04
+Ho: sd = 1                                       degrees of freedom =     9999
+
+     Ha: sd < 1                   Ha: sd != 1                   Ha: sd > 1
+  Pr(C < c) = 0.7471         2*Pr(C > c) = 0.5057           Pr(C > c) = 0.2529
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muAprec:                      2
+muCprec:                      1
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 7.769 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000  -0.012   0.998  0.0100  -0.012 (  -1.989,   1.931 )
+muC_C_A      10000   0.014   0.991  0.0099   0.017 (  -1.933,   1.945 )
+muC_D_A      10000  -0.021   0.998  0.0101  -0.009 (  -1.979,   1.942 )
+sigC         10000   0.417   0.227  0.0023   0.364 (   0.135,   0.984 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000    -1.00463    .0050763    .5076253    -1.01458   -.9946792
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =  -0.9120
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.1809         Pr(|T| > |t|) = 0.3618          Pr(T > t) = 0.8191
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000    -1.00463    .0050763    .5076253    -1.01458   -.9946792
+------------------------------------------------------------------------------
+    sd = sd(logsigC)                                       c = chi2 =  1.0e+04
+Ho: sd = .5                                      degrees of freedom =     9999
+
+     Ha: sd < .5                 Ha: sd != .5                   Ha: sd > .5
+  Pr(C < c) = 0.9845         2*Pr(C > c) = 0.0311           Pr(C > c) = 0.0155
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000   -.0119275    .0099765    .9976544   -.0314836    .0076285
+------------------------------------------------------------------------------
+    mean = mean(muC_B_A)                                          t =  -1.1956
+Ho: mean = 0                                     degrees of freedom =     9999
+
+    Ha: mean < 0                 Ha: mean != 0                 Ha: mean > 0
+ Pr(T < t) = 0.1159         Pr(|T| > |t|) = 0.2319          Pr(T > t) = 0.8841
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000   -.0119275    .0099765    .9976544   -.0314836    .0076285
+------------------------------------------------------------------------------
+    sd = sd(muC_B_A)                                       c = chi2 =  1.0e+04
+Ho: sd = 1                                       degrees of freedom =     9999
+
+     Ha: sd < 1                   Ha: sd != 1                   Ha: sd > 1
+  Pr(C < c) = 0.3718         2*Pr(C < c) = 0.7436           Pr(C > c) = 0.6282
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      2
+muCprec:                      1
+sigAprior:                    dunif(0,10) (default)
+sigCprior:                    dlnorm(-1,4)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 7.815 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.001   0.989  0.0098   0.013 (  -1.979,   1.926 )
+muC_C_A      10000   0.014   1.004  0.0100   0.021 (  -1.964,   1.993 )
+muC_D_A      10000   0.010   1.004  0.0102   0.011 (  -1.938,   1.993 )
+sigC         10000   0.415   0.218  0.0022   0.368 (   0.141,   0.948 )
+sigA_A       10000   5.017   2.892  0.0291   5.001 (   0.248,   9.738 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -.9998393    .0049157    .4915736   -1.009475   -.9902035
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =   0.0327
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.5130         Pr(|T| > |t|) = 0.9739          Pr(T > t) = 0.4870
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -.9998393    .0049157    .4915736   -1.009475   -.9902035
+------------------------------------------------------------------------------
+    sd = sd(logsigC)                                       c = chi2 =  9.7e+03
+Ho: sd = .5                                      degrees of freedom =     9999
+
+     Ha: sd < .5                 Ha: sd != .5                   Ha: sd > .5
+  Pr(C < c) = 0.0085         2*Pr(C < c) = 0.0171           Pr(C > c) = 0.9915
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000     .000999    .0098859    .9885936   -.0183794    .0203774
+------------------------------------------------------------------------------
+    mean = mean(muC_B_A)                                          t =   0.1011
+Ho: mean = 0                                     degrees of freedom =     9999
+
+    Ha: mean < 0                 Ha: mean != 0                 Ha: mean > 0
+ Pr(T < t) = 0.5402         Pr(|T| > |t|) = 0.9195          Pr(T > t) = 0.4598
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000     .000999    .0098859    .9885936   -.0183794    .0203774
+------------------------------------------------------------------------------
+    sd = sd(muC_B_A)                                       c = chi2 =  9.8e+03
+Ho: sd = 1                                       degrees of freedom =     9999
+
+     Ha: sd < 1                   Ha: sd != 1                   Ha: sd > 1
+  Pr(C < c) = 0.0535         2*Pr(C < c) = 0.1071           Pr(C > c) = 0.9465
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Common
+Sampling from:                Prior
+muAprec:                      2
+Option muCprec(1) ignored
+sigCprior:                    dlnorm(-1,4)
+rhoprior:                     dunif(0,1) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 7.748 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000  -0.003   1.006  0.0101  -0.005 (  -1.978,   1.939 )
+muC_C_A      10000   0.009   1.017  0.0102   0.018 (  -2.012,   2.007 )
+muC_D_A      10000   0.007   1.003  0.0101   0.011 (  -1.980,   1.987 )
+sigC         10000   0.415   0.217  0.0022   0.368 (   0.140,   0.944 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -1.001111    .0049123    .4912339    -1.01074   -.9914814
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =  -0.2261
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.4106         Pr(|T| > |t|) = 0.8211          Pr(T > t) = 0.5894
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -1.001111    .0049123    .4912339    -1.01074   -.9914814
+------------------------------------------------------------------------------
+    sd = sd(logsigC)                                       c = chi2 =  9.7e+03
+Ho: sd = .5                                      degrees of freedom =     9999
+
+     Ha: sd < .5                 Ha: sd != .5                   Ha: sd > .5
+  Pr(C < c) = 0.0065         2*Pr(C < c) = 0.0131           Pr(C > c) = 0.9935
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000   -.0028602    .0100629    1.006291   -.0225855    .0168652
+------------------------------------------------------------------------------
+    mean = mean(muC_B_A)                                          t =  -0.2842
+Ho: mean = 0                                     degrees of freedom =     9999
+
+    Ha: mean < 0                 Ha: mean != 0                 Ha: mean > 0
+ Pr(T < t) = 0.3881         Pr(|T| > |t|) = 0.7762          Pr(T > t) = 0.6119
+
+One-sample test of variance
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ muC_B_A |  10,000   -.0028602    .0100629    1.006291   -.0225855    .0168652
+------------------------------------------------------------------------------
+    sd = sd(muC_B_A)                                       c = chi2 =  1.0e+04
+Ho: sd = 1                                       degrees of freedom =     9999
+
+     Ha: sd < 1                   Ha: sd != 1                   Ha: sd > 1
+  Pr(C < c) = 0.8142         2*Pr(C > c) = 0.3716           Pr(C > c) = 0.1858
+
+. 
+. // CHECK PRIORS: NCH MODELS
+. set seed 571894198
+
+. foreach model in 2CB 2AB 3CB 4AB {
+  2.         use "smoking.dta", clear
+  3.         qui network setup d n, studyvar(study) trtvar(trt)
+  4.         network bayes, model(`model') nocommonhet ///
+>                 prioronly logsigCmean(`pm') `opts'
+  5.         gen logsigC = log(sigC_A_B)
+  6.         ttest logsigC==`pm'
+  7.         assert r(p)>0.001
+  8. }
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  -1
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 8.205 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.114  31.296  0.3162   0.289 ( -60.349,  61.328 )
+muC_C_A      10000  -0.238  31.564  0.3135   0.182 ( -62.720,  60.639 )
+muC_D_A      10000  -0.203  31.385  0.3121  -0.051 ( -61.079,  61.847 )
+sigC_A_B     10000   4.476 272.375  2.7232   0.295 (   0.089,   6.747 )
+sigC_A_C     10000   6.584 466.542  4.6646   0.290 (   0.088,   6.398 )
+sigC_A_D     10000   3.558 181.243  1.8119   0.292 (   0.088,   6.480 )
+sigC_B_C     10000   3.446 195.432  1.9538   0.288 (   0.088,   6.932 )
+sigC_B_D     10000   2.440  93.966  0.9393   0.294 (   0.088,   7.030 )
+sigC_C_D     10000   4.256 287.425  2.8737   0.295 (   0.088,   6.584 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -.9905981    .0112515    1.125146   -1.012653    -.968543
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =   0.8356
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.7983         Pr(|T| > |t|) = 0.4034          Pr(T > t) = 0.2017
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  -1
+df:                           4 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 8.08 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.079  31.928  0.3252   0.361 ( -62.350,  63.189 )
+muC_C_A      10000  -0.095  31.621  0.3131   0.014 ( -61.509,  63.149 )
+muC_D_A      10000   0.333  31.496  0.3166   0.579 ( -61.830,  60.999 )
+sigC_A_B     10000   1.337  10.325  0.1030   0.288 (   0.088,   6.048 )
+sigC_A_C     10000   4.375 290.044  2.8999   0.288 (   0.088,   5.845 )
+sigC_A_D     10000   5.475 419.468  4.1940   0.292 (   0.088,   6.434 )
+sigC_B_C     10000   4.463 286.660  2.8660   0.289 (   0.085,   6.322 )
+sigC_B_D     10000   5.445 415.919  4.1585   0.290 (   0.088,   6.217 )
+sigC_C_D     10000   2.789 132.176  1.3213   0.291 (   0.087,   6.342 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -.9975507    .0111204    1.112042   -1.019349   -.9757525
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =   0.2203
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.5872         Pr(|T| > |t|) = 0.8257          Pr(T > t) = 0.4128
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dunif(0,10) (default)
+logsigCmean:                  -1
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 8.19 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000  -0.389  31.543  0.3150  -0.087 ( -61.760,  61.296 )
+muC_C_A      10000  -0.189  31.302  0.3123  -0.205 ( -62.070,  59.949 )
+muC_D_A      10000   0.601  31.412  0.3138   1.124 ( -60.909,  62.369 )
+sigC_A_B     10000  19.5371798.076 17.9787   0.291 (   0.088,   5.925 )
+sigC_A_C     10000  27.4052571.157 25.7088   0.289 (   0.087,   5.581 )
+sigC_A_D     10000  17.9021634.117 16.3393   0.291 (   0.086,   6.123 )
+sigC_B_C     10000   9.418 773.655  7.7355   0.282 (   0.087,   5.691 )
+sigC_B_D     10000   3.173 165.286  1.6524   0.286 (   0.087,   6.082 )
+sigC_C_D     10000  10.910 937.353  9.3725   0.286 (   0.085,   5.916 )
+sigA_A       10000   5.032   2.881  0.0291   5.060 (   0.273,   9.754 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -.9983095     .011132    1.113201   -1.020131   -.9764885
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =   0.1519
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.5603         Pr(|T| > |t|) = 0.8793          Pr(T > t) = 0.4397
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Non-common
+Sampling from:                Prior
+muAprec:                      0.001 (default)
+logsigAmean:                  0 (default)
+logsigCmean:                  -1
+df:                           4 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 8.19 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000  -0.148  44.946  0.4562  -0.184 ( -88.239,  88.199 )
+muC_C_A      10000  -0.152  45.044  0.4543  -0.529 ( -89.300,  88.348 )
+muC_D_A      10000  -0.179  44.549  0.4481  -0.732 ( -86.818,  87.050 )
+sigC_A_B     10000   1.799  22.590  0.2263   0.290 (   0.088,   6.839 )
+sigC_A_C     10000   2.076  44.511  0.4446   0.289 (   0.087,   6.436 )
+sigC_A_D     10000   1.838  26.209  0.2620   0.295 (   0.088,   6.787 )
+sigC_B_C     10000   2.247  51.343  0.5130   0.286 (   0.085,   6.917 )
+sigC_B_D     10000   1.801  23.758  0.2373   0.288 (   0.086,   6.638 )
+sigC_C_D     10000   2.408  62.205  0.6216   0.291 (   0.087,   6.917 )
+Bugs output is now loaded into memory
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+ logsigC |  10,000   -.9859045    .0113342    1.133416   -1.008122   -.9636873
+------------------------------------------------------------------------------
+    mean = mean(logsigC)                                          t =   1.2436
+Ho: mean = -1                                    degrees of freedom =     9999
+
+    Ha: mean < -1               Ha: mean != -1                 Ha: mean > -1
+ Pr(T < t) = 0.8932         Pr(|T| > |t|) = 0.2137          Pr(T > t) = 0.1068
+
+. 
+. local opts burnin(50000) updates(50000) thin(5) name(cscript) quit savedir(c:\temp\bugsfile
+> s) clear
+
+. 
+. // CHECK SMOKING RESULTS: CH MODELS
+. set seed 571894198
+
+. foreach model in 1CB 2CB 2AB 3CB 4AB {
+  2.         use "smoking.dta", clear
+  3.         qui network setup d n, studyvar(study) trtvar(trt)
+  4.         network bayes, model(`model') commonhet `opts'
+  5.         wbstats muC_C_A
+  6.         assert abs(r(mn1)-0.8)<0.1
+  7. }
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        1CB
+Heterogeneity:                Common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 63.824 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.491   0.407  0.0043   0.493 (  -0.308,   1.302 )
+muC_C_A      10000   0.843   0.242  0.0027   0.836 (   0.385,   1.347 )
+muC_D_A      10000   1.103   0.441  0.0048   1.089 (   0.286,   2.009 )
+sigC         10000   0.845   0.187  0.0024   0.821 (   0.553,   1.277 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.843   0.242  0.0027   0.836 (   0.385,   1.347 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 64.052 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.503   0.395  0.0073   0.502 (  -0.267,   1.306 )
+muC_C_A      10000   0.833   0.238  0.0031   0.825 (   0.380,   1.339 )
+muC_D_A      10000   1.093   0.436  0.0089   1.084 (   0.250,   1.996 )
+sigC         10000   0.845   0.187  0.0035   0.822 (   0.547,   1.282 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.833   0.238  0.0031   0.825 (   0.380,   1.339 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 63.882 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.490   0.393  0.0112   0.487 (  -0.288,   1.278 )
+muC_C_A      10000   0.835   0.229  0.0098   0.827 (   0.390,   1.293 )
+muC_D_A      10000   1.099   0.431  0.0106   1.092 (   0.262,   1.974 )
+sigC         10000   0.843   0.185  0.0041   0.820 (   0.547,   1.279 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.835   0.229  0.0098   0.827 (   0.390,   1.293 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dunif(0,10) (default)
+sigCprior:                    dunif(0,10) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 64.027 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.525   0.327  0.0057   0.519 (  -0.103,   1.188 )
+muC_C_A      10000   0.772   0.195  0.0023   0.770 (   0.398,   1.167 )
+muC_D_A      10000   1.042   0.336  0.0059   1.039 (   0.398,   1.721 )
+sigC         10000   0.723   0.130  0.0019   0.710 (   0.507,   1.012 )
+sigA_A       10000   0.462   0.108  0.0014   0.449 (   0.289,   0.708 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.772   0.195  0.0023   0.770 (   0.398,   1.167 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+sigCprior:                    dunif(0,10) (default)
+rhoprior:                     dunif(0,1) (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 91.75 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.586   0.335  0.0074   0.586 (  -0.079,   1.244 )
+muC_C_A      10000   0.874   0.224  0.0059   0.867 (   0.445,   1.341 )
+muC_D_A      10000   1.152   0.356  0.0068   1.149 (   0.475,   1.872 )
+sigC         10000   0.828   0.148  0.0024   0.817 (   0.570,   1.143 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.874   0.224  0.0059   0.867 (   0.445,   1.341 )
+
+. 
+. // CHECK SMOKING RESULTS: NCH MODELS
+. set seed 571894198
+
+. foreach model in 2CB 2AB 3CB 4AB {
+  2.         use "smoking.dta", clear
+  3.         qui network setup d n, studyvar(study) trtvar(trt)
+  4.         network bayes, model(`model') nocommonhet `opts'
+  5.         wbstats muC_C_A
+  6.         assert abs(r(mn1)-0.8)<0.1
+  7. }
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2CB
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  0 (default)
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 64.256 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.447   0.314  0.0116   0.433 (  -0.129,   1.095 )
+muC_C_A      10000   0.821   0.233  0.0050   0.814 (   0.376,   1.311 )
+muC_D_A      10000   0.992   0.423  0.0141   0.982 (   0.201,   1.846 )
+sigC_A_B     10000   0.614   0.313  0.0098   0.540 (   0.231,   1.420 )
+sigC_A_C     10000   0.839   0.202  0.0033   0.811 (   0.532,   1.313 )
+sigC_A_D     10000   0.900   0.515  0.0172   0.787 (   0.282,   2.136 )
+sigC_B_C     10000   0.647   0.303  0.0078   0.589 (   0.240,   1.362 )
+sigC_B_D     10000   0.741   0.489  0.0155   0.607 (   0.237,   2.006 )
+sigC_C_D     10000   0.754   0.456  0.0140   0.642 (   0.257,   1.881 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.821   0.233  0.0050   0.814 (   0.376,   1.311 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        2AB
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+alphaAprec:                   0.001 (default)
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+logsigCmean:                  0 (default)
+df:                           4 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 64.318 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.438   0.306  0.0077   0.420 (  -0.115,   1.113 )
+muC_C_A      10000   0.803   0.241  0.0114   0.801 (   0.335,   1.293 )
+muC_D_A      10000   0.989   0.404  0.0102   0.971 (   0.229,   1.862 )
+sigC_A_B     10000   0.580   0.284  0.0080   0.515 (   0.222,   1.313 )
+sigC_A_C     10000   0.835   0.203  0.0031   0.808 (   0.524,   1.309 )
+sigC_A_D     10000   0.875   0.444  0.0140   0.790 (   0.275,   1.982 )
+sigC_B_C     10000   0.659   0.307  0.0086   0.607 (   0.236,   1.395 )
+sigC_B_D     10000   0.731   0.421  0.0139   0.623 (   0.243,   1.854 )
+sigC_C_D     10000   0.768   0.422  0.0143   0.663 (   0.268,   1.882 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.803   0.241  0.0114   0.801 (   0.335,   1.293 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        3CB
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+muCprec:                      0.001 (default)
+sigAprior:                    dunif(0,10) (default)
+logsigCmean:                  0 (default)
+df:                           3 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 64.337 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.495   0.286  0.0090   0.491 (  -0.060,   1.070 )
+muC_C_A      10000   0.744   0.193  0.0038   0.743 (   0.366,   1.131 )
+muC_D_A      10000   1.014   0.353  0.0102   1.009 (   0.331,   1.726 )
+sigC_A_B     10000   0.664   0.274  0.0068   0.622 (   0.263,   1.322 )
+sigC_A_C     10000   0.700   0.137  0.0017   0.681 (   0.479,   1.017 )
+sigC_A_D     10000   0.778   0.358  0.0093   0.714 (   0.283,   1.658 )
+sigC_B_C     10000   0.544   0.259  0.0064   0.484 (   0.217,   1.196 )
+sigC_B_D     10000   0.729   0.430  0.0124   0.614 (   0.238,   1.853 )
+sigC_C_D     10000   0.784   0.413  0.0117   0.687 (   0.266,   1.814 )
+sigA_A       10000   0.468   0.109  0.0014   0.455 (   0.290,   0.721 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.744   0.193  0.0038   0.743 (   0.366,   1.131 )
+(Smoking data from Lu & Ades (2006))
+
+*** Network bayes (Warning: program under development) ***
+Model:                        4AB
+Heterogeneity:                Non-common
+Sampling from:                Posterior
+muAprec:                      0.001 (default)
+logsigAmean:                  0 (default)
+logsigCmean:                  0 (default)
+df:                           4 (default)
+Converting augmented to standard ...
+Writing files ... data to c:\temp\bugsfiles/cscript_data.txt
+                  scalars to c:\temp\bugsfiles/cscript_scalars.txt
+                  inits to c:\temp\bugsfiles/cscript_inits.txt
+                  model to c:\temp\bugsfiles/cscript_model.txt
+                  script to c:\temp\bugsfiles/cscript_script.txt
+Running Winbugs ... finished (run time 64.258 seconds)
+Bugs output saved in c:\temp\bugsfiles/cscript_sample.dta
+Parameter        n    mean      sd      se  median         95% CrI
+muC_B_A      10000   0.527   0.317  0.0078   0.523 (  -0.112,   1.151 )
+muC_C_A      10000   0.778   0.213  0.0059   0.771 (   0.374,   1.220 )
+muC_D_A      10000   1.014   0.341  0.0073   1.021 (   0.294,   1.671 )
+sigC_A_B     10000   0.697   0.291  0.0072   0.651 (   0.274,   1.397 )
+sigC_A_C     10000   0.748   0.159  0.0020   0.727 (   0.497,   1.114 )
+sigC_A_D     10000   0.881   0.401  0.0109   0.812 (   0.301,   1.829 )
+sigC_B_C     10000   0.519   0.239  0.0059   0.468 (   0.218,   1.145 )
+sigC_B_D     10000   0.907   0.527  0.0182   0.768 (   0.261,   2.231 )
+sigC_C_D     10000   0.899   0.478  0.0157   0.788 (   0.279,   2.032 )
+Bugs output is now loaded into memory
+Parameter        n    mean      sd      se  median         95% CrI
+muC_C_A      10000   0.778   0.213  0.0059   0.771 (   0.374,   1.220 )
+
+. 
+. 
+end of do-file
+Log file network_bayes_cscript.log completed on 23 Jun 2018 at 13:06:55
+      name:  <unnamed>
+       log:  C:\ado\ian\network\scripts\network_bayes_cscript.log
+  log type:  text
+ closed on:  23 Jun 2018, 13:06:55
+---------------------------------------------------------------------------------------------
