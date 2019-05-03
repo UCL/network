@@ -67,6 +67,9 @@ Analyses
 {col 7}{bf:{help network_compare:network compare}}{...}
 {col 30}tabulate all comparisons estimated from the network
 
+{col 7}{bf:{help network_bayes:network bayes}}{...}
+{col 30}perform Bayesian network meta-analysis using WinBUGS (under development)
+
 Graphs of results
 
 {col 7}{bf:{help network_forest:network forest}}{...}

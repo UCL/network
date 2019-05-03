@@ -9,7 +9,7 @@
 {viewerjumpto "Requirements" "network_bayes##Requirements"}{...}
 {title:Title}
 
-{phang}{bf:network bayes} {hline 2} Perform Bayesian network meta-analysis using WinBUGS
+{phang}{bf:network bayes} {hline 2} Perform Bayesian network meta-analysis using WinBUGS (under development)
 
 
 {marker syntax}{...}
