@@ -1,8 +1,8 @@
 v 3
 d network: Suite of commands for network meta-analysis
 d Program by Ian White
-d Version 1.5.1
-d Distribution-Date: 9may2018
+d Version 1.6.0
+d Distribution-Date: 3may2019
 
 * Main callable files
 f network.ado
@@ -19,7 +19,7 @@ f network_rank.ado
 f network_sidesplit.ado
 f network_forest.ado
 f network_compare.ado
-*f network_bayes.ado
+f network_bayes.ado
 
 * Help files
 f network.sthlp
@@ -36,7 +36,7 @@ f network_rank.sthlp
 f network_sidesplit.sthlp
 f network_forest.sthlp
 f network_compare.sthlp
-*f network_bayes.sthlp
+f network_bayes.sthlp
 
 * Subroutines
 f network_components.ado
@@ -49,4 +49,4 @@ f thromb.do
 f thromb.dta
 f smoking.do
 f smoking.dta
-
+f network_bayes_parameters.xlsx

@@ -1,8 +1,13 @@
 /*
-*! Ian White 19sep2018
-
+*! version 1.6.0 # Ian White # 3may2019
+3may2019
+	version number added
+5apr2019
+	Revised network bayes to match revised paper (and to work!) 
+	- now focusses on heterogeneity SDs not variances. 
+	Plus new more detailed test program.
 19sep2018 
-	allowed model(#) as shortcut for model(#XX) to match code in abcb paper
+	allowed model(#) as shortcut for model(#XX) to match code in ABCB paper
 23jun2018
 	rename CB1 as 1CB, etc.
 22jun2018

@@ -1,5 +1,7 @@
 /*
-*! version 1.5.2 # Ian White # 5dec2018 
+*! version 1.6.0 # Ian White # 3may2018 
+	add in network bayes to support ABCB paper
+version 1.5.2 # Ian White # 5dec2018 
 	network which:
 		continues if file not found
 		also checks mvmeta
