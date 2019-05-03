@@ -410,4 +410,5 @@ label val trt trt
 cap network setup d n, study(trial) trt(trt) nocode
 assert _rc==498
 
+erase z.dta
 log close
