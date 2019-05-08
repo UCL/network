@@ -1,4 +1,5 @@
 {smcl}
+{* *! version 1.6.0 8may2019}{...}
 {* *! version 1.5.1 9may2018}{...}
 {* *! version 1.3.2 30aug2017}{...}
 {* *! version 1.1 27may2015}{...}
@@ -10,9 +11,11 @@
 {viewerjumpto "Features of interest to methodologists" "network##formethodologists"}{...}
 {viewerjumpto "Troubleshooting and limitations" "network##limitations"}{...}
 {viewerjumpto "Examples" "network##examples"}{...}
-{viewerjumpto "References" "network##refs"}{...}
+{viewerjumpto "Details" "network##details"}{...}
+{viewerjumpto "Known problems" "network##problems"}{...}
 {viewerjumpto "Changes from version 1.2.x to version 1.5" "network##whatsnew"}{...}
 {viewerjumpto "Future developments" "network##future"}{...}
+{viewerjumpto "References" "network##refs"}{...}
 {viewerjumpto "Please cite this package as" "network##citation"}{...}
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
@@ -253,6 +256,9 @@ In pairs format, {cmd:network meta} requires the additional program {help metare
 {p 0 0 0}With large numbers of treatments, you may run into memory problems.
 Please try increasing {help maxvar} and {help matsize} if your version of Stata allows you to do so.
 The problem arises with augmented format and I hope to find a workaround in future. 
+
+{p 0 0 0}Problems may arise when one treatment label is a truncated version of another: for example, if you have treatments "HOT" and "HOTTER". 
+I think this only arises when using {cmd:network import}, but the error may not become apparent until {cmd:network meta} is run. The workaround is to relabel the shorter treatment.
 
 {p 0 0 0}Please report any other problems to ian.white@ucl.ac.uk.
 
