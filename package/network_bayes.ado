@@ -1,4 +1,5 @@
 /*
+29may2019 Bug fix: failed when current path contained spaces
 *! version 1.6.0 # Ian White # 3may2019
 3may2019
 	version number added
@@ -747,7 +748,7 @@ if "`model'"!="" {
 	if mi("`winbugsdir'") local winbugsdir C:\WinBUGS14\
 	shell "`winbugsdir'WinBUGS14.exe" /PAR "`scriptfile'"
 	
-    cap confirm file `filepath'`name'_codaIndex.txt
+    cap confirm file `"`filepath'`name'_codaIndex.txt"'
     if _rc {
         di as error "Winbugs run failed"
         exit 498
