@@ -851,8 +851,8 @@ foreach parm of local wbparms0 {
 }
 * do results
 if mi("`stats'") wbstats `wbparms'
-if !mi("`ac'`ac2'") fastac `wbparms', `ac2'
 if mi("`trace'") fasttrace, `trace2'
+if !mi("`ac'`ac2'") fastac `wbparms', `ac2'
 if !mi("`density'`density2'") wbdensity `wbparms', `density2'
 
 // RESTORE OR NOT

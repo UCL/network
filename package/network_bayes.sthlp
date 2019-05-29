@@ -95,15 +95,17 @@ for matrix SigmaC (in models 2 and 3) or SigmaA (in model 4).
 Default is the dimension of the matrix, i.e. #treatments-1 in models 2 and 3 or #treatments in model 4.{p_end}
 
 {syntab:Output options, also available in replay mode}
+{synopt:{opt trace}({it:options})}Specifies options for the trace plots:
+may be any {help twoway_options:options for graph twoway}.
+If an autocorrelation or density plot is also requested then be sure to use option {cmd:name()} to avoid the graph being overwritten.{p_end}
+{synopt:{opt notrace}}Suppresses the trace plots of all monitored parameters.{p_end}
 {synopt:{opt ac}[{it:(options)}]}Graphs the autocorrelations for all monitored parameters, 
 using a fast alternative to {help wbac}. 
 {it:options} may be 
 {cmdab:lag:s(#)} giving the maximum lag (default is 40),
 {cmdab:sep:arate} giving a separate panel for each parameter (default is to overlay them),
-and any {help twoway options:options for graph twoway}.{p_end}
-{synopt:{opt notrace}}Suppresses the trace plots of all monitored parameters.{p_end}
-{synopt:{opt trace}({it:options})}Specifies options for the trace plots:
-may be any {help twoway_options:options for graph twoway}.{p_end}
+and any {help twoway options:options for graph twoway}. 
+If a density plot is also requested then be sure to use option {cmd:name()} to avoid the graph being overwritten.{p_end}
 {synopt:{opt den:sity}[{it:(options)}]}Draws density plots for all monitored parameters 
 using {help wbdensity}. {it:options} are options for {help wbdensity}. {p_end}
 {synopt:{opt nostats}}Suppresses the default summaries of the posterior distributions of all monitored parameters.{p_end}
