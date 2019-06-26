@@ -1,0 +1,8 @@
+/*
+New network bayes tests to run
+26jun2019
+*/
+
+Check what happens if prog is run when current data aren't network format
+	with & without replay
+	
