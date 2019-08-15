@@ -1,5 +1,7 @@
 /*
-*! Ian White # 6apr2018
+*! Ian White # 15aug2019
+	changed ordering of treatments to match networkplot v 2.0.2
+Ian White # 6apr2018
 	improved advice to install network_graphs
 version 1.1 # Ian White # 27may2015
 19jun2015
@@ -82,7 +84,9 @@ if "`t2'"!="`_trt'2" { // shouldn't be needed
 }
 gen `pair' = _n
 qui reshape long `_trt', i(`pair') j(`arm') 
-qui levelsof `_trt', local(trtcodelist) clean
+* qui levelsof `_trt', local(trtcodelist) clean
+* reference treatment now needs to be first so:
+local trtcodelist `ref' `trtlistnoref'
 local ntrts = wordcount("`trtcodelist'")
 if !mi("`debug'") di as input `"`ntrts' treatments: `trtcodelist'"'
 
