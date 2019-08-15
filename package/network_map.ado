@@ -84,8 +84,9 @@ if "`t2'"!="`_trt'2" { // shouldn't be needed
 }
 gen `pair' = _n
 qui reshape long `_trt', i(`pair') j(`arm') 
+* version before 15aug2019: used treatments labelled in alphabetical order
 * qui levelsof `_trt', local(trtcodelist) clean
-* reference treatment now needs to be first so:
+* version from 15aug2019: reference treatment placed first and all treatments labelled 
 local trtcodelist `ref' `trtlistnoref'
 local ntrts = wordcount("`trtcodelist'")
 if !mi("`debug'") di as input `"`ntrts' treatments: `trtcodelist'"'
