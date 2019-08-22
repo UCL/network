@@ -191,6 +191,18 @@ foreach option2 in sigA2prior logsigA2mean sigC2prior logsigC2mean {
 		exit 198
 	}
 }
+
+* winbugs directory
+if mi("`dryrun'") {
+	if mi("`winbugsdir'") local winbugsdir C:\WinBUGS14\
+	cap confirm file "`winbugsdir'WinBUGS14.exe"
+	if _rc {
+		di as error "WinBUGS14.exe not found in directory `winbugsdir'"
+		di as error "Install WinBUGS, or use correct winbugsdir() option, or specify dryrun option"
+		exit _rc
+	}
+}
+
 // END OF PARSING
 
 // LOAD SAVED NETWORK PARAMETERS
@@ -745,7 +757,6 @@ if "`model'"!="" {
 		timer clear 99
 		timer on 99
 	}
-	if mi("`winbugsdir'") local winbugsdir C:\WinBUGS14\
 	shell "`winbugsdir'WinBUGS14.exe" /PAR "`scriptfile'"
 	
     cap confirm file `"`filepath'`name'_codaIndex.txt"'
