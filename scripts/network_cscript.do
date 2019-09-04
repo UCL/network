@@ -1,5 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+4sep2019:  new ado location on "n:\old home drives"
 3may2019:  added log file
 31may2018: added checks of matrix output of network meta, and hairy trtcodes
 6apr2018:  added network compare
@@ -15,9 +16,10 @@ REQUIRES: MVMETA, METAREG
 11jul2014: fails with long names
 */
 
-local networkdir c:\ado\ian\network\
-cd `networkdir'scripts
-log using `networkdir'testlogs\network_cscript.log
+local networkdir N:\Old Home Drives\ado\ian\network\
+cd "`networkdir'scripts"
+cap log close
+log using "`networkdir'testlogs\network_cscript.log", replace
 
 cls
 cscript network
@@ -25,9 +27,7 @@ set trace off
 set more off
 pause on
 prog drop _all
-local mvmetadir c:\ado\ian\mvmeta\
-adopath ++ `mvmetadir'package
-adopath ++ `networkdir'package
+myadopath mvmeta network
 
 which mvmeta
 which network

@@ -1,5 +1,8 @@
 /*
-28may2019 changed indenting spaces to tabs
+*! version 1.6.1 # Ian White # 4sep2019
+	bug fix in network map
+	improvement to network table
+	28may2019 changed indenting spaces to tabs
 *! version 1.6.0 # Ian White # 3may2019
 	add in network bayes to support ABCB paper
 version 1.5.2 # Ian White # 5dec2018 
