@@ -1,0 +1,17 @@
+PROBLEM IN NETWORK MAP - DISCOVERED AND RESOLVED
+Ian White, 4 Sep 2019
+
+Dear Statalisters,
+
+I've discovered an error in my -network- suite for performing network meta-analysis.
+
+If you have been using -network map- with a non-default choice of treatment then please read on.
+
+network map labels the treatments wrongly if all of these are true:
+- the reference treatment is not the first treatment (i.e. not the default)
+- you have updated your version of -networkplot- to version 2.* (dated 9jan2018 or later)
+- you did not use the -trtcodes- option, i.e. you displayed treatment names not treatment codes
+
+To fix this, please download the latest version of the network suite (version 1.6.1 or later, dated 4sep2019 or later) from ...
+
+I'm sorry to anyone who has been affected by this. I'd like to thank Ewelina Rogozinska for bringing this to my attention.

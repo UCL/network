@@ -6,6 +6,7 @@
 {viewerjumpto "Description" "network_map##description"}{...}
 {viewerjumpto "Options" "network_map##options"}{...}
 {viewerjumpto "Examples" "network_map##examples"}{...}
+{viewerjumpto "Problems" "network_map##problems"}{...}
 {title:Title}
 
 {phang}
@@ -40,12 +41,17 @@
 {p 4 6 2}
 
 
+
 {title:Description}{marker description}
 
 {pstd} {cmd:network map} draws a
 map of a network: that is, it shows which treatments are directly compared
 against which other treatments, and roughly how much information is avaiable for each treatment
 and for each treatment comparison.
+
+{pstd} {help networkplot}, part of the network graphs package, is required. 
+To install it, use {stata "net from http://www.clinicalepidemio.fr/Stata"}.
+
 
 
 {title:Options}{marker options}
@@ -160,6 +166,19 @@ First we extract the matrix of stored locations
 {pin}. {stata "mat loc3=( 3,3,9\ 5,4,3\ 1,2,9\ 4.33,3,6\ 6,4.5,3\ 3,3.67,9\ 5,2,3\ 1,4,9)"}
 
 {pin}. {stata "network map, loc(loc3) title(Best map of thrombolytics network)"}
+
+
+
+{marker problems}{...}
+{title:Problems}
+
+{pstd}Versions of {cmd:network map} before v1.6.1 (4sep2019) 
+had an incompatibility with versions of {cmd:networkplot} afer v2.0.0 (9jan2018). 
+{cmd:network map} labelled the treatments wrongly if the reference treatment 
+was not the first treatment (i.e. not the default), 
+AND the -trtcodes- option was not used, 
+i.e. treatment names not treatment codes were displayed.
+
 
 
 {p}{helpb network: Return to main help page for network}
