@@ -1,4 +1,5 @@
 {smcl}
+{* *! version 1.6.1 4sep2019}{...}
 {* *! version 1.6.0 8may2019}{...}
 {* *! version 1.5.1 9may2018}{...}
 {* *! version 1.3.2 30aug2017}{...}
@@ -347,5 +348,5 @@ Email {browse "mailto:ian.white@ucl.ac.uk":ian.white@ucl.ac.uk}.
 
 {help metareg} (if installed)
 
-Programs by Anna Chaimani: {stata "net from http://www.mtm.uoi.gr"}
+Programs by Anna Chaimani: {stata "net from http://www.clinicalepidemio.fr/Stata"}
 

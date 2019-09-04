@@ -1,5 +1,15 @@
 /*
-*! Ian White # 6apr2018
+*! version 1.6.1 # Ian White # 4sep2019
+	program now detects which version of networkplot is used 
+		and chooses ordering of treatments accordingly
+	vercheck updated
+Versions older than 15aug2019 gave wrongly labelled treatments if
+	the reference treatment is not the first treatment (i.e. not the default)
+	and -networkplot- version was 2.0.* (introduced 9jan2018)
+	and the -trtcodes- option was not used (i.e. treatment names not treatment codes were displayed)
+Ian White # 15aug2019
+	changed ordering of treatments to match networkplot v 2.0.2
+Ian White # 6apr2018
 	improved advice to install network_graphs
 version 1.1 # Ian White # 27may2015
 19jun2015
@@ -53,14 +63,21 @@ local improve = cond(mi("`improve'"),`improve2',10)
 cap which networkplot
 if _rc {
     di as error `"networkplot is not installed"'
-    di as error `"Please install the network_graphs package using {stata "net from http://www.mtm.uoi.gr"}"'
+    di as error `"Please install the network_graphs package using {stata "net from http://www.clinicalepidemio.fr/Stata"}"'
     exit 498
 }
+// WHICH VERSION OF NETWORKPLOT?
+cap prog drop networkplot 
+	// in case the user has a different version in memory from that on the path
+	// we can't check the version in memory, so we drop it
+local networkplotversion 0
 cap vercheck networkplot 1.2
-local newver = _rc==0
-if !`newver' { // old version
+if !_rc local networkplotversion 1
+cap vercheck networkplot 2.0
+if !_rc local networkplotversion 2
+if `networkplotversion'==0 { // old version
     di as error `"You have an old version of networkplot so no network map options are allowed"'
-    di as error `"For best results please upgrade networkplot to v1.2 using {stata "net from http://www.mtm.uoi.gr"}"'
+    di as error `"For best results please upgrade networkplot to v1.2 or later using {stata "net from http://www.clinicalepidemio.fr/Stata"}"'
     foreach opt in circle square triangular random centre loc listloc trtcodes {
         if !mi("``opt''") di as error "Option `opt' ignored"
         if !mi("``opt'2'") di as error "Option `opt' ignored"
@@ -82,7 +99,15 @@ if "`t2'"!="`_trt'2" { // shouldn't be needed
 }
 gen `pair' = _n
 qui reshape long `_trt', i(`pair') j(`arm') 
-qui levelsof `_trt', local(trtcodelist) clean
+* get treatment list
+if `networkplotversion'==1 {
+	* networkplot v1.2: used treatments labelled in alphabetical order
+	qui levelsof `_trt', local(trtcodelist) clean
+}
+else {
+	* networkplot v2.0+: reference treatment placed first and all treatments labelled 
+	local trtcodelist `ref' `trtlistnoref'
+}
 local ntrts = wordcount("`trtcodelist'")
 if !mi("`debug'") di as input `"`ntrts' treatments: `trtcodelist'"'
 
@@ -157,7 +182,7 @@ if `newloc' {
 
 // FINAL PLOT
 if mi("`trtcodes'") local label label(`trtnames')
-if `newver' local newoptions loc(`loc') `label' graphregion(style(plotregion)) f9 
+if `networkplotversion' local newoptions loc(`loc') `label' graphregion(style(plotregion)) f9 
 `dicmd' networkplot `_trt'1 `_trt'2, `newoptions' `options' 
 if !mi("`listloc'") mat list `loc', title(Treatment locations for network map)
 
@@ -423,6 +448,8 @@ end
 /*======================= auxiliary program: vercheck =======================*/
 
 program define vercheck, sclass
+* 4sep2019 - ignores comma after version number, better error handling
+* 8may2015 - bug fix - handles missing values
 * 11mar2015 - bug fix - didn't search beyond first line
 version 9.2
 local progname `1'
@@ -438,8 +465,12 @@ local stop 0
 while `stop'==0 {
 	file read `fh' line
 	if r(eof) continue, break
-	tokenize `"`line'"'
-	if "`1'" != "*!" continue
+	cap { 
+		// suppress error message if line contains expression like `=`a'' when a is empty
+		// cap { tokenize } achieves this, cap tokenize doesn't!
+		tokenize `"`line'"', parse(", ")
+	}
+	if `"`1'"' != `"*!"' continue
 	while "`1'" != "" {
 		mac shift
 		if inlist("`1'","version","ver","v") {
@@ -463,9 +494,11 @@ if "`vermin'" != "" {
 		forvalues i=1/`words' {
 			local wordmin = real(word("`vermin2'",`i'))
 			local wordnum = real(word("`vernum2'",`i'))
-            if `wordmin' == `wordnum' continue
+			if `wordmin' == `wordnum' continue
 			if `wordmin' > `wordnum' local match old
 			if `wordmin' < `wordnum' local match new
+			if mi(`wordmin') local match new
+			else if mi(`wordnum') local match old
 			continue, break
 		}
 	}

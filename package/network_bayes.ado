@@ -128,24 +128,24 @@ syntax, [ ///
 if mi("`name'") local name network_bayes
 
 * where files are stored: savedir = stata name of directory, filepath = full path
-if !mi("`savedir'") {
+if !mi(`"`savedir'"') {
 	local wd = c(pwd)
-	local 0 `savedir'
+	local 0 `"`savedir'"'
 	syntax anything, [Create]
 	if !mi("`create'") {
-		cap cd `anything'
+		cap cd `"`anything'"'
 		if _rc {
-			mkdir `anything'
+			mkdir `"`anything'"'
 			di as text "Directory `anything' created"
-			qui cd `anything'
+			qui cd `"`anything'"'
 		}
 	}
-	else qui cd `anything'
+	else qui cd `"`anything'"'
 	local filepath = c(pwd)
-	qui cd `wd'
-	local savedir `anything'
-	local endsavedir = substr("`savedir'",length("`savedir'"),1)
-	if "`endsavedir'" == "\" local savedir = substr("`savedir'",1,length("`savedir'")-1)+"/"
+	qui cd `"`wd'"'
+	local savedir `"`anything'"'
+	local endsavedir = substr(`"`savedir'"',length(`"`savedir'"'),1)
+	if "`endsavedir'" == "\" local savedir = substr(`"`savedir'"',1,length(`"`savedir'"')-1)+"/"
 	else if "`endsavedir'" != "/" local savedir `savedir'/
 }
 else {
@@ -191,6 +191,18 @@ foreach option2 in sigA2prior logsigA2mean sigC2prior logsigC2mean {
 		exit 198
 	}
 }
+
+* winbugs directory
+if mi("`dryrun'") & !mi("`model'") {
+	if mi("`winbugsdir'") local winbugsdir C:\WinBUGS14\
+	cap confirm file "`winbugsdir'WinBUGS14.exe"
+	if _rc {
+		di as error "WinBUGS14.exe not found in directory `winbugsdir'"
+		di as error "Install WinBUGS, or use correct winbugsdir() option, or specify dryrun option"
+		exit _rc
+	}
+}
+
 // END OF PARSING
 
 // LOAD SAVED NETWORK PARAMETERS
@@ -724,7 +736,7 @@ if "`model'"!="" {
 	di as text "Writing files ..." _c
 	foreach type in data scalars inits model script {
 		file close `type'
-		di as text _col(19) "`type' to `savedir'`name'_`type'.txt"
+		di as text _col(19) `"`type' to `savedir'`name'_`type'.txt"'
 	}
 	
 	if "`dryrun'"=="dryrun" {
@@ -745,7 +757,6 @@ if "`model'"!="" {
 		timer clear 99
 		timer on 99
 	}
-	if mi("`winbugsdir'") local winbugsdir C:\WinBUGS14\
 	shell "`winbugsdir'WinBUGS14.exe" /PAR "`scriptfile'"
 	
     cap confirm file `"`filepath'`name'_codaIndex.txt"'
@@ -804,11 +815,11 @@ if "`model'"!="" {
 	}
 	local sampledfrom = cond("`prioronly'"=="","posterior","prior")
 	label data "Sample from `sampledfrom': model `model' `commonhetabb'; burnin `burnin', thin `thin'"
-    qui save `savedir'`name'_sample, replace
+    qui save "`savedir'`name'_sample", replace
     di as text "Bugs output saved in `savedir'`name'_sample.dta"
 }
 else {
-	cap use `savedir'`name'_sample, clear
+	cap use `"`savedir'`name'_sample"', clear
 	if _rc {
 		di as error "No model statement, and no saved results found in `savedir'`name'_sample"
 		exit 498

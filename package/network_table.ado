@@ -1,4 +1,7 @@
 /*
+*! version 1.6.1 # Ian White # 4sep2019
+	treatments are displayed in correct order (ref first)
+	- previously treatment names were given in alphabetical order
 *! version 1.3.0 # Ian White # 17aug2017 
 	drops unwanted variables before reshape 
 	(avoids failure e.g. if a variable starts "d")
@@ -62,21 +65,25 @@ qui reshape long `A', i(`studyvar' `trt') j(`stat')
 qui drop if mi(`A')
 if "`outcome'"=="count" label def `stat' 1 "`d'" 2 "`n'"
 else if "`outcome'"=="quantitative" label def `stat' 1 "`mean'" 2 "`sd'" 3 "`n'"
-if mi(`"`trtcodes'"') { // convert code to name
-    qui gen `trt'2=""
-    foreach code in `ref' `trtlistnoref' {
-        qui replace `trt'2=`"`trtname`code''"' if `trt'=="`code'"
-    }
-    drop `trt'
-    rename `trt'2 `trt'
-}
 label val `stat' `stat'
-label var `trt' "Treatment"
 label var `stat' "Statistic"
+
+* create new treatment variable in correct order
+qui gen `trt'2=.
+local i 0
+foreach code in `ref' `trtlistnoref' {
+	local ++i
+	qui replace `trt'2=`i' if `trt'=="`code'"
+	if mi(`"`trtcodes'"') local trtdisplay `trtname`code''
+	else local trtdisplay `code'
+	label def `trt'2 `i' `"`trtdisplay'"', modify
+}
+label val `trt'2 `trt'2
+label var `trt'2 "Treatment"
+
 if !mi("`component'") {
 	di "Displaying components separately"
 	local bycpt bysort `component': 
 }
-`bycpt' tabdisp `studyvar' `stat' `trt', c(`A') `options'
-
+`bycpt' tabdisp `studyvar' `stat' `trt'2, c(`A') `options'
 end
