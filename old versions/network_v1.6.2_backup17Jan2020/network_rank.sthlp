@@ -1,6 +1,5 @@
 {smcl}
 {* *! version 1.1 27may2015}{...}
-{* *! added mcse option 13may2020}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "Main network help page" "network"}{...}
 {viewerjumpto "Syntax" "network_rank##syntax"}{...}
@@ -33,7 +32,6 @@ The options listed below are likely to be useful.
 {synopt:{opt all}}Reports probabilities for all ranks. 
 The default is to report only the probabilities of being the best treatment.{p_end}
 {synopt:{opt rep:s(#)}}Set the number of replicates - larger numbers reduce Monte Carlo error{p_end}
-{synopt:{opt mcse}}Add the Monte Carlo standard errors to the tables{p_end}
 {synopt:{opt seed(#)}}Set the random number seed for reproducibility{p_end}
 {synopt:{opt bar}}Draw a bar graph of ranks{p_end}
 {synopt:{opt line}}Draw a line graph of ranks{p_end}

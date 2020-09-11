@@ -46,8 +46,7 @@ This option is only available in augmented format.{p_end}
 {synopt:{opt nowar:nings}}Suppress warning messages (not recommended).{p_end}
 {synopt:{it:mvmeta_options}}Other options for {help mvmeta} (if data are in augmented or standard format)
 or {help metareg} (if data are in pairs format).
-For example, {cmd:bscov(uns)} could be used to over-ride the standard "common heterogeneity" model, 
-and {cmd:eform} could be used to report exponentiated coefficients.{p_end}
+For example, {cmd:bscov(uns)} could be used to over-ride the standard "common heterogeneity" model.{p_end}
 {synoptline}
 {p2colreset}{...}
 {p 4 6 2}

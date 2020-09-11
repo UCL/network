@@ -1,0 +1,203 @@
+------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  N:\Home\ado\ian\network\scripts\Stata error 2.log
+  log type:  text
+ opened on:   5 Dec 2019, 14:44:13
+Log file Stata error 2.log opened on  5 Dec 2019 at 14:44:13
+
+. /* 
+> 2nd error found in Paris NMA course 4-6 Dec 2019:
+>         problems with network sidesplit
+> Acute Mania data: continuous data, arm-level 
+> */
+. clear
+
+. import excel "C:\Users\rmjwiww\Dropbox\NMA course 2019\Practicals\datasets\Continuous arm-level\Cipr
+> iani 2011_501231_Acute Mania (mean change).xlsx", sheet("Sheet1") firstrow
+
+. drop t
+
+. network setup mean sd n, study(S) trt(T) ref(Placebo)
+Treatments used
+   A:                                  Aripiprazole
+   B:                                  Asenapine
+   C:                                  Carbamazpine
+   D:                                  Divalproex
+   E:                                  Gabapentin
+   F:                                  Haloperidol
+   G:                                  Lamotrigine
+   H:                                  Lithium
+   I:                                  Olanzapine
+   J:                                  Paliperidone
+   K (reference):                      Placebo
+   L:                                  Quetipaine
+   M:                                  Ripseridone
+   N:                                  Topiramate
+   O:                                  Ziprasidone
+
+Measure                                Mean difference
+   Standard deviation pooling:         off
+
+Studies
+   ID variable:                        StudyID
+   Number used:                        62
+   IDs with augmented reference arm:   3 8 14 17 19 20 25 26 28 29 31 34 37 38 39 40 44 53
+   - observations added:               0.00001
+   - mean in augmented observations:   study-specific mean
+   - SD in augmented observations:     study-specific within-arms SD
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             33
+   D.f. for heterogeneity:             32
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list StudyID _y* _S*, noo sepby(_design)
+
+. network map, name(AcuteMania,replace)
+Graph command stored in F9
+
+. 
+. local opt fixed // only for speed 
+
+. 
+. * block 1: matsize too small, mvmeta will fail
+. set matsize 400
+
+. 
+. * unhelpful error if matsize is too small
+. cap noi network sidesplit A F, `opt'
+fixed option used: bscovariance() ignored
+matsize too small
+    You have attempted to create a matrix with too many rows or columns or attempted to fit a model
+    with too many variables.  You need to increase matsize; it is currently 400.  Use set matsize;
+    see help matsize.
+
+    If you are using factor variables and included an interaction that has lots of missing cells,
+    either increase matsize or set emptycells drop to reduce the required matrix size; see help set
+    emptycells.
+
+    If you are using factor variables, you might have accidentally treated a continuous variable as
+    a categorical, resulting in lots of categories.  Use the c. operator on such variables.
+
+. 
+. * and unhelpful missing values
+. network sidesplit all, `opt'
+
+Side    Direct                Indirect              Difference
+        Coef.      Std. Err.  Coef.      Std. Err.  Coef.      Std. Err.  P>|z|
+K L             .          .          .          .          .          .      .
+K M             .          .          .          .          .          .      .
+K N             .          .          .          .          .          .      .
+K O             .          .          .          .          .          .      .
+A K             .          .          .          .          .          .      .
+A F             .          .          .          .          .          .      .
+A H             .          .          .          .          .          .      .
+B K             .          .          .          .          .          .      .
+B I             .          .          .          .          .          .      .
+C K             .          .          .          .          .          .      .
+C D             .          .          .          .          .          .      .
+C F             .          .          .          .          .          .      .
+C H             .          .          .          .          .          .      .
+D K             .          .          .          .          .          .      .
+D H             .          .          .          .          .          .      .
+D I             .          .          .          .          .          .      .
+E K             .          .          .          .          .          .      .
+F K             .          .          .          .          .          .      .
+F H             .          .          .          .          .          .      .
+F I             .          .          .          .          .          .      .
+F L             .          .          .          .          .          .      .
+F M             .          .          .          .          .          .      .
+F O             .          .          .          .          .          .      .
+G K             .          .          .          .          .          .      .
+G H             .          .          .          .          .          .      .
+H K             .          .          .          .          .          .      .
+H I             .          .          .          .          .          .      .
+H L             .          .          .          .          .          .      .
+H M             .          .          .          .          .          .      .
+H N             .          .          .          .          .          .      .
+I K             .          .          .          .          .          .      .
+I M             .          .          .          .          .          .      .
+J K             .          .          .          .          .          .      .
+J L             .          .          .          .          .          .      .
+
+. 
+. * block 2: matsize too small, mvmeta will succeed
+. set matsize 4000
+
+. 
+. * unhelpful error if no direct evidence
+. cap noi network sidesplit A D, `opt'
+fixed option used: bscovariance() ignored
+mvmeta_mufromsigma: in Mata, XWXsum (below) could not be inverted
+something that should be true of your data is not
+
+. 
+. * successful counterparts of analyses that failed above
+. * to show they can work
+. network sidesplit A F, `opt'
+fixed option used: bscovariance() ignored
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      direct |  -.5089924   .8085127    -0.63   0.529    -2.093648    1.075663
+    indirect |  -3.626983   .7240178    -5.01   0.000    -5.046032   -2.207934
+  difference |   3.117991   1.085746     2.87   0.004     .9899672    5.246014
+------------------------------------------------------------------------------
+
+. network sidesplit all, `opt'
+
+Side    Direct                Indirect              Difference
+        Coef.      Std. Err.  Coef.      Std. Err.  Coef.      Std. Err.  P>|z|
+K L     -4.056431   .6071308  -2.220714   1.222633  -1.835718   1.401972  0.190
+K M     -6.516368   .6792396  -4.984819   .9214281  -1.531549   1.156072  0.185
+K N *    .5247256   .5700169   4.826447   2.242495  -4.301722   2.311052  0.063
+K O *   -1.893894   .5973605   3.763671    2.30965  -5.657565   2.420465  0.019
+A K      3.065915   .4768438   7.066136   1.080948   -4.00022   1.186042  0.001
+A F     -.5089924   .8085127  -3.626983   .7240178   3.117991   1.085746  0.004
+A H      .6100686   1.130366  -.3985956   .7350318   1.008664   1.348337  0.454
+B K *    4.537941   .9345104  -1.983068   1.655502   6.521009   2.020697  0.001
+B I *   -2.461012   .7898865   4.059997   1.867848  -6.521009   2.020697  0.001
+C K           6.1   1.185663   2.387126   2.025155   3.712874    2.34671  0.114
+C D           -12   5.008141   3.891311   1.179563  -15.89131   5.145176  0.002
+C F      .7286659   2.568894  -1.150651   1.197887   1.879317   2.834457  0.507
+C H     -3.896238    4.11857    1.74273   1.164349  -5.638968   4.279991  0.188
+D K      1.633596   .6766128    3.07948   1.002515  -1.445885   1.232534  0.241
+D H         -16.9   6.095706   -1.51311   .7300474  -15.38689   6.139267  0.012
+D I     -1.763935    .672927  -2.930863   .9365603   1.166928   1.151369  0.311
+E K             .          .          .          .          .          .      .
+F K      6.276824   .6145805   5.599366    .671894   .6774576   .9262821  0.465
+F H           5.5   1.760015   1.647406   .6742045   3.852594   1.884729  0.041
+F I      1.597128   1.073425   1.746328   .6071186  -.1491999   1.228828  0.903
+F L      5.078251   1.654194   1.774339   .7238626   3.303913   1.803541  0.067
+F M      .1216815   .8537784  -.1395923   .8766331   .2612738   1.224289  0.831
+F O      5.558242   1.165456   3.973267   .8210462   1.584975   1.424866  0.266
+G K     -.0341657   1.284583   2.460332   2.319932  -2.494498   2.604666  0.338
+G H *   -2.616245   1.418229  -5.198762   2.530689   2.582517   3.055257  0.398
+H K      4.486973   .6538048   2.910809   .7705933   1.576163   1.012367  0.119
+H I     -.0686434   1.456443  -.4997885   .6403109   .4311451   1.590982  0.786
+H L     -1.465481   1.192918   .8972405    .801254  -2.362722   1.437644  0.100
+H M          -3.3   1.760015   -1.92833   .7641872   -1.37167   1.918759  0.475
+H N      6.137743   1.118632     3.6722   .8750774   2.465543   1.419989  0.083
+I K *    3.979674   .4349977   4.983252   .7064454  -1.003577   .8318153  0.228
+I M      .4299999   1.224006  -2.403806   .6929814   2.833806   1.406561  0.044
+J K *    3.617731   .6988685   6.311216   2.146307  -2.693485   2.357404  0.253
+J L      1.526831   .9174964  -1.285474   1.044885   2.812305   1.392392  0.043
+
+* Warning: all the evidence about these contrasts comes from the trials which directly compare them.
+See help file for more information.
+
+. 
+. 
+end of do-file
+Log file Stata error 2.log completed on  5 Dec 2019 at 14:51:33
+      name:  <unnamed>
+       log:  N:\Home\ado\ian\network\scripts\Stata error 2.log
+  log type:  text
+ closed on:   5 Dec 2019, 14:51:33
+------------------------------------------------------------------------------------------------------

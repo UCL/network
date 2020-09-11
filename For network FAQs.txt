@@ -1,0 +1,9 @@
+For network FAQs:
+
+How do I estimate the CI for a SUCRA?
+
+You should not estimate a CI for SUCRA! This is because SUCRA is not a parameter (like a treatment effect) but a summary of the evidence (like a p-value). 
+
+This is discussed in https://www.sciencedirect.com/science/article/pii/S0895435617308016 - this commentary refrains from a defnitive statement, “it is unclear whether it makes sense to report and interpret uncertainty intervals for SUCRA measures”, but makes its views clear, “the interpretation of the SUCRA uncertainty intervals would be irrelevant”
+
+

@@ -3,7 +3,6 @@
 {vieweralsosee "Main network help page" "network"}{...}
 {viewerjumpto "Syntax" "network_forest##syntax"}{...}
 {viewerjumpto "Description" "network_forest##description"}{...}
-{viewerjumpto "Troubleshooting and limitations" "network_forest##limitations"}{...}
 {viewerjumpto "Examples" "network_forest##examples"}{...}
 {title:Title}
 
@@ -112,15 +111,6 @@ to the inverse square of the standard error.
 Because pooled estimates (2 and 3) allow for between-studies heterogeneity, 
 they may have wider confidence intervals and smaller markers than study-specific estimates (1).
 (2) and (3) come from matrices of fitted values stored by {help network meta:network meta}.
-
-
-{marker limitations}{...}
-{title:Troubleshooting and limitations}
-
-{pstd}The study identifier is specified by the {cmd:studyvar()} option of {help network setup}.
-If the study identifier is a numeric variable, then any value labels are ignored 
-and studies are labelled in the form "study #" in the forest plot.
-To display study names correctly, define the study identifier as a string variable.
 
 
 {marker examples}{...}

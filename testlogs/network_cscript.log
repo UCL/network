@@ -1,8 +1,8 @@
--------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  N:\Old Home Drives\ado\ian\network\testlogs\network_cscript.log
+       log:  N:\home\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:   4 Sep 2019, 12:12:44
+ opened on:   5 Dec 2019, 18:48:02
 
 . 
 . cls
@@ -19,24 +19,23 @@
 . prog drop _all
 
 . myadopath mvmeta network
-  [1]              "N:\Old Home Drives\ado\ian\network\package"
-  [2]              "N:\Old Home Drives\ado\ian\mvmeta\package"
+  [1]              "N:\Home\ado\ian\network\package"
+  [2]              "N:\Home\ado\ian\mvmeta\package"
   [3]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
   [4]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
   [5]              "."
-  [6]  (PERSONAL)  "N:\Old Home Drives\ado\personal/"
-  [7]  (PLUS)      "N:\Old Home Drives\ado\stbplus/"
+  [6]  (PERSONAL)  "N:\Home\ado\personal/"
+  [7]  (PLUS)      "N:\Home\ado\stbplus/"
   [8]  (OLDPLACE)  "c:\ado/"
 
 . 
 . which mvmeta
-N:\Old Home Drives\ado\ian\mvmeta\package\mvmeta.ado
+N:\Home\ado\ian\mvmeta\package\mvmeta.ado
 *! version 3.2.0 # Ian White # 6apr2018
 
 . which network
-N:\Old Home Drives\ado\ian\network\package\network.ado
-*! version 1.6.1 # Ian White # 4sep2019
-*! version 1.6.0 # Ian White # 3may2019
+N:\Home\ado\ian\network\package\network.ado
+*! version 1.6.2 # Ian White # 4dec2019
 
 . 
 . // check network setup
@@ -207,7 +206,6 @@ Converting pairs to standard ...
      +---------------------------------------------------------------------+
 
 . save z, replace
-(note: file z.dta not found)
 file z.dta saved
 
 . 
@@ -8548,7 +8546,7 @@ mvmeta command stored as F9; test command stored as F8
 
 . log close
       name:  <unnamed>
-       log:  N:\Old Home Drives\ado\ian\network\testlogs\network_cscript.log
+       log:  N:\home\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:   4 Sep 2019, 12:23:23
+ closed on:   5 Dec 2019, 18:55:54
 -------------------------------------------------------------------------------
