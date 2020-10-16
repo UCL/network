@@ -1,5 +1,7 @@
 /*
-*! Ian White # 4dec2019
+*! Ian White # 16oct2020
+	unabbreviates effect() - avoids errors later in -network map-
+Ian White # 4dec2019
 	more helpful error message if effect() is not a varname
 31may2018
 	bug avoider: some choices of treatment codes made designs appear non-unique once spaces are removed
@@ -36,7 +38,8 @@ cap syntax [if] [in], STUDyvar(varname) TReat(varlist min=2 max=2) ///
 	EFFect(name) STDErr(varname) [*]
 if !_rc {
 	local from pairs
-	confirm var `effect'
+	*confirm var `effect'
+	unab effect : `effect', min(1) max(1) name(effect option)
 }
 
 else {
