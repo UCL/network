@@ -1,0 +1,534 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}\\srv-partilhas.interno.aibili.pt\HTA\ARTIGOS_ABSTRACTS\NMA_JAKs_Inib\ISPE 2020\errorlog.txt
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}17 Oct 2020, 17:13:41
+
+{com}. network which
+{txt}c:\ado\plus\n\network.ado
+{res}*! version 1.5.0 # Ian White # 6apr2018 
+{txt}c:\ado\plus\n\network_setup.ado
+{res}*! Ian White # 6apr2018
+{txt}c:\ado\plus\n\network_import.ado
+{res}*! Ian White # 6apr2018
+{txt}c:\ado\plus\n\network_convert.ado
+{res}*! Ian White # 4apr2018
+{txt}c:\ado\plus\n\network_query.ado
+{res}*! version 1.1 # Ian White # 27may2015
+{txt}c:\ado\plus\n\network_unset.ado
+{res}*! version 1.1 # Ian White # 27may2015
+{txt}c:\ado\plus\n\network_table.ado
+{res}*! version 1.3.0 # Ian White # 17aug2017 
+{txt}c:\ado\plus\n\network_meta.ado
+{res}*! Ian White # 4apr2018
+{txt}c:\ado\plus\n\network_sidesplit.ado
+{res}*! version 1.2.0 # Ian White # 3jul2015
+{txt}c:\ado\plus\n\network_rank.ado
+{res}*! version 1.1 # Ian White # 27may2015
+{err}command network_loopsplit not found as either built-in or ado-file
+{txt}{search r(111):r(111);}
+
+{com}. set trace on
+
+. set tracedepth 2
+
+. network forest, msize(*0,15)
+{txt}{hline 109} begin network {hline}
+- version 13
+- syntax [anything] [if] [in], [which *]
+- foreach thing in `_dta[network_allthings]' {c -(}
+= foreach thing in allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity {c -(}
+- local `thing' : char _dta[network_`thing']
+= local allthings : char _dta[network_allthings]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local studyvar : char _dta[network_studyvar]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local design : char _dta[network_design]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local ref : char _dta[network_ref]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtlistnoref : char _dta[network_trtlistnoref]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameA : char _dta[network_trtnameA]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameB : char _dta[network_trtnameB]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameC : char _dta[network_trtnameC]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameD : char _dta[network_trtnameD]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameE : char _dta[network_trtnameE]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameF : char _dta[network_trtnameF]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameG : char _dta[network_trtnameG]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local maxarms : char _dta[network_maxarms]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local measure : char _dta[network_measure]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local outcome : char _dta[network_outcome]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local dim : char _dta[network_dim]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local format : char _dta[network_format]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local d : char _dta[network_d]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local n : char _dta[network_n]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local nmiss : char _dta[network_nmiss]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local y : char _dta[network_y]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local S : char _dta[network_S]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local stderr : char _dta[network_stderr]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local contrast : char _dta[network_contrast]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local t1 : char _dta[network_t1]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local t2 : char _dta[network_t2]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtdiff : char _dta[network_trtdiff]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local component : char _dta[network_component]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local MNAR : char _dta[network_MNAR]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_type : char _dta[network_testcons_type]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_stat : char _dta[network_testcons_stat]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_df : char _dta[network_testcons_df]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_p : char _dta[network_testcons_p]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local metavars : char _dta[network_metavars]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local consistency_fitted : char _dta[network_consistency_fitted]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local inconsistency_fitted : char _dta[network_inconsistency_fitted]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local plot_location : char _dta[network_plot_location]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local ncomponents : char _dta[network_ncomponents]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local df_inconsistency : char _dta[network_df_inconsistency]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local df_heterogeneity : char _dta[network_df_heterogeneity]
+- {c )-}
+- local subcmds0 setup import
+- local subcmds1 convert query unset table meta sidesplit rank loopsplit forest pattern map
+- local subcmds2 bayes
+- local subcmds `subcmds0' `subcmds1' `subcmds'
+= local subcmds setup import convert query unset table meta sidesplit rank loopsplit forest pattern map 
+- if mi("`anything'") {c -(}
+= if mi("forest") {c -(}
+  di as error "Syntax: network <subcommand>"
+  exit 198
+  {c )-}
+- if "`anything'"=="which" {c -(}
+= if "forest"=="which" {c -(}
+  which network
+  foreach subcmd of local subcmds {c -(}
+  which network_`subcmd'
+  {c )-}
+  exit
+  {c )-}
+- gettoken subcmd rest : anything
+- if length("`subcmd'")>=3 {c -(}
+= if length("forest")>=3 {c -(}
+- foreach thing in `subcmds' {c -(}
+= foreach thing in setup import convert query unset table meta sidesplit rank loopsplit forest pattern map {c -(}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("setup","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("import","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("convert","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("query","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("unset","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("table","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("meta","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("sidesplit","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("rank","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("loopsplit","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("forest","forest")==1 {c -(}
+- local subcmd `thing'
+= local subcmd forest
+- local knowncmd 1
+- {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("pattern","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("map","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- {c )-}
+- cap which network_`subcmd'
+= cap which network_forest
+- if _rc {c -(}
+  di as error "`subcmd' is not a valid network subcommand"
+  if length("`subcmd'")<3 di as error "Minimum abbreviation length is 3"
+  exit 198
+  {c )-}
+- local type0 : list subcmd in subcmds0
+- if `type0' & !mi("`allthings'") {c -(}
+= if 0 & !mi("allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity") {c -(}
+  di as error "Data are already in network format"
+  exit 459
+  {c )-}
+- local type1 : list subcmd in subcmds1
+- if `type1' & mi("`allthings'") {c -(}
+= if 1 & mi("allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity") {c -(}
+  di as error "Data are not in network format: use network setup|import"
+  exit 459
+  {c )-}
+- if `type1' & "`format'"=="pairs" & !mi("`if'`in'") {c -(}
+= if 1 & "augmented"=="pairs" & !mi("") {c -(}
+  marksample touse
+  tempvar min
+  egen `min' = min(`touse'), by(`studyvar')
+  qui count if `touse'>`min'
+  if r(N) {c -(}
+  di as error "The data are in pairs format - this command would use only part of a multi-arm study"
+  exit 198
+  {c )-}
+  {c )-}
+- if mi(`"`options'"') network_`subcmd' `rest' `if' `in'
+= if mi(`"msize(*0,15)"') network_forest   
+- else network_`subcmd' `rest' `if' `in', `options'
+= else network_forest   , msize(*0,15)
+  {hline 100} begin network_forest {hline}
+  - if mi("`_dta[network_allthings]'") {c -(}
+  = if mi("allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity") {c -(}
+    di as error "Data are not in network format"
+    exit 459
+    {c )-}
+  - foreach thing in `_dta[network_allthings]' {c -(}
+  = foreach thing in allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity {c -(}
+  - local `thing' : char _dta[network_`thing']
+  = local allthings : char _dta[network_allthings]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local studyvar : char _dta[network_studyvar]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local design : char _dta[network_design]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local ref : char _dta[network_ref]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtlistnoref : char _dta[network_trtlistnoref]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameA : char _dta[network_trtnameA]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameB : char _dta[network_trtnameB]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameC : char _dta[network_trtnameC]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameD : char _dta[network_trtnameD]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameE : char _dta[network_trtnameE]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameF : char _dta[network_trtnameF]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameG : char _dta[network_trtnameG]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local maxarms : char _dta[network_maxarms]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local measure : char _dta[network_measure]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local outcome : char _dta[network_outcome]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local dim : char _dta[network_dim]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local format : char _dta[network_format]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local d : char _dta[network_d]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local n : char _dta[network_n]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local nmiss : char _dta[network_nmiss]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local y : char _dta[network_y]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local S : char _dta[network_S]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local stderr : char _dta[network_stderr]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local contrast : char _dta[network_contrast]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local t1 : char _dta[network_t1]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local t2 : char _dta[network_t2]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtdiff : char _dta[network_trtdiff]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local component : char _dta[network_component]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local MNAR : char _dta[network_MNAR]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_type : char _dta[network_testcons_type]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_stat : char _dta[network_testcons_stat]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_df : char _dta[network_testcons_df]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_p : char _dta[network_testcons_p]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local metavars : char _dta[network_metavars]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local consistency_fitted : char _dta[network_consistency_fitted]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local inconsistency_fitted : char _dta[network_inconsistency_fitted]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local plot_location : char _dta[network_plot_location]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local ncomponents : char _dta[network_ncomponents]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local df_inconsistency : char _dta[network_df_inconsistency]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local df_heterogeneity : char _dta[network_df_heterogeneity]
+  - {c )-}
+  - syntax [if] [in], [ CONSistency(string) INCOnsistency(string) List noGRaph clear COLors(string) CONTRASTOptions(string) TRTCodes CONTRASTPos(string) COLUMNs(string) Level(cilevel) NCOLumns(int 0) force DIAmond group(string) eform TItle(passthru) XTItle(string) MSIZe(passthru) MSymbol(passthru) note(string asis) LEGend(string) XLABel(string) addrows(int 0) headband debug diamondheight(real 0.4) * ]
+  - if "`graph'" == "nograph" & mi("`clear'") local list list
+  = if "" == "nograph" & mi("") local list list
+  - if mi("`debug'") local ifdebug *
+  = if mi("") local ifdebug *
+  - else local dicmd noi dicmd
+  - if mi("`consistency'") local consistency `consistency_fitted'
+  = if mi("") local consistency _network_consistency
+  - if mi("`inconsistency'") local inconsistency `inconsistency_fitted'
+  = if mi("") local inconsistency _network_inconsistency
+  - if mi("`msymbol'") local msymbol msymbol(S)
+  = if mi("") local msymbol msymbol(S)
+  - if mi("`xtitle'") {c -(}
+  = if mi("") {c -(}
+  - if mi("`eform'") local xtitle `measure'
+  = if mi("") local xtitle Log odds ratio
+  - else if lower(substr("`measure'",1,4))=="log " local xtitle = upper(substr("`measure'",5,1)) + substr("`measure'",6,.)
+  = else if lower(substr("Log odds ratio",1,4))=="log " local xtitle = upper(substr("Log odds ratio",5,1)) + substr("Log odds ratio",6,.)
+  - else local xtitle exp(`measure')
+  = else local xtitle exp(Log odds ratio)
+  - {c )-}
+  - else if substr("`xtitle'",1,1)=="," local xtitle `measure' `xtitle'
+  = else if substr("Log odds ratio",1,1)=="," local xtitle Log odds ratio Log odds ratio
+  - if !mi("`xtitle'") local xtitle xtitle(`xtitle')
+  = if !mi("Log odds ratio") local xtitle xtitle(Log odds ratio)
+  - if !inlist("`columns'","xtile","smart","") {c -(}
+  = if !inlist("","xtile","smart","") {c -(}
+    di as error "Syntax: columns(smart|xtile)"
+    exit 198
+    {c )-}
+  - if mi("`msize'") local msize msize(*0.2)
+  = if mi("msize(*0,15)") local msize msize(*0.2)
+  - local graphoptions `options'
+  = local graphoptions 
+  - marksample touse
+  - local 0 ,`legend'
+  = local 0 ,
+  - syntax, [off on POSition(passthru) ring(passthru) BPLACEment(passthru) span at(passthru) Rows(passthru) Cols(passthru) * ]
+  - local legendlocation `off' `on' `position' `ring' `bplacement' `span' `at'
+  = local legendlocation       
+  - if mi("`rows'`cols'") local rows rows(1)
+  = if mi("") local rows rows(1)
+  - local legendcontents `options' `rows' `cols'
+  = local legendcontents  rows(1) 
+  - local 0 `"`note'"'
+  = local 0 `""'
+  - syntax [anything], [size(passthru) *]
+  - if mi("`size'") local size size(vsmall)
+  = if mi("") local size size(vsmall)
+  - local note `"`anything'"'
+  = local note `""'
+  - local noteopts `size' `options'
+  = local noteopts size(vsmall) 
+  - if inlist("`consistency'","off","") & inlist("`inconsistency'","off","") {c -(}
+  = if inlist("_network_consistency","off","") & inlist("_network_inconsistency","off","") {c -(}
+    di as text "Drawing raw forest plot without any model results"
+    local consistency off
+    local inconsistency off
+    if mi("`legend'") local legendlocation off
+    {c )-}
+  - if mi("`group'") {c -(}
+  = if mi("") {c -(}
+  - if inlist("`inconsistency'","off","") local group type
+  = if inlist("_network_inconsistency","off","") local group type
+  - else local group design
+  - if !mi("`debug'") di as text "group(`group') assumed"
+  = if !mi("") di as text "group(design) assumed"
+  - {c )-}
+  - if !inlist("`group'","design","type") {c -(}
+  = if !inlist("design","design","type") {c -(}
+    di as error "group(`group') not allowed"
+    exit 198
+    {c )-}
+  - preserve
+  - qui keep if `touse'
+  = qui keep if __000000
+  - tempvar base
+  - gen `base' = word(`design',1)
+  = gen __000001 = word(_design,1)
+  - qui tab `design'
+  = qui tab _design
+  - local ndesigns = r(r)
+  - if "`format'" != "pairs" qui network convert pairs
+  = if "augmented" != "pairs" qui network convert pairs
+{err}_t1 already defined
+{txt}  {hline 102} end network_forest {hline}
+{hline 111} end network {hline}
+{search r(110):r(110);}
+
+{com}. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}\\srv-partilhas.interno.aibili.pt\HTA\ARTIGOS_ABSTRACTS\NMA_JAKs_Inib\ISPE 2020\errorlog.txt
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}17 Oct 2020, 17:15:38
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

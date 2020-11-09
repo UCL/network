@@ -1,0 +1,1335 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\ado\ian\network\bugs\forest error Carlos Alves\errorian.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 9 Nov 2020, 15:34:08
+
+{com}. set trace on
+
+. set tracedepth 2
+
+.  network forest, msize(*0.15)
+{txt}{hline 74} begin network {hline}
+- version 13
+- syntax [anything] [if] [in], [which *]
+- foreach thing in `_dta[network_allthings]' {c -(}
+= foreach thing in allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG trtnameH maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity {c -(}
+- local `thing' : char _dta[network_`thing']
+= local allthings : char _dta[network_allthings]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local studyvar : char _dta[network_studyvar]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local design : char _dta[network_design]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local ref : char _dta[network_ref]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtlistnoref : char _dta[network_trtlistnoref]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameA : char _dta[network_trtnameA]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameB : char _dta[network_trtnameB]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameC : char _dta[network_trtnameC]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameD : char _dta[network_trtnameD]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameE : char _dta[network_trtnameE]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameF : char _dta[network_trtnameF]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameG : char _dta[network_trtnameG]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtnameH : char _dta[network_trtnameH]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local maxarms : char _dta[network_maxarms]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local measure : char _dta[network_measure]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local outcome : char _dta[network_outcome]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local dim : char _dta[network_dim]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local format : char _dta[network_format]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local d : char _dta[network_d]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local n : char _dta[network_n]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local nmiss : char _dta[network_nmiss]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local y : char _dta[network_y]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local S : char _dta[network_S]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local stderr : char _dta[network_stderr]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local contrast : char _dta[network_contrast]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local t1 : char _dta[network_t1]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local t2 : char _dta[network_t2]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local trtdiff : char _dta[network_trtdiff]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local component : char _dta[network_component]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local MNAR : char _dta[network_MNAR]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_type : char _dta[network_testcons_type]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_stat : char _dta[network_testcons_stat]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_df : char _dta[network_testcons_df]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local testcons_p : char _dta[network_testcons_p]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local metavars : char _dta[network_metavars]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local consistency_fitted : char _dta[network_consistency_fitted]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local inconsistency_fitted : char _dta[network_inconsistency_fitted]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local plot_location : char _dta[network_plot_location]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local ncomponents : char _dta[network_ncomponents]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local df_inconsistency : char _dta[network_df_inconsistency]
+- {c )-}
+- local `thing' : char _dta[network_`thing']
+= local df_heterogeneity : char _dta[network_df_heterogeneity]
+- {c )-}
+- local subcmds0 setup import
+- local subcmds1 convert query unset table meta sidesplit rank loopsplit forest pattern map
+- local subcmds2 bayes
+- local subcmds `subcmds0' `subcmds1' `subcmds'
+= local subcmds setup import convert query unset table meta sidesplit rank loopsplit forest pattern map 
+- if mi("`anything'") {c -(}
+= if mi("forest") {c -(}
+  di as error "Syntax: network <subcommand>"
+  exit 198
+  {c )-}
+- if "`anything'"=="which" {c -(}
+= if "forest"=="which" {c -(}
+  which network
+  foreach subcmd of local subcmds {c -(}
+  which network_`subcmd'
+  {c )-}
+  exit
+  {c )-}
+- gettoken subcmd rest : anything
+- if length("`subcmd'")>=3 {c -(}
+= if length("forest")>=3 {c -(}
+- foreach thing in `subcmds' {c -(}
+= foreach thing in setup import convert query unset table meta sidesplit rank loopsplit forest pattern map {c -(}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("setup","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("import","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("convert","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("query","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("unset","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("table","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("meta","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("sidesplit","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("rank","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("loopsplit","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("forest","forest")==1 {c -(}
+- local subcmd `thing'
+= local subcmd forest
+- local knowncmd 1
+- {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("pattern","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- if strpos("`thing'","`subcmd'")==1 {c -(}
+= if strpos("map","forest")==1 {c -(}
+  local subcmd `thing'
+  local knowncmd 1
+  {c )-}
+- {c )-}
+- {c )-}
+- cap which network_`subcmd'
+= cap which network_forest
+- if _rc {c -(}
+  di as error "`subcmd' is not a valid network subcommand"
+  if length("`subcmd'")<3 di as error "Minimum abbreviation length is 3"
+  exit 198
+  {c )-}
+- local type0 : list subcmd in subcmds0
+- if `type0' & !mi("`allthings'") {c -(}
+= if 0 & !mi("allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG trtnameH maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity") {c -(}
+  di as error "Data are already in network format"
+  exit 459
+  {c )-}
+- local type1 : list subcmd in subcmds1
+- if `type1' & mi("`allthings'") {c -(}
+= if 1 & mi("allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG trtnameH maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity") {c -(}
+  di as error "Data are not in network format: use network setup|import"
+  exit 459
+  {c )-}
+- if `type1' & "`format'"=="pairs" & !mi("`if'`in'") {c -(}
+= if 1 & "augmented"=="pairs" & !mi("") {c -(}
+  marksample touse
+  tempvar min
+  egen `min' = min(`touse'), by(`studyvar')
+  qui count if `touse'>`min'
+  if r(N) {c -(}
+  di as error "The data are in pairs format - this command would use only part of a multi-arm study"
+  exit 198
+  {c )-}
+  {c )-}
+- if mi(`"`options'"') network_`subcmd' `rest' `if' `in'
+= if mi(`"msize(*0.15)"') network_forest   
+- else network_`subcmd' `rest' `if' `in', `options'
+= else network_forest   , msize(*0.15)
+  {hline 65} begin network_forest {hline}
+  - if mi("`_dta[network_allthings]'") {c -(}
+  = if mi("allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG trtnameH maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity") {c -(}
+    di as error "Data are not in network format"
+    exit 459
+    {c )-}
+  - foreach thing in `_dta[network_allthings]' {c -(}
+  = foreach thing in allthings studyvar design ref trtlistnoref trtnameA trtnameB trtnameC trtnameD trtnameE trtnameF trtnameG trtnameH maxarms measure outcome dim format d n nmiss y S stderr contrast t1 t2 trtdiff component MNAR testcons_type testcons_stat testcons_df testcons_p metavars consistency_fitted inconsistency_fitted plot_location  ncomponents df_inconsistency df_heterogeneity {c -(}
+  - local `thing' : char _dta[network_`thing']
+  = local allthings : char _dta[network_allthings]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local studyvar : char _dta[network_studyvar]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local design : char _dta[network_design]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local ref : char _dta[network_ref]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtlistnoref : char _dta[network_trtlistnoref]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameA : char _dta[network_trtnameA]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameB : char _dta[network_trtnameB]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameC : char _dta[network_trtnameC]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameD : char _dta[network_trtnameD]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameE : char _dta[network_trtnameE]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameF : char _dta[network_trtnameF]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameG : char _dta[network_trtnameG]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtnameH : char _dta[network_trtnameH]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local maxarms : char _dta[network_maxarms]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local measure : char _dta[network_measure]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local outcome : char _dta[network_outcome]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local dim : char _dta[network_dim]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local format : char _dta[network_format]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local d : char _dta[network_d]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local n : char _dta[network_n]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local nmiss : char _dta[network_nmiss]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local y : char _dta[network_y]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local S : char _dta[network_S]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local stderr : char _dta[network_stderr]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local contrast : char _dta[network_contrast]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local t1 : char _dta[network_t1]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local t2 : char _dta[network_t2]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local trtdiff : char _dta[network_trtdiff]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local component : char _dta[network_component]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local MNAR : char _dta[network_MNAR]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_type : char _dta[network_testcons_type]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_stat : char _dta[network_testcons_stat]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_df : char _dta[network_testcons_df]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local testcons_p : char _dta[network_testcons_p]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local metavars : char _dta[network_metavars]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local consistency_fitted : char _dta[network_consistency_fitted]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local inconsistency_fitted : char _dta[network_inconsistency_fitted]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local plot_location : char _dta[network_plot_location]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local ncomponents : char _dta[network_ncomponents]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local df_inconsistency : char _dta[network_df_inconsistency]
+  - {c )-}
+  - local `thing' : char _dta[network_`thing']
+  = local df_heterogeneity : char _dta[network_df_heterogeneity]
+  - {c )-}
+  - syntax [if] [in], [ CONSistency(string) INCOnsistency(string) List noGRaph clear COLors(string) CONTRASTOptions(string) TRTCodes CONTRASTPos(string) COLUMNs(string) Level(cilevel) NCOLumns(int 0) force DIAmond group(string) eform TItle(passthru) XTItle(string) MSIZe(passthru) MSymbol(passthru) note(string asis) LEGend(string) XLABel(string) addrows(int 0) headband debug diamondheight(real 0.4) * ]
+  - if "`graph'" == "nograph" & mi("`clear'") local list list
+  = if "" == "nograph" & mi("") local list list
+  - if mi("`debug'") local ifdebug *
+  = if mi("") local ifdebug *
+  - else local dicmd noi dicmd
+  - if mi("`consistency'") local consistency `consistency_fitted'
+  = if mi("") local consistency _network_consistency
+  - if mi("`inconsistency'") local inconsistency `inconsistency_fitted'
+  = if mi("") local inconsistency _network_inconsistency
+  - if mi("`msymbol'") local msymbol msymbol(S)
+  = if mi("") local msymbol msymbol(S)
+  - if mi("`xtitle'") {c -(}
+  = if mi("") {c -(}
+  - if mi("`eform'") local xtitle `measure'
+  = if mi("") local xtitle Log odds ratio
+  - else if lower(substr("`measure'",1,4))=="log " local xtitle = upper(substr("`measure'",5,1)) + substr("`measure'",6,.)
+  = else if lower(substr("Log odds ratio",1,4))=="log " local xtitle = upper(substr("Log odds ratio",5,1)) + substr("Log odds ratio",6,.)
+  - else local xtitle exp(`measure')
+  = else local xtitle exp(Log odds ratio)
+  - {c )-}
+  - else if substr("`xtitle'",1,1)=="," local xtitle `measure' `xtitle'
+  = else if substr("Log odds ratio",1,1)=="," local xtitle Log odds ratio Log odds ratio
+  - if !mi("`xtitle'") local xtitle xtitle(`xtitle')
+  = if !mi("Log odds ratio") local xtitle xtitle(Log odds ratio)
+  - if !inlist("`columns'","xtile","smart","") {c -(}
+  = if !inlist("","xtile","smart","") {c -(}
+    di as error "Syntax: columns(smart|xtile)"
+    exit 198
+    {c )-}
+  - if mi("`msize'") local msize msize(*0.2)
+  = if mi("msize(*0.15)") local msize msize(*0.2)
+  - local graphoptions `options'
+  = local graphoptions 
+  - marksample touse
+  - local 0 ,`legend'
+  = local 0 ,
+  - syntax, [off on POSition(passthru) ring(passthru) BPLACEment(passthru) span at(passthru) Rows(passthru) Cols(passthru) * ]
+  - local legendlocation `off' `on' `position' `ring' `bplacement' `span' `at'
+  = local legendlocation       
+  - if mi("`rows'`cols'") local rows rows(1)
+  = if mi("") local rows rows(1)
+  - local legendcontents `options' `rows' `cols'
+  = local legendcontents  rows(1) 
+  - local 0 `"`note'"'
+  = local 0 `""'
+  - syntax [anything], [size(passthru) *]
+  - if mi("`size'") local size size(vsmall)
+  = if mi("") local size size(vsmall)
+  - local note `"`anything'"'
+  = local note `""'
+  - local noteopts `size' `options'
+  = local noteopts size(vsmall) 
+  - if inlist("`consistency'","off","") & inlist("`inconsistency'","off","") {c -(}
+  = if inlist("_network_consistency","off","") & inlist("_network_inconsistency","off","") {c -(}
+    di as text "Drawing raw forest plot without any model results"
+    local consistency off
+    local inconsistency off
+    if mi("`legend'") local legendlocation off
+    {c )-}
+  - if mi("`group'") {c -(}
+  = if mi("") {c -(}
+  - if inlist("`inconsistency'","off","") local group type
+  = if inlist("_network_inconsistency","off","") local group type
+  - else local group design
+  - if !mi("`debug'") di as text "group(`group') assumed"
+  = if !mi("") di as text "group(design) assumed"
+  - {c )-}
+  - if !inlist("`group'","design","type") {c -(}
+  = if !inlist("design","design","type") {c -(}
+    di as error "group(`group') not allowed"
+    exit 198
+    {c )-}
+  - preserve
+  - qui keep if `touse'
+  = qui keep if __000000
+  - tempvar base
+  - gen `base' = word(`design',1)
+  = gen __000001 = word(_design,1)
+  - qui tab `design'
+  = qui tab _design
+  - local ndesigns = r(r)
+  - if "`format'" != "pairs" qui network convert pairs
+  = if "augmented" != "pairs" qui network convert pairs
+  - local typelist study
+  - tempvar diff se type
+  - local diff `y'
+  = local diff _y
+  - local se `stderr'
+  = local se _stderr
+  - keep `studyvar' `design' `t1' `t2' `diff' `se'
+  = keep study _design _t1 _t2 _y _stderr
+  - `ifdebug' di as text "Listing of study-level results: studyvar design t1 t2 diff se"
+  = * di as text "Listing of study-level results: studyvar design t1 t2 diff se"
+  - `ifdebug' l `studyvar' `design' `t1' `t2' `diff' `se'
+  = * l study _design _t1 _t2 _y _stderr
+  - gen `type'="study"
+  = gen __000004="study"
+  - local stackvars `studyvar' `design' `t1' `t2' `diff' `se' `type'
+  = local stackvars study _design _t1 _t2 _y _stderr __000004
+  - qui levelsof `design', local(designs)
+  = qui levelsof _design, local(designs)
+  - tempvar null
+  - qui gen `null' = .
+  = qui gen __000005 = .
+  - foreach model in inconsistency consistency {c -(}
+  - if "``model''"=="off" continue
+  = if "_network_inconsistency"=="off" continue
+  - cap confirm matrix ``model''
+  = cap confirm matrix _network_inconsistency
+  - if _rc {c -(}
+    di as text "Warning: `model' matrix of fitted values not found - forest plot will be incomplete"
+    continue
+    {c )-}
+  - `ifdebug' di "`model' results will be taken from matrix ``model''"
+  = * di "inconsistency results will be taken from matrix _network_inconsistency"
+  - local mod = substr("`model'",1,4)
+  = local mod = substr("inconsistency",1,4)
+  - svmat ``model'', names(`mod')
+  = svmat _network_inconsistency, names(inco)
+  - qui gen `design'`mod' = ""
+  = qui gen _designinco = ""
+  - local ndes 0
+  - foreach des of local designs {c -(}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A B D"' if inco1==1
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A C"' if inco1==2
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A C H"' if inco1==3
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A D"' if inco1==4
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A F"' if inco1==5
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A G"' if inco1==6
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"A H"' if inco1==7
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"B E"' if inco1==8
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"B F"' if inco1==9
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"B G"' if inco1==10
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"B H"' if inco1==11
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"C G"' if inco1==12
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designinco=`"C H"' if inco1==13
+  - {c )-}
+  - qui gen `t1'`mod' = ""
+  = qui gen _t1inco = ""
+  - qui gen `t2'`mod' = ""
+  = qui gen _t2inco = ""
+  - local ntrt 0
+  - foreach trt in `ref' `trtlistnoref' {c -(}
+  = foreach trt in A B C D E F G H {c -(}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"A"' if inco2==1
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"A"' if inco3==1
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"B"' if inco2==2
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"B"' if inco3==2
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"C"' if inco2==3
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"C"' if inco3==3
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"D"' if inco2==4
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"D"' if inco3==4
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"E"' if inco2==5
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"E"' if inco3==5
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"F"' if inco2==6
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"F"' if inco3==6
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"G"' if inco2==7
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"G"' if inco3==7
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1inco=`"H"' if inco2==8
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2inco=`"H"' if inco3==8
+  - {c )-}
+  - drop `mod'1 `mod'2 `mod'3
+  = drop inco1 inco2 inco3
+  - gen `type'`mod'="`mod'"
+  = gen __000004inco="inco"
+  - local stackvars `stackvars' `null' `design'`mod' `t1'`mod' `t2'`mod' `mod'4 `mod'5 `type'`mod'
+  = local stackvars study _design _t1 _t2 _y _stderr __000004 __000005 _designinco _t1inco _t2inco inco4 inco5 __000004inco
+  - `ifdebug' di as text "Listing of `model' results:  design t1 t2 diff se"
+  = * di as text "Listing of inconsistency results:  design t1 t2 diff se"
+  - `ifdebug' l `design'`mod' `t1'`mod' `t2'`mod' `mod'4 `mod'5 if !mi(`mod'4)
+  = * l _designinco _t1inco _t2inco inco4 inco5 if !mi(inco4)
+  - local typelist `typelist' `mod'
+  = local typelist study inco
+  - {c )-}
+  - if "``model''"=="off" continue
+  = if "_network_consistency"=="off" continue
+  - cap confirm matrix ``model''
+  = cap confirm matrix _network_consistency
+  - if _rc {c -(}
+    di as text "Warning: `model' matrix of fitted values not found - forest plot will be incomplete"
+    continue
+    {c )-}
+  - `ifdebug' di "`model' results will be taken from matrix ``model''"
+  = * di "consistency results will be taken from matrix _network_consistency"
+  - local mod = substr("`model'",1,4)
+  = local mod = substr("consistency",1,4)
+  - svmat ``model'', names(`mod')
+  = svmat _network_consistency, names(cons)
+  - qui gen `design'`mod' = ""
+  = qui gen _designcons = ""
+  - local ndes 0
+  - foreach des of local designs {c -(}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A B D"' if cons1==1
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A C"' if cons1==2
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A C H"' if cons1==3
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A D"' if cons1==4
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A F"' if cons1==5
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A G"' if cons1==6
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"A H"' if cons1==7
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"B E"' if cons1==8
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"B F"' if cons1==9
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"B G"' if cons1==10
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"B H"' if cons1==11
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"C G"' if cons1==12
+  - {c )-}
+  - local ++ndes
+  - qui replace `design'`mod'=`"`des'"' if `mod'1==`ndes'
+  = qui replace _designcons=`"C H"' if cons1==13
+  - {c )-}
+  - qui gen `t1'`mod' = ""
+  = qui gen _t1cons = ""
+  - qui gen `t2'`mod' = ""
+  = qui gen _t2cons = ""
+  - local ntrt 0
+  - foreach trt in `ref' `trtlistnoref' {c -(}
+  = foreach trt in A B C D E F G H {c -(}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"A"' if cons2==1
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"A"' if cons3==1
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"B"' if cons2==2
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"B"' if cons3==2
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"C"' if cons2==3
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"C"' if cons3==3
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"D"' if cons2==4
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"D"' if cons3==4
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"E"' if cons2==5
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"E"' if cons3==5
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"F"' if cons2==6
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"F"' if cons3==6
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"G"' if cons2==7
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"G"' if cons3==7
+  - {c )-}
+  - local ++ntrt
+  - qui replace `t1'`mod'=`"`trt'"' if `mod'2==`ntrt'
+  = qui replace _t1cons=`"H"' if cons2==8
+  - qui replace `t2'`mod'=`"`trt'"' if `mod'3==`ntrt'
+  = qui replace _t2cons=`"H"' if cons3==8
+  - {c )-}
+  - drop `mod'1 `mod'2 `mod'3
+  = drop cons1 cons2 cons3
+  - gen `type'`mod'="`mod'"
+  = gen __000004cons="cons"
+  - local stackvars `stackvars' `null' `design'`mod' `t1'`mod' `t2'`mod' `mod'4 `mod'5 `type'`mod'
+  = local stackvars study _design _t1 _t2 _y _stderr __000004 __000005 _designinco _t1inco _t2inco inco4 inco5 __000004inco __000005 _designcons _t1cons _t2cons cons4 cons5 __000004cons
+  - `ifdebug' di as text "Listing of `model' results:  design t1 t2 diff se"
+  = * di as text "Listing of consistency results:  design t1 t2 diff se"
+  - `ifdebug' l `design'`mod' `t1'`mod' `t2'`mod' `mod'4 `mod'5 if !mi(`mod'4)
+  = * l _designcons _t1cons _t2cons cons4 cons5 if !mi(cons4)
+  - local typelist `typelist' `mod'
+  = local typelist study inco cons
+  - {c )-}
+  - if "`typelist'"' != "study" {c -(}
+  = if "study inco cons"' != "study" {c -(}
+  - stack `stackvars', into(studyvar design t1 t2 diff se type) clear
+  = stack study _design _t1 _t2 _y _stderr __000004 __000005 _designinco _t1inco _t2inco inco4 inco5 __000004inco __000005 _designcons _t1cons _t2cons cons4 cons5 __000004cons, into(studyvar design t1 t2 diff se type) clear
+  - drop _stack
+  - {c )-}
+  - else rename (`stackvars') (studyvar design t1 t2 diff se type)
+  = else rename (study _design _t1 _t2 _y _stderr __000004 __000005 _designinco _t1inco _t2inco inco4 inco5 __000004inco __000005 _designcons _t1cons _t2cons cons4 cons5 __000004cons) (studyvar design t1 t2 diff se type)
+  - qui drop if mi(diff)
+  - sort t1 t2 type design studyvar
+  - qui by t1 t2 type: drop if type=="cons" & _n>1
+  - qui by t1 t2 type: drop if type=="inco" & design==design[_n-1]
+  - qui replace design="" if type=="cons"
+  - gen iscons=(type=="cons")
+  - gen isinco=(type=="inco")
+  - if "`group'"=="design" sort t1 t2 iscons design isinco studyvar
+  = if "design"=="design" sort t1 t2 iscons design isinco studyvar
+  - else if "`group'"=="type" sort t1 t2 iscons isinco studyvar design
+  = else if "design"=="type" sort t1 t2 iscons isinco studyvar design
+  - drop iscons isinco
+  - order t1 t2 design type studyvar
+  - if "`list'"=="list" {c -(}
+  = if ""=="list" {c -(}
+    di as text "Listing of results extracted from current data and saved network meta-analyses:"
+    l t1 t2 design type studyvar diff se, sepby(t1 t2)
+    {c )-}
+  - gen row=_n
+  - qui by t1 t2: gen first = _n==1
+  - qui by t1 t2: gen gap = `group'!=`group'[_n-1]
+  = qui by t1 t2: gen gap = design!=design[_n-1]
+  - egen gapsum=sum(gap), by(t1 t2)
+  - qui replace gap=0 if gapsum==2
+  - qui replace gap=4 if first
+  - qui expand 1 + gap
+  - drop gap gapsum first
+  - sort t1 t2 row
+  - qui by t1 t2: gen rowij = _n
+  - sort row
+  - qui by row: gen above = _N-_n
+  - qui replace type = "gap" if above
+  - qui replace type = "header" if rowij==3
+  - qui replace type = "headband" if inlist(rowij,2,4)
+  - qui replace row=_n
+  - gen contrast = sum( (t1!=t1[_n-1]) | (t2!=t2[_n-1]) )
+  - if `ncolumns'==0 local ncolumns = max(1, int(sqrt(_N/10)))
+  = if 0==0 local ncolumns = max(1, int(sqrt(_N/10)))
+  - if `ncolumns'==1 gen column = 1
+  = if 3==1 gen column = 1
+  - else if "`columns'"=="xtile" xtile column = contrast, nq(`ncolumns')
+  = else if ""=="xtile" xtile column = contrast, nq(3)
+  - else smartgroup column = contrast, ngroups(`ncolumns')
+  = else smartgroup column = contrast, ngroups(3)
+  - sort column row
+  - qui by column: gen rowincol=_n
+  - qui by column: gen lastincol=_n==_N
+  - summ rowincol, meanonly
+  - local maxrows = r(max)+`addrows'
+  = local maxrows = r(max)+0
+  - qui expand `maxrows'+1-rowincol if lastincol, gen(newrow)
+  = qui expand 45+1-rowincol if lastincol, gen(newrow)
+  - qui replace type="gap" if newrow
+  - qui replace diff=. if newrow
+  - qui replace se=. if newrow
+  - sort column newrow row
+  - qui replace row=_n
+  - cap confirm string var studyvar
+  - if !_rc qui gen label = studyvar if type=="study" & !above
+  - else qui gen label = "Study " + string(studyvar) if type=="study" & !above
+  - qui replace label = "All " + design if type=="inco" & !above
+  - qui replace label = "All studies" if type=="cons" & !above
+  - if mi("`trtcodes'") foreach trt in `ref' `trtlistnoref' {c -(}
+  = if mi("") foreach trt in A B C D E F G H {c -(}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("A") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "A" if t1 == "A"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "A" if t2 == "A"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("B") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "B" if t1 == "B"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "B" if t2 == "B"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("C") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "C" if t1 == "C"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "C" if t2 == "C"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("D") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "D" if t1 == "D"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "D" if t2 == "D"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("E") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "E" if t1 == "E"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "E" if t2 == "E"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("F") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "F" if t1 == "F"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "F" if t2 == "F"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("G") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "G" if t1 == "G"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "G" if t2 == "G"
+  - {c )-}
+  - {c )-}
+  - if !mi("`trtname`trt''") {c -(}
+  = if !mi("H") {c -(}
+  - qui replace t1 = "`trtname`trt''" if t1 == "`trt'"
+  = qui replace t1 = "H" if t1 == "H"
+  - qui replace t2 = "`trtname`trt''" if t2 == "`trt'"
+  = qui replace t2 = "H" if t2 == "H"
+  - {c )-}
+  - {c )-}
+  - qui gen label2 = t2 + " vs. " + t1 if type=="header"
+  - qui for var diff se: replace X=. if above
+  - labelit row label
+  - tokenize "`colors'"
+  = tokenize ""
+  - local col_study = cond("`1'"=="", "blue" , "`1'")
+  = local col_study = cond(""=="", "blue" , "")
+  - local col_inco = cond("`2'"=="", "green", "`2'")
+  = local col_inco = cond(""=="", "green", "")
+  - local col_cons = cond("`3'"=="", "red" , "`3'")
+  = local col_cons = cond(""=="", "red" , "")
+  - local zcrit = invnorm((1+`level'/100)/2)
+  = local zcrit = invnorm((1+95/100)/2)
+  - qui gen low = diff-`zcrit'*se
+  = qui gen low = diff-1.959963984540054*se
+  - qui gen upp = diff+`zcrit'*se
+  = qui gen upp = diff+1.959963984540054*se
+  - if mi(`"`note'"') & !mi("`testcons_stat'") {c -(}
+  = if mi(`""') & !mi("8.604521299223485") {c -(}
+  - local note = `""Test of consistency: `testcons_type'(`testcons_df')="' + string(`testcons_stat',"%6.2f") + `", P="' + string(`testcons_p',"%5.3f") + `"""'
+  = local note = `""Test of consistency: chi2(8)="' + string(8.604521299223485,"%6.2f") + `", P="' + string(.3767476035780893,"%5.3f") + `"""'
+  - {c )-}
+  - if "`format'"=="pairs" & `maxarms'>2 local note `"`note' "The data contain multi-arm trials - this analysis in pairs format is wrong""'
+  = if "augmented"=="pairs" & 3>2 local note `""Test of consistency: chi2(8)=8.60, P=0.377" "The data contain multi-arm trials - this analysis in pairs format is wrong""'
+  - if !mi(`"`note'"') local note note(`note', `noteopts')
+  = if !mi(`""Test of consistency: chi2(8)=8.60, P=0.377""') local note note("Test of consistency: chi2(8)=8.60, P=0.377", size(vsmall))
+  - else local note note("")
+  - if !mi("`xlabel'") & !mi("`force'") {c -(}
+  = if !mi("") & !mi("") {c -(}
+    local 0 `xlabel'
+    syntax anything, [*]
+    cap numlist "`anything'", sort
+    if _rc {c -(}
+    di as error "Force option ignored - xlabel() doesn't contain a numlist"
+    local force
+    {c )-}
+    else {c -(}
+    local lowtrunc = word("`r(numlist)'",1)
+    local upptrunc = word("`r(numlist)'",wordcount("`r(numlist)'"))
+    {c )-}
+    {c )-}
+  - if !mi("`force'") {c -(}
+  = if !mi("") {c -(}
+    qui count if diff<`lowtrunc' & !mi(diff)
+    if r(N) {c -(}
+    di as error "Error: " r(N) " point estimates lie below truncation limit `lowtrunc'"
+    exit 498
+    {c )-}
+    qui count if diff>`upptrunc' & !mi(diff)
+    if r(N) {c -(}
+    di as error "Error: " r(N) " point estimates lie above truncation limit `upptrunc'"
+    exit 498
+    {c )-}
+    qui gen lowistrunc = low<`lowtrunc'
+    qui replace low = `lowtrunc' if lowistrunc
+    qui gen uppistrunc = upp>`upptrunc'
+    qui replace upp = `upptrunc' if uppistrunc
+    {c )-}
+  - else {c -(}
+  - gen lowistrunc=0
+  - gen uppistrunc=0
+  - {c )-}
+  - local cmd graph twoway
+  - if !mi("`diamond'") {c -(}
+  = if !mi("") {c -(}
+    gen rowplus=row+`diamondheight'
+    gen rowminus=row-`diamondheight'
+    {c )-}
+  - local igraph 0
+  - foreach type in `typelist' {c -(}
+  = foreach type in study inco cons {c -(}
+  - if "`type'"=="study" local desc Studies
+  = if "study"=="study" local desc Studies
+  - if "`type'"=="inco" local desc Pooled within design
+  = if "study"=="inco" local desc Pooled within design
+  - if "`type'"=="cons" local desc Pooled overall
+  = if "study"=="cons" local desc Pooled overall
+  - if "`type'"=="study" | mi("`diamond'") {c -(}
+  = if "study"=="study" | mi("") {c -(}
+  - local ++igraph
+  - local cmd `cmd' (scatter row diff if type=="`type'" [aw=1/se^2], mcol(`col_`type'') `msymbol' `msize')
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15))
+  - local order `order' `igraph'
+  = local order  1
+  - local labellist `labellist' label(`igraph' "`desc'")
+  = local labellist  label(1 "Studies")
+  - forvalues ilow=0/1 {c -(}
+  - forvalues iupp=0/1 {c -(}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==0 & uppistrunc==0
+  - if r(N)==0 continue
+  - local ++igraph
+  - if `ilow'==0 & `iupp'==0 local cmdname pcspike
+  = if 0==0 & 0==0 local cmdname pcspike
+  - else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+  = else if 0==1 & 0==1 local cmdname pcbarrow
+  - else local cmdname pcarrow
+  - if `ilow'==1 & `iupp'==0 local vars row upp row low
+  = if 0==1 & 0==0 local vars row upp row low
+  - else local vars row low row upp
+  - local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue))
+  - {c )-}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==0 & uppistrunc==1
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - {c )-}
+  - forvalues iupp=0/1 {c -(}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==1 & uppistrunc==0
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==1 & uppistrunc==1
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - {c )-}
+  - {c )-}
+  - else {c -(}
+    local coords1 row low
+    local coords2 rowplus diff
+    local coords3 row upp
+    local coords4 rowminus diff
+    forvalues j=1/4 {c -(}
+    if `j'==1 local start `coords4'
+    local finish `coords`j''
+    local ++igraph
+    local cmd `cmd' (pcspike `start' `finish' if type=="`type'", lcol(`col_`type''))
+    if `j'==1 {c -(}
+    local order `order' `igraph'
+    local labellist `labellist' label(`igraph' "`desc'")
+    {c )-}
+    local start `finish'
+    {c )-}
+    {c )-}
+  - {c )-}
+  - if "`type'"=="study" local desc Studies
+  = if "inco"=="study" local desc Studies
+  - if "`type'"=="inco" local desc Pooled within design
+  = if "inco"=="inco" local desc Pooled within design
+  - if "`type'"=="cons" local desc Pooled overall
+  = if "inco"=="cons" local desc Pooled overall
+  - if "`type'"=="study" | mi("`diamond'") {c -(}
+  = if "inco"=="study" | mi("") {c -(}
+  - local ++igraph
+  - local cmd `cmd' (scatter row diff if type=="`type'" [aw=1/se^2], mcol(`col_`type'') `msymbol' `msize')
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15))
+  - local order `order' `igraph'
+  = local order 1 3
+  - local labellist `labellist' label(`igraph' "`desc'")
+  = local labellist label(1 "Studies") label(3 "Pooled within design")
+  - forvalues ilow=0/1 {c -(}
+  - forvalues iupp=0/1 {c -(}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==0 & uppistrunc==0
+  - if r(N)==0 continue
+  - local ++igraph
+  - if `ilow'==0 & `iupp'==0 local cmdname pcspike
+  = if 0==0 & 0==0 local cmdname pcspike
+  - else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+  = else if 0==1 & 0==1 local cmdname pcbarrow
+  - else local cmdname pcarrow
+  - if `ilow'==1 & `iupp'==0 local vars row upp row low
+  = if 0==1 & 0==0 local vars row upp row low
+  - else local vars row low row upp
+  - local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="inco" & lowistrunc==0 & uppistrunc==0, lcol(green) mcol(green))
+  - {c )-}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==0 & uppistrunc==1
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - {c )-}
+  - forvalues iupp=0/1 {c -(}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==1 & uppistrunc==0
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==1 & uppistrunc==1
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - {c )-}
+  - {c )-}
+  - else {c -(}
+    local coords1 row low
+    local coords2 rowplus diff
+    local coords3 row upp
+    local coords4 rowminus diff
+    forvalues j=1/4 {c -(}
+    if `j'==1 local start `coords4'
+    local finish `coords`j''
+    local ++igraph
+    local cmd `cmd' (pcspike `start' `finish' if type=="`type'", lcol(`col_`type''))
+    if `j'==1 {c -(}
+    local order `order' `igraph'
+    local labellist `labellist' label(`igraph' "`desc'")
+    {c )-}
+    local start `finish'
+    {c )-}
+    {c )-}
+  - {c )-}
+  - if "`type'"=="study" local desc Studies
+  = if "cons"=="study" local desc Studies
+  - if "`type'"=="inco" local desc Pooled within design
+  = if "cons"=="inco" local desc Pooled within design
+  - if "`type'"=="cons" local desc Pooled overall
+  = if "cons"=="cons" local desc Pooled overall
+  - if "`type'"=="study" | mi("`diamond'") {c -(}
+  = if "cons"=="study" | mi("") {c -(}
+  - local ++igraph
+  - local cmd `cmd' (scatter row diff if type=="`type'" [aw=1/se^2], mcol(`col_`type'') `msymbol' `msize')
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="inco" & lowistrunc==0 & uppistrunc==0, lcol(green) mcol(green)) (scatter row diff if type=="cons" [aw=1/se^2], mcol(red) msymbol(S) msize(*0.15))
+  - local order `order' `igraph'
+  = local order 1 3 5
+  - local labellist `labellist' label(`igraph' "`desc'")
+  = local labellist label(1 "Studies") label(3 "Pooled within design") label(5 "Pooled overall")
+  - forvalues ilow=0/1 {c -(}
+  - forvalues iupp=0/1 {c -(}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==0 & uppistrunc==0
+  - if r(N)==0 continue
+  - local ++igraph
+  - if `ilow'==0 & `iupp'==0 local cmdname pcspike
+  = if 0==0 & 0==0 local cmdname pcspike
+  - else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+  = else if 0==1 & 0==1 local cmdname pcbarrow
+  - else local cmdname pcarrow
+  - if `ilow'==1 & `iupp'==0 local vars row upp row low
+  = if 0==1 & 0==0 local vars row upp row low
+  - else local vars row low row upp
+  - local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="inco" & lowistrunc==0 & uppistrunc==0, lcol(green) mcol(green)) (scatter row diff if type=="cons" [aw=1/se^2], mcol(red) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="cons" & lowistrunc==0 & uppistrunc==0, lcol(red) mcol(red))
+  - {c )-}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==0 & uppistrunc==1
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - {c )-}
+  - forvalues iupp=0/1 {c -(}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==1 & uppistrunc==0
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - qui count if lowistrunc==`ilow' & uppistrunc==`iupp'
+  = qui count if lowistrunc==1 & uppistrunc==1
+  - if r(N)==0 continue
+    local ++igraph
+    if `ilow'==0 & `iupp'==0 local cmdname pcspike
+    else if `ilow'==1 & `iupp'==1 local cmdname pcbarrow
+    else local cmdname pcarrow
+    if `ilow'==1 & `iupp'==0 local vars row upp row low
+    else local vars row low row upp
+    local cmd `cmd' (`cmdname' `vars' if type=="`type'" & lowistrunc==`ilow' & uppistrunc==`iupp', lcol(`col_`type'') mcol(`col_`type''))
+    {c )-}
+  - {c )-}
+  - {c )-}
+  - else {c -(}
+    local coords1 row low
+    local coords2 rowplus diff
+    local coords3 row upp
+    local coords4 rowminus diff
+    forvalues j=1/4 {c -(}
+    if `j'==1 local start `coords4'
+    local finish `coords`j''
+    local ++igraph
+    local cmd `cmd' (pcspike `start' `finish' if type=="`type'", lcol(`col_`type''))
+    if `j'==1 {c -(}
+    local order `order' `igraph'
+    local labellist `labellist' label(`igraph' "`desc'")
+    {c )-}
+    local start `finish'
+    {c )-}
+    {c )-}
+  - {c )-}
+  - if mi("`contrastpos'") {c -(}
+  = if mi("") {c -(}
+  - summ low, meanonly
+  - local lowmin=r(min)
+  - summ upp, meanonly
+  - local uppmax=r(max)
+  - local contrastpos = (`lowmin'+`uppmax')/2
+  = local contrastpos = (-2.578972578048706+2.751702308654785)/2
+  - {c )-}
+  - gen middle = `contrastpos'
+  = gen middle = .0863648653030396
+  - local cmd `cmd' (scatter row middle, mlabel(label2) mlabpos(0) ms(none) mlabcol(black) `contrastoptions')
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="inco" & lowistrunc==0 & uppistrunc==0, lcol(green) mcol(green)) (scatter row diff if type=="cons" [aw=1/se^2], mcol(red) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="cons" & lowistrunc==0 & uppistrunc==0, lcol(red) mcol(red)) (scatter row middle, mlabel(label2) mlabpos(0) ms(none) mlabcol(black) )
+  - if !mi("`headband'") {c -(}
+  = if !mi("") {c -(}
+    qui levelsof row if type=="headband", local(yline)
+    local yline yline(`yline', lcol(black))
+    {c )-}
+  - local legendcontents legend(order(`order') `labellist' `legendcontents')
+  = local legendcontents legend(order(1 3 5) label(1 "Studies") label(3 "Pooled within design") label(5 "Pooled overall") rows(1))
+  - local legendlocation legend(`legendlocation')
+  = local legendlocation legend()
+  - if mi("`xlabel'") local xlabel xlabel(,labsize(small))
+  = if mi("") local xlabel xlabel(,labsize(small))
+  - else local xlabel xlabel(`xlabel') xlabel(,labsize(small))
+  = else local xlabel xlabel(xlabel(,labsize(small))) xlabel(,labsize(small))
+  - local cmd `cmd', ylabel(#`maxrows', valuelabel angle(0) labsize(vsmall) nogrid ) yscale(reverse) plotregion(margin(t=0)) ytitle("") subtitle("") `yline' by(column, row(1) yrescale noiytick `title' `note' `legendlocation') `legendcontents' `xlabel' xtitle(,size(small)) `xtitle' `graphoptions'
+  = local cmd graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="inco" & lowistrunc==0 & uppistrunc==0, lcol(green) mcol(green)) (scatter row diff if type=="cons" [aw=1/se^2], mcol(red) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="cons" & lowistrunc==0 & uppistrunc==0, lcol(red) mcol(red)) (scatter row middle, mlabel(label2) mlabpos(0) ms(none) mlabcol(black) ), ylabel(#45, valuelabel angle(0) labsize(vsmall) nogrid ) yscale(reverse) plotregion(margin(t=0)) ytitle("") subtitle("")  by(column, row(1) yrescale noiytick  note("Test of consistency: chi2(8)=8.60, P=0.377", size(vsmall)) legend()) legend(order(1 3 5) label(1 "Studies") label(3 "Pooled within design") label(5 "Pooled overall") rows(1)) xlabel(,labsize(small)) xtitle(,size(small)) xtitle(Log odds ratio) 
+  - qui {c -(}
+  - gen typenum = 0 if type=="study"
+  - replace typenum = 1 if type=="inco"
+  - replace typenum = 2 if type=="cons"
+  - gen id = _n
+  - expand `=3*`ncolumns'' if !mi(typenum)
+  = expand 9 if !mi(typenum)
+  - sort id
+  - qui by id: gen dup = _n-1
+  - replace row = . if dup>0
+  - if !mi("`diamond'") {c -(}
+  = if !mi("") {c -(}
+    replace rowplus = . if dup>0
+    replace rowminus = . if dup>0
+    {c )-}
+  - replace typenum = mod(typenum+dup,3)
+  - replace type="study" if typenum == 0
+  - replace type="inco" if typenum == 1
+  - replace type="cons" if typenum == 2
+  - replace column = mod(column+int(dup/3)-1,`ncolumns')+1
+  = replace column = mod(column+int(dup/3)-1,3)+1
+  - {c )-}
+  - if !mi("`eform'") {c -(}
+  = if !mi("") {c -(}
+    foreach var in diff low upp middle {c -(}
+    qui replace `var'=exp(`var')
+    {c )-}
+    local cmd `cmd' xscale(log)
+    {c )-}
+  - if "`graph'"!="nograph" `dicmd' `cmd'
+  = if ""!="nograph"  graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="study" & lowistrunc==0 & uppistrunc==0, lcol(blue) mcol(blue)) (scatter row diff if type=="inco" [aw=1/se^2], mcol(green) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="inco" & lowistrunc==0 & uppistrunc==0, lcol(green) mcol(green)) (scatter row diff if type=="cons" [aw=1/se^2], mcol(red) msymbol(S) msize(*0.15)) (pcspike row low row upp if type=="cons" & lowistrunc==0 & uppistrunc==0, lcol(red) mcol(red)) (scatter row middle, mlabel(label2) mlabpos(0) ms(none) mlabcol(black) ), ylabel(#45, valuelabel angle(0) labsize(vsmall) nogrid ) yscale(reverse) plotregion(margin(t=0)) ytitle("") subtitle("")  by(column, row(1) yrescale noiytick  note("Test of consistency: chi2(8)=8.60, P=0.377", size(vsmall)) legend()) legend(order(1 3 5) label(1 "Studies") label(3 "Pooled within design") label(5 "Pooled overall") rows(1)) xlabel(,labsize(small)) xtitle(,size(small)) xtitle(Log odds ratio)
+{res}  {txt}- if "`clear'"=="clear" {c -(}
+  = if ""=="clear" {c -(}
+    restore, not
+    network unset
+    global F9 `cmd'
+    di as text "graph command stored as F9"
+    {c )-}
+  {hline 67} end network_forest {hline}
+{hline 76} end network {hline}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\ado\ian\network\bugs\forest error Carlos Alves\errorian.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 9 Nov 2020, 15:34:34
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
