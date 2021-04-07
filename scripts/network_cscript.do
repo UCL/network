@@ -1,6 +1,8 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
-7apr2021:  new ado location on "c:\ado\ian"
+7apr2021:	new ado location on "c:\ado\ian"
+			add new tests of network import in pairs format
+			add new test of extra-long treatment names with nocodes
 5dec2019:  new ado location on "n:\home"
 4sep2019:  new ado location on "n:\old home drives"
 3may2019:  added log file
@@ -230,6 +232,14 @@ foreach format in augmented standard pairs {
 	network forest, debug name(forest_`format', replace)
 }
 
+// and extra-long treatment names with nocodes (should print warnings)
+use smoking, clear
+decode trt, gen(trtstring)
+drop trt
+rename trtstring trt
+replace trt = subinstr(trt," ","",.)
+keep study trt d n
+network setup d n, studyvar(stud) trtvar(trt) nocodes
 
 // More forest plots - formats should agree
 * Load and analyse the smoking data
@@ -302,6 +312,75 @@ network meta i
 local test2 = r(chi2)
 di `test1', `test2'
 assert abs(`test2'/`test1'-1) < 1E-10 
+
+// CHECK NETWORK IMPORT FROM PAIRS FORMAT
+
+* CHECK REF() OPTION
+use "coronary artery disease pairwise", clear
+	* treatments are strings
+network import, tr(t1 t2) eff(logOR) study(study) stderr(se) ref(BMS)
+network meta c
+local b1 = _b[_trtdiff_PTCA]
+
+use "coronary artery disease pairwise", clear
+network import, tr(t1 t2) eff(logOR) study(study) stderr(se) ref(PTCA)
+network meta c
+assert reldif(-`b1', _b[_trtdiff_BMS]) < 1E-6
+
+* HANDLE LABELLED NUMERIC TREATMENTS
+use "coronary artery disease pairwise", clear
+reshape long t, i(study) j(arm)
+encode t, gen(trt)
+drop t
+reshape wide trt, i(study) j(arm)
+* treatments are now labelled numeric
+network import, tr(trt1 trt2) eff(logOR) study(study) stderr(se) ref(BMS)
+network meta c
+assert reldif(`b1', _b[_trtdiff_PTCA]) < 1E-6
+
+* HANDLE UNLABELLED NUMERIC TREATMENTS
+use "coronary artery disease pairwise", clear
+reshape long t, i(study) j(arm)
+encode t, gen(trt)
+drop t
+label val trt 
+reshape wide trt, i(study) j(arm)
+* treatments are now unlabelled numeric
+network import, tr(trt1 trt2) eff(logOR) study(study) stderr(se) ref(1)
+network meta c
+assert reldif(`b1', _b[_trtdiff_4]) < 1E-6
+
+* HANDLE MULTI-ARM STUDIES
+use "coronary artery disease pairwise", clear
+sort study
+replace study = 17 if inlist(study,50,59)
+network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+cap network meta c
+assert _rc==498
+network meta c, force
+
+* DETECT MULTI-ARM STUDIES WITH SOME CONTRASTS DUPLICATED
+use "coronary artery disease pairwise", clear
+replace study = 2 if study==1
+cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+assert _rc==498
+
+* DETECT MULTI-ARM STUDIES WITH SOME CONTRASTS MISSING
+use "coronary artery disease pairwise", clear
+replace study = 17 if inlist(study,50)
+l if study == 17
+cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+assert _rc==498
+
+* HANDLE NESTED TREATMENT NAMES
+use "coronary artery disease pairwise", clear
+replace t1="BMSX" if t1=="PTCA"
+replace t2="BMSX" if t2=="PTCA"
+network import, tr(t1 t2) eff(logOR) study(study) stderr(se)
+network meta c
+assert reldif(`b1', _b[_trtdiff_BMSX]) < 1E-6
+
+// END OF CHECKING NETWORK IMPORT FROM PAIRS FORMAT
 
 * Check other effect measures
 foreach measure in rr or rd hr {
@@ -414,4 +493,9 @@ cap network setup d n, study(trial) trt(trt) nocode
 assert _rc==498
 
 erase z.dta
+
+di as result _n "****************************************" ///
+	_n "*** NETWORK HAS PASSED ALL ITS TESTS ***" ///
+	_n "****************************************"
+
 log close

@@ -1,8 +1,8 @@
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:   7 Apr 2021, 11:26:20
+ opened on:   7 Apr 2021, 13:36:06
 
 . 
 . cls
@@ -5414,6 +5414,55 @@ graph twoway (scatter row diff if type=="study" [aw=1/se^2], mcol(blue) msymbol
 > small)) xtitle(Log odds ratio) name(forest_pairs, replace)
 
 . 
+. // and extra-long treatment names with nocodes (should print warnings)
+. use smoking, clear
+(Smoking data from Lu & Ades (2006))
+
+. decode trt, gen(trtstring)
+
+. drop trt
+
+. rename trtstring trt
+
+. replace trt = subinstr(trt," ","",.)
+(50 real changes made)
+
+. keep study trt d n
+
+. network setup d n, studyvar(stud) trtvar(trt) nocodes
+Warning: treatment code Groupcounselling has been truncated to 14 characters
+Warning: treatment code Individualcounselling has been truncated to 14 characte
+> rs
+Treatments used
+   Groupcounselli (reference):         Groupcounselling
+   Individualcoun:                     Individualcounselling
+   Nocontact:                          Nocontact
+   Selfhelp:                           Selfhelp
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        24
+   IDs with zero cells:                9 20
+   - count added to all their cells:   .5
+   IDs with augmented reference arm:   3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+>  19 21
+   - observations added:               0.00001
+   - mean in augmented observations:   study-specific mean
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             7
+   D.f. for heterogeneity:             16
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
 . 
 . // More forest plots - formats should agree
 . * Load and analyse the smoking data
@@ -6832,6 +6881,333 @@ mvmeta command stored as F9; test command stored as F8
 
 . assert abs(`test2'/`test1'-1) < 1E-10 
 
+. 
+. // CHECK NETWORK IMPORT FROM PAIRS FORMAT
+. 
+. * CHECK REF() OPTION
+. use "coronary artery disease pairwise", clear
+
+.         * treatments are strings
+. network import, tr(t1 t2) eff(logOR) study(study) stderr(se) ref(BMS)
+Importing from pairs format
+Reference treatment: BMS
+All treatments: BMS DES MT PTCA
+
+. network meta c
+Warning: can't check for disconnected network
+Warning: can't check df for inconsistency
+Warning: can't check df for heterogeneity
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , wsse(selogO
+> R) noconstant
+
+Meta-regression                                       Number of obs  =      62
+REML estimate of between-study variance               tau2           =       0
+% residual variation due to heterogeneity             I-squared_res  =   0.00%
+Joint test for all covariates                         Model F(3,59)  =    0.32
+With Knapp-Hartung modification                       Prob > F       =  0.8126
+------------------------------------------------------------------------------
+       logOR |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_trtdiff_DES |  -.0804465   .2060468    -0.39   0.698    -.4927452    .3318523
+ _trtdiff_MT |  -.0804069   .0995168    -0.81   0.422    -.2795396    .1187259
+_trtdiff_P~A |   .0007112   .1243693     0.01   0.995    -.2481513    .2495737
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. local b1 = _b[_trtdiff_PTCA]
+
+. 
+. use "coronary artery disease pairwise", clear
+
+. network import, tr(t1 t2) eff(logOR) study(study) stderr(se) ref(PTCA)
+Importing from pairs format
+Reference treatment: PTCA
+All treatments: BMS DES MT PTCA
+
+. network meta c
+Warning: can't check for disconnected network
+Warning: can't check df for inconsistency
+Warning: can't check df for heterogeneity
+Command is: metareg logOR _trtdiff_BMS _trtdiff_DES _trtdiff_MT  , wsse(selogOR
+> ) noconstant
+
+Meta-regression                                       Number of obs  =      62
+REML estimate of between-study variance               tau2           =       0
+% residual variation due to heterogeneity             I-squared_res  =   0.00%
+Joint test for all covariates                         Model F(3,59)  =    0.32
+With Knapp-Hartung modification                       Prob > F       =  0.8126
+------------------------------------------------------------------------------
+       logOR |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_trtdiff_BMS |  -.0007112   .1243693    -0.01   0.995    -.2495737    .2481513
+_trtdiff_DES |  -.0811577    .240672    -0.34   0.737    -.5627413     .400426
+ _trtdiff_MT |  -.0811181   .1219894    -0.66   0.509    -.3252183    .1629822
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. assert reldif(-`b1', _b[_trtdiff_BMS]) < 1E-6
+
+. 
+. * HANDLE LABELLED NUMERIC TREATMENTS
+. use "coronary artery disease pairwise", clear
+
+. reshape long t, i(study) j(arm)
+(note: j = 1 2)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                       62   ->     124
+Number of variables                   5   ->       5
+j variable (2 values)                     ->   arm
+xij variables:
+                                  t1 t2   ->   t
+-----------------------------------------------------------------------------
+
+. encode t, gen(trt)
+
+. drop t
+
+. reshape wide trt, i(study) j(arm)
+(note: j = 1 2)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      124   ->      62
+Number of variables                   5   ->       5
+j variable (2 values)               arm   ->   (dropped)
+xij variables:
+                                    trt   ->   trt1 trt2
+-----------------------------------------------------------------------------
+
+. * treatments are now labelled numeric
+. network import, tr(trt1 trt2) eff(logOR) study(study) stderr(se) ref(BMS)
+Importing from pairs format
+Converted trt1 and trt2 to string
+Reference treatment: BMS
+All treatments: BMS DES MT PTCA
+
+. network meta c
+Warning: can't check for disconnected network
+Warning: can't check df for inconsistency
+Warning: can't check df for heterogeneity
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , wsse(selogO
+> R) noconstant
+
+Meta-regression                                       Number of obs  =      62
+REML estimate of between-study variance               tau2           =       0
+% residual variation due to heterogeneity             I-squared_res  =   0.00%
+Joint test for all covariates                         Model F(3,59)  =    0.32
+With Knapp-Hartung modification                       Prob > F       =  0.8126
+------------------------------------------------------------------------------
+       logOR |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_trtdiff_DES |  -.0804465   .2060468    -0.39   0.698    -.4927452    .3318523
+ _trtdiff_MT |  -.0804069   .0995168    -0.81   0.422    -.2795396    .1187259
+_trtdiff_P~A |   .0007112   .1243693     0.01   0.995    -.2481513    .2495737
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. assert reldif(`b1', _b[_trtdiff_PTCA]) < 1E-6
+
+. 
+. * HANDLE UNLABELLED NUMERIC TREATMENTS
+. use "coronary artery disease pairwise", clear
+
+. reshape long t, i(study) j(arm)
+(note: j = 1 2)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                       62   ->     124
+Number of variables                   5   ->       5
+j variable (2 values)                     ->   arm
+xij variables:
+                                  t1 t2   ->   t
+-----------------------------------------------------------------------------
+
+. encode t, gen(trt)
+
+. drop t
+
+. label val trt 
+
+. reshape wide trt, i(study) j(arm)
+(note: j = 1 2)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      124   ->      62
+Number of variables                   5   ->       5
+j variable (2 values)               arm   ->   (dropped)
+xij variables:
+                                    trt   ->   trt1 trt2
+-----------------------------------------------------------------------------
+
+. * treatments are now unlabelled numeric
+. network import, tr(trt1 trt2) eff(logOR) study(study) stderr(se) ref(1)
+Importing from pairs format
+Converted trt1 and trt2 to string
+Reference treatment: 1
+All treatments: 1 2 3 4
+
+. network meta c
+Warning: can't check for disconnected network
+Warning: can't check df for inconsistency
+Warning: can't check df for heterogeneity
+Command is: metareg logOR _trtdiff_2 _trtdiff_3 _trtdiff_4  , wsse(selogOR) noc
+> onstant
+
+Meta-regression                                       Number of obs  =      62
+REML estimate of between-study variance               tau2           =       0
+% residual variation due to heterogeneity             I-squared_res  =   0.00%
+Joint test for all covariates                         Model F(3,59)  =    0.32
+With Knapp-Hartung modification                       Prob > F       =  0.8126
+------------------------------------------------------------------------------
+       logOR |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  _trtdiff_2 |  -.0804465   .2060468    -0.39   0.698    -.4927452    .3318523
+  _trtdiff_3 |  -.0804069   .0995168    -0.81   0.422    -.2795396    .1187259
+  _trtdiff_4 |   .0007112   .1243693     0.01   0.995    -.2481513    .2495737
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. assert reldif(`b1', _b[_trtdiff_4]) < 1E-6
+
+. 
+. * HANDLE MULTI-ARM STUDIES
+. use "coronary artery disease pairwise", clear
+
+. sort study
+
+. replace study = 17 if inlist(study,50,59)
+(2 real changes made)
+
+. network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+Importing from pairs format
+Reference treatment: BMS
+All treatments: BMS DES MT PTCA
+
+. cap network meta c
+
+. assert _rc==498
+
+. network meta c, force
+Warning: can't check for disconnected network
+Warning: can't check df for inconsistency
+Warning: can't check df for heterogeneity
+The data contain multi-arm trials - this analysis in pairs format is wrong
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , wsse(selogO
+> R) noconstant
+
+Meta-regression                                       Number of obs  =      62
+REML estimate of between-study variance               tau2           =       0
+% residual variation due to heterogeneity             I-squared_res  =   0.00%
+Joint test for all covariates                         Model F(3,59)  =    0.32
+With Knapp-Hartung modification                       Prob > F       =  0.8126
+------------------------------------------------------------------------------
+       logOR |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_trtdiff_DES |  -.0804465   .2060468    -0.39   0.698    -.4927452    .3318523
+ _trtdiff_MT |  -.0804069   .0995168    -0.81   0.422    -.2795396    .1187259
+_trtdiff_P~A |   .0007112   .1243693     0.01   0.995    -.2481513    .2495737
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. 
+. * DETECT MULTI-ARM STUDIES WITH SOME CONTRASTS DUPLICATED
+. use "coronary artery disease pairwise", clear
+
+. replace study = 2 if study==1
+(1 real change made)
+
+. cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+Importing from pairs format
+Reference treatment: BMS
+All treatments: BMS DES MT PTCA
+Error: one or more contrasts is duplicated in the studies listed
+
+Duplicates in terms of study _contrast
+
+  +--------------------------+
+  | obs:   study   _contrast |
+  |--------------------------|
+  |    1       2   DES - BMS |
+  |    2       2   DES - BMS |
+  +--------------------------+
+
+. assert _rc==498
+
+. 
+. * DETECT MULTI-ARM STUDIES WITH SOME CONTRASTS MISSING
+. use "coronary artery disease pairwise", clear
+
+. replace study = 17 if inlist(study,50)
+(1 real change made)
+
+. l if study == 17
+
+     +--------------------------------------------+
+     | study     t1     t2       logOR    selogOR |
+     |--------------------------------------------|
+ 21. |    17     MT   PTCA   -.0214601   .2253973 |
+ 51. |    17   PTCA    BMS   -.1596448   .6129748 |
+     +--------------------------------------------+
+
+. cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
+Importing from pairs format
+Reference treatment: BMS
+All treatments: BMS DES MT PTCA
+Error: there are missing contrasts in the studies listed
+
+     +-----------------------------------------------+
+     | study       _design     t1     t2       logOR |
+     |-----------------------------------------------|
+ 17. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
+ 18. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+     +-----------------------------------------------+
+
+. assert _rc==498
+
+. 
+. * HANDLE NESTED TREATMENT NAMES
+. use "coronary artery disease pairwise", clear
+
+. replace t1="BMSX" if t1=="PTCA"
+(33 real changes made)
+
+. replace t2="BMSX" if t2=="PTCA"
+(10 real changes made)
+
+. network import, tr(t1 t2) eff(logOR) study(study) stderr(se)
+Importing from pairs format
+Reference treatment: BMS
+All treatments: BMS BMSX DES MT
+
+. network meta c
+Warning: can't check for disconnected network
+Warning: can't check df for inconsistency
+Warning: can't check df for heterogeneity
+Command is: metareg logOR _trtdiff_BMSX _trtdiff_DES _trtdiff_MT  , wsse(selogO
+> R) noconstant
+
+Meta-regression                                       Number of obs  =      62
+REML estimate of between-study variance               tau2           =       0
+% residual variation due to heterogeneity             I-squared_res  =   0.00%
+Joint test for all covariates                         Model F(3,59)  =    0.32
+With Knapp-Hartung modification                       Prob > F       =  0.8126
+------------------------------------------------------------------------------
+       logOR |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_trtdiff_B~X |   .0007112   .1243693     0.01   0.995    -.2481513    .2495737
+_trtdiff_DES |  -.0804465   .2060468    -0.39   0.698    -.4927452    .3318523
+ _trtdiff_MT |  -.0804069   .0995168    -0.81   0.422    -.2795396    .1187259
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. assert reldif(`b1', _b[_trtdiff_BMSX]) < 1E-6
+
+. 
+. // END OF CHECKING NETWORK IMPORT FROM PAIRS FORMAT
 . 
 . * Check other effect measures
 . foreach measure in rr or rd hr {
@@ -8575,9 +8951,19 @@ mvmeta command stored as F9; test command stored as F8
 . 
 . erase z.dta
 
+. 
+. di as result _n "****************************************" ///
+>         _n "*** NETWORK HAS PASSED ALL ITS TESTS ***" ///
+>         _n "****************************************"
+
+****************************************
+*** NETWORK HAS PASSED ALL ITS TESTS ***
+****************************************
+
+. 
 . log close
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:   7 Apr 2021, 11:33:10
+ closed on:   7 Apr 2021, 13:43:34
 -------------------------------------------------------------------------------

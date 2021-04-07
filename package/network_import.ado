@@ -1,4 +1,7 @@
 /*
+*! version 1.7.0 # Ian White # 7apr2021
+	added check that ref is one of the treatments
+	added check that contrasts are unique and complete within each study
 *! Ian White # 16oct2020
 	unabbreviates effect() - avoids errors later in -network map-
 Ian White # 4dec2019
@@ -89,8 +92,24 @@ if "`from'"=="pairs" {
         exit 198
     }
     if `numeric' {
-        gen `t1'char = string(`t1')
-        gen `t2'char = string(`t2')
+        forvalues i=1/2 {
+			local vallab`i' : value label `t`i''
+			if !mi("`vallab`i''") { 	// has value labels
+				decode `t`i'', gen(`t`i''char)
+				cap assert mi(`t`i'')==mi(`t`i''char)
+				if _rc {
+					di as error "`t`i'' is incompletely labelled"
+					exit 498
+				}
+			}
+			else { 						// doesn't have value labels
+				gen `t`i''char = string(`t`i'')
+			}
+		}
+		if mi("`vallab1'")!=mi("`vallab2'") {
+			di as error "`t1' and `t2' must be both labelled or both unlabelled"
+			exit 198
+		}
         order `t1'char `t2'char, after(`t1')
         drop `t1' `t2'
         rename `t1'char `t1'
@@ -98,8 +117,8 @@ if "`from'"=="pairs" {
         tempvar length
         gen `length'=max(length(`t1'),length(`t2'))
         summ `length', meanonly
-        replace `t1' = "0"*(r(max)-length(`t1')) + `t1' if length(`t1')==1
-        replace `t2' = "0"*(r(max)-length(`t2')) + `t2' if length(`t2')==1
+        qui replace `t1' = "0"*(r(max)-length(`t1')) + `t1' if length(`t1')==1
+        qui replace `t2' = "0"*(r(max)-length(`t2')) + `t2' if length(`t2')==1
         di "Converted `t1' and `t2' to string"
     }
 
@@ -113,6 +132,10 @@ if "`from'"=="pairs" {
     local trtlistnoref : list trtlist - ref
     local ntrts : word count `trtlist'
     di `"All treatments: `trtlist'"'
+	if !`: list ref in trtlist' {
+		di as error "Error in ref(`ref'): `ref' is not one of the treatments"
+		exit 498
+	}
 
     tempvar row one nrows narms 
 
@@ -129,6 +152,7 @@ if "`from'"=="pairs" {
     local maxdim = r(max)-1
     local dim 1
 
+	* create design of study = all treatments reported in that study
     qui gen `design'=""
     tempvar hasone hastrt
     foreach trt in `trtlist' {
@@ -137,7 +161,8 @@ if "`from'"=="pairs" {
     	qui replace `design' = `design' + " `trt'" if `hastrt' & `touse'
     	drop `hasone' `hastrt'
     }
-    * and sort designs
+	
+    * sort designs
     forvalues i=1/`=_N' {
     	local thisdesign = `design'[`i']
     	local thisdesign : list sort thisdesign
@@ -145,7 +170,26 @@ if "`from'"=="pairs" {
     }
 
     qui gen `contrast' = `t2' + " - " + `t1' if `touse'
+	
+	* check no contrast is duplicated within a study
+	cap isid `studyvar' `contrast'
+	if _rc {
+		di as error "Error: one or more contrasts is duplicated in the studies listed"
+		duplicates list `studyvar' `contrast'
+		exit 498
+	}
 
+	* check all contrasts are present: it's enough to count them
+	tempvar ncontrasts designsize
+	egen `ncontrasts' = count(`contrast'), by(`studyvar')
+	gen `designsize' = wordcount(`design')
+	cap assert `ncontrasts' == `designsize'*(`designsize'-1)/2
+	if _rc {
+		di as error "Error: there are missing contrasts in the studies listed"
+		l `studyvar' `design' `t1' `t2' `y' `se' if `ncontrasts' != `designsize'*(`designsize'-1)/2
+		exit 498
+	}
+	
     // store as characteristics
     local format pairs
 
