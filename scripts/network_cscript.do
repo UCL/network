@@ -1,5 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+7apr2021:  new ado location on "c:\ado\ian"
 5dec2019:  new ado location on "n:\home"
 4sep2019:  new ado location on "n:\old home drives"
 3may2019:  added log file
@@ -17,7 +18,7 @@ REQUIRES: MVMETA, METAREG
 11jul2014: fails with long names
 */
 
-local networkdir N:\home\ado\ian\network\
+local networkdir c:\ado\ian\network\
 cd "`networkdir'scripts"
 cap log close
 log using "`networkdir'testlogs\network_cscript.log", replace
@@ -343,6 +344,7 @@ gen n = 10
 gen d = 5
 
 network setup d n, studyvar(trial) trtvar(trt) numcodes
+network table
 matrix list network_adjacency // the adjacency matrix
 matrix list network_indirect_connection // the indirect connection matrix
 matrix list network_distance // the distance matrix

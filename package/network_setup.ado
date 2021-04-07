@@ -1,5 +1,8 @@
 /*
-*! Ian White # 4dec2019
+*! version 1.7.0 # Ian White # 7apr2021
+	improved error for non-alphanumeric codes
+	changed compute_df to a direct calculation instead of anova - faster for >500 treatments
+Ian White # 4dec2019
 	fixed bug causing failure for study IDs with spaces/hyphens
 31may2018
 	corrected to avoid dropping e.g. S_AB_AB when ref=A
@@ -396,7 +399,7 @@ else {
 // Check trtcodes
 foreach trtcode of local trtcodes {
 	if index("`trtcode'","_") {
-		di as error "Sorry, treatment codes must not include the underscore character"
+		di as error "Sorry, treatment codes must only include alphanumeric characters"
 		exit 498
 	}
 }
@@ -686,7 +689,7 @@ local opts
 local dim = `ntrts' - 1
 
 // FINISH
-compute_df, nnames(`nnames') n(`n') studyvar(`studyvar') design(`design') // COMPUTE DF 
+compute_df, nnames(`nnames') n(`n') studyvar(`studyvar') design(`design') ncomponents(`ncomponents') // COMPUTE DF 
 local df_inconsistency = r(df_inconsistency)
 local df_heterogeneity = r(df_heterogeneity)
 
@@ -756,12 +759,14 @@ end
 
 prog def compute_df, rclass
 * computes degrees of freedom for inconsistency & heterogeneity
-syntax, nnames(varlist) n(string) studyvar(varname) design(varname)
+syntax, nnames(varlist) n(string) studyvar(varname) design(varname) ncomponents(int)
 preserve
 * prepare data
 keep `studyvar' `nnames' `design'
 tempvar treat
 qui reshape long `n', i(`studyvar') j(`treat') string
+
+/* OLD CALCULATION - TOO SLOW FOR >500 STUDIES
 foreach var in studyvar treat design { // if string, convert to numeric 
 	cap confirm string var ``var''
 	if !_rc {
@@ -777,6 +782,23 @@ qui anova `n' `studyvar' `treat' `treat'#`design' if !mi(`n') & `n'>=1
 set emptycells `emptycells'
 return scalar df_inconsistency = e(df_3)
 return scalar df_heterogeneity = e(df_r)
+*/
+
+* alternative calculation 7apr2021
+qui {
+	drop if `n'<1 | mi(`n')
+	local narms = _N
+	unique `studyvar'
+	local nstudies = r(unique)
+	unique `treat'
+	local ntreats = r(unique)
+	unique `design'
+	local ndesigns = r(unique)
+	unique `treat' `design'
+	local ntreatdesigns = r(unique)
+}
+return scalar df_inconsistency = `ntreatdesigns'-`ntreats'-`ndesigns'+`ncomponents'
+return scalar df_heterogeneity = `narms'-`nstudies'-`ntreatdesigns'+`ndesigns'
 end
 
 ***************************************************************************************

@@ -1,8 +1,8 @@
-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  N:\home\ado\ian\network\testlogs\network_cscript.log
+       log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:   5 Dec 2019, 18:48:02
+ opened on:   7 Apr 2021, 11:26:20
 
 . 
 . cls
@@ -19,10 +19,10 @@
 . prog drop _all
 
 . myadopath mvmeta network
-  [1]              "N:\Home\ado\ian\network\package"
-  [2]              "N:\Home\ado\ian\mvmeta\package"
-  [3]  (BASE)      "C:\Program Files (x86)\Stata15\ado\base/"
-  [4]  (SITE)      "C:\Program Files (x86)\Stata15\ado\site/"
+  [1]              "c:\ado\ian\network\package"
+  [2]              "c:\ado\ian\mvmeta\package"
+  [3]  (BASE)      "C:\Program Files\Stata16\ado\base/"
+  [4]  (SITE)      "C:\Program Files\Stata16\ado\site/"
   [5]              "."
   [6]  (PERSONAL)  "N:\Home\ado\personal/"
   [7]  (PLUS)      "N:\Home\ado\stbplus/"
@@ -30,12 +30,12 @@
 
 . 
 . which mvmeta
-N:\Home\ado\ian\mvmeta\package\mvmeta.ado
-*! version 3.2.0 # Ian White # 6apr2018
+c:\ado\ian\mvmeta\package\mvmeta.ado
+*! version 3.2.3 # Ian White # 22jan2021
 
 . which network
-N:\Home\ado\ian\network\package\network.ado
-*! version 1.6.2 # Ian White # 4dec2019
+c:\ado\ian\network\package\network.ado
+*! version 1.7.0 # Ian White # 7apr2021
 
 . 
 . // check network setup
@@ -206,6 +206,7 @@ Converting pairs to standard ...
      +---------------------------------------------------------------------+
 
 . save z, replace
+(note: file z.dta not found)
 file z.dta saved
 
 . 
@@ -4849,7 +4850,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1======================= 0
+loop 1 score 0=
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -5200,7 +5201,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1======= 0
+loop 1 score 1===================================== 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -7887,6 +7888,36 @@ Current data
    Variance variables:                 _S*
    Command to list the data:           list trial _y* _S*, noo sepby(_design)
 
+. network table
+Displaying components separately
+
+-------------------------------------------------------------------------------
+-> _component = 1
+
+------------------------------------------------------------------------------
+          |                      Treatment and Statistic                      
+          | ---- 1 ---    ---- 2 ---    ---- 3 ---    ---- 4 ---    ---- 5 ---
+    trial |    d     n       d     n       d     n       d     n       d     n
+----------+-------------------------------------------------------------------
+        1 |    5    10       5    10                                          
+        2 |                  5    10       5    10                            
+        3 |                  5    10                                   5    10
+        4 |                                              5    10       5    10
+------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+-> _component = 2
+
+--------------------------------------------------
+          |        Treatment and Statistic        
+          | ---- 6 ---    ---- 7 ---    ---- 8 ---
+    trial |    d     n       d     n       d     n
+----------+---------------------------------------
+        5 |    5    10       5    10              
+        6 |                  5    10       5    10
+--------------------------------------------------
+
+
 . matrix list network_adjacency // the adjacency matrix
 
 symmetric network_adjacency[8,8]
@@ -8546,7 +8577,7 @@ mvmeta command stored as F9; test command stored as F8
 
 . log close
       name:  <unnamed>
-       log:  N:\home\ado\ian\network\testlogs\network_cscript.log
+       log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:   5 Dec 2019, 18:55:54
+ closed on:   7 Apr 2021, 11:33:10
 -------------------------------------------------------------------------------

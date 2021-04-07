@@ -1,5 +1,7 @@
 /*
-*! version 1.6.1 # Ian White # 4sep2019
+*! version 1.7.0 # Ian White # 7apr2021
+	fixed bug that made it fail for disconnected network
+version 1.6.1 # Ian White # 4sep2019
 	treatments are displayed in correct order (ref first)
 	- previously treatment names were given in alphabetical order
 version 1.3.0 # Ian White # 17aug2017 
@@ -45,7 +47,7 @@ foreach trt in `ref' `trtlistnoref' {
 }
 
 * new 17aug2017: keep only variables needed
-local keepvars `studyvar'
+local keepvars `studyvar' `component'
 foreach rawvar of local rawvars {
 	foreach trt in `ref' `trtlistnoref' {
 		local keepvars `keepvars' `rawvar'`trt'
