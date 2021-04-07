@@ -4,7 +4,7 @@ v0.1 IW 7apr2021
 */
 
 prog def network_list
-
+syntax, [*]
 // Load saved network parameters
 if mi("`_dta[network_allthings]'") {
 	di as error "Data are not in network format"
@@ -23,11 +23,11 @@ if _rc local studyvar
 // Listing, different for each format
 di as txt "Data are in " as res "`format'" as txt " format"
 if "`format'"=="standard" {
-	l `studyvar' `design' `y'* `S'*
+	l `studyvar' `design' `y'* `S'*, `options'
 }
 
 if "`format'"=="pairs" {
-	l `studyvar' `design' `t1' `t2' `y' `stderr', sepby(`studyvar')
+	l `studyvar' `design' `t1' `t2' `y' `stderr', `options'
 }
 
 if "`format'"=="augmented" {
@@ -43,7 +43,7 @@ if "`format'"=="augmented" {
 				if !mi(`S'_`trt'_`trt2'[`i']) local Svars `Svars' `S'_`trt'_`trt2'
 			}
 		}
-		l `studyvar' `design' `yvars' `Svars' in `i'
+		l `studyvar' `design' `yvars' `Svars' in `i', `options'
 	}
 }
 

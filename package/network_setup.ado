@@ -2,6 +2,9 @@
 *! version 1.7.0 # Ian White # 7apr2021
 	improved error for non-alphanumeric codes
 	changed compute_df to a direct calculation instead of anova - faster for >500 treatments
+	long treatment names and codes:
+		truncates rather than failing
+		applies ~14 character limit to treatment codes (arises with nocodes option)
 Ian White # 4dec2019
 	fixed bug causing failure for study IDs with spaces/hyphens
 31may2018
@@ -233,14 +236,20 @@ if "`trtvar'"!="" {
     local r 0
     tempvar trtcode
     qui gen `trtcode' = ""
+	local trtcodemaxlength = floor(16-length("`S'")/2-1)
+    local trtnamemaxlength = 32
     foreach trt in `trtlist' {
-        if length("`trt'")>32 { // check added 6apr2018
-			di as error "Treatment name exceeds the 32 character limit: `trt'"
-			exit 498
+        if length("`trt'")>`trtnamemaxlength' { // check added 6apr2018
+			di as error "Warning:" as txt " treatment name " as res "`trt'" as txt " has been truncated to " as res "`trtnamemaxlength'" as txt " characters"
+			local trt = substr("`trt'",1,`trtnamemaxlength')
 		}
 		local ++r
         if "`codes'"=="nocodes" { // don't code
             local thistrtcode = strtoname("`trt'",0)
+			if length("`thistrtcode'")>`trtcodemaxlength' { // check added 6apr2018
+				di as error "Warning:" as txt " treatment code " as res "`thistrtcode'" as txt " has been truncated to " as res "`trtcodemaxlength'" as txt " characters"
+				local thistrtcode = substr("`thistrtcode'",1,`trtcodemaxlength')
+			}
         }
         else if mi("`numcodes'") { // code as letters
             if `ntrts'<=26 local thistrtcode = char(64+`r')
@@ -256,6 +265,11 @@ if "`trtvar'"!="" {
         `ifdebugnoi' di as text `"Treatment `trt' has code `thistrtcode'"'
     }
     drop `trtvar'
+	* check codes are unique - could be messed up by truncating
+	if !mi("`: list dups trtcodes'") {
+		di as error "Error: treatment codes are not unique after truncation"
+		exit 498
+	}
 
     * detect arm-level variables which vary within studies
     unab allvars : _all
@@ -399,7 +413,7 @@ else {
 // Check trtcodes
 foreach trtcode of local trtcodes {
 	if index("`trtcode'","_") {
-		di as error "Sorry, treatment codes must only include alphanumeric characters"
+		di as error "Error: treatment codes must only include alphanumeric characters"
 		exit 498
 	}
 }
