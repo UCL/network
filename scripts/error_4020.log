@@ -1,0 +1,160 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  c:\ado\ian\network\scripts\error_4020.log
+  log type:  text
+ opened on:   8 Apr 2021, 14:58:09
+
+. /* 
+> error_4020.do
+> an error on network map or network forest (occurs at the graph statement)
+> */
+. use thromb, clear
+(Thrombolytics network meta-analysis from Lu & Ades (2006), corrected)
+
+. keep study treat r n
+
+. network setup r n, studyvar(stud) trtvar(treat) 
+Treatments used
+   A (reference):                      A
+   B:                                  B
+   C:                                  C
+   D:                                  D
+   E:                                  E
+   F:                                  F
+   G:                                  G
+   H:                                  H
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        28
+   IDs with zero cells:                [none]
+   IDs with augmented reference arm:   17 18 19 20 21 22 23 24 25 26 27 28
+   - observations added:               0.00001
+   - mean in augmented observations:   study-specific mean
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             8
+   D.f. for heterogeneity:             15
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. network convert standard
+Converting augmented to standard ...
+
+. network meta c, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdiff1_F _trtdiff1_G _
+> trtdiff1_H, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F
+>  _trtdiff2_G _trtdiff2_H) vars(_y_1 _y_2)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdi
+> ff1_F _trtdiff1_G _trtdiff1_H
+Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdi
+> ff2_F _trtdiff2_G _trtdiff2_H
+Note: 28 observations on 2 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     2
+                                               Number of observations  =    28
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |  -.1606938   .0440976    -3.64   0.000    -.2471234   -.0742641
+ _trtdiff1_C |    .001674   .0303724     0.06   0.956    -.0578549    .0612028
+ _trtdiff1_D |  -.0437462   .0465687    -0.94   0.348    -.1350192    .0475267
+ _trtdiff1_E |  -.1552588   .0776135    -2.00   0.045    -.3073785   -.0031391
+ _trtdiff1_F |  -.1125408   .0602498    -1.87   0.062    -.2306284    .0055467
+ _trtdiff1_G |  -.1972129   .2213521    -0.89   0.373     -.631055    .2366292
+ _trtdiff1_H |   .0134563   .0367527     0.37   0.714    -.0585776    .0854903
+------------------------------------------------------------------------------
+The above coefficients also apply to the following equations:
+    _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F _trtdiff2
+> _G _trtdiff2_H 
+mvmeta command stored as F9
+
+. network meta i, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdiff1_F _trtdiff1_G _
+> trtdiff1_H _trtdiff1_C_des_ACH _trtdiff1_D_des_AD _trtdiff1_H_des_AH _trtdiff
+> 1_F_des_BF _trtdiff1_G_des_BG _trtdiff1_H_des_BH _trtdiff1_G_des_CG _trtdiff1
+> _H_des_CH, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F 
+> _trtdiff2_G _trtdiff2_H _trtdiff2_C_des_ACH _trtdiff2_D_des_AD _trtdiff2_H_de
+> s_AH _trtdiff2_F_des_BF _trtdiff2_G_des_BG _trtdiff2_H_des_BH _trtdiff2_G_des
+> _CG _trtdiff2_H_des_CH) vars(_y_1 _y_2)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdi
+> ff1_F _trtdiff1_G _trtdiff1_H _trtdiff1_C_des_ACH _trtdiff1_D_des_AD _trtdiff
+> 1_H_des_AH _trtdiff1_F_des_BF _trtdiff1_G_des_BG _trtdiff1_H_des_BH _trtdiff1
+> _G_des_CG _trtdiff1_H_des_CH
+Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdi
+> ff2_F _trtdiff2_G _trtdiff2_H _trtdiff2_C_des_ACH _trtdiff2_D_des_AD _trtdiff
+> 2_H_des_AH _trtdiff2_F_des_BF _trtdiff2_G_des_BG _trtdiff2_H_des_BH _trtdiff2
+> _G_des_CG _trtdiff2_H_des_CH
+Note: 28 observations on 2 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     2
+                                               Number of observations  =    28
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |  -.1570565     .04868    -3.23   0.001    -.2524676   -.0616455
+ _trtdiff1_C |    .031473   .0482246     0.65   0.514    -.0630454    .1259914
+ _trtdiff1_D |  -.0446749   .0471175    -0.95   0.343    -.1370235    .0476737
+ _trtdiff1_E |  -.1516215   .0803057    -1.89   0.059    -.3090178    .0057747
+ _trtdiff1_F |  -.0603276   .0891571    -0.68   0.499    -.2350724    .1144172
+ _trtdiff1_G |  -.3462582   .5032634    -0.69   0.491    -1.332636      .64012
+ _trtdiff1_H |  -.0048226   .0392449    -0.12   0.902    -.0817413     .072096
+~1_C_des_ACH |  -.0574749   .0622926    -0.92   0.356    -.1795661    .0646163
+_trtdiff1~AD |     .45014   .6620455     0.68   0.497    -.8474453    1.747725
+_trtdiff1~AH |  -.0677176   .3221657    -0.21   0.834    -.6991509    .5637156
+_trtdiff1~BF |  -.0772939   .1212055    -0.64   0.524    -.3148524    .1602645
+_trtdiff1~BG |   .3103577   .6174189     0.50   0.615     -.899761    1.520476
+_trtdiff1~BH |   1.202178   .4106195     2.93   0.003     .3973788    2.006978
+_trtdiff1~CG |   .1020555   .6088326     0.17   0.867    -1.091234    1.295345
+_~1_H_des_CH |  -.2473993    .359221    -0.69   0.491    -.9514595    .4566609
+------------------------------------------------------------------------------
+The above coefficients also apply to the following equations:
+    _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F _trtdiff2
+> _G _trtdiff2_H _trtdiff2_C_des_ACH _trtdiff2_D_des_AD _trtdiff2_H_des_AH _trt
+> diff2_F_des_BF _trtdiff2_G_des_BG _trtdiff2_H_des_BH _trtdiff2_G_des_CG _trtd
+> iff2_H_des_CH 
+
+Testing for inconsistency:
+ ( 1)  [_y_1]_trtdiff1_C_des_ACH = 0
+ ( 2)  [_y_1]_trtdiff1_D_des_AD = 0
+ ( 3)  [_y_1]_trtdiff1_H_des_AH = 0
+ ( 4)  [_y_1]_trtdiff1_F_des_BF = 0
+ ( 5)  [_y_1]_trtdiff1_G_des_BG = 0
+ ( 6)  [_y_1]_trtdiff1_H_des_BH = 0
+ ( 7)  [_y_1]_trtdiff1_G_des_CG = 0
+ ( 8)  [_y_1]_trtdiff1_H_des_CH = 0
+
+           chi2(  8) =   11.46
+         Prob > chi2 =    0.1770
+mvmeta command stored as F9; test command stored as F8
+
+. cap noi network map
+Graph command stored in F9
+
+. cap noi network forest
+
+. 
+end of do-file
+      name:  <unnamed>
+       log:  c:\ado\ian\network\scripts\error_4020.log
+  log type:  text
+ closed on:   8 Apr 2021, 14:58:21
+-------------------------------------------------------------------------------
