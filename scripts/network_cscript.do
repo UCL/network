@@ -293,10 +293,15 @@ assert abs(`test2'/`test1'-1) < 1E-10
 
 * Check rank
 network meta c
-network rank min, rep(50) seed(41087) cum all bar saving(z) replace mcse ///
+network rank min, rep(50) seed(41087) cum bar saving(z) replace mcse ///
 	title(Rank bars) name(rank1, replace) legend(row(2))
-network rank min, meanrank clear line predict trtcodes ///
+network rank min, seed(41087) meanrank clear line predict trtcodes ///
 	ylabel(0 25 50) title(Rankogram) name(rank2, replace)
+summ _Rank if _Rank<10, meanonly
+assert r(min)==1
+assert r(max)==7
+assert study==11
+assert round(_Pbest[1],0.0001)==7.9
 
 * Check network import from augmented format, and play with prefixes
 use thromb, clear

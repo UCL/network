@@ -30,8 +30,6 @@ The options listed below are likely to be useful.
 {synopthdr}
 {synoptline}
 {syntab:mvmeta_pbest_options}
-{synopt:{opt all}}Reports probabilities for all ranks. 
-The default is to report only the probabilities of being the best treatment.{p_end}
 {synopt:{opt rep:s(#)}}Set the number of replicates - larger numbers reduce Monte Carlo error{p_end}
 {synopt:{opt mcse}}Add the Monte Carlo standard errors to the tables{p_end}
 {synopt:{opt seed(#)}}Set the random number seed for reproducibility{p_end}
@@ -49,8 +47,11 @@ is 1 when a treatment is certain to be the best and 0 when a treatment is certai
 (indexed by the identifier and the replication number) to {it:filename}.{p_end}
 {synopt:{opt replace}}Allows {it:filename} in {cmd:saving(}{it:filename}{cmd:)} to be overwritten.{p_end}
 {synopt:{opt clear}}Loads the rank data into memory and gives the commands needed to reproduce the table and graph.{p_end}
+{synopt:{opt best:only}}Reports only the probabilities of being the best treatment. 
+This can be misleading ({help mvmeta##Salanti++11:Salanti et al, 2011}).
+The default is to report the probabilities for all ranks.{p_end}
 {syntab:Other options}
-{synopt:{opt trtc:odes}}makes the display use the treatment codes rather than the treatment names.{p_end}
+{synopt:{opt trtc:odes}}Makes the display use the treatment codes rather than the treatment names.{p_end}
 {synoptline}
 {p2colreset}{...}
 

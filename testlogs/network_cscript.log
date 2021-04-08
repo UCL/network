@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:   8 Apr 2021, 17:37:45
+ opened on:   8 Apr 2021, 20:38:46
 
 . 
 . cls
@@ -4509,7 +4509,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 0=
+loop 1 score 1================ 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -5201,7 +5201,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1===================================== 0
+loop 1 score 1======== 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -6553,23 +6553,22 @@ _y_E          .
 _y_C          1
 mvmeta command stored as F9
 
-. network rank min, rep(50) seed(41087) cum all bar saving(z) replace mcse ///
+. network rank min, rep(50) seed(41087) cum bar saving(z) replace mcse ///
 >         title(Rank bars) name(rank1, replace) legend(row(2))
-Command is: mvmeta, noest pbest(min  in 1, zero id(study) rep(50) seed(41087) c
-> um all bar saving(z) replace mcse title(Rank bars) name(rank1, replace) legen
-> d(row(2)) stripprefix(_y_) zeroname(A) rename(A = A, B = B, C = C, D = D, E =
->  E, F = F, G = G, H = H))
+Command is: mvmeta, noest pbest(min in 1, zero id(study) rep(50) seed(41087) cu
+> m bar saving(z) replace mcse title(Rank bars) name(rank1, replace) legend(row
+> (2)) stripprefix(_y_) zeroname(A) rename(A = A, B = B, C = C, D = D, E = E, F
+>  = F, G = G, H = H))
 
-Estimated probabilities (%) of each treatment being the best (and other ranks)
+Estimated probabilities (%) of each treatment having each rank
 - assuming the minimum parameter is the best
 - using 50 draws (written to file z.dta)
 - allowing for parameter uncertainty
 - figures are estimated probability (upper), Monte Carlo error (lower)
 ----------------------------------------------------
-study and |                Treatment                
-Rank      |    A     F     G     H     B     E     C
+          |                Treatment                
+     Rank |    A     F     G     H     B     E     C
 ----------+-----------------------------------------
-11        |
      Best |  6.0  12.0   6.0   0.0  26.0  50.0   0.0
           |  3.4   4.6   3.4   0.0   6.2   7.1   0.0
           | 
@@ -6593,35 +6592,43 @@ Rank      |    A     F     G     H     B     E     C
 ----------------------------------------------------
 mvmeta command is stored in F9
 
-. network rank min, meanrank clear line predict trtcodes ///
+. network rank min, seed(41087) meanrank clear line predict trtcodes ///
 >         ylabel(0 25 50) title(Rankogram) name(rank2, replace)
-Command is: mvmeta, noest pbest(min  in 1, zero id(study) meanrank clear line p
-> redict ylabel(0 25 50) title(Rankogram) name(rank2, replace) stripprefix(_y_)
->  zeroname(A) rename())
-Option line specified -> option all assumed
+Command is: mvmeta, noest pbest(min in 1, zero id(study) seed(41087) meanrank l
+> ine predict ylabel(0 25 50) title(Rankogram) name(rank2, replace) clear strip
+> prefix(_y_) zeroname(A) rename())
 
-Estimated probabilities (%) of each treatment being the best (and other ranks)
+Estimated probabilities (%) of each treatment having each rank
 - assuming the minimum parameter is the best
 - using 1000 draws
 - allowing for parameter uncertainty and between-studies variation
 ----------------------------------------------------
-study and |                Treatment                
-Rank      |    A     F     G     H     B     E     C
+          |                Treatment                
+     Rank |    A     F     G     H     B     E     C
 ----------+-----------------------------------------
-11        |
-     Best |  6.9  18.8  13.8   1.0  26.6  31.3   1.6
-      2nd |  8.2  22.6  13.1   2.4  31.2  19.7   2.8
-      3rd | 12.7  26.9  15.2   4.3  20.2  17.8   2.9
-      4th | 20.5  16.7  24.3   8.5  11.7  12.4   5.9
-      5th | 27.0   8.8  19.2  15.1   6.4   9.5  14.0
-      6th | 16.5   4.4   9.7  36.3   2.5   5.5  25.1
-    Worst |  8.2   1.8   4.7  32.4   1.4   3.8  47.7
-MEAN RANK |  4.3   2.9   3.7   5.7   2.5   2.8   5.9
-    SUCRA |  0.4   0.7   0.6   0.2   0.7   0.7   0.2
+     Best |  7.9  18.3  11.5   0.3  26.1  34.5   1.4
+      2nd |  6.4  21.1  15.1   1.7  31.3  22.6   1.8
+      3rd | 11.5  28.6  13.5   3.1  23.8  16.8   2.7
+      4th | 22.4  16.3  22.7   8.9  11.9  11.9   5.9
+      5th | 24.7   8.9  22.2  19.7   3.6   7.3  13.6
+      6th | 17.5   5.4  10.6  34.9   2.3   4.0  25.3
+    Worst |  9.6   1.4   4.4  31.4   1.0   2.9  49.3
+MEAN RANK |  4.4   3.0   3.8   5.8   2.5   2.6   6.0
+    SUCRA |  0.4   0.7   0.5   0.2   0.8   0.7   0.2
 ----------------------------------------------------
-Tabulate command is stored in F7
-Graph command is stored in F8
-mvmeta command is stored in F9
+Rank probabilities have been loaded into memory
+tabulate command is stored in F7
+graph command is stored in F8
+
+. summ _Rank if _Rank<10, meanonly
+
+. assert r(min)==1
+
+. assert r(max)==7
+
+. assert study==11
+
+. assert round(_Pbest[1],0.0001)==7.9
 
 . 
 . * Check network import from augmented format, and play with prefixes
@@ -10065,5 +10072,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:   8 Apr 2021, 17:45:11
+ closed on:   8 Apr 2021, 20:46:45
 -------------------------------------------------------------------------------

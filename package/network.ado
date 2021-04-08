@@ -1,6 +1,8 @@
 /*
 *! version 1.7.0 # Ian White # 8apr2021
-	updates to setup, table
+	updates to setup, table, meta, rank
+	network setup, format(standard) can handle large number of treatments
+	network rank reports all ranks by default
 version 1.6.2 # Ian White # 5dec2019
 	RELEASED TO UCL
 	bug fixes in map and setup

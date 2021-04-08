@@ -1,5 +1,8 @@
 /*
-*! version 1.1 # Ian White # 27may2015
+*! version 1.7.0 # Ian White # 8apr2021
+	removed F9 if clear option is used
+	mvmeta changes make the new default to report all ranks 
+version 1.1 # Ian White # 27may2015
     changes are all in mvmeta, not here
 version 0.8 # 31jul2014 
     new rename option uses trtnames
@@ -26,7 +29,7 @@ if "`format'"!="augmented" {
     exit 198
 }
 
-syntax [anything] [if] [in], [zero id(varname) TRTCodes *]
+syntax [anything] [if] [in], [zero id(varname) TRTCodes clear *]
 if mi("`if'`in'") & "`e(network)'"=="consistency" & !`hasx' local in "in 1"
 if mi("`id'") local id `studyvar'
 local idopt id(`id')
@@ -34,6 +37,7 @@ if !inlist("`anything'", "min", "max") {
     di as error "Syntax: network rank min|max, ..."
     exit 198
 }
+
 if mi("`trtcodes'") { // name the treatments
     local trtcodelist `ref' `trtlistnoref'
     local trtcodelist : list sort trtcodelist
@@ -44,9 +48,13 @@ if mi("`trtcodes'") { // name the treatments
 }
 
 local mvmetacmd mvmeta, noest pbest(`anything' `if' `in', zero `idopt' ///
-    `options' stripprefix(`y'_) zeroname(`ref') rename(`rename'))
+    `options' `clear' stripprefix(`y'_) zeroname(`ref') rename(`rename'))
+* remove excess spaces
+local mvmetacmd : list retokenize mvmetacmd
 di as input `"Command is: `mvmetacmd'"'
 `mvmetacmd'
-global F9 `mvmetacmd'
-di "mvmeta command is stored in F9"
+if mi("`clear'") {
+	global F9 `mvmetacmd'
+	di as text "mvmeta command is stored in F9"
+}
 end
