@@ -1,6 +1,7 @@
 /* 
 error_4020.do
 an error on network map or network forest (occurs at the graph statement)
+NOTE THAT AFTER GETTING THIS ERROR I TYPED CLEAR ALL AND THE CODE THEN WORKED
 */
 use thromb, clear
 keep study treat r n

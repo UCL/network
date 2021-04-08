@@ -639,7 +639,7 @@ else { // new code to go direct to standard format
 		if "`outcome'"=="quantitative" rename (`mean'`trt' `sd'`trt') (`MM'`trt' `SS'`trt')
 		rename `n'`trt' `NN'`trt'
 	}
-	forvalues i=0/`=`maxarms'-1' {
+	forvalues i=0/`dim' {
 		qui gen `TT'`i' = ""
 		if "`outcome'"=="count" qui gen `d'`i' = .
 		if "`outcome'"=="quantitative" qui gen `mean'`i' = .
@@ -651,7 +651,7 @@ else { // new code to go direct to standard format
 	order `design', last
 	foreach trt in `trtcodes' {
 		qui replace `DO' = 0
-		forvalues i=0/`=`maxarms'-1' {
+		forvalues i=0/`dim' {
 			qui replace `DO' = 1 if mi(`n'`i') & !mi(`NN'`trt') & `DO'==0
 			qui replace `TT'`i' = "`trt'" if `DO'==1
 			if "`outcome'"=="count" qui replace `d'`i' = `DD'`trt' if `DO'==1
@@ -709,7 +709,7 @@ if "`outcome'"=="count" {
 		if !_rc drop `S'_`refx'_`trt'
 	}
 	foreach trt in `trtcodesx' {
-        drop `variance'`trt'
+        drop `variance'`trt' 
     }
     drop `y'_`refx'
 }
@@ -766,12 +766,18 @@ else if "`outcome'"=="quantitative" {
     * tidy up
     drop `pooledsd' `pooleddf' `Jnu' `Knu'
 }
+* create contrast variables and tidy up
 if "`targetformat'" == "standard" {
-	forvalues i=1/`=`maxarms'-1' {
+	forvalues i=1/`dim' {
 		qui gen _contrast_`i' = `TT'`i' + " - " + `TT'0 if !mi(`TT'`i')
+		drop `TT'`i'
 	}
+	foreach trt in `trtcodes' {
+        drop `NN'`trt' 
+		if "`outcome'"=="count" drop `DD'`trt'
+		if "`outcome'"=="quantitative" drop `MM'`trt' `SS'`trt'
+    }
 }
-
 
 // FINISH
 /* compute df using following macros already computed:
@@ -782,8 +788,8 @@ if "`targetformat'" == "standard" {
 	ncomponents - # components
 	ntrtdesigns - # trts by design
 */
-local df_inconsistency = `ntrtdesigns'-`ntrts'-`ndesigns'+`ncomponents'
-local df_heterogeneity = `narms'-`nstudies'-`ntrtdesigns'+`ndesigns'
+local df_inconsistency = `ntrtdesigns' - `ntrts' - `ndesigns' + `ncomponents'
+local df_heterogeneity = `narms' - `nstudies' - `ntrtdesigns' + `ndesigns'
 
 di as text _new "Network information" `col2' 
 di as text `col1' "Components:" `col2' _c
@@ -843,54 +849,3 @@ if "`format'"=="pairs" {
 cap estimates drop consistency
 cap estimates drop inconsistency
 end
-
-
-***************************************************************************************
-
-prog def compute_df, rclass
-* computes degrees of freedom for inconsistency & heterogeneity
-syntax, nnames(varlist) n(string) studyvar(varname) design(varname) ncomponents(int)
-preserve
-* prepare data
-keep `studyvar' `nnames' `design'
-tempvar treat
-qui reshape long `n', i(`studyvar') j(`treat') string
-
-/* OLD CALCULATION - TOO SLOW FOR >500 STUDIES
-foreach var in studyvar treat design { // if string, convert to numeric 
-	cap confirm string var ``var''
-	if !_rc {
-		tempvar `var'num
-		encode ``var'', gen(``var'num')
-		local `var' ``var'num'
-	}
-}	
-* fit anova
-local emptycells = c(emptycells)
-set emptycells drop
-qui anova `n' `studyvar' `treat' `treat'#`design' if !mi(`n') & `n'>=1
-set emptycells `emptycells'
-return scalar df_inconsistency = e(df_3)
-return scalar df_heterogeneity = e(df_r)
-*/
-pause
-* alternative calculation 7apr2021
-qui {
-	drop if `n'<1 | mi(`n')
-	local narms = _N
-	unique `studyvar'
-	local nstudies = r(unique)
-	unique `treat'
-	local ntrts = r(unique)
-	unique `design'
-	local ndesigns = r(unique)
-	unique `treat' `design'
-	local ntrtdesigns = r(unique)
-}
-di "return scalar df_inconsistency = `ntrtdesigns'-`ntrts'-`ndesigns'+`ncomponents'"
-di "return scalar df_heterogeneity = `narms'-`nstudies'-`ntrtdesigns'+`ndesigns'"
-return scalar df_inconsistency = `ntrtdesigns'-`ntrts'-`ndesigns'+`ncomponents'
-return scalar df_heterogeneity = `narms'-`nstudies'-`ntrtdesigns'+`ndesigns'
-end
-
-***************************************************************************************

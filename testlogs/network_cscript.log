@@ -1,8 +1,8 @@
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:   8 Apr 2021, 13:30:39
+ opened on:   8 Apr 2021, 17:37:45
 
 . 
 . cls
@@ -31,6 +31,7 @@
 . 
 . which mvmeta
 c:\ado\ian\mvmeta\package\mvmeta.ado
+*! version 3.2.4 # Ian White # 8mar2021
 *! version 3.2.3 # Ian White # 22jan2021
 
 . which network
@@ -547,8 +548,8 @@ Current data
 
 . 
 . network meta c, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) longparm suppr
-> ess(uv mm)  vars(_y_A _y_C _y_D)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) longparm suppres
+> s(uv mm) vars(_y_A _y_C _y_D)
 Note: using method reml
 Note: using variables _y_A _y_C _y_D
 Note: 24 observations on 3 variables
@@ -660,9 +661,9 @@ Use F9 to redisplay them
 Converting augmented to standard ...
 
 . network meta c, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) commonparm noc
-> onstant suppress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D, _y_2: _
-> trtdiff2_A _trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) commonparm nocon
+> stant suppress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D, _y_2: _tr
+> tdiff2_A _trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_A _trtdiff2_C _trtdiff2_D
@@ -712,8 +713,8 @@ reldiff = -.00007588% (.67446638 vs. .67446689)
 Converting standard to augmented ...
 
 . network meta c, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) longparm suppr
-> ess(uv mm)  vars(_y_A _y_C _y_D)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) longparm suppres
+> s(uv mm) vars(_y_A _y_C _y_D)
 Note: using method reml
 Note: using variables _y_A _y_C _y_D
 Note: 24 observations on 3 variables
@@ -762,9 +763,9 @@ reldiff = -.00046882% (.67446373 vs. .67446689)
 . 
 . 
 . network meta i, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) longparm suppr
-> ess(uv mm) eq(_y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_C
-> D) vars(_y_A _y_C _y_D)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) longparm suppres
+> s(uv mm) eq(_y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD)
+>  vars(_y_A _y_C _y_D)
 Note: using method reml
 Note: regressing _y_A on (nothing)
 Note: regressing _y_C on des_ACD des_BC des_BCD
@@ -830,13 +831,13 @@ mvmeta command stored as F9; test command stored as F8
 Converting augmented to standard ...
 
 . network meta i, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) commonparm noc
-> onstant suppress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff
-> 1_C_des_ACD _trtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdif
-> f1_D_des_BCD _trtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_A _trtdif
-> f2_C _trtdiff2_D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _t
-> rtdiff2_C_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) 
-> vars(_y_1 _y_2)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) commonparm nocon
+> stant suppress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff1_
+> C_des_ACD _trtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1
+> _D_des_BCD _trtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_A _trtdiff2
+> _C _trtdiff2_D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trt
+> diff2_C_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) va
+> rs(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_AC
 > D _trtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_B
@@ -911,9 +912,9 @@ reldiff = .00070686% (.74316262 vs. .74315737)
 Converting standard to augmented ...
 
 . network meta i, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) longparm suppr
-> ess(uv mm) eq(_y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_C
-> D) vars(_y_A _y_C _y_D)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) longparm suppres
+> s(uv mm) eq(_y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD)
+>  vars(_y_A _y_C _y_D)
 Note: using method reml
 Note: regressing _y_A on (nothing)
 Note: regressing _y_C on des_ACD des_BC des_BCD
@@ -1019,9 +1020,9 @@ Current data
    Command to list the data:           list study _y* _S*, noo sepby(_design)
 
 . network meta i, print(bscov)
-Command is: mvmeta _y _S  , print(bscov)  bscovariance(exch 0.5) longparm suppr
-> ess(uv mm) eq(_y_A: des_ACD, _y_B: des_BC des_BCD, _y_D: des_AD des_BCD des_B
-> D des_CD) vars(_y_A _y_B _y_D)
+Command is: mvmeta _y _S , print(bscov) bscovariance(exch 0.5) longparm suppres
+> s(uv mm) eq(_y_A: des_ACD, _y_B: des_BC des_BCD, _y_D: des_AD des_BCD des_BD 
+> des_CD) vars(_y_A _y_B _y_D)
 Note: using method reml
 Note: regressing _y_A on des_ACD
 Note: regressing _y_B on des_BC des_BCD
@@ -1102,8 +1103,8 @@ All treatments: BMS DES MT PTCA
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , z wsse(selo
-> gOR) noconstant
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA , z wsse(selog
+> OR) noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -1127,9 +1128,9 @@ Converting pairs to standard ...
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta logOR _S  , nounc print(bscov)  bscovariance(exch 0.5) commo
-> nparm noconstant suppress(uv mm) eq(logOR_1: _trtdiff1_DES _trtdiff1_MT _trtd
-> iff1_PTCA) vars(logOR_1)
+Command is: mvmeta logOR _S , nounc print(bscov) bscovariance(exch 0.5) commonp
+> arm noconstant suppress(uv mm) eq(logOR_1: _trtdiff1_DES _trtdiff1_MT _trtdif
+> f1_PTCA) vars(logOR_1)
 Note: using method reml
 Note: regressing logOR_1 on _trtdiff1_DES _trtdiff1_MT _trtdiff1_PTCA
 Note: 62 observations on 1 variables
@@ -1189,8 +1190,8 @@ Converting standard to augmented ...
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta logOR _S  , nounc print(bscov)  bscovariance(exch 0.5) longp
-> arm suppress(uv mm)  vars(logOR_DES logOR_MT logOR_PTCA)
+Command is: mvmeta logOR _S , nounc print(bscov) bscovariance(exch 0.5) longpar
+> m suppress(uv mm) vars(logOR_DES logOR_MT logOR_PTCA)
 Note: using method reml
 Note: using variables logOR_DES logOR_MT logOR_PTCA
 Note: 62 observations on 3 variables
@@ -1238,7 +1239,7 @@ Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
 Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA _trtdiff_PTCA_
-> des_MTPTCA  , z wsse(selogOR) noconstant
+> des_MTPTCA , z wsse(selogOR) noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -1269,9 +1270,9 @@ Converting pairs to standard ...
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta logOR _S  , nounc print(bscov)  bscovariance(exch 0.5) commo
-> nparm noconstant suppress(uv mm) eq(logOR_1: _trtdiff1_DES _trtdiff1_MT _trtd
-> iff1_PTCA _trtdiff1_PTCA_des_MTPTCA) vars(logOR_1)
+Command is: mvmeta logOR _S , nounc print(bscov) bscovariance(exch 0.5) commonp
+> arm noconstant suppress(uv mm) eq(logOR_1: _trtdiff1_DES _trtdiff1_MT _trtdif
+> f1_PTCA _trtdiff1_PTCA_des_MTPTCA) vars(logOR_1)
 Note: using method reml
 Note: regressing logOR_1 on _trtdiff1_DES _trtdiff1_MT _trtdiff1_PTCA _trtdiff1
 > _PTCA_des_MTPTCA
@@ -1320,9 +1321,9 @@ Converting standard to augmented ...
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta logOR _S  , nounc print(bscov)  bscovariance(exch 0.5) longp
-> arm suppress(uv mm) eq(logOR_PTCA: des_MTPTCA) vars(logOR_DES logOR_MT logOR_
-> PTCA)
+Command is: mvmeta logOR _S , nounc print(bscov) bscovariance(exch 0.5) longpar
+> m suppress(uv mm) eq(logOR_PTCA: des_MTPTCA) vars(logOR_DES logOR_MT logOR_PT
+> CA)
 Note: using method reml
 Note: regressing logOR_DES on (nothing)
 Note: regressing logOR_MT on (nothing)
@@ -1388,8 +1389,8 @@ Converting pairs to augmented ...
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta logOR _S  , bscovariance(exch 0.5) longparm suppress(uv mm) 
->  vars(logOR_DES logOR_MT logOR_PTCA)
+Command is: mvmeta logOR _S , bscovariance(exch 0.5) longparm suppress(uv mm) v
+> ars(logOR_DES logOR_MT logOR_PTCA)
 Note: using method reml
 Note: using variables logOR_DES logOR_MT logOR_PTCA
 Note: 62 observations on 3 variables
@@ -1450,8 +1451,8 @@ Comparator |    BMS     DES      MT    PTCA
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta logOR _S  , bscovariance(exch 0.5) longparm suppress(uv mm) 
-> eq(logOR_PTCA: des_MTPTCA) vars(logOR_DES logOR_MT logOR_PTCA)
+Command is: mvmeta logOR _S , bscovariance(exch 0.5) longparm suppress(uv mm) e
+> q(logOR_PTCA: des_MTPTCA) vars(logOR_DES logOR_MT logOR_PTCA)
 Note: using method reml
 Note: regressing logOR_DES on (nothing)
 Note: regressing logOR_MT on (nothing)
@@ -1533,7 +1534,6 @@ mvmeta command stored as F9; test command stored as F8
      +-----------------------------------+
 
 . save zquant, replace
-(note: file zquant.dta not found)
 file zquant.dta saved
 
 . network setup sbp sbpsd count, stud(study) trt(trt) smd
@@ -1622,8 +1622,8 @@ Current data
 Warning: heterogeneity model requested, but your data contain no potential sour
 > ce of heterogeneity
 Consider using the fixed option
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C)
 Note: using method reml
 Note: using variables _y_B _y_C
 Note: 3 observations on 2 variables
@@ -1761,8 +1761,8 @@ Current data
        23 |                               12    76      20    74
        24 |                                9    55       3    26
 ----------------------------------------------------------------
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) longparm suppress(uv mm) 
->  vars(_y_B _y_C _y_D)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) longparm suppress(uv mm) v
+> ars(_y_B _y_C _y_D)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D
 Note: 24 observations on 3 variables
@@ -1801,9 +1801,9 @@ _y_C  .67446625         .5          1          .
 _y_D  .67446625         .5         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_B _
-> y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_B _y
+> _C _y_D)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACD des_BC des_BCD
@@ -1893,8 +1893,8 @@ mvmeta command stored as F9; test command stored as F8
          ncomponents             1
          df_inconsistency        7
          df_heterogeneity        16
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: groupB, _y_D: groupB groupC) vars(_y_B _y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: groupB, _y_D: groupB groupC) vars(_y_B _y_C _y_D)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on groupB
@@ -2076,8 +2076,8 @@ Current data
        23 |                               12    76      20    74
        24 |                                9    55       3    26
 ----------------------------------------------------------------
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) longparm suppress(uv mm) 
->  vars(_y_A _y_C _y_D)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) longparm suppress(uv mm) v
+> ars(_y_A _y_C _y_D)
 Note: using method reml
 Note: using variables _y_A _y_C _y_D
 Note: 24 observations on 3 variables
@@ -2116,9 +2116,9 @@ _y_C  .67446689         .5          1          .
 _y_D  .67446689         .5         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_A _
-> y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_A _y
+> _C _y_D)
 Note: using method reml
 Note: regressing _y_A on (nothing)
 Note: regressing _y_C on des_ACD des_BC des_BCD
@@ -2208,8 +2208,8 @@ mvmeta command stored as F9; test command stored as F8
          ncomponents             1
          df_inconsistency        7
          df_heterogeneity        16
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: groupA, _y_D: groupA groupC) vars(_y_A _y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: groupA, _y_D: groupA groupC) vars(_y_A _y_C _y_D)
 Note: using method reml
 Note: regressing _y_A on (nothing)
 Note: regressing _y_C on groupA
@@ -2391,8 +2391,8 @@ Current data
        23 |   12    76                                  20    74
        24 |    9    55                                   3    26
 ----------------------------------------------------------------
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) longparm suppress(uv mm) 
->  vars(_y_A _y_B _y_D)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) longparm suppress(uv mm) v
+> ars(_y_A _y_B _y_D)
 Note: using method reml
 Note: using variables _y_A _y_B _y_D
 Note: 24 observations on 3 variables
@@ -2431,9 +2431,9 @@ _y_B  .67446642         .5          1          .
 _y_D  .67446642         .5         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_A: des_ACD, _y_B: des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars
-> (_y_A _y_B _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_A: des_ACD, _y_B: des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(
+> _y_A _y_B _y_D)
 Note: using method reml
 Note: regressing _y_A on des_ACD
 Note: regressing _y_B on des_BC des_BCD
@@ -2523,8 +2523,8 @@ mvmeta command stored as F9; test command stored as F8
          ncomponents             1
          df_inconsistency        7
          df_heterogeneity        16
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_B: groupA, _y_D: groupA groupB) vars(_y_A _y_B _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_B: groupA, _y_D: groupA groupB) vars(_y_A _y_B _y_D)
 Note: using method reml
 Note: regressing _y_A on (nothing)
 Note: regressing _y_B on groupA
@@ -2706,8 +2706,8 @@ Current data
        23 |   20    74                                  12    76
        24 |    3    26                                   9    55
 ----------------------------------------------------------------
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) longparm suppress(uv mm) 
->  vars(_y_A _y_B _y_C)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) longparm suppress(uv mm) v
+> ars(_y_A _y_B _y_C)
 Note: using method reml
 Note: using variables _y_A _y_B _y_C
 Note: 24 observations on 3 variables
@@ -2747,9 +2747,9 @@ _y_B  .67446848         .5          1          .
 _y_C  .67446848         .5         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_A: des_AD, _y_B: des_BC des_BCD des_BD, _y_C: des_AC des_BCD des_CD) vars(
-> _y_A _y_B _y_C)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_A: des_AD, _y_B: des_BC des_BCD des_BD, _y_C: des_AC des_BCD des_CD) vars(_
+> y_A _y_B _y_C)
 Note: using method reml
 Note: regressing _y_A on des_AD
 Note: regressing _y_B on des_BC des_BCD des_BD
@@ -2839,8 +2839,8 @@ mvmeta command stored as F9; test command stored as F8
          ncomponents             1
          df_inconsistency        7
          df_heterogeneity        16
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_B: groupA, _y_C: groupA groupB) vars(_y_A _y_B _y_C)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_B: groupA, _y_C: groupA groupB) vars(_y_A _y_B _y_C)
 Note: using method reml
 Note: regressing _y_A on (nothing)
 Note: regressing _y_B on groupA
@@ -3021,9 +3021,9 @@ Current data
        24 |                                9    55       3    26
 ----------------------------------------------------------------
 Warning: i2 option is not meaningful in standard format
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) commonparm noconstant sup
-> press(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B 
-> _trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) commonparm noconstant supp
+> ress(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _
+> trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
@@ -3060,13 +3060,12 @@ _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _t
-> rtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_BCD _
-> trtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2
-> _D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_C_des_
-> BCD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2
-> )
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _tr
+> tdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_BCD _t
+> rtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_
+> D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_C_des_B
+> CD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_AC
 > D _trtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_B
@@ -3225,9 +3224,9 @@ Current data
        24 |                                9    55       3    26
 ----------------------------------------------------------------
 Warning: i2 option is not meaningful in standard format
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) commonparm noconstant sup
-> press(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_A 
-> _trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) commonparm noconstant supp
+> ress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_A _
+> trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_A _trtdiff2_C _trtdiff2_D
@@ -3264,13 +3263,12 @@ _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _t
-> rtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_BCD _
-> trtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_A _trtdiff2_C _trtdiff2
-> _D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_C_des_
-> BCD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2
-> )
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _tr
+> tdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_BCD _t
+> rtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_A _trtdiff2_C _trtdiff2_
+> D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_C_des_B
+> CD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_AC
 > D _trtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_B
@@ -3429,9 +3427,9 @@ Current data
        24 |    9    55                                   3    26
 ----------------------------------------------------------------
 Warning: i2 option is not meaningful in standard format
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) commonparm noconstant sup
-> press(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_D, _y_2: _trtdiff2_A 
-> _trtdiff2_B _trtdiff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) commonparm noconstant supp
+> ress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_D, _y_2: _trtdiff2_A _
+> trtdiff2_B _trtdiff2_D) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_B _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_A _trtdiff2_B _trtdiff2_D
@@ -3468,13 +3466,12 @@ _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_D _trtdiff1_A_des_ACD _t
-> rtdiff1_D_des_AD _trtdiff1_B_des_BC _trtdiff1_B_des_BCD _trtdiff1_D_des_BCD _
-> trtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2
-> _D _trtdiff2_A_des_ACD _trtdiff2_D_des_AD _trtdiff2_B_des_BC _trtdiff2_B_des_
-> BCD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2
-> )
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_D _trtdiff1_A_des_ACD _tr
+> tdiff1_D_des_AD _trtdiff1_B_des_BC _trtdiff1_B_des_BCD _trtdiff1_D_des_BCD _t
+> rtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_
+> D _trtdiff2_A_des_ACD _trtdiff2_D_des_AD _trtdiff2_B_des_BC _trtdiff2_B_des_B
+> CD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_B _trtdiff1_D _trtdiff1_A_des_AC
 > D _trtdiff1_D_des_AD _trtdiff1_B_des_BC _trtdiff1_B_des_BCD _trtdiff1_D_des_B
@@ -3633,9 +3630,9 @@ Current data
        24 |    3    26                                   9    55
 ----------------------------------------------------------------
 Warning: i2 option is not meaningful in standard format
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) commonparm noconstant sup
-> press(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_C, _y_2: _trtdiff2_A 
-> _trtdiff2_B _trtdiff2_C) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) commonparm noconstant supp
+> ress(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_C, _y_2: _trtdiff2_A _
+> trtdiff2_B _trtdiff2_C) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_B _trtdiff1_C
 Note: regressing _y_2 on _trtdiff2_A _trtdiff2_B _trtdiff2_C
@@ -3672,12 +3669,12 @@ _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_C _trtdiff1_C_des_AC _tr
-> tdiff1_A_des_AD _trtdiff1_B_des_BC _trtdiff1_C_des_BCD _trtdiff1_B_des_BCD _t
-> rtdiff1_B_des_BD _trtdiff1_C_des_CD, _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_
-> C _trtdiff2_C_des_AC _trtdiff2_A_des_AD _trtdiff2_B_des_BC _trtdiff2_C_des_BC
-> D _trtdiff2_B_des_BCD _trtdiff2_B_des_BD _trtdiff2_C_des_CD) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_C _trtdiff1_C_des_AC _trt
+> diff1_A_des_AD _trtdiff1_B_des_BC _trtdiff1_C_des_BCD _trtdiff1_B_des_BCD _tr
+> tdiff1_B_des_BD _trtdiff1_C_des_CD, _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_C
+>  _trtdiff2_C_des_AC _trtdiff2_A_des_AD _trtdiff2_B_des_BC _trtdiff2_C_des_BCD
+>  _trtdiff2_B_des_BCD _trtdiff2_B_des_BD _trtdiff2_C_des_CD) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_A _trtdiff1_B _trtdiff1_C _trtdiff1_C_des_AC
 >  _trtdiff1_A_des_AD _trtdiff1_B_des_BC _trtdiff1_C_des_BCD _trtdiff1_B_des_BC
@@ -3837,8 +3834,8 @@ Current data
 ----------------------------------------------------------------
 Warning: i2 option is not available in pairs format
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D  , wsse(_stderr) nocons
-> tant
+Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D , wsse(_stderr) noconst
+> ant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4242
@@ -3856,7 +3853,7 @@ mvmeta command stored as F9
 The data contain multi-arm trials - this analysis in pairs format is wrong
 Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D _trtdiff_C_des_ACD _trt
 > diff_D_des_AD _trtdiff_C_des_BC _trtdiff_C_des_BCD _trtdiff_D_des_BCD _trtdif
-> f_D_des_BD _trtdiff_D_des_CD  , wsse(_stderr) noconstant
+> f_D_des_BD _trtdiff_D_des_CD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4714
@@ -3990,8 +3987,8 @@ Current data
 ----------------------------------------------------------------
 Warning: i2 option is not available in pairs format
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg _y _trtdiff_A _trtdiff_C _trtdiff_D  , wsse(_stderr) nocons
-> tant
+Command is: metareg _y _trtdiff_A _trtdiff_C _trtdiff_D , wsse(_stderr) noconst
+> ant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4242
@@ -4009,7 +4006,7 @@ mvmeta command stored as F9
 The data contain multi-arm trials - this analysis in pairs format is wrong
 Command is: metareg _y _trtdiff_A _trtdiff_C _trtdiff_D _trtdiff_C_des_ACD _trt
 > diff_D_des_AD _trtdiff_C_des_BC _trtdiff_C_des_BCD _trtdiff_D_des_BCD _trtdif
-> f_D_des_BD _trtdiff_D_des_CD  , wsse(_stderr) noconstant
+> f_D_des_BD _trtdiff_D_des_CD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4714
@@ -4143,8 +4140,8 @@ Current data
 ----------------------------------------------------------------
 Warning: i2 option is not available in pairs format
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg _y _trtdiff_A _trtdiff_B _trtdiff_D  , wsse(_stderr) nocons
-> tant
+Command is: metareg _y _trtdiff_A _trtdiff_B _trtdiff_D , wsse(_stderr) noconst
+> ant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4242
@@ -4162,7 +4159,7 @@ mvmeta command stored as F9
 The data contain multi-arm trials - this analysis in pairs format is wrong
 Command is: metareg _y _trtdiff_A _trtdiff_B _trtdiff_D _trtdiff_A_des_ACD _trt
 > diff_D_des_AD _trtdiff_B_des_BC _trtdiff_B_des_BCD _trtdiff_D_des_BCD _trtdif
-> f_D_des_BD _trtdiff_D_des_CD  , wsse(_stderr) noconstant
+> f_D_des_BD _trtdiff_D_des_CD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4714
@@ -4296,8 +4293,8 @@ Current data
 ----------------------------------------------------------------
 Warning: i2 option is not available in pairs format
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg _y _trtdiff_A _trtdiff_B _trtdiff_C  , wsse(_stderr) nocons
-> tant
+Command is: metareg _y _trtdiff_A _trtdiff_B _trtdiff_C , wsse(_stderr) noconst
+> ant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4242
@@ -4315,7 +4312,7 @@ mvmeta command stored as F9
 The data contain multi-arm trials - this analysis in pairs format is wrong
 Command is: metareg _y _trtdiff_A _trtdiff_B _trtdiff_C _trtdiff_C_des_AC _trtd
 > iff_A_des_AD _trtdiff_B_des_BC _trtdiff_C_des_BCD _trtdiff_B_des_BCD _trtdiff
-> _B_des_BD _trtdiff_C_des_CD  , wsse(_stderr) noconstant
+> _B_des_BD _trtdiff_C_des_CD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4714
@@ -4516,8 +4513,8 @@ loop 1 score 0=
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) longparm suppress(uv mm) 
->  vars(_y_B _y_C _y_D)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) longparm suppress(uv mm) v
+> ars(_y_B _y_C _y_D)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D
 Note: 24 observations on 3 variables
@@ -4574,9 +4571,9 @@ Comparator |      A       B       C       D
          D |  0.467   0.304  -0.398        
            |  0.407   0.341   0.331        
 -------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_B: des_ABC des_ABD, _y_C: des_AC des_BC, _y_D: des_AD des_BD des_CD) vars(
-> _y_B _y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_B: des_ABC des_ABD, _y_C: des_AC des_BC, _y_D: des_AD des_BD des_CD) vars(_
+> y_B _y_C _y_D)
 Note: using method reml
 Note: regressing _y_B on des_ABC des_ABD
 Note: regressing _y_C on des_AC des_BC
@@ -4858,9 +4855,9 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Warning: i2 option is not meaningful in standard format
-Command is: mvmeta _y _S  , i2 bscovariance(exch 0.5) commonparm noconstant sup
-> press(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B 
-> _trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , i2 bscovariance(exch 0.5) commonparm noconstant supp
+> ress(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _
+> trtdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
@@ -4914,12 +4911,12 @@ Comparator |      A       B       C       D
          D |  0.467   0.304  -0.398        
            |  0.407   0.341   0.331        
 -------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_B_des_ABC _t
-> rtdiff1_B_des_ABD _trtdiff1_C_des_AC _trtdiff1_D_des_AD _trtdiff1_C_des_BC _t
-> rtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_
-> D _trtdiff2_B_des_ABC _trtdiff2_B_des_ABD _trtdiff2_C_des_AC _trtdiff2_D_des_
-> AD _trtdiff2_C_des_BC _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_B_des_ABC _tr
+> tdiff1_B_des_ABD _trtdiff1_C_des_AC _trtdiff1_D_des_AD _trtdiff1_C_des_BC _tr
+> tdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D
+>  _trtdiff2_B_des_ABC _trtdiff2_B_des_ABD _trtdiff2_C_des_AC _trtdiff2_D_des_A
+> D _trtdiff2_C_des_BC _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_B_des_AB
 > C _trtdiff1_B_des_ABD _trtdiff1_C_des_AC _trtdiff1_D_des_AD _trtdiff1_C_des_B
@@ -5210,8 +5207,8 @@ Evaluating optimal locations ...
 Graph command stored in F9
 Warning: i2 option is not available in pairs format
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D  , wsse(_stderr) nocons
-> tant
+Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D , wsse(_stderr) noconst
+> ant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4242
@@ -5246,7 +5243,7 @@ Comparator |      A       B       C       D
 The data contain multi-arm trials - this analysis in pairs format is wrong
 Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D _trtdiff_B_des_ABC _trt
 > diff_B_des_ABD _trtdiff_C_des_AC _trtdiff_D_des_AD _trtdiff_C_des_BC _trtdiff
-> _D_des_BD _trtdiff_D_des_CD  , wsse(_stderr) noconstant
+> _D_des_BD _trtdiff_D_des_CD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4714
@@ -5516,8 +5513,8 @@ Current data
 > *, noo sepby(_design)
 Drawing raw forest plot without any model results
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D  , wsse(_stderr) nocons
-> tant
+Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D , wsse(_stderr) noconst
+> ant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4242
@@ -5535,7 +5532,7 @@ mvmeta command stored as F9
 The data contain multi-arm trials - this analysis in pairs format is wrong
 Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D _trtdiff_C_des_ACD _trt
 > diff_D_des_AD _trtdiff_C_des_BC _trtdiff_C_des_BCD _trtdiff_D_des_BCD _trtdif
-> f_D_des_BD _trtdiff_D_des_CD  , wsse(_stderr) noconstant
+> f_D_des_BD _trtdiff_D_des_CD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      28
 REML estimate of between-study variance               tau2           =   .4714
@@ -5600,8 +5597,8 @@ Current data
    Variance variables:                 _S*
    Command to list the data:           list study _y* _S*, noo sepby(_design)
 Drawing raw forest plot without any model results
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D
 Note: 24 observations on 3 variables
@@ -5639,9 +5636,9 @@ _y_B  .67446625          1          .          .
 _y_C  .67446625         .5          1          .
 _y_D  .67446625         .5         .5          1
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_B _
-> y_C _y_D)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_B _y
+> _C _y_D)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACD des_BC des_BCD
@@ -5729,9 +5726,9 @@ Current data
    Command to list the data:           list study _design _contrast* _y* _S*, n
 > oo sepby(_design)
 Drawing raw forest plot without any model results
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _tr
-> tdiff2_C _trtdiff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trt
+> diff2_C _trtdiff2_D) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
@@ -5767,13 +5764,12 @@ Estimated between-studies SDs and correlation matrix:
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _t
-> rtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_BCD _
-> trtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2
-> _D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_C_des_
-> BCD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2
-> )
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _tr
+> tdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_BCD _t
+> rtdiff1_D_des_BD _trtdiff1_D_des_CD, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_
+> D _trtdiff2_C_des_ACD _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_C_des_B
+> CD _trtdiff2_D_des_BCD _trtdiff2_D_des_BD _trtdiff2_D_des_CD) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_AC
 > D _trtdiff1_D_des_AD _trtdiff1_C_des_BC _trtdiff1_C_des_BCD _trtdiff1_D_des_B
@@ -5887,8 +5883,8 @@ Current data
    Variance variables:                 _S*
    Command to list the data:           list study _y* _S*, noo sepby(_design)
 Drawing raw forest plot without any model results
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
@@ -5980,9 +5976,9 @@ Comparator |      A       B       C       D       E       F       G       H
          H | -0.014  -0.176  -0.012  -0.058  -0.170  -0.127  -0.212        
            |  0.040   0.062   0.040   0.063   0.090   0.074   0.224        
 ---------------------------------------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH 
-> des_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH d
+> es_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACH
@@ -6106,10 +6102,10 @@ Current data
    Command to list the data:           list study _design _contrast* _y* _S*, n
 > oo sepby(_design)
 Drawing raw forest plot without any model results
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdiff1_
-> F _trtdiff1_G _trtdiff1_H, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff
-> 2_E _trtdiff2_F _trtdiff2_G _trtdiff2_H) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdiff1_F
+>  _trtdiff1_G _trtdiff1_H, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2
+> _E _trtdiff2_F _trtdiff2_G _trtdiff2_H) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdi
 > ff1_F _trtdiff1_G _trtdiff1_H
@@ -6185,14 +6181,14 @@ Comparator |      A       B       C       D       E       F       G       H
          H | -0.014  -0.176  -0.012  -0.058  -0.170  -0.127  -0.212        
            |  0.040   0.062   0.040   0.063   0.090   0.074   0.224        
 ---------------------------------------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdiff1_
-> F _trtdiff1_G _trtdiff1_H _trtdiff1_C_des_ACH _trtdiff1_D_des_AD _trtdiff1_H_
-> des_AH _trtdiff1_F_des_BF _trtdiff1_G_des_BG _trtdiff1_H_des_BH _trtdiff1_G_d
-> es_CG _trtdiff1_H_des_CH, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2
-> _E _trtdiff2_F _trtdiff2_G _trtdiff2_H _trtdiff2_C_des_ACH _trtdiff2_D_des_AD
->  _trtdiff2_H_des_AH _trtdiff2_F_des_BF _trtdiff2_G_des_BG _trtdiff2_H_des_BH 
-> _trtdiff2_G_des_CG _trtdiff2_H_des_CH) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdiff1_F
+>  _trtdiff1_G _trtdiff1_H _trtdiff1_C_des_ACH _trtdiff1_D_des_AD _trtdiff1_H_d
+> es_AH _trtdiff1_F_des_BF _trtdiff1_G_des_BG _trtdiff1_H_des_BH _trtdiff1_G_de
+> s_CG _trtdiff1_H_des_CH, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_
+> E _trtdiff2_F _trtdiff2_G _trtdiff2_H _trtdiff2_C_des_ACH _trtdiff2_D_des_AD 
+> _trtdiff2_H_des_AH _trtdiff2_F_des_BF _trtdiff2_G_des_BG _trtdiff2_H_des_BH _
+> trtdiff2_G_des_CG _trtdiff2_H_des_CH) vars(_y_1 _y_2)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_E _trtdi
 > ff1_F _trtdiff1_G _trtdiff1_H _trtdiff1_C_des_ACH _trtdiff1_D_des_AD _trtdiff
@@ -6308,9 +6304,9 @@ Current data
 
 . network meta i if study>10
 Treatments not found in subset: D
-Command is: mvmeta _y _S if study>10  , bscovariance(exch 0.5) longparm suppres
-> s(uv mm) eq(_y_B: des_BG des_BH, _y_C: des_CH) vars(_y_F _y_G _y_H _y_B _y_E 
-> _y_C)
+Command is: mvmeta _y _S if study>10 , bscovariance(exch 0.5) longparm suppress
+> (uv mm) eq(_y_B: des_BG des_BH, _y_C: des_CH) vars(_y_F _y_G _y_H _y_B _y_E _
+> y_C)
 Note: using method reml
 Note: regressing _y_F on (nothing)
 Note: regressing _y_G on (nothing)
@@ -6400,8 +6396,8 @@ mvmeta command stored as F9; test command stored as F8
 
 . network meta i
 Treatments not found in subset: D
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_B: des_BG des_BH, _y_C: des_CH) vars(_y_F _y_G _y_H _y_B _y_E _y_C)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_B: des_BG des_BH, _y_C: des_CH) vars(_y_F _y_G _y_H _y_B _y_E _y_C)
 Note: using method reml
 Note: regressing _y_F on (nothing)
 Note: regressing _y_G on (nothing)
@@ -6495,8 +6491,8 @@ mvmeta command stored as F9; test command stored as F8
 . * Check rank
 . network meta c
 Treatments not found in subset: D
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_F _y_G _y_H _y_B _y_E _y_C)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_F _y_G _y_H _y_B _y_E _y_C)
 Note: using method reml
 Note: using variables _y_F _y_G _y_H _y_B _y_E _y_C
 Note: 18 observations on 6 variables
@@ -6669,9 +6665,9 @@ Current data
 > )
 
 . network meta i
-Command is: mvmeta AAy AAS  , bscovariance(exch 0.5) longparm suppress(uv mm) e
-> q(AAy_C: des_ACH, AAy_D: des_AD, AAy_F: des_BF, AAy_G: des_BG des_CG, AAy_H: 
-> des_AH des_BH des_CH) vars(AAy_B AAy_C AAy_D AAy_E AAy_F AAy_G AAy_H)
+Command is: mvmeta AAy AAS , bscovariance(exch 0.5) longparm suppress(uv mm) eq
+> (AAy_C: des_ACH, AAy_D: des_AD, AAy_F: des_BF, AAy_G: des_BG des_CG, AAy_H: d
+> es_AH des_BH des_CH) vars(AAy_B AAy_C AAy_D AAy_E AAy_F AAy_G AAy_H)
 Note: using method reml
 Note: regressing AAy_B on (nothing)
 Note: regressing AAy_C on des_ACH
@@ -6783,9 +6779,9 @@ Found treatments: A (ref) B C D E F G H
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: mvmeta b V  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(b_
-> C: des_ACH, b_D: des_AD, b_F: des_BF, b_G: des_BG des_CG, b_H: des_AH des_BH 
-> des_CH) vars(b_B b_C b_D b_E b_F b_G b_H)
+Command is: mvmeta b V , bscovariance(exch 0.5) longparm suppress(uv mm) eq(b_C
+> : des_ACH, b_D: des_AD, b_F: des_BF, b_G: des_BG des_CG, b_H: des_AH des_BH d
+> es_CH) vars(b_B b_C b_D b_E b_F b_G b_H)
 Note: using method reml
 Note: regressing b_B on (nothing)
 Note: regressing b_C on des_ACH
@@ -6900,8 +6896,8 @@ All treatments: BMS DES MT PTCA
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , wsse(selogO
-> R) noconstant
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA , wsse(selogOR
+> ) noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -6931,8 +6927,8 @@ All treatments: BMS DES MT PTCA
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: metareg logOR _trtdiff_BMS _trtdiff_DES _trtdiff_MT  , wsse(selogOR
-> ) noconstant
+Command is: metareg logOR _trtdiff_BMS _trtdiff_DES _trtdiff_MT , wsse(selogOR)
+>  noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -6993,8 +6989,8 @@ All treatments: BMS DES MT PTCA
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , wsse(selogO
-> R) noconstant
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA , wsse(selogOR
+> ) noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -7057,8 +7053,8 @@ All treatments: 1 2 3 4
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: metareg logOR _trtdiff_2 _trtdiff_3 _trtdiff_4  , wsse(selogOR) noc
-> onstant
+Command is: metareg logOR _trtdiff_2 _trtdiff_3 _trtdiff_4 , wsse(selogOR) noco
+> nstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -7099,8 +7095,8 @@ Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
 The data contain multi-arm trials - this analysis in pairs format is wrong
-Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA  , wsse(selogO
-> R) noconstant
+Command is: metareg logOR _trtdiff_DES _trtdiff_MT _trtdiff_PTCA , wsse(selogOR
+> ) noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -7165,8 +7161,8 @@ Error: there are missing contrasts in the studies listed
      +-----------------------------------------------+
      | study       _design     t1     t2       logOR |
      |-----------------------------------------------|
- 17. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
- 18. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+ 17. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+ 18. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
      +-----------------------------------------------+
 
 . assert _rc==498
@@ -7190,8 +7186,8 @@ All treatments: BMS BMSX DES MT
 Warning: can't check for disconnected network
 Warning: can't check df for inconsistency
 Warning: can't check df for heterogeneity
-Command is: metareg logOR _trtdiff_BMSX _trtdiff_DES _trtdiff_MT  , wsse(selogO
-> R) noconstant
+Command is: metareg logOR _trtdiff_BMSX _trtdiff_DES _trtdiff_MT , wsse(selogOR
+> ) noconstant
 
 Meta-regression                                       Number of obs  =      62
 REML estimate of between-study variance               tau2           =       0
@@ -7211,6 +7207,218 @@ mvmeta command stored as F9
 
 . 
 . // END OF CHECKING NETWORK IMPORT FROM PAIRS FORMAT
+. 
+. 
+. // Compare meta results between different formats, both CE and RE models
+. use smoking, clear
+(Smoking data from Lu & Ades (2006))
+
+. drop if study<3 // makes mvmeta valid in all formats
+(6 observations deleted)
+
+. network setup d n, studyvar(stud) trtvar(trt) 
+Treatments used
+   A (reference):                      No contact
+   B:                                  Self help
+   C:                                  Individual counselling
+   D:                                  Group counselling
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        22
+   IDs with zero cells:                9 20
+   - count added to all their cells:   .5
+   IDs with augmented reference arm:   21 22 23 24
+   - observations added:               0.00001
+   - mean in augmented observations:   study-specific mean
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             3
+   D.f. for heterogeneity:             16
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. foreach opt in "fixed" " " {
+  2.         network convert aug
+  3.         network meta c, `opt'
+  4.         local baug = [_y_B][_cons]
+  5.         
+.         network convert sta
+  6.         network meta c, `opt'
+  7.         local bsta = _b[_trtdiff1_B]
+  8.         
+.         di reldif(`baug',`bsta')
+  9.         assert reldif(`baug',`bsta')<1E-5
+ 10. 
+.         network convert pairs
+ 11.         network meta c, `opt'
+ 12.         local bpai = _b[_trtdiff_B]
+ 13. 
+.         di reldif(`baug',`bpai')
+ 14.         assert reldif(`baug',`bpai')<1E-5
+ 15. }
+Data are already in augmented format
+Command is: mvmeta _y _S , fixed longparm suppress(uv mm) vars(_y_B _y_C _y_D)
+Note: using method fixed
+Note: using variables _y_B _y_C _y_D
+Note: 22 observations on 3 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     3
+                                               Number of observations  =    22
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_B         |
+       _cons |   .1984961   .1319389     1.50   0.132    -.0600994    .4570917
+-------------+----------------------------------------------------------------
+_y_C         |
+       _cons |   .6361874   .0600489    10.59   0.000     .5184938    .7538811
+-------------+----------------------------------------------------------------
+_y_D         |
+       _cons |   1.203067   .2808497     4.28   0.000     .6526115    1.753522
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+Converting augmented to standard ...
+Command is: mvmeta _y _S , fixed commonparm noconstant suppress(uv mm) eq(_y_1:
+>  _trtdiff1_B _trtdiff1_C _trtdiff1_D) vars(_y_1)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
+Note: 22 observations on 1 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     1
+                                               Number of observations  =    22
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |   .1984962   .1319389     1.50   0.132    -.0600994    .4570917
+ _trtdiff1_C |   .6361875   .0600489    10.59   0.000     .5184938    .7538811
+ _trtdiff1_D |   1.203067   .2808497     4.28   0.000     .6526117    1.753522
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+2.614e-08
+Converting standard to pairs ...
+Command is: vwls _y _trtdiff_B _trtdiff_C _trtdiff_D , sd(_stderr) noconstant
+
+Variance-weighted least-squares regression      Number of obs     =         22
+Goodness-of-fit chi2(19)   =  193.73            Model chi2(3)     =     120.41
+Prob > chi2                =  0.0000            Prob > chi2       =     0.0000
+------------------------------------------------------------------------------
+          _y |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  _trtdiff_B |   .1984962   .1319389     1.50   0.132    -.0600994    .4570917
+  _trtdiff_C |   .6361875   .0600489    10.59   0.000     .5184938    .7538811
+  _trtdiff_D |   1.203067   .2808497     4.28   0.000     .6526117    1.753522
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+2.614e-08
+Converting pairs to augmented ...
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D)
+Note: using method reml
+Note: using variables _y_B _y_C _y_D
+Note: 22 observations on 3 variables
+Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
+
+initial:       log likelihood =  -56.08237
+rescale:       log likelihood =  -56.08237
+rescale eq:    log likelihood =  -56.08237
+Iteration 0:   log likelihood =  -56.08237  
+Iteration 1:   log likelihood = -55.035848  
+Iteration 2:   log likelihood = -55.009225  
+Iteration 3:   log likelihood = -55.009068  
+Iteration 4:   log likelihood = -55.009068  
+
+Multivariate meta-analysis
+Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
+Method = reml                                  Number of dimensions    =     3
+Restricted log likelihood = -55.009068         Number of observations  =    22
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_B         |
+       _cons |   .4227364   .3745024     1.13   0.259    -.3112748    1.156748
+-------------+----------------------------------------------------------------
+_y_C         |
+       _cons |   .7118538   .2172659     3.28   0.001     .2860205    1.137687
+-------------+----------------------------------------------------------------
+_y_D         |
+       _cons |   1.347197   .5222318     2.58   0.010     .3236418    2.370753
+------------------------------------------------------------------------------
+
+Estimated between-studies SDs and correlation matrix:
+             SD       _y_B       _y_C       _y_D
+_y_B  .70636072          1          .          .
+_y_C  .70636072         .5          1          .
+_y_D  .70636072         .5         .5          1
+mvmeta command stored as F9
+Converting augmented to standard ...
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D) vars(_y_1)
+Note: using method reml
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
+Note: 22 observations on 1 variables
+Note: variance-covariance matrix is proportional to .5*I(1)+.5*J(1,1,1)
+
+initial:       log likelihood = -29.380734
+rescale:       log likelihood = -29.380734
+rescale eq:    log likelihood = -29.380734
+Iteration 0:   log likelihood = -29.380734  
+Iteration 1:   log likelihood = -28.334223  
+Iteration 2:   log likelihood = -28.307455  
+Iteration 3:   log likelihood = -28.307443  
+Iteration 4:   log likelihood = -28.307443  
+
+Multivariate meta-analysis
+Variance-covariance matrix = proportional .5*I(1)+.5*J(1,1,1)
+Method = reml                                  Number of dimensions    =     1
+Restricted log likelihood = -28.307443         Number of observations  =    22
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |   .4227379   .3745031     1.13   0.259    -.3112747    1.156751
+ _trtdiff1_C |   .7118549   .2172664     3.28   0.001     .2860206    1.137689
+ _trtdiff1_D |     1.3472   .5222329     2.58   0.010     .3236425    2.370758
+------------------------------------------------------------------------------
+
+Estimated between-studies SDs and correlation matrix:
+             SD       _y_1
+_y_1  .70636161          1
+mvmeta command stored as F9
+1.094e-06
+Converting standard to pairs ...
+Command is: metareg _y _trtdiff_B _trtdiff_C _trtdiff_D , wsse(_stderr) noconst
+> ant
+
+Meta-regression                                       Number of obs  =      22
+REML estimate of between-study variance               tau2           =   .4989
+% residual variation due to heterogeneity             I-squared_res  =  90.19%
+Joint test for all covariates                         Model F(3,19)  =    4.35
+With Knapp-Hartung modification                       Prob > F       =  0.0172
+------------------------------------------------------------------------------
+          _y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  _trtdiff_B |   .4227379   .3893297     1.09   0.291    -.3921385    1.237614
+  _trtdiff_C |   .7118549   .2219591     3.21   0.005     .2472891    1.176421
+  _trtdiff_D |     1.3472   .5414388     2.49   0.022     .2139556    2.480445
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+1.094e-06
+
+. 
 . 
 . * Check other effect measures
 . foreach measure in rr or rd hr {
@@ -7254,8 +7462,8 @@ Current data
    Estimate variables:                 _y*
    Variance variables:                 _S*
    Command to list the data:           list study _y* _S*, noo sepby(_design)
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
@@ -7348,9 +7556,9 @@ Comparator |      A       B       C       D       E       F       G       H
          H | -0.012  -0.161  -0.011  -0.053  -0.156  -0.115  -0.196        
            |  0.036   0.057   0.036   0.058   0.084   0.068   0.213        
 ---------------------------------------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH 
-> des_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH d
+> es_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACH
@@ -7473,8 +7681,8 @@ Current data
    Estimate variables:                 _y*
    Variance variables:                 _S*
    Command to list the data:           list study _y* _S*, noo sepby(_design)
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
@@ -7566,9 +7774,9 @@ Comparator |      A       B       C       D       E       F       G       H
          H | -0.014  -0.176  -0.012  -0.058  -0.170  -0.127  -0.212        
            |  0.040   0.062   0.040   0.063   0.090   0.074   0.224        
 ---------------------------------------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH 
-> des_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH d
+> es_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACH
@@ -7691,8 +7899,8 @@ Current data
    Estimate variables:                 _y*
    Variance variables:                 _S*
    Command to list the data:           list study _y* _S*, noo sepby(_design)
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
@@ -7794,9 +8002,9 @@ Comparator |      A       B       C       D       E       F       G       H
          H | -0.002  -0.013  -0.002  -0.005  -0.013  -0.011  -0.013        
            |  0.004   0.005   0.004   0.005   0.007   0.006   0.011        
 ---------------------------------------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH 
-> des_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH d
+> es_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACH
@@ -7923,8 +8131,8 @@ Current data
    Estimate variables:                 _y*
    Variance variables:                 _S*
    Command to list the data:           list study _y* _S*, noo sepby(_design)
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
@@ -8018,9 +8226,9 @@ Comparator |      A       B       C       D       E       F       G       H
          H | -0.012  -0.161  -0.011  -0.053  -0.156  -0.116  -0.199        
            |  0.036   0.057   0.036   0.058   0.084   0.069   0.218        
 ---------------------------------------------------------------------------
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH 
-> des_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_C: des_ACH, _y_D: des_AD, _y_F: des_BF, _y_G: des_BG des_CG, _y_H: des_AH d
+> es_BH des_CH) vars(_y_B _y_C _y_D _y_E _y_F _y_G _y_H)
 Note: using method reml
 Note: regressing _y_B on (nothing)
 Note: regressing _y_C on des_ACH
@@ -8454,41 +8662,41 @@ Current data
 > oo sepby(_design)
 
 . network meta c, fixed
-Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
-> _1: _trtdiff1_AB _trtdiff1_AC _trtdiff1_AD _trtdiff1_AE _trtdiff1_AF _trtdiff
-> 1_AG _trtdiff1_AH _trtdiff1_AI _trtdiff1_AJ _trtdiff1_AK _trtdiff1_AL _trtdif
-> f1_AM _trtdiff1_AN _trtdiff1_AO _trtdiff1_AP _trtdiff1_AQ _trtdiff1_AR _trtdi
-> ff1_AS _trtdiff1_AT _trtdiff1_AU _trtdiff1_AV _trtdiff1_AW _trtdiff1_AX _trtd
-> iff1_AY _trtdiff1_AZ _trtdiff1_BA _trtdiff1_BB _trtdiff1_BC _trtdiff1_BD _trt
-> diff1_BE _trtdiff1_BF _trtdiff1_BG _trtdiff1_BH _trtdiff1_BI _trtdiff1_BJ _tr
-> tdiff1_BK _trtdiff1_BL _trtdiff1_BM _trtdiff1_BN _trtdiff1_BO _trtdiff1_BP _t
-> rtdiff1_BQ _trtdiff1_BR _trtdiff1_BS _trtdiff1_BT _trtdiff1_BU _trtdiff1_BV _
-> trtdiff1_BW _trtdiff1_BX _trtdiff1_BY _trtdiff1_BZ _trtdiff1_CA _trtdiff1_CB 
-> _trtdiff1_CC _trtdiff1_CD _trtdiff1_CE _trtdiff1_CF _trtdiff1_CG _trtdiff1_CH
->  _trtdiff1_CI _trtdiff1_CJ _trtdiff1_CK _trtdiff1_CL _trtdiff1_CM _trtdiff1_C
-> N _trtdiff1_CO _trtdiff1_CP _trtdiff1_CQ _trtdiff1_CR _trtdiff1_CS _trtdiff1_
-> CT _trtdiff1_CU _trtdiff1_CV _trtdiff1_CW _trtdiff1_CX _trtdiff1_CY _trtdiff1
-> _CZ _trtdiff1_DA _trtdiff1_DB _trtdiff1_DC _trtdiff1_DD _trtdiff1_DE _trtdiff
-> 1_DF _trtdiff1_DG _trtdiff1_DH _trtdiff1_DI _trtdiff1_DJ _trtdiff1_DK _trtdif
-> f1_DL _trtdiff1_DM _trtdiff1_DN _trtdiff1_DO _trtdiff1_DP _trtdiff1_DQ _trtdi
-> ff1_DR _trtdiff1_DS _trtdiff1_DT _trtdiff1_DU _trtdiff1_DV _trtdiff1_DW _trtd
-> iff1_DX _trtdiff1_DY _trtdiff1_DZ _trtdiff1_EA _trtdiff1_EB _trtdiff1_EC _trt
-> diff1_ED _trtdiff1_EE _trtdiff1_EF _trtdiff1_EG _trtdiff1_EH _trtdiff1_EI _tr
-> tdiff1_EJ _trtdiff1_EK _trtdiff1_EL _trtdiff1_EM _trtdiff1_EN _trtdiff1_EO _t
-> rtdiff1_EP _trtdiff1_EQ _trtdiff1_ER _trtdiff1_ES _trtdiff1_ET _trtdiff1_EU _
-> trtdiff1_EV _trtdiff1_EW _trtdiff1_EX _trtdiff1_EY _trtdiff1_EZ _trtdiff1_FA 
-> _trtdiff1_FB _trtdiff1_FC _trtdiff1_FD _trtdiff1_FE _trtdiff1_FF _trtdiff1_FG
->  _trtdiff1_FH _trtdiff1_FI _trtdiff1_FJ _trtdiff1_FK _trtdiff1_FL _trtdiff1_F
-> M _trtdiff1_FN _trtdiff1_FO _trtdiff1_FP _trtdiff1_FQ _trtdiff1_FR _trtdiff1_
-> FS _trtdiff1_FT _trtdiff1_FU _trtdiff1_FV _trtdiff1_FW _trtdiff1_FX _trtdiff1
-> _FY _trtdiff1_FZ _trtdiff1_GA _trtdiff1_GB _trtdiff1_GC _trtdiff1_GD _trtdiff
-> 1_GE _trtdiff1_GF _trtdiff1_GG _trtdiff1_GH _trtdiff1_GI _trtdiff1_GJ _trtdif
-> f1_GK _trtdiff1_GL _trtdiff1_GM _trtdiff1_GN _trtdiff1_GO _trtdiff1_GP _trtdi
-> ff1_GQ _trtdiff1_GR _trtdiff1_GS _trtdiff1_GT _trtdiff1_GU _trtdiff1_GV _trtd
-> iff1_GW _trtdiff1_GX _trtdiff1_GY _trtdiff1_GZ _trtdiff1_HA _trtdiff1_HB _trt
-> diff1_HC _trtdiff1_HD _trtdiff1_HE _trtdiff1_HF _trtdiff1_HG _trtdiff1_HH _tr
-> tdiff1_HI _trtdiff1_HJ _trtdiff1_HK _trtdiff1_HL _trtdiff1_HM _trtdiff1_HN _t
-> rtdiff1_HO _trtdiff1_HP _trtdiff1_HQ _trtdiff1_HR _trtdiff1_HS) vars(_y_1)
+Command is: mvmeta _y _S , fixed commonparm noconstant suppress(uv mm) eq(_y_1:
+>  _trtdiff1_AB _trtdiff1_AC _trtdiff1_AD _trtdiff1_AE _trtdiff1_AF _trtdiff1_A
+> G _trtdiff1_AH _trtdiff1_AI _trtdiff1_AJ _trtdiff1_AK _trtdiff1_AL _trtdiff1_
+> AM _trtdiff1_AN _trtdiff1_AO _trtdiff1_AP _trtdiff1_AQ _trtdiff1_AR _trtdiff1
+> _AS _trtdiff1_AT _trtdiff1_AU _trtdiff1_AV _trtdiff1_AW _trtdiff1_AX _trtdiff
+> 1_AY _trtdiff1_AZ _trtdiff1_BA _trtdiff1_BB _trtdiff1_BC _trtdiff1_BD _trtdif
+> f1_BE _trtdiff1_BF _trtdiff1_BG _trtdiff1_BH _trtdiff1_BI _trtdiff1_BJ _trtdi
+> ff1_BK _trtdiff1_BL _trtdiff1_BM _trtdiff1_BN _trtdiff1_BO _trtdiff1_BP _trtd
+> iff1_BQ _trtdiff1_BR _trtdiff1_BS _trtdiff1_BT _trtdiff1_BU _trtdiff1_BV _trt
+> diff1_BW _trtdiff1_BX _trtdiff1_BY _trtdiff1_BZ _trtdiff1_CA _trtdiff1_CB _tr
+> tdiff1_CC _trtdiff1_CD _trtdiff1_CE _trtdiff1_CF _trtdiff1_CG _trtdiff1_CH _t
+> rtdiff1_CI _trtdiff1_CJ _trtdiff1_CK _trtdiff1_CL _trtdiff1_CM _trtdiff1_CN _
+> trtdiff1_CO _trtdiff1_CP _trtdiff1_CQ _trtdiff1_CR _trtdiff1_CS _trtdiff1_CT 
+> _trtdiff1_CU _trtdiff1_CV _trtdiff1_CW _trtdiff1_CX _trtdiff1_CY _trtdiff1_CZ
+>  _trtdiff1_DA _trtdiff1_DB _trtdiff1_DC _trtdiff1_DD _trtdiff1_DE _trtdiff1_D
+> F _trtdiff1_DG _trtdiff1_DH _trtdiff1_DI _trtdiff1_DJ _trtdiff1_DK _trtdiff1_
+> DL _trtdiff1_DM _trtdiff1_DN _trtdiff1_DO _trtdiff1_DP _trtdiff1_DQ _trtdiff1
+> _DR _trtdiff1_DS _trtdiff1_DT _trtdiff1_DU _trtdiff1_DV _trtdiff1_DW _trtdiff
+> 1_DX _trtdiff1_DY _trtdiff1_DZ _trtdiff1_EA _trtdiff1_EB _trtdiff1_EC _trtdif
+> f1_ED _trtdiff1_EE _trtdiff1_EF _trtdiff1_EG _trtdiff1_EH _trtdiff1_EI _trtdi
+> ff1_EJ _trtdiff1_EK _trtdiff1_EL _trtdiff1_EM _trtdiff1_EN _trtdiff1_EO _trtd
+> iff1_EP _trtdiff1_EQ _trtdiff1_ER _trtdiff1_ES _trtdiff1_ET _trtdiff1_EU _trt
+> diff1_EV _trtdiff1_EW _trtdiff1_EX _trtdiff1_EY _trtdiff1_EZ _trtdiff1_FA _tr
+> tdiff1_FB _trtdiff1_FC _trtdiff1_FD _trtdiff1_FE _trtdiff1_FF _trtdiff1_FG _t
+> rtdiff1_FH _trtdiff1_FI _trtdiff1_FJ _trtdiff1_FK _trtdiff1_FL _trtdiff1_FM _
+> trtdiff1_FN _trtdiff1_FO _trtdiff1_FP _trtdiff1_FQ _trtdiff1_FR _trtdiff1_FS 
+> _trtdiff1_FT _trtdiff1_FU _trtdiff1_FV _trtdiff1_FW _trtdiff1_FX _trtdiff1_FY
+>  _trtdiff1_FZ _trtdiff1_GA _trtdiff1_GB _trtdiff1_GC _trtdiff1_GD _trtdiff1_G
+> E _trtdiff1_GF _trtdiff1_GG _trtdiff1_GH _trtdiff1_GI _trtdiff1_GJ _trtdiff1_
+> GK _trtdiff1_GL _trtdiff1_GM _trtdiff1_GN _trtdiff1_GO _trtdiff1_GP _trtdiff1
+> _GQ _trtdiff1_GR _trtdiff1_GS _trtdiff1_GT _trtdiff1_GU _trtdiff1_GV _trtdiff
+> 1_GW _trtdiff1_GX _trtdiff1_GY _trtdiff1_GZ _trtdiff1_HA _trtdiff1_HB _trtdif
+> f1_HC _trtdiff1_HD _trtdiff1_HE _trtdiff1_HF _trtdiff1_HG _trtdiff1_HH _trtdi
+> ff1_HI _trtdiff1_HJ _trtdiff1_HK _trtdiff1_HL _trtdiff1_HM _trtdiff1_HN _trtd
+> iff1_HO _trtdiff1_HP _trtdiff1_HQ _trtdiff1_HR _trtdiff1_HS) vars(_y_1)
 Note: using method fixed
 Note: regressing _y_1 on _trtdiff1_AB _trtdiff1_AC _trtdiff1_AD _trtdiff1_AE _t
 > rtdiff1_AF _trtdiff1_AG _trtdiff1_AH _trtdiff1_AI _trtdiff1_AJ _trtdiff1_AK _
@@ -9071,8 +9279,8 @@ Current data
 
 . 
 . network meta c, fixed
-Command is: mvmeta _y _S  , fixed   longparm suppress(uv mm)  vars(_y_AAB _y_AA
-> BC _y_BC _y_B _y_BD _y_A)
+Command is: mvmeta _y _S , fixed longparm suppress(uv mm) vars(_y_AAB _y_AABC _
+> y_BC _y_B _y_BD _y_A)
 Note: using method fixed
 Note: using variables _y_AAB _y_AABC _y_BC _y_B _y_BD _y_A
 Note: 18 observations on 6 variables
@@ -9107,9 +9315,9 @@ mvmeta command stored as F9
 . mat nc = _network_consistency
 
 . network meta i, fixed
-Command is: mvmeta _y _S  , fixed   longparm suppress(uv mm) eq(_y_AAB: des_AAA
-> AB, _y_AABC: des_AAAABC, _y_BC: des_AABC, _y_B: des_AAB, _y_BD: des_AABD) var
-> s(_y_AAB _y_AABC _y_BC _y_B _y_BD _y_A)
+Command is: mvmeta _y _S , fixed longparm suppress(uv mm) eq(_y_AAB: des_AAAAB,
+>  _y_AABC: des_AAAABC, _y_BC: des_AABC, _y_B: des_AAB, _y_BD: des_AABD) vars(_
+> y_AAB _y_AABC _y_BC _y_B _y_BD _y_A)
 Note: using method fixed
 Note: regressing _y_AAB on des_AAAAB
 Note: regressing _y_AABC on des_AAAABC
@@ -9172,9 +9380,9 @@ mvmeta command stored as F9; test command stored as F8
   7.         // worst is about 5E-7
 . }
 Converting augmented to standard ...
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B _trt
-> diff1_BD _trtdiff1_A) vars(_y_1)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B _trtd
+> iff1_BD _trtdiff1_A) vars(_y_1)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B 
 > _trtdiff1_BD _trtdiff1_A
@@ -9208,10 +9416,10 @@ Estimated between-studies SDs and correlation matrix:
              SD       _y_1
 _y_1  1.740e-09          1
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) commonparm noconstant suppre
-> ss(uv mm) eq(_y_1: _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B _trt
-> diff1_BD _trtdiff1_A _trtdiff1_AAB_des_AAAAB _trtdiff1_AABC_des_AAAABC _trtdi
-> ff1_B_des_AAB _trtdiff1_BC_des_AABC _trtdiff1_BD_des_AABD) vars(_y_1)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
+> s(uv mm) eq(_y_1: _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B _trtd
+> iff1_BD _trtdiff1_A _trtdiff1_AAB_des_AAAAB _trtdiff1_AABC_des_AAAABC _trtdif
+> f1_B_des_AAB _trtdiff1_BC_des_AABC _trtdiff1_BD_des_AABD) vars(_y_1)
 Note: using method reml
 Note: regressing _y_1 on _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B 
 > _trtdiff1_BD _trtdiff1_A _trtdiff1_AAB_des_AAAAB _trtdiff1_AABC_des_AAAABC _t
@@ -9263,7 +9471,7 @@ Testing for inconsistency:
 mvmeta command stored as F9; test command stored as F8
 Converting standard to pairs ...
 Command is: metareg _y _trtdiff_AAB _trtdiff_AABC _trtdiff_BC _trtdiff_B _trtdi
-> ff_BD _trtdiff_A  , wsse(_stderr) noconstant
+> ff_BD _trtdiff_A , wsse(_stderr) noconstant
 numerical derivatives are approximate
 nearby values are missing
 numerical derivatives are approximate
@@ -9293,7 +9501,7 @@ _trtdiff_A~C |   .4351165   .1768412     2.46   0.030     .0498127    .8204203
 mvmeta command stored as F9
 Command is: metareg _y _trtdiff_AAB _trtdiff_AABC _trtdiff_BC _trtdiff_B _trtdi
 > ff_BD _trtdiff_A _trtdiff_AAB_des_AAAAB _trtdiff_AABC_des_AAAABC _trtdiff_B_d
-> es_AAB _trtdiff_BC_des_AABC _trtdiff_BD_des_AABD  , wsse(_stderr) noconstant
+> es_AAB _trtdiff_BC_des_AABC _trtdiff_BD_des_AABD , wsse(_stderr) noconstant
 
 Meta-regression                                       Number of obs  =      18
 REML estimate of between-study variance               tau2           =       0
@@ -9327,8 +9535,8 @@ Testing for inconsistency:
             Prob > F =    1.0000
 mvmeta command stored as F9; test command stored as F8
 Converting pairs to augmented ...
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm)  va
-> rs(_y_AAB _y_AABC _y_BC _y_B _y_BD _y_A)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) vars
+> (_y_AAB _y_AABC _y_BC _y_B _y_BD _y_A)
 Note: using method reml
 Note: using variables _y_AAB _y_AABC _y_BC _y_B _y_BD _y_A
 Note: 18 observations on 6 variables
@@ -9384,9 +9592,9 @@ _y_AABC          .
   _y_BD          .
    _y_A          1
 mvmeta command stored as F9
-Command is: mvmeta _y _S  , bscovariance(exch 0.5) longparm suppress(uv mm) eq(
-> _y_AAB: des_AAAAB, _y_AABC: des_AAAABC, _y_BC: des_AABC, _y_B: des_AAB, _y_BD
-> : des_AABD) vars(_y_AAB _y_AABC _y_BC _y_B _y_BD _y_A)
+Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
+> y_AAB: des_AAAAB, _y_AABC: des_AAAABC, _y_BC: des_AABC, _y_B: des_AAB, _y_BD:
+>  des_AABD) vars(_y_AAB _y_AABC _y_BC _y_B _y_BD _y_A)
 Note: using method reml
 Note: regressing _y_AAB on des_AAAAB
 Note: regressing _y_AABC on des_AAAABC
@@ -9537,9 +9745,9 @@ Converting augmented to standard ...
   3. }
 
 . network meta c, fixed
-Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
-> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trtdiff2_C _trtdi
-> ff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , fixed commonparm noconstant suppress(uv mm) eq(_y_1:
+>  _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2
+> _D) vars(_y_1 _y_2)
 Note: using method fixed
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
@@ -9610,9 +9818,9 @@ Current data
   3. }
 
 . network meta c, fixed
-Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
-> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trtdiff2_C _trtdi
-> ff2_D) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , fixed commonparm noconstant suppress(uv mm) eq(_y_1:
+>  _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2
+> _D) vars(_y_1 _y_2)
 Note: using method fixed
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
 Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
@@ -9703,9 +9911,9 @@ Current data
 Converting augmented to standard ...
 
 . network meta i, fixed
-Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
-> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_C_des_AC, _y_2: _tr
-> tdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , fixed commonparm noconstant suppress(uv mm) eq(_y_1:
+>  _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_C_des_AC, _y_2: _trtdi
+> ff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC) vars(_y_1 _y_2)
 Note: using method fixed
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_
 > C_des_AC
@@ -9779,9 +9987,9 @@ Current data
 > oo sepby(_design)
 
 . network meta i, fixed
-Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
-> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_C_des_AC, _y_2: _tr
-> tdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC) vars(_y_1 _y_2)
+Command is: mvmeta _y _S , fixed commonparm noconstant suppress(uv mm) eq(_y_1:
+>  _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_C_des_AC, _y_2: _trtdi
+> ff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC) vars(_y_1 _y_2)
 Note: using method fixed
 Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_
 > C_des_AC
@@ -9857,5 +10065,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:   8 Apr 2021, 13:38:00
+ closed on:   8 Apr 2021, 17:45:11
 -------------------------------------------------------------------------------

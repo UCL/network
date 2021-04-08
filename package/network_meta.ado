@@ -1,4 +1,8 @@
 /*
+*! version 1.7.0 # Ian White # 8apr2021
+	bug fix: regressing on a constant variable (and using noconstant option) now works and leads to a correct forest plot
+	bug fix: metavars stored before the analysis, to avoid further errors if analysis fails
+	feature: fixed option now works in pairs format (calls vwls)
 17nov2018 Improved error message when no source of inconsistency or heterogeneity
 31may2018
 	bug fix (introduced 29jun2017): 
@@ -68,7 +72,7 @@ syntax [anything] [if] [in], [ REGress(varlist) ///
     LUAdes LUAdes2(string) noWARnings force * ///
     KEEPmat(name) /// undocumented
     ]
-local options `fixed' `equations' `options'
+local options `equations' `options'
 local warn = "`warnings'"!="nowarnings"
 local ifdebugdi = cond(mi("`debug'"),"*",`"di as text "debug: ""')
 
@@ -224,13 +228,19 @@ if !mi("`model'") {
         	local eq `eq' `trtdiff'_`trt'
             local metavars `metavars' `trtdiff'_`trt'
         }
-        local command metareg `y' 
-        local options `options' wsse(`stderr') noconstant
+        if mi("`fixed'") { // standard meta-regression
+			local command metareg `y' 
+			local options `options' wsse(`stderr') noconstant
+		}
+        else { // common-effect meta-regression: not available in metareg
+			local command vwls `y' 
+			local options `options' sd(`stderr') noconstant
+		}
     }
 
     else if "`format'"=="augmented" {
         local command mvmeta `y' `S' `regress'
-        local options `options' `i2' `bscovariance' longparm suppress(uv mm)
+        local options `options' `fixed' `i2' `bscovariance' longparm suppress(uv mm)
         local hideoptions network(`model')
     }
 
@@ -251,7 +261,7 @@ if !mi("`model'") {
             }
         }
         local command mvmeta `y' `S'
-        local options `options' `i2' `bscovariance' commonparm noconstant suppress(uv mm)
+        local options `options' `fixed' `i2' `bscovariance' commonparm noconstant suppress(uv mm)
         local hideoptions network(`model')
     } //  END OF FORMING CONSISTENCY MODEL
 
@@ -393,7 +403,10 @@ if !mi("`model'") {
             if !`ident`trt'' di as error "Algorithm has failed - `trt' remains unidentified"
         }
     }
-    
+	
+	// Store metavars as close as possible after their creation
+    char _dta[network_metavars] `metavars'
+
 
     // FINISH OFF META COMMAND
     if "`format'"!="pairs" { // default for mvmeta is nowt
@@ -434,6 +447,9 @@ else {
     local fullcommand mvmeta, `i2' `options'
 }
 
+* remove excess spaces
+local fullcommand : list retokenize fullcommand
+
 // RUN META COMMAND
 di as input `"Command is: `fullcommand'"'
 `pause'
@@ -443,7 +459,6 @@ local f9message `""mvmeta command stored as F9""'
 if !mi("`model'") {
     *estimates store `model'
     *char _dta[network_`model'_estimates] `model'
-    char _dta[network_metavars] `metavars'
 }
 
 // EXTRACT RESULTS FOR NETWORK FOREST
@@ -466,7 +481,9 @@ foreach thisdes of local designs {
                     local mult1 = (("`t2'"=="`trt'") - ("`t1'"=="`trt'")) 
                     if `mult1'==0 continue
                     local r : list posof "`trt'" in trtlistnoref
-                    foreach x in _cons `e(xvars_`r')' {
+					local xlist `e(xvars_`r')'
+					if "`e(constant)'"!="noconstant" local xlist _cons `xlist'
+                    foreach x in `xlist' {
                         if "`x'"!="_cons" { // multiply by covariate value
                             summ `x' if `design'=="`thisdes'", meanonly
                             if r(max)>r(min) | r(N)==0 {
@@ -552,7 +569,7 @@ if `forestproblem'==0 {
     char _dta[network_`model'_fitted] `keepmat'
 }
 else {
-    if `warn' di as error "Results can't be used by network forest: " _c
+    if `warn' di as error "Warning: results can't be used by network forest, because " _c
     if `forestproblem'==1 & `warn' di as error "consistency model has covariates"
     if `forestproblem'==2 & `warn' di as error "inconsistency model has variation within designs"
     char _dta[network_`model'_fitted]

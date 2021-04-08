@@ -384,6 +384,32 @@ assert reldif(`b1', _b[_trtdiff_BMSX]) < 1E-6
 
 // END OF CHECKING NETWORK IMPORT FROM PAIRS FORMAT
 
+
+// Compare meta results between different formats, both CE and RE models
+use smoking, clear
+drop if study<3 // makes mvmeta valid in all formats
+network setup d n, studyvar(stud) trtvar(trt) 
+foreach opt in "fixed" " " {
+	network convert aug
+	network meta c, `opt'
+	local baug = [_y_B][_cons]
+	
+	network convert sta
+	network meta c, `opt'
+	local bsta = _b[_trtdiff1_B]
+	
+	di reldif(`baug',`bsta')
+	assert reldif(`baug',`bsta')<1E-5
+
+	network convert pairs
+	network meta c, `opt'
+	local bpai = _b[_trtdiff_B]
+
+	di reldif(`baug',`bpai')
+	assert reldif(`baug',`bpai')<1E-5
+}
+
+
 * Check other effect measures
 foreach measure in rr or rd hr {
 	use thromb, clear
