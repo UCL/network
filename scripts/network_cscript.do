@@ -1,5 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+8apr2021:	add tests of new netwrok setup direct to standard format
 7apr2021:	new ado location on "c:\ado\ian"
 			add new tests of network import in pairs format
 			add new test of extra-long treatment names with nocodes
@@ -178,6 +179,7 @@ input study str1 trt sbp sbpsd count
 3 C 55 10  25
 end
 l
+save zquant, replace
 network setup sbp sbpsd count, stud(study) trt(trt) smd
 list study _y* _S*, noo sepby(_design)
 network table
@@ -405,6 +407,19 @@ gen n = 100
 gen d =  20
 network setup d n, study(study) trt(trt)
 
+* and with very many treatments - only works with setup direct to standard
+clear
+set obs 200
+gen study = _n
+gen trt1 = 0
+gen trt2 = _n
+reshape long trt, i(study) j(arm)
+drop arm
+gen n = 100
+gen d =  20
+network setup d n, study(study) trt(trt) format(standard)
+network meta c, fixed
+
 
 // Check connectedness routines
 clear
@@ -492,7 +507,77 @@ label val trt trt
 cap network setup d n, study(trial) trt(trt) nocode
 assert _rc==498
 
+// Check agreement of setup direct to standard (new 8apr21) and to augmented
+// count data
+* setup to augmented
+use smoking, clear
+network setup d n, studyvar(stud) trtvar(trt) format(aug)
+network convert standard
+foreach thing in `_dta[network_allthings]' {
+    local aug`thing' : char _dta[network_`thing']
+}
+network meta c, fixed
+local augb = _b[_trtdiff1_B]
+drop _trtdiff*
+rename (_* *) (aug=)
+rename augstudy study
+save z, replace
+* setup to standard
+use smoking, clear
+network setup d n, studyvar(stud) trtvar(trt) format(sta)
+foreach thing in `_dta[network_allthings]' {
+    local std`thing' : char _dta[network_`thing']
+}
+network meta c, fixed
+local stab = _b[_trtdiff1_B]
+drop _trtdiff*
+rename (_* *) (sta=)
+rename stastudy study
+* compare chars, betas and data
+assert "`augallthings'" == "`stdallthings'" 
+foreach thing in `augallthings' {
+	if inlist("`thing'","`dim'","`format'") continue // expected to differ
+	if "`aug`thing''" != "`std`thing''" {
+		di as error "Found discrepancy in `thing': aug = `aug`thing'', std = `std`thing''" 
+		exit 99
+	}
+}
+assert reldif(`augb',`stab')<1E-10
+merge 1:1 study using z
+foreach var in _y_1 _y_2 _S_1_1 _S_1_2 _S_2_2 {	
+	assert reldif(sta`var', aug`var')<1E-10
+}
+
+// Repeat with quantitative data and inconsistency model
+* setup to augmented
+use zquant, clear
+network setup sbp sbpsd count, stud(study) trt(trt) smd format(augmented)
+network convert standard
+network meta i, fixed
+local augb = _b[_trtdiff1_B_des_ABC]
+drop _trtdiff*
+rename (_* *) (aug=)
+rename augstudy study
+save z, replace
+* setup to standard
+use zquant, clear
+network setup sbp sbpsd count, stud(study) trt(trt) smd format(standard)
+network meta i, fixed
+local stab = _b[_trtdiff1_B_des_ABC]
+drop _trtdiff*
+rename (_* *) (sta=)
+rename stastudy study
+* compare
+assert reldif(`augb',`stab')<1E-15
+merge 1:1 study using z
+foreach var in _y_1 _y_2 _S_1_1 _S_1_2 _S_2_2 {	
+	assert reldif(sta`var', aug`var')<1E-15
+}
+
+
+// The end
 erase z.dta
+erase zquant.dta
 
 di as result _n "****************************************" ///
 	_n "*** NETWORK HAS PASSED ALL ITS TESTS ***" ///

@@ -1,8 +1,8 @@
----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:   7 Apr 2021, 13:36:06
+ opened on:   8 Apr 2021, 13:30:39
 
 . 
 . cls
@@ -35,7 +35,7 @@ c:\ado\ian\mvmeta\package\mvmeta.ado
 
 . which network
 c:\ado\ian\network\package\network.ado
-*! version 1.7.0 # Ian White # 7apr2021
+*! version 1.7.0 # Ian White # 8apr2021
 
 . 
 . // check network setup
@@ -206,7 +206,6 @@ Converting pairs to standard ...
      +---------------------------------------------------------------------+
 
 . save z, replace
-(note: file z.dta not found)
 file z.dta saved
 
 . 
@@ -1532,6 +1531,10 @@ mvmeta command stored as F9; test command stored as F8
   6. |     3     A    60      10      25 |
   7. |     3     C    55      10      25 |
      +-----------------------------------+
+
+. save zquant, replace
+(note: file zquant.dta not found)
+file zquant.dta saved
 
 . network setup sbp sbpsd count, stud(study) trt(trt) smd
 Treatments used
@@ -3094,7 +3097,7 @@ _y_1         |
  _trtdiff1_C |   .7044794   .2348016     3.00   0.003     .2442767    1.164682
  _trtdiff1_D |   .1285276   .8825236     0.15   0.884    -1.601187    1.858242
 ~1_C_des_ACD |   .3468136   .8821522     0.39   0.694    -1.382173      2.0758
-_trtdiff1~AD |   3.393989    1.89001     1.80   0.073    -.3103628    7.098341
+_trtdiff1~AD |   3.393989    1.89001     1.80   0.073    -.3103627    7.098341
 _trtdiff1~BC |  -.5261006   1.004558    -0.52   0.600    -2.494998    1.442796
 ~1_C_des_BCD |  -.3731715   1.013895    -0.37   0.713    -2.360369    1.614026
 ~1_D_des_BCD |   .4268691    1.30276     0.33   0.743    -2.126493    2.980231
@@ -3146,9 +3149,9 @@ mvmeta command stored as F9; test command stored as F8
          component               
          MNAR                    
          testcons_type           chi2
-         testcons_stat           5.111146831817248
+         testcons_stat           5.111146886440846
          testcons_df             7
-         testcons_p              .6464014629576476
+         testcons_p              .6464014562953568
          metavars                _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff2_
 > B _trtdiff2_C _trtdiff2_D des_AB des_AC des_ACD des_AD des_BC des_BCD des_BD 
 > des_CD _trtdiff1_C_des_ACD _trtdiff2_C_des_ACD _trtdiff1_D_des_AD _trtdiff2_D
@@ -3296,13 +3299,13 @@ Restricted log likelihood = -23.653575         Number of observations  =    24
 _y_1         |
  _trtdiff1_A |  -.3300634   .4675836    -0.71   0.480     -1.24651    .5863837
  _trtdiff1_C |   .3744161   .5223271     0.72   0.473    -.6493263    1.398158
- _trtdiff1_D |  -.2015358   .9987404    -0.20   0.840    -2.159031    1.755959
+ _trtdiff1_D |  -.2015358   .9987403    -0.20   0.840    -2.159031    1.755959
 ~1_C_des_ACD |   .3468136   .8821522     0.39   0.694    -1.382173      2.0758
-_trtdiff1~AD |   3.393989    1.89001     1.80   0.073    -.3103628    7.098341
-_trtdiff1~BC |  -.5261006   1.004558    -0.52   0.600    -2.494998    1.442796
+_trtdiff1~AD |   3.393989    1.89001     1.80   0.073    -.3103627    7.098341
+_trtdiff1~BC |  -.5261006   1.004558    -0.52   0.600    -2.494997    1.442796
 ~1_C_des_BCD |  -.3731715   1.013895    -0.37   0.713    -2.360369    1.614026
-~1_D_des_BCD |   .4268691    1.30276     0.33   0.743    -2.126493    2.980231
-_trtdiff1~BD |   1.245022   1.323388     0.94   0.347    -1.348771    3.838815
+~1_D_des_BCD |   .4268691   1.302759     0.33   0.743    -2.126493    2.980231
+_trtdiff1~BD |   1.245022   1.323388     0.94   0.347     -1.34877    3.838815
 _~1_D_des_CD |   .8178847   1.123174     0.73   0.466    -1.383496    3.019265
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
@@ -3350,9 +3353,9 @@ mvmeta command stored as F9; test command stored as F8
          component               
          MNAR                    
          testcons_type           chi2
-         testcons_stat           5.111146848115106
+         testcons_stat           5.111146959368493
          testcons_df             7
-         testcons_p              .6464014609698424
+         testcons_p              .6464014474005717
          metavars                _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff2_
 > A _trtdiff2_C _trtdiff2_D des_AB des_AC des_ACD des_AD des_BC des_BCD des_BD 
 > des_CD _trtdiff1_C_des_ACD _trtdiff2_C_des_ACD _trtdiff1_D_des_AD _trtdiff2_D
@@ -3499,15 +3502,15 @@ Restricted log likelihood = -23.653575         Number of observations  =    24
 -------------+----------------------------------------------------------------
 _y_1         |
  _trtdiff1_A |  -.7044794   .2348016    -3.00   0.003    -1.164682   -.2442767
- _trtdiff1_B |  -.3744161   .5223271    -0.72   0.473    -1.398158    .6493263
+ _trtdiff1_B |  -.3744161   .5223272    -0.72   0.473    -1.398158    .6493264
  _trtdiff1_D |  -.9227655    .843877    -1.09   0.274    -2.576734    .7312031
-~1_A_des_ACD |  -.3468136   .8821521    -0.39   0.694      -2.0758    1.382173
+~1_A_des_ACD |  -.3468136   .8821522    -0.39   0.694      -2.0758    1.382173
 _trtdiff1~AD |   3.740803   1.886942     1.98   0.047      .042464    7.439142
 _trtdiff1_~C |   .5261006   1.004558     0.52   0.600    -1.442796    2.494998
 ~1_B_des_BCD |   .3731715   1.013895     0.37   0.713    -1.614026    2.360369
 ~1_D_des_BCD |   1.146854   1.184494     0.97   0.333    -1.174711     3.46842
-_trtdiff1~BD |   1.591836   1.318646     1.21   0.227     -.992663    4.176334
-_~1_D_des_CD |   1.164698   1.068675     1.09   0.276    -.9298655    3.259262
+_trtdiff1~BD |   1.591836   1.318646     1.21   0.227    -.9926631    4.176334
+_~1_D_des_CD |   1.164698   1.068675     1.09   0.276    -.9298656    3.259262
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_D _trtdiff2_A_des_ACD _trtdiff2_D_d
@@ -3554,9 +3557,9 @@ mvmeta command stored as F9; test command stored as F8
          component               
          MNAR                    
          testcons_type           chi2
-         testcons_stat           5.111147046241131
+         testcons_stat           5.111146908002072
          testcons_df             7
-         testcons_p              .646401436804954
+         testcons_p              .6464014536655932
          metavars                _trtdiff1_A _trtdiff1_B _trtdiff1_D _trtdiff2_
 > A _trtdiff2_B _trtdiff2_D des_AB des_AC des_ACD des_AD des_BC des_BCD des_BD 
 > des_CD _trtdiff1_A_des_ACD _trtdiff2_A_des_ACD _trtdiff1_D_des_AD _trtdiff2_D
@@ -3656,7 +3659,7 @@ Restricted log likelihood = -32.817057         Number of observations  =    24
              |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
 _y_1         |
- _trtdiff1_A |  -.8658902   .3762928    -2.30   0.021    -1.603411   -.1283698
+ _trtdiff1_A |  -.8658902   .3762928    -2.30   0.021    -1.603411   -.1283699
  _trtdiff1_B |  -.4674415   .4074053    -1.15   0.251    -1.265941    .3310581
  _trtdiff1_C |  -.1635346    .354741    -0.46   0.645    -.8588143     .531745
 ------------------------------------------------------------------------------
@@ -3703,14 +3706,14 @@ Restricted log likelihood = -23.653575         Number of observations  =    24
 _y_1         |
  _trtdiff1_A |  -.1285276   .8825236    -0.15   0.884    -1.858242    1.601187
  _trtdiff1_B |   .2015358   .9987404     0.20   0.840    -1.755959    2.159031
- _trtdiff1_C |   .9227655   .8438771     1.09   0.274    -.7312032    2.576734
-_trtdiff1~AC |  -.3468136   .8821522    -0.39   0.694      -2.0758    1.382173
+ _trtdiff1_C |   .9227655    .843877     1.09   0.274    -.7312031    2.576734
+_trtdiff1~AC |  -.3468136   .8821521    -0.39   0.694      -2.0758    1.382173
 _trtdiff1~AD |  -3.393989    1.89001    -1.80   0.073    -7.098341    .3103628
 _trtdiff1~BC |   .8729143   1.295379     0.67   0.500    -1.665981     3.41181
 ~1_C_des_BCD |  -1.146854   1.184494    -0.97   0.333     -3.46842    1.174711
 ~1_B_des_BCD |  -.4268691    1.30276    -0.33   0.743    -2.980231    2.126493
 _trtdiff1~BD |  -1.245022   1.323388    -0.94   0.347    -3.838815    1.348771
-_~1_C_des_CD |  -1.164698   1.068675    -1.09   0.276    -3.259262    .9298657
+_~1_C_des_CD |  -1.164698   1.068675    -1.09   0.276    -3.259262    .9298656
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_C _trtdiff2_C_des_AC _trtdiff2_A_de
@@ -3757,9 +3760,9 @@ mvmeta command stored as F9; test command stored as F8
          component               
          MNAR                    
          testcons_type           chi2
-         testcons_stat           5.111146609091998
+         testcons_stat           5.111146981011002
          testcons_df             7
-         testcons_p              .6464014901228361
+         testcons_p              .6464014447608941
          metavars                _trtdiff1_A _trtdiff1_B _trtdiff1_C _trtdiff2_
 > A _trtdiff2_B _trtdiff2_C des_AB des_AC des_ACD des_AD des_BC des_BCD des_BD 
 > des_CD _trtdiff1_C_des_AC _trtdiff2_C_des_AC _trtdiff1_A_des_AD _trtdiff2_A_d
@@ -4869,7 +4872,7 @@ rescale:       log likelihood = -34.471727
 rescale eq:    log likelihood = -34.259312
 Iteration 0:   log likelihood = -34.259312  
 Iteration 1:   log likelihood = -32.844423  
-Iteration 2:   log likelihood = -32.817175  
+Iteration 2:   log likelihood = -32.817174  
 Iteration 3:   log likelihood = -32.817057  
 Iteration 4:   log likelihood = -32.817057  
 
@@ -4882,7 +4885,7 @@ Restricted log likelihood = -32.817057         Number of observations  =    24
 -------------+----------------------------------------------------------------
 _y_1         |
  _trtdiff1_B |  -.1635346    .354741    -0.46   0.645    -.8588143     .531745
- _trtdiff1_C |  -.8658902   .3762928    -2.30   0.021    -1.603411   -.1283699
+ _trtdiff1_C |  -.8658902   .3762928    -2.30   0.021    -1.603411   -.1283698
  _trtdiff1_D |  -.4674415   .4074053    -1.15   0.251    -1.265941    .3310581
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
@@ -4944,15 +4947,15 @@ Restricted log likelihood = -23.653575         Number of observations  =    24
 -------------+----------------------------------------------------------------
 _y_1         |
  _trtdiff1_B |  -.2419329   .6556959    -0.37   0.712    -1.527073    1.043208
- _trtdiff1_C |  -.1285276   .8825235    -0.15   0.884    -1.858242    1.601187
+ _trtdiff1_C |  -.1285276   .8825236    -0.15   0.884    -1.858242    1.601187
  _trtdiff1_D |  -.2253333   .8364808    -0.27   0.788    -1.864805    1.414139
-~1_B_des_ABC |   1.164698   1.068675     1.09   0.276    -.9298655    3.259262
+~1_B_des_ABC |   1.164698   1.068675     1.09   0.276    -.9298656    3.259262
 ~1_B_des_ABD |   .0178441   1.058695     0.02   0.987     -2.05716    2.092848
-_trtdiff1~AC |  -3.393989    1.89001    -1.80   0.073    -7.098341    .3103627
+_trtdiff1~AC |  -3.393989    1.89001    -1.80   0.073    -7.098341    .3103628
 _trtdiff1~AD |   -.818153   1.205642    -0.68   0.497    -3.181169    1.544862
 _~1_C_des_BC |  -.8178847   1.123174    -0.73   0.466    -3.019265    1.383496
 _~1_D_des_BD |    .135085   1.365997     0.10   0.921     -2.54222     2.81239
-_trtdiff1~CD |   .4268691   1.302759     0.33   0.743    -2.126493    2.980231
+_trtdiff1~CD |   .4268691    1.30276     0.33   0.743    -2.126493    2.980231
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_B_des_ABC _trtdiff2_B_d
@@ -4999,9 +5002,9 @@ mvmeta command stored as F9; test command stored as F8
          component               
          MNAR                    
          testcons_type           chi2
-         testcons_stat           5.111146978312272
+         testcons_stat           5.111146857208371
          testcons_df             7
-         testcons_p              .6464014450900508
+         testcons_p              .6464014598607619
          metavars                _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff2_
 > B _trtdiff2_C _trtdiff2_D des_AB des_ABC des_ABD des_AC des_AD des_BC des_BD 
 > des_CD _trtdiff1_B_des_ABC _trtdiff2_B_des_ABC _trtdiff1_B_des_ABD _trtdiff2_
@@ -5062,8 +5065,8 @@ Listing of inconsistency results:  design t1 t2 diff se
      |-----------------------------------------------------|
   1. |      A B         A         B   -.2419329   .6556959 |
   2. |    A B C         A         B    .9227654    .843877 |
-  3. |    A B C         A         C   -.1285276   .8825235 |
-  4. |    A B C         B         C   -1.051293   .8503297 |
+  3. |    A B C         A         C   -.1285276   .8825236 |
+  4. |    A B C         B         C   -1.051293   .8503298 |
   5. |    A B D         A         B   -.2240887   .8312025 |
      |-----------------------------------------------------|
   6. |    A B D         A         D   -.2253333   .8364808 |
@@ -5801,7 +5804,7 @@ _y_1         |
  _trtdiff1_C |   .7044794   .2348016     3.00   0.003     .2442767    1.164682
  _trtdiff1_D |   .1285276   .8825236     0.15   0.884    -1.601187    1.858242
 ~1_C_des_ACD |   .3468136   .8821522     0.39   0.694    -1.382173      2.0758
-_trtdiff1~AD |   3.393989    1.89001     1.80   0.073    -.3103628    7.098341
+_trtdiff1~AD |   3.393989    1.89001     1.80   0.073    -.3103627    7.098341
 _trtdiff1~BC |  -.5261006   1.004558    -0.52   0.600    -2.494998    1.442796
 ~1_C_des_BCD |  -.3731715   1.013895    -0.37   0.713    -2.360369    1.614026
 ~1_D_des_BCD |   .4268691    1.30276     0.33   0.743    -2.126493    2.980231
@@ -6120,11 +6123,11 @@ rescale:       log likelihood = -20.246987
 rescale eq:    log likelihood = -19.390269
 Iteration 0:   log likelihood = -19.390269  (not concave)
 Iteration 1:   log likelihood = -18.320713  
-Iteration 2:   log likelihood = -18.234479  (not concave)
-Iteration 3:   log likelihood = -18.214677  
-Iteration 4:   log likelihood = -18.168973  
-Iteration 5:   log likelihood = -18.167512  
-Iteration 6:   log likelihood = -18.166832  
+Iteration 2:   log likelihood = -18.234449  (not concave)
+Iteration 3:   log likelihood = -18.214696  
+Iteration 4:   log likelihood = -18.168937  
+Iteration 5:   log likelihood = -18.167338  
+Iteration 6:   log likelihood =  -18.16683  
 Iteration 7:   log likelihood = -18.166827  
 Iteration 8:   log likelihood = -18.166827  
 
@@ -6136,13 +6139,13 @@ Restricted log likelihood = -18.166827         Number of observations  =    28
              |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
 _y_1         |
- _trtdiff1_B |  -.1612883   .0464012    -3.48   0.001    -.2522331   -.0703436
- _trtdiff1_C |    .002128   .0324349     0.07   0.948    -.0614433    .0656993
- _trtdiff1_D |  -.0438162   .0488541    -0.90   0.370    -.1395685    .0519361
- _trtdiff1_E |  -.1558533   .0803959    -1.94   0.053    -.3134263    .0017196
+ _trtdiff1_B |  -.1612883   .0464012    -3.48   0.001     -.252233   -.0703436
+ _trtdiff1_C |    .002128   .0324349     0.07   0.948    -.0614433    .0656992
+ _trtdiff1_D |  -.0438162   .0488541    -0.90   0.370    -.1395684    .0519361
+ _trtdiff1_E |  -.1558533   .0803958    -1.94   0.053    -.3134262    .0017196
  _trtdiff1_F |  -.1130021   .0619173    -1.83   0.068    -.2343577    .0083535
  _trtdiff1_G |  -.1972332   .2215627    -0.89   0.373     -.631488    .2370217
- _trtdiff1_H |   .0143583   .0403242     0.36   0.722    -.0646757    .0933923
+ _trtdiff1_H |   .0143583   .0403242     0.36   0.722    -.0646756    .0933923
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F _trtdiff2
@@ -6150,8 +6153,8 @@ The above coefficients also apply to the following equations:
 
 Estimated between-studies SDs and correlation matrix:
              SD       _y_1       _y_2
-_y_1  .01520378          1          .
-_y_2  .01520378         .5          1
+_y_1  .01520369          1          .
+_y_2  .01520369         .5          1
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -6207,10 +6210,10 @@ rescale:       log likelihood = -16.820324
 rescale eq:    log likelihood = -15.214981
 Iteration 0:   log likelihood = -15.214981  
 Iteration 1:   log likelihood = -14.790576  
-Iteration 2:   log likelihood = -14.475024  
-Iteration 3:   log likelihood = -14.348602  
-Iteration 4:   log likelihood = -14.211042  
-Iteration 5:   log likelihood = -14.200627  
+Iteration 2:   log likelihood = -14.477022  
+Iteration 3:   log likelihood = -14.450069  
+Iteration 4:   log likelihood = -14.224355  
+Iteration 5:   log likelihood = -14.200664  
 Iteration 6:   log likelihood = -14.200606  
 Iteration 7:   log likelihood = -14.200606  
 
@@ -6222,21 +6225,21 @@ Restricted log likelihood = -14.200606         Number of observations  =    28
              |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
 _y_1         |
- _trtdiff1_B |  -.1570565   .2210417    -0.71   0.477    -.5902904    .2761773
- _trtdiff1_C |   -.185097   .2319002    -0.80   0.425    -.6396129     .269419
- _trtdiff1_D |  -.0446749   .2207029    -0.20   0.840    -.4772446    .3878948
- _trtdiff1_E |  -.1516215   .3153227    -0.48   0.631    -.7696427    .4663996
- _trtdiff1_F |  -.0603276    .233321    -0.26   0.796    -.5176284    .3969732
- _trtdiff1_G |  -.3462582   .5475069    -0.63   0.527    -1.419352    .7268356
- _trtdiff1_H |  -.0048226   .2191572    -0.02   0.982    -.4343628    .4247176
-~1_C_des_ACH |   .1590951   .3190958     0.50   0.618    -.4663211    .7845114
-_trtdiff1~AD |     .45014    .728892     0.62   0.537    -.9784622    1.878742
-_trtdiff1~AH |  -.0585379   .4095559    -0.14   0.886    -.8612528     .744177
-_trtdiff1~BF |  -.1835905   .3960794    -0.46   0.643    -.9598918    .5927108
+ _trtdiff1_B |  -.1570565   .2210418    -0.71   0.477    -.5902905    .2761775
+ _trtdiff1_C |  -.1850971   .2319003    -0.80   0.425    -.6396133    .2694192
+ _trtdiff1_D |  -.0446749    .220703    -0.20   0.840    -.4772448     .387895
+ _trtdiff1_E |  -.1516215   .3153228    -0.48   0.631     -.769643    .4663999
+ _trtdiff1_F |  -.0603276   .2333211    -0.26   0.796    -.5176286    .3969734
+ _trtdiff1_G |  -.3462582    .547507    -0.63   0.527    -1.419352    .7268357
+ _trtdiff1_H |  -.0048226   .2191573    -0.02   0.982     -.434363    .4247178
+~1_C_des_ACH |   .1590952   .3190959     0.50   0.618    -.4663213    .7845117
+_trtdiff1~AD |     .45014   .7288921     0.62   0.537    -.9784623    1.878742
+_trtdiff1~AH |  -.0585379    .409556    -0.14   0.886    -.8612529    .7441772
+_trtdiff1~BF |  -.1835906   .3960797    -0.46   0.643    -.9598925    .5927114
 _trtdiff1~BG |   .3279506   .7117494     0.46   0.645    -1.067053    1.722954
-_trtdiff1~BH |    1.20477   .5346788     2.25   0.024     .1568189    2.252721
-_trtdiff1~CG |  -.1097434    .694816    -0.16   0.874    -1.471558    1.252071
-_~1_H_des_CH |  -.4653832   .5027267    -0.93   0.355    -1.450709     .519943
+_trtdiff1~BH |    1.20477   .5346789     2.25   0.024     .1568187    2.252722
+_trtdiff1~CG |  -.1097435   .6948161    -0.16   0.874    -1.471558    1.252071
+_~1_H_des_CH |  -.4653833   .5027268    -0.93   0.355     -1.45071    .5199431
 ------------------------------------------------------------------------------
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F _trtdiff2
@@ -6246,8 +6249,8 @@ The above coefficients also apply to the following equations:
 
 Estimated between-studies SDs and correlation matrix:
              SD       _y_1       _y_2
-_y_1  .21561472          1          .
-_y_2  .21561472         .5          1
+_y_1  .21561481          1          .
+_y_2  .21561481         .5          1
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_ACH = 0
@@ -8195,6 +8198,547 @@ Current data
    Command to list the data:           list study _y* _S*, noo sepby(_design)
 
 . 
+. * and with very many treatments - only works with setup direct to standard
+. clear
+
+. set obs 200
+number of observations (_N) was 0, now 200
+
+. gen study = _n
+
+. gen trt1 = 0
+
+. gen trt2 = _n
+
+. reshape long trt, i(study) j(arm)
+(note: j = 1 2)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                      200   ->     400
+Number of variables                   3   ->       3
+j variable (2 values)                     ->   arm
+xij variables:
+                              trt1 trt2   ->   trt
+-----------------------------------------------------------------------------
+
+. drop arm
+
+. gen n = 100
+
+. gen d =  20
+
+. network setup d n, study(study) trt(trt) format(standard)
+Treatments used
+   AA (reference):                     0
+   AB:                                 1
+   AC:                                 2
+   AD:                                 3
+   AE:                                 4
+   AF:                                 5
+   AG:                                 6
+   AH:                                 7
+   AI:                                 8
+   AJ:                                 9
+   AK:                                 10
+   AL:                                 11
+   AM:                                 12
+   AN:                                 13
+   AO:                                 14
+   AP:                                 15
+   AQ:                                 16
+   AR:                                 17
+   AS:                                 18
+   AT:                                 19
+   AU:                                 20
+   AV:                                 21
+   AW:                                 22
+   AX:                                 23
+   AY:                                 24
+   AZ:                                 25
+   BA:                                 26
+   BB:                                 27
+   BC:                                 28
+   BD:                                 29
+   BE:                                 30
+   BF:                                 31
+   BG:                                 32
+   BH:                                 33
+   BI:                                 34
+   BJ:                                 35
+   BK:                                 36
+   BL:                                 37
+   BM:                                 38
+   BN:                                 39
+   BO:                                 40
+   BP:                                 41
+   BQ:                                 42
+   BR:                                 43
+   BS:                                 44
+   BT:                                 45
+   BU:                                 46
+   BV:                                 47
+   BW:                                 48
+   BX:                                 49
+   BY:                                 50
+   BZ:                                 51
+   CA:                                 52
+   CB:                                 53
+   CC:                                 54
+   CD:                                 55
+   CE:                                 56
+   CF:                                 57
+   CG:                                 58
+   CH:                                 59
+   CI:                                 60
+   CJ:                                 61
+   CK:                                 62
+   CL:                                 63
+   CM:                                 64
+   CN:                                 65
+   CO:                                 66
+   CP:                                 67
+   CQ:                                 68
+   CR:                                 69
+   CS:                                 70
+   CT:                                 71
+   CU:                                 72
+   CV:                                 73
+   CW:                                 74
+   CX:                                 75
+   CY:                                 76
+   CZ:                                 77
+   DA:                                 78
+   DB:                                 79
+   DC:                                 80
+   DD:                                 81
+   DE:                                 82
+   DF:                                 83
+   DG:                                 84
+   DH:                                 85
+   DI:                                 86
+   DJ:                                 87
+   DK:                                 88
+   DL:                                 89
+   DM:                                 90
+   DN:                                 91
+   DO:                                 92
+   DP:                                 93
+   DQ:                                 94
+   DR:                                 95
+   DS:                                 96
+   DT:                                 97
+   DU:                                 98
+   DV:                                 99
+   DW:                                 100
+   DX:                                 101
+   DY:                                 102
+   DZ:                                 103
+   EA:                                 104
+   EB:                                 105
+   EC:                                 106
+   ED:                                 107
+   EE:                                 108
+   EF:                                 109
+   EG:                                 110
+   EH:                                 111
+   EI:                                 112
+   EJ:                                 113
+   EK:                                 114
+   EL:                                 115
+   EM:                                 116
+   EN:                                 117
+   EO:                                 118
+   EP:                                 119
+   EQ:                                 120
+   ER:                                 121
+   ES:                                 122
+   ET:                                 123
+   EU:                                 124
+   EV:                                 125
+   EW:                                 126
+   EX:                                 127
+   EY:                                 128
+   EZ:                                 129
+   FA:                                 130
+   FB:                                 131
+   FC:                                 132
+   FD:                                 133
+   FE:                                 134
+   FF:                                 135
+   FG:                                 136
+   FH:                                 137
+   FI:                                 138
+   FJ:                                 139
+   FK:                                 140
+   FL:                                 141
+   FM:                                 142
+   FN:                                 143
+   FO:                                 144
+   FP:                                 145
+   FQ:                                 146
+   FR:                                 147
+   FS:                                 148
+   FT:                                 149
+   FU:                                 150
+   FV:                                 151
+   FW:                                 152
+   FX:                                 153
+   FY:                                 154
+   FZ:                                 155
+   GA:                                 156
+   GB:                                 157
+   GC:                                 158
+   GD:                                 159
+   GE:                                 160
+   GF:                                 161
+   GG:                                 162
+   GH:                                 163
+   GI:                                 164
+   GJ:                                 165
+   GK:                                 166
+   GL:                                 167
+   GM:                                 168
+   GN:                                 169
+   GO:                                 170
+   GP:                                 171
+   GQ:                                 172
+   GR:                                 173
+   GS:                                 174
+   GT:                                 175
+   GU:                                 176
+   GV:                                 177
+   GW:                                 178
+   GX:                                 179
+   GY:                                 180
+   GZ:                                 181
+   HA:                                 182
+   HB:                                 183
+   HC:                                 184
+   HD:                                 185
+   HE:                                 186
+   HF:                                 187
+   HG:                                 188
+   HH:                                 189
+   HI:                                 190
+   HJ:                                 191
+   HK:                                 192
+   HL:                                 193
+   HM:                                 194
+   HN:                                 195
+   HO:                                 196
+   HP:                                 197
+   HQ:                                 198
+   HR:                                 199
+   HS:                                 200
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        200
+   IDs with zero cells:                [none]
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             0
+   D.f. for heterogeneity:             0
+
+Current data
+   Data format:                        standard
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Contrast variables:                 _contrast*
+   Command to list the data:           list study _design _contrast* _y* _S*, n
+> oo sepby(_design)
+
+. network meta c, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_AB _trtdiff1_AC _trtdiff1_AD _trtdiff1_AE _trtdiff1_AF _trtdiff
+> 1_AG _trtdiff1_AH _trtdiff1_AI _trtdiff1_AJ _trtdiff1_AK _trtdiff1_AL _trtdif
+> f1_AM _trtdiff1_AN _trtdiff1_AO _trtdiff1_AP _trtdiff1_AQ _trtdiff1_AR _trtdi
+> ff1_AS _trtdiff1_AT _trtdiff1_AU _trtdiff1_AV _trtdiff1_AW _trtdiff1_AX _trtd
+> iff1_AY _trtdiff1_AZ _trtdiff1_BA _trtdiff1_BB _trtdiff1_BC _trtdiff1_BD _trt
+> diff1_BE _trtdiff1_BF _trtdiff1_BG _trtdiff1_BH _trtdiff1_BI _trtdiff1_BJ _tr
+> tdiff1_BK _trtdiff1_BL _trtdiff1_BM _trtdiff1_BN _trtdiff1_BO _trtdiff1_BP _t
+> rtdiff1_BQ _trtdiff1_BR _trtdiff1_BS _trtdiff1_BT _trtdiff1_BU _trtdiff1_BV _
+> trtdiff1_BW _trtdiff1_BX _trtdiff1_BY _trtdiff1_BZ _trtdiff1_CA _trtdiff1_CB 
+> _trtdiff1_CC _trtdiff1_CD _trtdiff1_CE _trtdiff1_CF _trtdiff1_CG _trtdiff1_CH
+>  _trtdiff1_CI _trtdiff1_CJ _trtdiff1_CK _trtdiff1_CL _trtdiff1_CM _trtdiff1_C
+> N _trtdiff1_CO _trtdiff1_CP _trtdiff1_CQ _trtdiff1_CR _trtdiff1_CS _trtdiff1_
+> CT _trtdiff1_CU _trtdiff1_CV _trtdiff1_CW _trtdiff1_CX _trtdiff1_CY _trtdiff1
+> _CZ _trtdiff1_DA _trtdiff1_DB _trtdiff1_DC _trtdiff1_DD _trtdiff1_DE _trtdiff
+> 1_DF _trtdiff1_DG _trtdiff1_DH _trtdiff1_DI _trtdiff1_DJ _trtdiff1_DK _trtdif
+> f1_DL _trtdiff1_DM _trtdiff1_DN _trtdiff1_DO _trtdiff1_DP _trtdiff1_DQ _trtdi
+> ff1_DR _trtdiff1_DS _trtdiff1_DT _trtdiff1_DU _trtdiff1_DV _trtdiff1_DW _trtd
+> iff1_DX _trtdiff1_DY _trtdiff1_DZ _trtdiff1_EA _trtdiff1_EB _trtdiff1_EC _trt
+> diff1_ED _trtdiff1_EE _trtdiff1_EF _trtdiff1_EG _trtdiff1_EH _trtdiff1_EI _tr
+> tdiff1_EJ _trtdiff1_EK _trtdiff1_EL _trtdiff1_EM _trtdiff1_EN _trtdiff1_EO _t
+> rtdiff1_EP _trtdiff1_EQ _trtdiff1_ER _trtdiff1_ES _trtdiff1_ET _trtdiff1_EU _
+> trtdiff1_EV _trtdiff1_EW _trtdiff1_EX _trtdiff1_EY _trtdiff1_EZ _trtdiff1_FA 
+> _trtdiff1_FB _trtdiff1_FC _trtdiff1_FD _trtdiff1_FE _trtdiff1_FF _trtdiff1_FG
+>  _trtdiff1_FH _trtdiff1_FI _trtdiff1_FJ _trtdiff1_FK _trtdiff1_FL _trtdiff1_F
+> M _trtdiff1_FN _trtdiff1_FO _trtdiff1_FP _trtdiff1_FQ _trtdiff1_FR _trtdiff1_
+> FS _trtdiff1_FT _trtdiff1_FU _trtdiff1_FV _trtdiff1_FW _trtdiff1_FX _trtdiff1
+> _FY _trtdiff1_FZ _trtdiff1_GA _trtdiff1_GB _trtdiff1_GC _trtdiff1_GD _trtdiff
+> 1_GE _trtdiff1_GF _trtdiff1_GG _trtdiff1_GH _trtdiff1_GI _trtdiff1_GJ _trtdif
+> f1_GK _trtdiff1_GL _trtdiff1_GM _trtdiff1_GN _trtdiff1_GO _trtdiff1_GP _trtdi
+> ff1_GQ _trtdiff1_GR _trtdiff1_GS _trtdiff1_GT _trtdiff1_GU _trtdiff1_GV _trtd
+> iff1_GW _trtdiff1_GX _trtdiff1_GY _trtdiff1_GZ _trtdiff1_HA _trtdiff1_HB _trt
+> diff1_HC _trtdiff1_HD _trtdiff1_HE _trtdiff1_HF _trtdiff1_HG _trtdiff1_HH _tr
+> tdiff1_HI _trtdiff1_HJ _trtdiff1_HK _trtdiff1_HL _trtdiff1_HM _trtdiff1_HN _t
+> rtdiff1_HO _trtdiff1_HP _trtdiff1_HQ _trtdiff1_HR _trtdiff1_HS) vars(_y_1)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_AB _trtdiff1_AC _trtdiff1_AD _trtdiff1_AE _t
+> rtdiff1_AF _trtdiff1_AG _trtdiff1_AH _trtdiff1_AI _trtdiff1_AJ _trtdiff1_AK _
+> trtdiff1_AL _trtdiff1_AM _trtdiff1_AN _trtdiff1_AO _trtdiff1_AP _trtdiff1_AQ 
+> _trtdiff1_AR _trtdiff1_AS _trtdiff1_AT _trtdiff1_AU _trtdiff1_AV _trtdiff1_AW
+>  _trtdiff1_AX _trtdiff1_AY _trtdiff1_AZ _trtdiff1_BA _trtdiff1_BB _trtdiff1_B
+> C _trtdiff1_BD _trtdiff1_BE _trtdiff1_BF _trtdiff1_BG _trtdiff1_BH _trtdiff1_
+> BI _trtdiff1_BJ _trtdiff1_BK _trtdiff1_BL _trtdiff1_BM _trtdiff1_BN _trtdiff1
+> _BO _trtdiff1_BP _trtdiff1_BQ _trtdiff1_BR _trtdiff1_BS _trtdiff1_BT _trtdiff
+> 1_BU _trtdiff1_BV _trtdiff1_BW _trtdiff1_BX _trtdiff1_BY _trtdiff1_BZ _trtdif
+> f1_CA _trtdiff1_CB _trtdiff1_CC _trtdiff1_CD _trtdiff1_CE _trtdiff1_CF _trtdi
+> ff1_CG _trtdiff1_CH _trtdiff1_CI _trtdiff1_CJ _trtdiff1_CK _trtdiff1_CL _trtd
+> iff1_CM _trtdiff1_CN _trtdiff1_CO _trtdiff1_CP _trtdiff1_CQ _trtdiff1_CR _trt
+> diff1_CS _trtdiff1_CT _trtdiff1_CU _trtdiff1_CV _trtdiff1_CW _trtdiff1_CX _tr
+> tdiff1_CY _trtdiff1_CZ _trtdiff1_DA _trtdiff1_DB _trtdiff1_DC _trtdiff1_DD _t
+> rtdiff1_DE _trtdiff1_DF _trtdiff1_DG _trtdiff1_DH _trtdiff1_DI _trtdiff1_DJ _
+> trtdiff1_DK _trtdiff1_DL _trtdiff1_DM _trtdiff1_DN _trtdiff1_DO _trtdiff1_DP 
+> _trtdiff1_DQ _trtdiff1_DR _trtdiff1_DS _trtdiff1_DT _trtdiff1_DU _trtdiff1_DV
+>  _trtdiff1_DW _trtdiff1_DX _trtdiff1_DY _trtdiff1_DZ _trtdiff1_EA _trtdiff1_E
+> B _trtdiff1_EC _trtdiff1_ED _trtdiff1_EE _trtdiff1_EF _trtdiff1_EG _trtdiff1_
+> EH _trtdiff1_EI _trtdiff1_EJ _trtdiff1_EK _trtdiff1_EL _trtdiff1_EM _trtdiff1
+> _EN _trtdiff1_EO _trtdiff1_EP _trtdiff1_EQ _trtdiff1_ER _trtdiff1_ES _trtdiff
+> 1_ET _trtdiff1_EU _trtdiff1_EV _trtdiff1_EW _trtdiff1_EX _trtdiff1_EY _trtdif
+> f1_EZ _trtdiff1_FA _trtdiff1_FB _trtdiff1_FC _trtdiff1_FD _trtdiff1_FE _trtdi
+> ff1_FF _trtdiff1_FG _trtdiff1_FH _trtdiff1_FI _trtdiff1_FJ _trtdiff1_FK _trtd
+> iff1_FL _trtdiff1_FM _trtdiff1_FN _trtdiff1_FO _trtdiff1_FP _trtdiff1_FQ _trt
+> diff1_FR _trtdiff1_FS _trtdiff1_FT _trtdiff1_FU _trtdiff1_FV _trtdiff1_FW _tr
+> tdiff1_FX _trtdiff1_FY _trtdiff1_FZ _trtdiff1_GA _trtdiff1_GB _trtdiff1_GC _t
+> rtdiff1_GD _trtdiff1_GE _trtdiff1_GF _trtdiff1_GG _trtdiff1_GH _trtdiff1_GI _
+> trtdiff1_GJ _trtdiff1_GK _trtdiff1_GL _trtdiff1_GM _trtdiff1_GN _trtdiff1_GO 
+> _trtdiff1_GP _trtdiff1_GQ _trtdiff1_GR _trtdiff1_GS _trtdiff1_GT _trtdiff1_GU
+>  _trtdiff1_GV _trtdiff1_GW _trtdiff1_GX _trtdiff1_GY _trtdiff1_GZ _trtdiff1_H
+> A _trtdiff1_HB _trtdiff1_HC _trtdiff1_HD _trtdiff1_HE _trtdiff1_HF _trtdiff1_
+> HG _trtdiff1_HH _trtdiff1_HI _trtdiff1_HJ _trtdiff1_HK _trtdiff1_HL _trtdiff1
+> _HM _trtdiff1_HN _trtdiff1_HO _trtdiff1_HP _trtdiff1_HQ _trtdiff1_HR _trtdiff
+> 1_HS
+Note: 200 observations on 1 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     1
+                                               Number of observations  =   200
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+_trtdiff1_AB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AT |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_AZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BT |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_BZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CT |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_CZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DT |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_DZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_ED |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_ER |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_ES |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_ET |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_EZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FT |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_FZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GT |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GU |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GV |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GW |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GX |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GY |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_GZ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HA |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HB |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HC |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HD |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HE |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HF |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HG |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HH |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HI |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HJ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HK |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HL |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HM |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HN |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HO |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HP |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HQ |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HR |          0   .3535534     0.00   1.000    -.6929519    .6929519
+_trtdiff1_HS |          0   .3535534     0.00   1.000    -.6929519    .6929519
+------------------------------------------------------------------------------
+mvmeta command stored as F9
+
+. 
 . 
 . // Check connectedness routines
 . clear
@@ -8949,7 +9493,355 @@ mvmeta command stored as F9; test command stored as F8
 . assert _rc==498
 
 . 
+. // Check agreement of setup direct to standard (new 8apr21) and to augmented
+. // count data
+. * setup to augmented
+. use smoking, clear
+(Smoking data from Lu & Ades (2006))
+
+. network setup d n, studyvar(stud) trtvar(trt) format(aug)
+Treatments used
+   A (reference):                      No contact
+   B:                                  Self help
+   C:                                  Individual counselling
+   D:                                  Group counselling
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        24
+   IDs with zero cells:                9 20
+   - count added to all their cells:   .5
+   IDs with augmented reference arm:   2 21 22 23 24
+   - observations added:               0.00001
+   - mean in augmented observations:   study-specific mean
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             7
+   D.f. for heterogeneity:             16
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. network convert standard
+Converting augmented to standard ...
+
+. foreach thing in `_dta[network_allthings]' {
+  2.     local aug`thing' : char _dta[network_`thing']
+  3. }
+
+. network meta c, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trtdiff2_C _trtdi
+> ff2_D) vars(_y_1 _y_2)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
+Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
+Note: 24 observations on 2 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     2
+                                               Number of observations  =    24
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |   .1987505   .1259883     1.58   0.115     -.048182     .445683
+ _trtdiff1_C |   .6391074   .0590771    10.82   0.000     .5233184    .7548964
+ _trtdiff1_D |   .7086076   .1879352     3.77   0.000     .3402613    1.076954
+------------------------------------------------------------------------------
+The above coefficients also apply to the following equations:
+    _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D 
+mvmeta command stored as F9
+
+. local augb = _b[_trtdiff1_B]
+
+. drop _trtdiff*
+
+. rename (_* *) (aug=)
+
+. rename augstudy study
+
+. save z, replace
+file z.dta saved
+
+. * setup to standard
+. use smoking, clear
+(Smoking data from Lu & Ades (2006))
+
+. network setup d n, studyvar(stud) trtvar(trt) format(sta)
+Treatments used
+   A (reference):                      No contact
+   B:                                  Self help
+   C:                                  Individual counselling
+   D:                                  Group counselling
+
+Measure                                Log odds ratio
+
+Studies
+   ID variable:                        study
+   Number used:                        24
+   IDs with zero cells:                9 20
+   - count added to all their cells:   .5
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             7
+   D.f. for heterogeneity:             16
+
+Current data
+   Data format:                        standard
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Contrast variables:                 _contrast*
+   Command to list the data:           list study _design _contrast* _y* _S*, n
+> oo sepby(_design)
+
+. foreach thing in `_dta[network_allthings]' {
+  2.     local std`thing' : char _dta[network_`thing']
+  3. }
+
+. network meta c, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_D, _y_2: _trtdiff2_B _trtdiff2_C _trtdi
+> ff2_D) vars(_y_1 _y_2)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
+Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
+Note: 24 observations on 2 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     2
+                                               Number of observations  =    24
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |   .1987505   .1259883     1.58   0.115     -.048182     .445683
+ _trtdiff1_C |   .6391074   .0590771    10.82   0.000     .5233184    .7548964
+ _trtdiff1_D |   .7086076   .1879352     3.77   0.000     .3402613    1.076954
+------------------------------------------------------------------------------
+The above coefficients also apply to the following equations:
+    _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D 
+mvmeta command stored as F9
+
+. local stab = _b[_trtdiff1_B]
+
+. drop _trtdiff*
+
+. rename (_* *) (sta=)
+
+. rename stastudy study
+
+. * compare chars, betas and data
+. assert "`augallthings'" == "`stdallthings'" 
+
+. foreach thing in `augallthings' {
+  2.         if inlist("`thing'","`dim'","`format'") continue // expected to di
+> ffer
+  3.         if "`aug`thing''" != "`std`thing''" {
+  4.                 di as error "Found discrepancy in `thing': aug = `aug`thin
+> g'', std = `std`thing''" 
+  5.                 exit 99
+  6.         }
+  7. }
+
+. assert reldif(`augb',`stab')<1E-10
+
+. merge 1:1 study using z
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                                24  (_merge==3)
+    -----------------------------------------
+
+. foreach var in _y_1 _y_2 _S_1_1 _S_1_2 _S_2_2 { 
+  2.         assert reldif(sta`var', aug`var')<1E-10
+  3. }
+
+. 
+. // Repeat with quantitative data and inconsistency model
+. * setup to augmented
+. use zquant, clear
+
+. network setup sbp sbpsd count, stud(study) trt(trt) smd format(augmented)
+Treatments used
+   A (reference):                      A
+   B:                                  B
+   C:                                  C
+
+Measure                                Standardised mean difference
+   Standard deviation pooling:         on
+
+Studies
+   ID variable:                        study
+   Number used:                        3
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             2
+   D.f. for heterogeneity:             0
+
+Current data
+   Data format:                        augmented
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Command to list the data:           list study _y* _S*, noo sepby(_design)
+
+. network convert standard
+Converting augmented to standard ...
+
+. network meta i, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_C_des_AC, _y_2: _tr
+> tdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC) vars(_y_1 _y_2)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_
+> C_des_AC
+Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_
+> C_des_AC
+Note: 3 observations on 2 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     2
+                                               Number of observations  =     3
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |   .4981033   .1436388     3.47   0.001     .2165763    .7796302
+ _trtdiff1_C |   1.196967   .1497543     7.99   0.000     .9034537     1.49048
+_trtdiff1~BC |    .499369   .2057112     2.43   0.015     .0961826    .9025555
+_trtdiff1~AC |  -1.689106   .3241057    -5.21   0.000    -2.324342   -1.053871
+------------------------------------------------------------------------------
+The above coefficients also apply to the following equations:
+    _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC 
+
+Testing for inconsistency:
+ ( 1)  [_y_1]_trtdiff1_B_des_ABC = 0
+ ( 2)  [_y_1]_trtdiff1_C_des_AC = 0
+
+           chi2(  2) =   29.45
+         Prob > chi2 =    0.0000
+mvmeta command stored as F9; test command stored as F8
+
+. local augb = _b[_trtdiff1_B_des_ABC]
+
+. drop _trtdiff*
+
+. rename (_* *) (aug=)
+
+. rename augstudy study
+
+. save z, replace
+file z.dta saved
+
+. * setup to standard
+. use zquant, clear
+
+. network setup sbp sbpsd count, stud(study) trt(trt) smd format(standard)
+Treatments used
+   A (reference):                      A
+   B:                                  B
+   C:                                  C
+
+Measure                                Standardised mean difference
+   Standard deviation pooling:         on
+
+Studies
+   ID variable:                        study
+   Number used:                        3
+
+Network information                    
+   Components:                         1 (connected)
+   D.f. for inconsistency:             2
+   D.f. for heterogeneity:             0
+
+Current data
+   Data format:                        standard
+   Design variable:                    _design
+   Estimate variables:                 _y*
+   Variance variables:                 _S*
+   Contrast variables:                 _contrast*
+   Command to list the data:           list study _design _contrast* _y* _S*, n
+> oo sepby(_design)
+
+. network meta i, fixed
+Command is: mvmeta _y _S  , fixed   commonparm noconstant suppress(uv mm) eq(_y
+> _1: _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_C_des_AC, _y_2: _tr
+> tdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC) vars(_y_1 _y_2)
+Note: using method fixed
+Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_B_des_ABC _trtdiff1_
+> C_des_AC
+Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_
+> C_des_AC
+Note: 3 observations on 2 variables
+
+Multivariate meta-analysis
+Variance-covariance matrix = (none)
+Method = fixed                                 Number of dimensions    =     2
+                                               Number of observations  =     3
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+_y_1         |
+ _trtdiff1_B |   .4981033   .1436388     3.47   0.001     .2165763    .7796302
+ _trtdiff1_C |   1.196967   .1497543     7.99   0.000     .9034537     1.49048
+_trtdiff1~BC |    .499369   .2057112     2.43   0.015     .0961826    .9025555
+_trtdiff1~AC |  -1.689106   .3241057    -5.21   0.000    -2.324342   -1.053871
+------------------------------------------------------------------------------
+The above coefficients also apply to the following equations:
+    _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_B_des_ABC _trtdiff2_C_des_AC 
+
+Testing for inconsistency:
+ ( 1)  [_y_1]_trtdiff1_B_des_ABC = 0
+ ( 2)  [_y_1]_trtdiff1_C_des_AC = 0
+
+           chi2(  2) =   29.45
+         Prob > chi2 =    0.0000
+mvmeta command stored as F9; test command stored as F8
+
+. local stab = _b[_trtdiff1_B_des_ABC]
+
+. drop _trtdiff*
+
+. rename (_* *) (sta=)
+
+. rename stastudy study
+
+. * compare
+. assert reldif(`augb',`stab')<1E-15
+
+. merge 1:1 study using z
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                                 3  (_merge==3)
+    -----------------------------------------
+
+. foreach var in _y_1 _y_2 _S_1_1 _S_1_2 _S_2_2 { 
+  2.         assert reldif(sta`var', aug`var')<1E-15
+  3. }
+
+. 
+. 
+. // The end
 . erase z.dta
+
+. erase zquant.dta
 
 . 
 . di as result _n "****************************************" ///
@@ -8965,5 +9857,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:   7 Apr 2021, 13:43:34
+ closed on:   8 Apr 2021, 13:38:00
 -------------------------------------------------------------------------------

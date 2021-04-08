@@ -5,6 +5,8 @@
 	long treatment names and codes:
 		truncates rather than failing
 		applies ~14 character limit to treatment codes (arises with nocodes option)
+	y's are now ordered before S's (same as -network convert-)
+	NEW: sets up directly in standard format (useful with many treatments)
 Ian White # 4dec2019
 	fixed bug causing failure for study IDs with spaces/hyphens
 31may2018
@@ -419,17 +421,17 @@ foreach trtcode of local trtcodes {
 }
 
 // Count valid studies
-tempvar narms
-gen `narms'=0
+tempvar studyarms
+gen `studyarms'=0
 foreach trt in `trtcodes' {
-    qui replace `narms'=`narms'+1 if !mi(`n'`trt')
-    local nnames `nnames' `n'`trt'
+    qui replace `studyarms'=`studyarms'+1 if !mi(`n'`trt')
 }
-qui count if `narms'<=1
+qui count if `studyarms'<=1
 local nstudiesdropped = r(N)
-qui drop if `narms'<=1
-summ `narms', meanonly
+qui drop if `studyarms'<=1
+summ `studyarms', meanonly
 local maxarms = r(max)
+local narms = r(sum)
 qui count
 local nstudies = r(N)
 
@@ -446,7 +448,10 @@ forvalues i=1/`=_N' {
 }
 
 // check for ambiguous designs - in network setup and network import
+* also count levels of design and treatment-by-design
 qui levelsof `design', local(designs)
+local ndesigns = r(r)
+local ntrtdesigns = 0
 foreach des1 of local designs {
 	foreach des2 of local designs {
 		if "`des1'"=="`des2'" continue
@@ -456,6 +461,7 @@ foreach des1 of local designs {
 			exit 498
 		}
 	}
+	local ntrtdesigns = `ntrtdesigns' + wordcount("`des1'")
 }
 
 // Generate study components
@@ -532,78 +538,136 @@ if "`outcome'"=="count" {
 }
 
 // AUGMENT IF MISSING REF ARM
+if "`targetformat'" != "standard" {
+	* choose augment settings if not specified
+	if mi("`augment'") local augment 0.00001
+	if "`outcome'"=="count" local augsd 0
+	local augmeanname `augmean'
+	local augsdname `augsd'
+	if mi("`augmean'","`augsd'") { // compute overall means [& SDs]
+		tempvar nsum nmeansum nsdsum
+		foreach var in nsum nmeansum nsdsum {
+			qui gen ``var''=0
+		}
+		foreach trt in `trtcodes' {
+			qui replace `nsum'=`nsum' + `n'`trt' if !mi(`n'`trt')
+			if "`outcome'"=="count" {
+				qui replace `nmeansum' = `nmeansum' + `d'`trt' if !mi(`n'`trt')
+			}
+			else if "`outcome'"=="quantitative" {
+				qui replace `nmeansum' = `nmeansum' + `mean'`trt' * `n'`trt' if !mi(`n'`trt')
+				qui replace `nsdsum' = `nsdsum' + `sd'`trt' * `n'`trt' if !mi(`n'`trt')
+			}
+		}
+		if mi("`augmean'") { // and assign
+			tempvar augmean
+			gen `augmean' = `nmeansum'/`nsum'
+			if !mi("`augoverall'") {
+				qui summ `augmean' [fw=`nsum'], meanonly
+				qui replace `augmean' = r(mean)
+			}
+			local augmeanname "study-specific mean"
+		}
+		if mi("`augsd'") { // and assign
+			tempvar augsd
+			gen `augsd' = `nsdsum'/`nsum'
+			if !mi("`augoverall'") {
+				qui summ `augsd' [fw=`nsum'], meanonly
+				qui replace `augsd' = r(mean)
+			}
+			local augsdname "study-specific within-arms SD"
+		}
+		drop `nsum' `nmeansum' `nsdsum'
+	}
 
-* choose augment settings if not specified
-if mi("`augment'") local augment 0.00001
-if "`outcome'"=="count" local augsd 0
-local augmeanname `augmean'
-local augsdname `augsd'
-if mi("`augmean'","`augsd'") { // compute overall means [& SDs]
-    tempvar nsum nmeansum nsdsum
-    foreach var in nsum nmeansum nsdsum {
-        qui gen ``var''=0
-    }
-    foreach trt in `trtcodes' {
-        qui replace `nsum'=`nsum' + `n'`trt' if !mi(`n'`trt')
-        if "`outcome'"=="count" {
-            qui replace `nmeansum' = `nmeansum' + `d'`trt' if !mi(`n'`trt')
-        }
-        else if "`outcome'"=="quantitative" {
-            qui replace `nmeansum' = `nmeansum' + `mean'`trt' * `n'`trt' if !mi(`n'`trt')
-            qui replace `nsdsum' = `nsdsum' + `sd'`trt' * `n'`trt' if !mi(`n'`trt')
-        }
-    }
-    if mi("`augmean'") { // and assign
-        tempvar augmean
-        gen `augmean' = `nmeansum'/`nsum'
-        if !mi("`augoverall'") {
-            qui summ `augmean' [fw=`nsum'], meanonly
-            qui replace `augmean' = r(mean)
-        }
-        local augmeanname "study-specific mean"
-    }
-    if mi("`augsd'") { // and assign
-        tempvar augsd
-        gen `augsd' = `nsdsum'/`nsum'
-        if !mi("`augoverall'") {
-            qui summ `augsd' [fw=`nsum'], meanonly
-            qui replace `augsd' = r(mean)
-        }
-        local augsdname "study-specific within-arms SD"
-    }
-    drop `nsum' `nmeansum' `nsdsum'
+	* check augment, augmean, augsd are valid expressions
+	tempvar temp
+	cap gen `temp'=`augment'
+	if _rc di as error "Error: augment(`augment') must be an expression"
+	cap replace `temp'=`augmean'
+	if _rc di as error "Error: augmean(`augmean') must be an expression"
+	cap replace `temp'=`augsd'
+	if _rc & "`outcome'"=="quantitative" di as error "Error: augsd(`augsd') must be an expression"
+	drop `temp'
+
+	tempvar augmented
+	gen `augmented' = mi(`n'`ref')
+	qui levelsof `studyvar' if mi(`n'`ref'), local(augmentstudies)
+	qui replace `n'`ref'=`augment' if `augmented'
+	if "`outcome'"=="count" qui replace `d'`ref'=(`augment')*(`augmean') if `augmented'
+	else if "`outcome'"=="quantitative" {
+		qui replace `mean'`ref' = `augmean' if `augmented'
+		qui replace `sd'`ref' = `augsd' if `augmented'
+	}
+	if !mi(`"`augmentstudies'"') & "`targetformat'"=="augmented" {
+		noi di `col1' "IDs with augmented reference arm: " `col2' `"`augmentstudies'"'
+		noi di `col1' "- observations added:" `col2' "`augment'"
+		noi di `col1' "- mean in augmented observations:" `col2' "`augmeanname'"
+		if "`outcome'"=="quantitative" noi di `col1' "- SD in augmented observations:" `col2' "`augsdname'"
+	}
 }
 
-* check augment, augmean, augsd are valid expressions
-tempvar temp
-cap gen `temp'=`augment'
-if _rc di as error "Error: augment(`augment') must be an expression"
-cap replace `temp'=`augmean'
-if _rc di as error "Error: augmean(`augmean') must be an expression"
-cap replace `temp'=`augsd'
-if _rc & "`outcome'"=="quantitative" di as error "Error: augsd(`augsd') must be an expression"
-drop `temp'
-
-tempvar augmented
-gen `augmented' = mi(`n'`ref')
-qui levelsof `studyvar' if mi(`n'`ref'), local(augmentstudies)
-qui replace `n'`ref'=`augment' if `augmented'
-if "`outcome'"=="count" qui replace `d'`ref'=(`augment')*(`augmean') if `augmented'
-else if "`outcome'"=="quantitative" {
-    qui replace `mean'`ref' = `augmean' if `augmented'
-    qui replace `sd'`ref' = `augsd' if `augmented'
+// SET UP STRUCTURE TO CREATE EITHER AUGMENTED OR STANDARD FORMAT
+/* EXPLANATION
+treatment codes are A, B, C... (or as defined) and orders are 0, 1, 2...
+locals using codes only:
+	trtcodes = A B C..., ref = A, trtlistnoref = B C ...
+locals used only for standard format and using codes only:
+	DD, NN (temporary storage of original values)
+locals using codes for augmented and orders for standard format:
+	anything ending in x
+	d, n
+locals used only for standard format and using orders only:
+	TT
+*/
+if "`targetformat'" != "standard" { // old code
+	local dim = `ntrts' - 1
+	local trtcodesx `trtcodes'
+	local trtlistnorefx `trtlistnoref'
+	local refx `ref'
+	local format augmented
 }
-if !mi(`"`augmentstudies'"') & "`targetformat'"=="augmented" {
-    noi di `col1' "IDs with augmented reference arm: " `col2' `"`augmentstudies'"'
-    noi di `col1' "- observations added:" `col2' "`augment'"
-    noi di `col1' "- mean in augmented observations:" `col2' "`augmeanname'"
-    if "`outcome'"=="quantitative" noi di `col1' "- SD in augmented observations:" `col2' "`augsdname'"
+else { // new code to go direct to standard format
+	local dim = `maxarms' - 1
+	tempvar TT NN // treatments, individuals by order
+	if "`outcome'"=="count" tempvar DD // events by order
+	if "`outcome'"=="quantitative" tempvar MM SS // events by order
+	tempvar DO // flags whether an arm is to be copied from arm-based to order-based
+	qui gen byte `DO' = .
+	foreach trt in `trtcodes' {
+		if "`outcome'"=="count" rename `d'`trt' `DD'`trt'
+		if "`outcome'"=="quantitative" rename (`mean'`trt' `sd'`trt') (`MM'`trt' `SS'`trt')
+		rename `n'`trt' `NN'`trt'
+	}
+	forvalues i=0/`=`maxarms'-1' {
+		qui gen `TT'`i' = ""
+		if "`outcome'"=="count" qui gen `d'`i' = .
+		if "`outcome'"=="quantitative" qui gen `mean'`i' = .
+		if "`outcome'"=="quantitative" qui gen `sd'`i' = .
+		qui gen `n'`i' = .
+		local trtcodesx `trtcodesx' `i'
+		if `i'>0 local trtlistnorefx `trtlistnorefx' `i'
+	}
+	order `design', last
+	foreach trt in `trtcodes' {
+		qui replace `DO' = 0
+		forvalues i=0/`=`maxarms'-1' {
+			qui replace `DO' = 1 if mi(`n'`i') & !mi(`NN'`trt') & `DO'==0
+			qui replace `TT'`i' = "`trt'" if `DO'==1
+			if "`outcome'"=="count" qui replace `d'`i' = `DD'`trt' if `DO'==1
+			if "`outcome'"=="quantitative" qui replace `mean'`i' = `MM'`trt' if `DO'==1
+			if "`outcome'"=="quantitative" qui replace `sd'`i' = `SS'`trt' if `DO'==1
+			qui replace `n'`i' = `NN'`trt' if `DO'==1
+			qui replace `DO'=2 if `DO'==1
+		}
+	}
+	local refx 0
+	local format standard
 }
-
 // COMPUTE CONTRASTS AND THEIR VARIANCES
 if "`outcome'"=="count" {
     tempvar variance
-    foreach trt in `trtcodes' { 
+    foreach trt in `trtcodesx' { 
 		// check added 6apr2018
 		qui count if (`d'`trt'<0 | `d'`trt'>`n'`trt') & !mi(`d'`trt',`n'`trt') 
 		if r(N) {
@@ -627,34 +691,34 @@ if "`outcome'"=="count" {
             qui gen double `variance'`trt' = 1/`d'`trt'
         }
     }
-    foreach trt in `trtlistnoref' {
-        qui replace `y'_`trt' = `y'_`trt' - `y'_`ref'
-        label var `y'_`trt' "`measure' `trt' vs. `ref'"
-        qui gen double `S'_`trt'_`trt' = `variance'`trt' + `variance'`ref'
-        label var `S'_`trt'_`trt' "Variance of `y'_`trt'"
-        foreach trt2 in `trtlistnoref' {
-            if "`trt2'">"`trt'" {
-                qui gen double `S'_`trt'_`trt2' = `variance'`ref' if !mi(`d'`trt') & !mi(`d'`trt2')
-                label var `S'_`trt'_`trt2' "Covariance of `y'_`trt' and `y'_`trt2'"
-            }
-        }
+	foreach trt in `trtlistnorefx' {
+		qui replace `y'_`trt' = `y'_`trt' - `y'_`refx'
+		label var `y'_`trt' "`measure' `trt' vs. `refx'"
+		qui gen double `S'_`trt'_`trt' = `variance'`trt' + `variance'`refx'
+		label var `S'_`trt'_`trt' "Variance of `y'_`trt'"
+		foreach trt2 in `trtlistnorefx' {
+			if "`trt2'">"`trt'" {
+				qui gen double `S'_`trt'_`trt2' = `variance'`refx' if !mi(`d'`trt') & !mi(`d'`trt2')
+				label var `S'_`trt'_`trt2' "Covariance of `y'_`trt' and `y'_`trt2'"
+			}
+		}
 		// next 4 lines corrected 30may2018 to avoid dropping e.g. S_AB_AB when ref=A
-        cap confirm variable `S'_`trt'_`ref', exact
-		if !_rc drop `S'_`trt'_`ref'
-        cap confirm variable `S'_`ref'_`trt', exact
-		if !_rc drop `S'_`ref'_`trt'
-    }
-    foreach trt in `trtcodes' {
+		cap confirm variable `S'_`trt'_`refx', exact
+		if !_rc drop `S'_`trt'_`refx'
+		cap confirm variable `S'_`refx'_`trt', exact
+		if !_rc drop `S'_`refx'_`trt'
+	}
+	foreach trt in `trtcodesx' {
         drop `variance'`trt'
     }
-    drop `y'_`ref'
+    drop `y'_`refx'
 }
 else if "`outcome'"=="quantitative" {
     tempvar pooledsd pooleddf
     * find pooled SDs (across all arms)
     gen `pooledsd'=0
     gen `pooleddf'=0
-    foreach trt in `trtcodes' {
+	foreach trt in `trtcodesx' {
         qui replace `pooledsd' = `pooledsd' + (`n'`trt'-1)*(`sd'`trt'^2) if !mi(`n'`trt')
         qui replace `pooleddf' = `pooleddf' + (`n'`trt'-1) if !mi(`n'`trt')
         if "`sdpool'"=="on" local newsd`trt' `pooledsd'
@@ -673,39 +737,53 @@ else if "`outcome'"=="quantitative" {
             gen `Knu' = 1 - (`pooleddf'-2) / (`pooleddf' * `Jnu'^2)
         }
     }
-    * estimate means and variances
-    foreach trt in `trtlistnoref' {
-        qui gen double `y'_`trt' = `mean'`trt' - `mean'`ref'
+    * estimate means 
+    foreach trt in `trtlistnorefx' {
+        qui gen double `y'_`trt' = `mean'`trt' - `mean'`refx'
         if "`smd'"=="smd" qui replace `y'_`trt' = `y'_`trt' * `Jnu' / `pooledsd'
-        label var `y'_`trt' "`measure' `trt' vs. `ref'"
-        qui gen double `S'_`trt'_`trt' = (`newsd`trt'')^2/`n'`trt' + (`newsd`ref'')^2/`n'`ref'
+        label var `y'_`trt' "`measure' `trt' vs. `refx'"
+    }
+    * estimate variances
+    foreach trt in `trtlistnorefx' {
+        qui gen double `S'_`trt'_`trt' = (`newsd`trt'')^2/`n'`trt' + (`newsd`refx'')^2/`n'`refx'
         * correctly use equation (14) instead of (10) of White & Thomas 2005:
         if "`smd'"=="smd" qui replace `S'_`trt'_`trt' = `S'_`trt'_`trt'/`pooledsd'^2 + `y'_`trt'^2*`Knu'
         label var `S'_`trt'_`trt' "Variance of `y'_`trt'"
     }
     * estimate covariances
-    foreach trt in `trtlistnoref' {
-        foreach trt2 in `trtlistnoref' {
+    foreach trt in `trtlistnorefx' {
+        foreach trt2 in `trtlistnorefx' {
             if "`trt2'">"`trt'" {
-                qui gen double `S'_`trt'_`trt2' = (`newsd`ref'')^2 * (1/`n'`ref') if !mi(`n'`trt') & !mi(`n'`trt2')
+                qui gen double `S'_`trt'_`trt2' = (`newsd`refx'')^2 * (1/`n'`refx') if !mi(`n'`trt') & !mi(`n'`trt2')
                 * correctly use equation (14) instead of (10) of White & Thomas 2005:
                 if "`smd'"=="smd" qui replace `S'_`trt'_`trt2' = `S'_`trt'_`trt2'/`pooledsd'^2 + `y'_`trt'*`y'_`trt2'*`Knu'
                 label var `S'_`trt'_`trt2' "Covariance of `y'_`trt' and `y'_`trt2'"
             }
         }
-        cap drop `S'_`trt'_`ref'
-        cap drop `S'_`ref'_`trt'
+        cap drop `S'_`trt'_`refx'
+        cap drop `S'_`refx'_`trt'
     }
     * tidy up
     drop `pooledsd' `pooleddf' `Jnu' `Knu'
 }
-local opts
-local dim = `ntrts' - 1
+if "`targetformat'" == "standard" {
+	forvalues i=1/`=`maxarms'-1' {
+		qui gen _contrast_`i' = `TT'`i' + " - " + `TT'0 if !mi(`TT'`i')
+	}
+}
+
 
 // FINISH
-compute_df, nnames(`nnames') n(`n') studyvar(`studyvar') design(`design') ncomponents(`ncomponents') // COMPUTE DF 
-local df_inconsistency = r(df_inconsistency)
-local df_heterogeneity = r(df_heterogeneity)
+/* compute df using following macros already computed:
+	nstudies - #studies
+	ntrts - #treatments
+	narms - #arms
+	ndesigns - #designs
+	ncomponents - # components
+	ntrtdesigns - # trts by design
+*/
+local df_inconsistency = `ntrtdesigns'-`ntrts'-`ndesigns'+`ncomponents'
+local df_heterogeneity = `narms'-`nstudies'-`ntrtdesigns'+`ndesigns'
 
 di as text _new "Network information" `col2' 
 di as text `col1' "Components:" `col2' _c
@@ -715,7 +793,6 @@ di as text `col1' "D.f. for inconsistency:" `col2' `df_inconsistency'
 di as text `col1' "D.f. for heterogeneity:" `col2' `df_heterogeneity'
 
 // STORE LOCALS AS CHARACTERISTICS
-local format augmented
 local allthings allthings studyvar design ref trtlistnoref 
 foreach trtcode in `trtcodes' {
     local allthings `allthings' trtname`trtcode'
@@ -733,11 +810,10 @@ foreach thing in `allthings' {
 
 
 // CONVERT FORMAT IF NECESSARY - NB THIS MUST COME AFTER STORING CHARACTERISTICS
-if "`targetformat'" != "augmented" {
+if "`targetformat'" == "pairs" {
     `ifdebugnoi' network convert `targetformat'
 }
 local format `targetformat'
-*sort `studyvar'
 restore, not
 
 // OUTPUT - 2ND PART
@@ -797,7 +873,7 @@ set emptycells `emptycells'
 return scalar df_inconsistency = e(df_3)
 return scalar df_heterogeneity = e(df_r)
 */
-
+pause
 * alternative calculation 7apr2021
 qui {
 	drop if `n'<1 | mi(`n')
@@ -805,14 +881,16 @@ qui {
 	unique `studyvar'
 	local nstudies = r(unique)
 	unique `treat'
-	local ntreats = r(unique)
+	local ntrts = r(unique)
 	unique `design'
 	local ndesigns = r(unique)
 	unique `treat' `design'
-	local ntreatdesigns = r(unique)
+	local ntrtdesigns = r(unique)
 }
-return scalar df_inconsistency = `ntreatdesigns'-`ntreats'-`ndesigns'+`ncomponents'
-return scalar df_heterogeneity = `narms'-`nstudies'-`ntreatdesigns'+`ndesigns'
+di "return scalar df_inconsistency = `ntrtdesigns'-`ntrts'-`ndesigns'+`ncomponents'"
+di "return scalar df_heterogeneity = `narms'-`nstudies'-`ntrtdesigns'+`ndesigns'"
+return scalar df_inconsistency = `ntrtdesigns'-`ntrts'-`ndesigns'+`ncomponents'
+return scalar df_heterogeneity = `narms'-`nstudies'-`ntrtdesigns'+`ndesigns'
 end
 
 ***************************************************************************************

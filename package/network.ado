@@ -1,5 +1,5 @@
 /*
-*! version 1.7.0 # Ian White # 7apr2021
+*! version 1.7.0 # Ian White # 8apr2021
 	updates to setup, table
 version 1.6.2 # Ian White # 5dec2019
 	RELEASED TO UCL
