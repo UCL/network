@@ -1,5 +1,7 @@
 /*
-*! version 1.7.0 # Ian White # 8apr2021
+*! version 1.7.1 # Ian White # 13may2021
+	clearer error message if user misunderstands min|max 
+version 1.7.0 # Ian White # 8apr2021
 	removed F9 if clear option is used
 	mvmeta changes make the new default to report all ranks 
 version 1.1 # Ian White # 27may2015
@@ -35,6 +37,7 @@ if mi("`id'") local id `studyvar'
 local idopt id(`id')
 if !inlist("`anything'", "min", "max") {
     di as error "Syntax: network rank min|max, ..."
+	if subinstr("`anything'"," ","",.)=="min|max" di as error "This means you should type {it:either} min {it:or} max after network rank"
     exit 198
 }
 
