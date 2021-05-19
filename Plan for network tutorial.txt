@@ -1,0 +1,21 @@
+Plan for network tutorial
+
+1. Simple data set with AD, e.g. the thrombolytics data
+
+Variants: 
+	sparse data with no df for heterogeneity / inconsistency / both
+	disconnected network
+
+2. Starting from IPD via mvmeta_make (do we have all the tools?)
+
+
+?? how do I report my results [from an advice email]
+
+network meta shows comparisons only with placebo. This is probably more appropriate in a clinical area where none of the treatments are widely used.
+
+network compare shows all comparisons. This is probably more appropriate where some of the treatments are widely used. 
+
+Both the above report treatment contrasts in the metric you have chosen (e.g. OR or SMD). Network rank does something different: it reports the treatment ranks, and can be appropriate as a supplement to the treatment contrasts if your main focus is to identify one or several best treatments.
+
+If you want to use GRADE, you could consider using the CINEMA tool, https://cinema.ispm.unibe.ch/.
+
