@@ -1,5 +1,9 @@
 /*
-*! version 1.7.0 # Ian White # 7apr2021
+*! 26aug2021
+	added better error message if nocodes option used when treatment names are not pure alphanumeric
+		& removed leading/trailing blanks
+		& added to help
+version 1.7.0 # Ian White # 7apr2021
 	improved error for non-alphanumeric codes
 	changed compute_df to a direct calculation instead of anova - faster for >500 treatments
 	long treatment names and codes:
@@ -247,7 +251,14 @@ if "`trtvar'"!="" {
 		}
 		local ++r
         if "`codes'"=="nocodes" { // don't code
-            local thistrtcode = strtoname("`trt'",0)
+			local thistrtcode = trim("`trt'") // trims unnecessary blanks
+			if !regexm("`thistrtcode'","^[0-9a-zA-Z]+$") {
+				di as error "Error: treatment code `thistrtcode' includes non-permitted characters"
+				exit 498
+			}
+			* above five lines replace next two lines 
+            * local thistrtcode = strtoname("`trt'",0) 
+			* if "`thistrtcode'" != "`trt'" di as error "Warning:" as txt " treatment code " as res "`trt'" as txt " has been changed to " as res "`thistrtcode'"
 			if length("`thistrtcode'")>`trtcodemaxlength' { // check added 6apr2018
 				di as error "Warning:" as txt " treatment code " as res "`thistrtcode'" as txt " has been truncated to " as res "`trtcodemaxlength'" as txt " characters"
 				local thistrtcode = substr("`thistrtcode'",1,`trtcodemaxlength')

@@ -69,7 +69,7 @@ Codes treatments as numbers 1, 2, 3 ... or (if more than 9 treatments) 01, 02, 0
 The default is to code treatments as letters A, B, C...{p_end}
 {synopt:{opt noco:des}}
 Uses current treatment names as treatment codes.
-Treatment names are modified only if this is needed to make them valid Stata names.
+Treatment names must include only alphanumeric characters - no spaces or underscores.
 This option becomes increasingly awkward as treatment names become longer.{p_end}
 
 {syntab:How to set up}
