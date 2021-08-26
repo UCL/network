@@ -1,5 +1,7 @@
 /*
-*! Ian White # 6apr2018
+*! Ian White # 26aug2021
+	remove words "exponentiated log" in eform output
+Ian White # 6apr2018
 	included in network package 
 	added measure() option
 	corrected in pairs format
@@ -70,6 +72,7 @@ if !mi("`eform'") {
     gen eci = "("+string(eblow,"`outputformat'")+","+string(ebupp,"`outputformat'")+")"
     local contents eb eci
     local contentslong exponentiated `lowmeasure' (and its `level'% CI)
+	local contentslong : subinstr local contentslong "exponentiated log " ""
     label var eb "exp(b)"
     label var eblow "exp(b): lower CL"
     label var eb "exp(b): upper CL"
