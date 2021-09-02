@@ -1,17 +1,19 @@
 /*
-*! version 1.7.0 # Ian White # 7apr2021
+*! 2sep2021
+	added import from standard format
+version 1.7.0 # Ian White # 7apr2021
 	added check that ref is one of the treatments
 	added check that contrasts are unique and complete within each study
-*! Ian White # 16oct2020
+16oct2020
 	unabbreviates effect() - avoids errors later in -network map-
-Ian White # 4dec2019
+4dec2019
 	more helpful error message if effect() is not a varname
 31may2018
 	bug avoider: some choices of treatment codes made designs appear non-unique once spaces are removed
 		e.g. design  "B CD" = "BC D"
 		this caused error in network meta i
 		avoided by returning error here if space-removed designs are non-unique 
-*! Ian White # 6apr2018
+6apr2018
 	new measure() option
 version 1.1 # Ian White # 27may2015
 11may2015
@@ -33,7 +35,7 @@ program define network_import
 
 * main parse, to identify syntax errors and store options
 syntax [if] [in], STUDyvar(varname) [TReat(varlist min=2 max=2) EFFect(name) ///
-	STDErr(varname) VARiance(name) ref(string) ///
+	STDErr(varname) VARiance(name) ref(string) CONtrast(string) ///
 	MEAsure(string) trtlist(string) GENPrefix(string) GENSuffix(string) mult(real 1000)]
 
 * is it pairs format?
@@ -52,10 +54,18 @@ else {
 	if !_rc local from augmented
 }
 
+else {
+	* is it standard format?
+	cap syntax [if] [in], STUDyvar(varname) EFFect(name) ///
+		VARiance(name) contrast(name) [*]
+	if !_rc local from standard
+}
+
 if mi("`from'") {
     di as error "Please specify the option set corresponding to your current data format:" 
     di _col(5) "pairs format:     treat(), effect() and stderr()"
     di _col(5) "augmented format: effect(), variance() and ref()"
+    di _col(5) "standard format:  effect(), variance() and contrast()"
     exit 198
 }
 
@@ -262,13 +272,78 @@ else if "`from'"=="augmented" {
     // maxarms
     tempvar narms
     gen `narms' = wordcount(`design')
-    summ `namrs', meanonly
+    summ `narms', meanonly
     local maxarms = r(max)    
     
     // store as characteristics
     local y `effect'
     local S `variance'
     local format augmented
+
+} // end of importing augmented data
+
+else if "`from'"=="standard" {
+    * names for variables
+    local y `effect'
+    local S `variance'
+	local contrast `contrast'
+    local names stderr trtdiff design t1 t2 component // names to be read or defaulted, as in network_setup
+    if mi("`genprefix'`gensuffix'") local genprefix _ // default
+    foreach name in `names' {
+        local `name' `genprefix'`name'`gensuffix'
+    }
+
+    // identify treatments and reference, if not specified
+	// and dimensions and designs
+    local dim 0
+	tempvar trt
+	gen `design' = ""
+	foreach var of varlist `contrast'_* {
+		local ++dim
+		cap assert word(`var',2)=="-" | mi(`var')
+		if _rc {
+			di as error "Error: values of `var' are not of format trt - trt"
+			l `var' if !(word(`var',2)=="-" | mi(`var'))
+			exit 498
+		}
+		foreach w in 3 1 {
+			qui gen `trt' = word(`var',`w')
+			qui levelsof `trt', local(trtlevels) clean
+			if mi("`trtlist'") local trtlist2 : list trtlist2 | trtlevels
+			if mi("`ref'") local ref = `trt'[1]
+			if `w'==1 | `dim'==1 replace `design' = `design' + cond(!mi(`design',`trt')," ","") + `trt'
+			drop `trt'
+		}
+	}
+	if mi("`trtlist'") local trtlist `trtlist2'
+	local trtlistnoref : list trtlist - ref
+    di "Found treatments: `ref' (ref) `trtlistnoref'"
+
+    // create treatment name macros
+    foreach name in `ref' `trtlistnoref' {
+        local trtname`name' `name'
+        local trtnames `trtnames' trtname`name'
+    }
+
+    // check we have the required `variance'* variables
+    forvalues d1=1/`dim' {
+		forvalues d2=`d1'/`dim' {
+            cap confirm var `S'_`d1'_`d2'
+            if _rc {
+                di as error "Covariance `S'_`d1'_`d2' not found"
+                exit 498
+            }
+        }
+    }
+
+    // maxarms
+    tempvar narms
+    gen `narms' = wordcount(`design')
+    summ `narms', meanonly
+    local maxarms = r(max)    
+    
+    // store as characteristics
+    local format standard
 
 } // end of importing augmented data
 
