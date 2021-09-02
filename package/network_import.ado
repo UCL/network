@@ -1,6 +1,7 @@
 /*
 *! 2sep2021
 	added import from standard format
+	returns #components
 version 1.7.0 # Ian White # 7apr2021
 	added check that ref is one of the treatments
 	added check that contrasts are unique and complete within each study
@@ -42,7 +43,7 @@ syntax [if] [in], STUDyvar(varname) [TReat(varlist min=2 max=2) EFFect(name) ///
 cap syntax [if] [in], STUDyvar(varname) TReat(varlist min=2 max=2) ///
 	EFFect(name) STDErr(varname) [*]
 if !_rc {
-	local from pairs
+	local format pairs
 	*confirm var `effect'
 	unab effect : `effect', min(1) max(1) name(effect option)
 }
@@ -51,17 +52,17 @@ else {
 	* is it augmented format?
 	cap syntax [if] [in], STUDyvar(varname) EFFect(name) ///
 		VARiance(name) ref(string) [*]
-	if !_rc local from augmented
+	if !_rc local format augmented
 }
 
 else {
 	* is it standard format?
 	cap syntax [if] [in], STUDyvar(varname) EFFect(name) ///
 		VARiance(name) contrast(name) [*]
-	if !_rc local from standard
+	if !_rc local format standard
 }
 
-if mi("`from'") {
+if mi("`format'") {
     di as error "Please specify the option set corresponding to your current data format:" 
     di _col(5) "pairs format:     treat(), effect() and stderr()"
     di _col(5) "augmented format: effect(), variance() and ref()"
@@ -69,7 +70,7 @@ if mi("`from'") {
     exit 198
 }
 
-di as text "Importing from " as result "`from'" as text " format"
+di as text "Importing from " as result "`format'" as text " format"
 
 if mi("`measure'") local measure (unidentified measure)
 
@@ -77,7 +78,7 @@ if mi("`measure'") local measure (unidentified measure)
 
 preserve // only in case of error - see restore, not later
 
-if "`from'"=="pairs" {
+if "`format'"=="pairs" {
 
     marksample touse
 
@@ -205,7 +206,7 @@ if "`from'"=="pairs" {
 
 } // end of importing pairs data
 
-else if "`from'"=="augmented" {
+else if "`format'"=="augmented" {
     * names for variables
     local y `effect'
     local S `variance'
@@ -276,13 +277,11 @@ else if "`from'"=="augmented" {
     local maxarms = r(max)    
     
     // store as characteristics
-    local y `effect'
-    local S `variance'
     local format augmented
 
 } // end of importing augmented data
 
-else if "`from'"=="standard" {
+else if "`format'"=="standard" {
     * names for variables
     local y `effect'
     local S `variance'
@@ -293,13 +292,29 @@ else if "`from'"=="standard" {
         local `name' `genprefix'`name'`gensuffix'
     }
 
+	// count dimensions
+	local dim 0
+	set tracedepth 1
+	set trace off
+	while 1 {
+		local ++dim
+		cap confirm numeric var `y'_`dim'
+		if _rc {
+			local dim = `dim'-1
+			continue, break
+		}
+	}
+	if `dim'==0 {
+		di as error "Variable `y'_1 not found"
+		exit 498
+	}
+	
     // identify treatments and reference, if not specified
 	// and dimensions and designs
-    local dim 0
 	tempvar trt
-	gen `design' = ""
-	foreach var of varlist `contrast'_* {
-		local ++dim
+	qui gen `design' = ""
+	forvalues d=1/`dim' {
+		local var `contrast'_`d'
 		cap assert word(`var',2)=="-" | mi(`var')
 		if _rc {
 			di as error "Error: values of `var' are not of format trt - trt"
@@ -311,19 +326,13 @@ else if "`from'"=="standard" {
 			qui levelsof `trt', local(trtlevels) clean
 			if mi("`trtlist'") local trtlist2 : list trtlist2 | trtlevels
 			if mi("`ref'") local ref = `trt'[1]
-			if `w'==1 | `dim'==1 replace `design' = `design' + cond(!mi(`design',`trt')," ","") + `trt'
+			if `w'==1 | `d'==1 qui replace `design' = `design' + cond(!mi(`design',`trt')," ","") + `trt'
 			drop `trt'
 		}
 	}
 	if mi("`trtlist'") local trtlist `trtlist2'
 	local trtlistnoref : list trtlist - ref
     di "Found treatments: `ref' (ref) `trtlistnoref'"
-
-    // create treatment name macros
-    foreach name in `ref' `trtlistnoref' {
-        local trtname`name' `name'
-        local trtnames `trtnames' trtname`name'
-    }
 
     // check we have the required `variance'* variables
     forvalues d1=1/`dim' {
@@ -345,7 +354,7 @@ else if "`from'"=="standard" {
     // store as characteristics
     local format standard
 
-} // end of importing augmented data
+} // end of importing standard data
 
 // check for ambiguous designs - in network setup and network import
 qui levelsof `design', local(designs)
@@ -375,7 +384,7 @@ else {
 // FINISH OFF FOR ALL FORMATS
 local allthings allthings studyvar design ref trtlistnoref maxarms measure dim format ///
     d n y S stderr contrast t1 t2 trtdiff testcons_type testcons_stat testcons_df testcons_p ///
-    metavars consistency_fitted inconsistency_fitted plot_location
+    metavars consistency_fitted inconsistency_fitted plot_location ncomponents
 foreach thing in `allthings' {
     char _dta[network_`thing'] ``thing''
 }
