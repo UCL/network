@@ -12,5 +12,8 @@ if !mi("`_dta[network_metavars]'") {
 foreach thing in `_dta[network_allthings]' {
     char _dta[network_`thing']
 }
+
+// lose saved results
+if e(cmd)=="mvmeta" & !mi(e(network)) ereturn clear
 end
 

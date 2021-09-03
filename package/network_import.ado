@@ -1,6 +1,7 @@
 /*
 *! 2sep2021
 	added import from standard format
+		includes check that each treatment name contains only alphanumeric characters
 	returns #components
 version 1.7.0 # Ian White # 7apr2021
 	added check that ref is one of the treatments
@@ -292,7 +293,7 @@ else if "`format'"=="standard" {
         local `name' `genprefix'`name'`gensuffix'
     }
 
-	// count dimensions
+	// check y variables and count dimensions
 	local dim 0
 	set tracedepth 1
 	set trace off
@@ -310,25 +311,41 @@ else if "`format'"=="standard" {
 	}
 	
     // identify treatments and reference, if not specified
-	// and dimensions and designs
-	tempvar trt
+	// identify designs
+	// check contrast variables
+	tempvar strpos trt1 trt2 
 	qui gen `design' = ""
 	forvalues d=1/`dim' {
 		local var `contrast'_`d'
-		cap assert word(`var',2)=="-" | mi(`var')
+		gen `strpos' = strpos(`var',"-")
+		cap assert `strpos' | mi(`var')
 		if _rc {
 			di as error "Error: values of `var' are not of format trt - trt"
-			l `var' if !(word(`var',2)=="-" | mi(`var'))
+			l `var' if !(`strpos' | mi(`var'))
 			exit 498
 		}
-		foreach w in 3 1 {
-			qui gen `trt' = word(`var',`w')
-			qui levelsof `trt', local(trtlevels) clean
+		qui gen `trt1' = trim(substr(`var',1,`strpos'-1))
+		qui gen `trt2' = trim(substr(`var',`strpos'+1,.))
+		foreach t in 2 1 { // backward order to start with first trt
+			if !regexm(`trt`t'',"^[0-9a-zA-Z]+$") {
+				di as error "Error: treatment " as res `t' as error " in contrast " as res "`var'" as error " includes non-alphanumeric characters"
+				l `var' if !regexm(`trt`t'',"^[0-9a-zA-Z]+$") & !mi(`trt`t'')
+				exit 498
+			}
+			qui levelsof `trt`t'', local(trtlevels) clean
 			if mi("`trtlist'") local trtlist2 : list trtlist2 | trtlevels
-			if mi("`ref'") local ref = `trt'[1]
-			if `w'==1 | `d'==1 qui replace `design' = `design' + cond(!mi(`design',`trt')," ","") + `trt'
-			drop `trt'
+			if mi("`ref'") local ref = `trt`t''[1]
+			if `t'==1 | `d'==1 qui replace `design' = `design' + cond(!mi(`design',`trt`t'')," ","") + `trt`t''
+			else {
+				cap assert word(`design',1) == `trt`t'' if !mi(`var')
+				if _rc {
+					di as error "Error: second treatments in contrasts don't match:" _c
+					l `contrast'_1 `var' if word(`design',1) != `trt`t'' & !mi(`var')
+					exit 498
+				}
+			}
 		}
+		drop `strpos' `trt1' `trt2' 
 	}
 	if mi("`trtlist'") local trtlist `trtlist2'
 	local trtlistnoref : list trtlist - ref

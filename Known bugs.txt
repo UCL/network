@@ -1,6 +1,0 @@
-Known bugs
-----------
-
-Problem: network meta with the fixed option fails 
-When: if the data are in pairs format. 
-Solution: Convert to another format.
