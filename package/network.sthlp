@@ -1,7 +1,4 @@
 {smcl}
-{* *! version 1.6.1 4sep2019}{...}
-{* *! version 1.6.0 8may2019}{...}
-{* *! version 1.5.1 9may2018}{...}
 {* *! version 1.3.2 30aug2017}{...}
 {* *! version 1.1 27may2015}{...}
 {vieweralsosee "mvmeta (if installed)" "mvmeta"}{...}
@@ -12,72 +9,55 @@
 {viewerjumpto "Features of interest to methodologists" "network##formethodologists"}{...}
 {viewerjumpto "Troubleshooting and limitations" "network##limitations"}{...}
 {viewerjumpto "Examples" "network##examples"}{...}
-{viewerjumpto "Details" "network##details"}{...}
-{viewerjumpto "Known problems" "network##problems"}{...}
+{viewerjumpto "References" "network##refs"}{...}
 {viewerjumpto "Changes from version 1.2.x to version 1.5" "network##whatsnew"}{...}
 {viewerjumpto "Future developments" "network##future"}{...}
-{viewerjumpto "References" "network##refs"}{...}
-{viewerjumpto "Please cite this package as" "network##citation"}{...}
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
+
 
 {phang}
 {bf:network} {hline 2} Suite of commands for network meta-analysis
 
 
 {title:Syntax}{marker syntax}
+{p2colset 5 25 25 0}{...}
 
 Get started
 
-{col 7}{bf:{help network_setup:network setup}}{...}
-{col 30}set up data from arm-specific counts
+{p2col:{bf:{help network_setup:network setup}}}set up data from arm-specific counts
 
-{col 7}{bf:{help network_import:network import}}{...}
-{col 30}import data set of pairwise comparisons 
+{p2col:{bf:{help network_import:network import}}}import data set of pairwise comparisons 
 
 Descriptive tables and figures
 
-{col 7}{bf:{help network_table:network table}}{...}
-{col 30}tabulate data
+{p2col:{bf:{help network_table:network table}}}tabulate data
 
-{col 7}{bf:{help network_pattern:network pattern}}{...}
-{col 30}pattern of network
+{p2col:{bf:{help network_pattern:network pattern}}}pattern of network
 
-{col 7}{bf:{help network_map:network map}}{...}
-{col 30}map of network
+{p2col:{bf:{help network_map:network map}}}map of network
 
 Utilities
 
-{col 7}{bf:{help network_convert:network convert}}{...}
-{col 30}convert data between formats
+{p2col:{bf:{help network_convert:network convert}}}convert data between formats
 
-{col 7}{bf:{help network_query:network query}}{...}
-{col 30}display network settings
+{p2col:{bf:{help network_query:network query}}}display network settings
 
-{col 7}{bf:{help network_unset:network unset}}{...}
-{col 30}delete network settings (rarely needed)
+{p2col:{bf:{help network_unset:network unset}}}delete network settings (rarely needed)
 
 Analyses
 
-{col 7}{bf:{help network_meta:network meta}}{...}
-{col 30}perform network meta-analysis
+{p2col:{bf:{help network_meta:network meta}}}perform network meta-analysis
 
-{col 7}{bf:{help network_rank:network rank}}{...}
-{col 30}rank treatments after network meta-analysis 
+{p2col:{bf:{help network_rank:network rank}}}rank treatments after network meta-analysis 
 
-{col 7}{bf:{help network_sidesplit:network sidesplit}}{...}
-{col 30}fit side-splitting (node-splitting) model(s)
+{p2col:{bf:{help network_sidesplit:network sidesplit}}}fit side-splitting (node-splitting) model(s)
 
-{col 7}{bf:{help network_compare:network compare}}{...}
-{col 30}tabulate all comparisons estimated from the network
-
-{col 7}{bf:{help network_bayes:network bayes}}{...}
-{col 30}perform Bayesian network meta-analysis using WinBUGS (under development)
+{p2col:{bf:{help network_compare:network compare}}}tabulate all comparisons estimated from the network
 
 Graphs of results
 
-{col 7}{bf:{help network_forest:network forest}}{...}
-{col 30}forest plot
+{p2col:{bf:{help network_forest:network forest}}}forest plot
 
 
 {marker description}{...}
@@ -97,10 +77,6 @@ or as mean, standard deviation and number of individuals for a quantitative vari
 {cmd:network} is primarily aimed to simplify the task of data analysis.
 However, it also has several features of interest to methodologists: 
 see {help network##formethodologists:Features of interest to methodologists}.
-
-{pstd}
-An {help network##citation:article in the Stata Journal} describes version 1.2.1 of the package. 
-Later changes are described {help network##whatsnew:below}.
 
 
 {marker formats}{...}
@@ -203,7 +179,7 @@ not of their codes.
 
 {pstd}Load the {ul:thrombolytics data}
 
-{pin}. {stata "use http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/thromb.dta, clear"}
+{pin}. {stata "use http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/thromb, clear"}
 
 {pin}. {stata "network setup r n, studyvar(study) trtvar(treat)"}
 
@@ -242,44 +218,41 @@ and reducing the size of the text labelling the contrasts
 
 {title:Details}{marker details}
 
-{p 0 0 0}
+{pstd}
 Various parts of the network suite require the additional program {help mvmeta}.
 
-{p 0 0 0}
+{pstd}
 In pairs format, {cmd:network meta} requires the additional program {help metareg}.
 
-{p 0 0 0}
+{pstd}
 {cmd:network map} requires the additional program {help networkplot}.
 
 
 {title:Known problems}{marker problems}
 
-{p 0 0 0}With large numbers of treatments, you may run into memory problems.
+{pstd}With large numbers of treatments, you may run into memory problems.
 Please try increasing {help maxvar} and {help matsize} if your version of Stata allows you to do so.
 The problem arises with augmented format and I hope to find a workaround in future. 
 
-{p 0 0 0}Problems may arise when one treatment label is a truncated version of another: for example, if you have treatments "HOT" and "HOTTER". 
-I think this only arises when using {cmd:network import}, but the error may not become apparent until {cmd:network meta} is run. The workaround is to relabel the shorter treatment.
-
-{p 0 0 0}Please report any other problems to ian.white@ucl.ac.uk.
+{pstd}Please report any other problems to ian.white@ucl.ac.uk.
 
 
 {title:Changes from version 1.2.1 to version 1.5}{marker whatsnew}
 
-{p 0 0 0}I have made some bug fixes and minor improvements to {help  network setup}, {help  network meta} and {help  network forest}.
+{pstd}I have made some bug fixes and minor improvements to {help  network setup}, {help  network meta} and {help  network forest}.
 
-{p 0 0 0}{help  network compare} may be run after {cmd:network meta consistency}.
+{pstd}{help  network compare} may be run after {cmd:network meta consistency}.
 It outputs a table of all comparisons estimated from the network.
 
-{p 0 0 0}{help  network setup} assesses the network to see whether it is disconnected.
+{pstd}{help  network setup} assesses the network to see whether it is disconnected.
 
 
 {title:Future developments}{marker future}
 
-{p 0 0 0}{cmd:network bayes} (currently under test) writes WinBUGS models,
+{pstd}{cmd:network bayes} (currently under test) writes WinBUGS models,
 runs WinBUGS and reads the MCMC samples back into Stata.
 
-{p 0 0 0}{cmd:network import} from standard format.
+{pstd}{cmd:network import} from standard format.
 
 
 {title:References}{marker refs}
@@ -327,26 +300,20 @@ Clinical Trials 2005; 2: 141-151.
 {browse "http://ctj.sagepub.com/content/2/2/141.short"}
 
 
-{title:Please cite this package as}{marker citation}
-
-{phang}White IR. Network meta-analysis. Stata Journal 2015; 15: 1–34.
-{browse "https://www.stata-journal.com/article.html?article=st0410"}
-
-
 {title:Author and updates}{marker updates}
 
-{p}Ian White, MRC Clinical  Trials Unit at UCL, London, UK. 
+{pstd}Ian White, MRC Clinical  Trials Unit at UCL, London, UK. 
 Email {browse "mailto:ian.white@ucl.ac.uk":ian.white@ucl.ac.uk}.
 
-{p}You can get the latest version of this and my other Stata software using 
+{pstd}You can get the latest version of this and my other Stata software using 
 {stata "net from http://www.homepages.ucl.ac.uk/~rmjwiww/stata/"}.
 
 
 {title:See Also}
 
-{help mvmeta} (if installed)
+{pstd}{help mvmeta} (if installed)
 
-{help metareg} (if installed)
+{pstd}{help metareg} (if installed)
 
-Programs by Anna Chaimani: {stata "net from http://www.clinicalepidemio.fr/Stata"}
+{pstd}Programs by Anna Chaimani: {stata "net from http://www.mtm.uoi.gr"}
 
