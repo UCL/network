@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:  18 Nov 2021, 17:57:12
+ opened on:  18 Nov 2021, 18:06:30
 
 . 
 . cls
@@ -31,8 +31,7 @@
 . 
 . which mvmeta
 c:\ado\ian\mvmeta\package\mvmeta.ado
-*! version 3.2.4 # Ian White # 8mar2021
-*! version 3.2.3 # Ian White # 22jan2021
+*! version 3.5.0 # Ian White # 15nov2021
 
 . which network
 c:\ado\ian\network\package\network.ado
@@ -582,11 +581,13 @@ _y_D         |
        _cons |   .4674413   .4074049     1.15   0.251    -.3310577     1.26594
 ------------------------------------------------------------------------------
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_A       _y_C       _y_D
 _y_A  .45490438
 _y_C  .22745219  .45490438
 _y_D  .22745219  .22745219  .45490438
+-------------------------------------------------
 mvmeta command stored as F9
 
 . local tau = [tau]_b[_cons]
@@ -694,10 +695,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_A _trtdiff2_C _trtdiff2_D 
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_1       _y_2
 _y_1  .45490489
 _y_2  .22745245  .45490489
+-------------------------------------------------
 mvmeta command stored as F9
 
 . local reldiff = 100*([tau]_b[_cons]/`tau'-1)
@@ -746,11 +749,13 @@ _y_D         |
        _cons |   .4674453   .4074029     1.15   0.251    -.3310497     1.26594
 ------------------------------------------------------------------------------
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_A       _y_C       _y_D
 _y_A  .45490146
 _y_C  .22745073  .45490146
 _y_D  .22745073  .22745073  .45490146
+-------------------------------------------------
 mvmeta command stored as F9
 
 . local reldiff = 100*([tau]_b[_cons]/`tau'-1)
@@ -805,11 +810,13 @@ _y_D         |
        _cons |  -.2015246   .9987299    -0.20   0.840    -2.158999     1.75595
 ------------------------------------------------------------------------------
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_A       _y_C       _y_D
 _y_A  .55228288
 _y_C  .27614144  .55228288
 _y_D  .27614144  .27614144  .55228288
+-------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACD = 0
@@ -880,10 +887,12 @@ The above coefficients also apply to the following equations:
 > es_AD _trtdiff2_C_des_BC _trtdiff2_C_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_
 > des_BD _trtdiff2_D_des_CD 
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_1       _y_2
 _y_1  .55229068
 _y_2  .27614534  .55229068
+-------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_ACD = 0
@@ -954,11 +963,13 @@ _y_D         |
        _cons |  -.2015246   .9987299    -0.20   0.840    -2.158999     1.75595
 ------------------------------------------------------------------------------
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_A       _y_C       _y_D
 _y_A  .55228288
 _y_C  .27614144  .55228288
 _y_D  .27614144  .27614144  .55228288
+-------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACD = 0
@@ -1063,11 +1074,13 @@ _y_D         |
        _cons |  -.9227654   .8438759    -1.09   0.274    -2.576732    .7312009
 ------------------------------------------------------------------------------
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            _y_A       _y_B       _y_D
 _y_A  .55228883
 _y_B  .27614441  .55228883
 _y_D  .27614441  .27614441  .55228883
+-------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_A]des_ACD = 0
@@ -1156,9 +1169,11 @@ _trtdiff1_~A |   .0007113   .1243693     0.01   0.995    -.2430481    .2444707
 ------------------------------------------------------------------------------
 Note: these standard errors ignore uncertainty in Sigma.
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            logOR_1
 logOR_1  1.115e-16
+-------------------------------------------------
 mvmeta command stored as F9
 
 . network compare
@@ -1221,11 +1236,13 @@ logOR_PTCA   |
 ------------------------------------------------------------------------------
 Note: these standard errors ignore uncertainty in Sigma.
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
              logOR_DES    logOR_MT  logOR_PTCA
  logOR_DES   4.900e-17
   logOR_MT   2.450e-17   4.900e-17
 logOR_PTCA   2.450e-17   2.450e-17   4.900e-17
+-------------------------------------------------
 mvmeta command stored as F9
 
 . 
@@ -1298,9 +1315,11 @@ _trtdi~TPTCA |   .2048881   .2514604     0.81   0.415    -.2879652    .6977413
 ------------------------------------------------------------------------------
 Note: these standard errors ignore uncertainty in Sigma.
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
            logOR_1
 logOR_1  6.188e-15
+-------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [logOR_1]_trtdiff1_PTCA_des_MTPTCA = 0
@@ -1352,11 +1371,13 @@ logOR_PTCA   |
 ------------------------------------------------------------------------------
 Note: these standard errors ignore uncertainty in Sigma.
 
-Estimated between-studies covariance matrix Sigma:
+Estimated between-studies covariance matrix Sigma
+-------------------------------------------------
              logOR_DES    logOR_MT  logOR_PTCA
  logOR_DES   7.134e-12
   logOR_MT   3.567e-12   7.134e-12
 logOR_PTCA   3.567e-12   3.567e-12   7.134e-12
+-------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [logOR_PTCA]des_MTPTCA = 0
@@ -1415,11 +1436,13 @@ logOR_PTCA   |
        _cons |   .0007112   .1243693     0.01   0.995    -.2430482    .2444706
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
                     SD   logOR_DES    logOR_MT  logOR_PTCA
  logOR_DES   7.000e-09           1           .           .
   logOR_MT   7.000e-09          .5           1           .
 logOR_PTCA   7.000e-09          .5          .5           1
+----------------------------------------------------
 mvmeta command stored as F9
 
 . network compare
@@ -1478,11 +1501,13 @@ logOR_PTCA   |
        _cons |  -.0867008    .164247    -0.53   0.598     -.408619    .2352175
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
                     SD   logOR_DES    logOR_MT  logOR_PTCA
  logOR_DES   2.671e-06           1           .           .
   logOR_MT   2.671e-06          .5           1           .
 logOR_PTCA   2.671e-06          .5          .5           1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [logOR_PTCA]des_MTPTCA = 0
@@ -1646,10 +1671,12 @@ _y_C         |
        _cons |   .3755333   .5715054     0.66   0.511    -.7445968    1.495663
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C
 _y_B  .80539762          1          .
 _y_C  .80539762         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 
 . network compare
@@ -1789,11 +1816,13 @@ _y_D         |
        _cons |   .8658897   .3762931     2.30   0.021     .1283688    1.603411
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .67446626          1          .          .
 _y_C  .67446626         .5          1          .
 _y_D  .67446626         .5         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
@@ -1838,11 +1867,13 @@ _y_D         |
        _cons |   .1285276   .8825234     0.15   0.884    -1.601187    1.858242
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .74316242          1          .          .
 _y_C  .74316242         .5          1          .
 _y_D  .74316242         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACD = 0
@@ -1926,11 +1957,13 @@ _y_D         |
        _cons |   .5410205   .6899866     0.78   0.433    -.8113284    1.893369
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .71605982          1          .          .
 _y_C  .71605982         .5          1          .
 _y_D  .71605982         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]groupB = 0
@@ -1979,11 +2012,13 @@ The above coefficients also apply to the following equations:
     _y_C: _trtdiffzero _trtdiffone _trtdiffzero _trtdiffincoC 
     _y_D: _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .68799619          1          .          .
 _y_C  .68799619         .5          1          .
 _y_D  .68799619         .5         .5          1
+----------------------------------------------------
 
 Results splitting B C:
 ------------------------------------------------------------------------------
@@ -2104,11 +2139,13 @@ _y_D         |
        _cons |   .4674413   .4074049     1.15   0.251    -.3310577     1.26594
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
            SD     _y_A     _y_C     _y_D
 _y_A  .674466        1        .        .
 _y_C  .674466       .5        1        .
 _y_D  .674466       .5       .5        1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
@@ -2153,11 +2190,13 @@ _y_D         |
        _cons |  -.2015376   .9987392    -0.20   0.840     -2.15903    1.755955
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_C       _y_D
 _y_A  .74316211          1          .          .
 _y_C  .74316211         .5          1          .
 _y_D  .74316211         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACD = 0
@@ -2241,11 +2280,13 @@ _y_D         |
        _cons |   .5656086   .5623421     1.01   0.315    -.5365616    1.667779
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_C       _y_D
 _y_A  .71606007          1          .          .
 _y_C  .71606007         .5          1          .
 _y_D  .71606007         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]groupA = 0
@@ -2297,11 +2338,13 @@ The above coefficients also apply to the following equations:
     _y_C: _trtdiffzero _trtdiffone _trtdiffzero _trtdiffincoC 
     _y_D: _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
            SD     _y_A     _y_C     _y_D
 _y_A  .687996        1        .        .
 _y_C  .687996       .5        1        .
 _y_D  .687996       .5       .5        1
+----------------------------------------------------
 
 Results splitting B C:
 ------------------------------------------------------------------------------
@@ -2422,11 +2465,13 @@ _y_D         |
        _cons |   .1635347   .3547409     0.46   0.645    -.5317446    .8588141
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_D
 _y_A  .67446641          1          .          .
 _y_B  .67446641         .5          1          .
 _y_D  .67446641         .5         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
@@ -2472,11 +2517,13 @@ _y_D         |
        _cons |  -.9227654   .8438759    -1.09   0.274    -2.576732    .7312009
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_D
 _y_A  .74316137          1          .          .
 _y_B  .74316137         .5          1          .
 _y_D  .74316137         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_A]des_ACD = 0
@@ -2563,11 +2610,13 @@ _y_D         |
        _cons |  -.0557841   .3928705    -0.14   0.887    -.8257961    .7142279
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_D
 _y_A  .68306011          1          .          .
 _y_B  .68306011         .5          1          .
 _y_D  .68306011         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_B]groupA = 0
@@ -2615,11 +2664,13 @@ The above coefficients also apply to the following equations:
     _y_B: _trtdiffzero _trtdiffone _trtdiffzero _trtdiffincoB 
     _y_D: _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_D
 _y_A  .68799618          1          .          .
 _y_B  .68799618         .5          1          .
 _y_D  .68799618         .5         .5          1
+----------------------------------------------------
 
 Results splitting B C:
 ------------------------------------------------------------------------------
@@ -2740,11 +2791,13 @@ _y_C         |
        _cons |  -.1635335   .3547412    -0.46   0.645    -.8588134    .5317464
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_C
 _y_A  .67446786          1          .          .
 _y_B  .67446786         .5          1          .
 _y_C  .67446786         .5         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
@@ -2789,11 +2842,13 @@ _y_C         |
        _cons |   .9227616   .8438741     1.09   0.274    -.7312013    2.576725
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_C
 _y_A  .74316189          1          .          .
 _y_B  .74316189         .5          1          .
 _y_C  .74316189         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_AC = 0
@@ -2876,11 +2931,13 @@ _y_C         |
        _cons |  -.0695053   .4253402    -0.16   0.870    -.9031567    .7641461
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_C
 _y_A  .73385555          1          .          .
 _y_B  .73385555         .5          1          .
 _y_C  .73385555         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_B]groupA = 0
@@ -2929,11 +2986,13 @@ The above coefficients also apply to the following equations:
     _y_B: _trtdiffzero _trtdiffone _trtdiffzero _trtdiffincoB 
     _y_C: _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoC 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_A       _y_B       _y_C
 _y_A  .68799613          1          .          .
 _y_B  .68799613         .5          1          .
 _y_C  .68799613         .5         .5          1
+----------------------------------------------------
 
 Results splitting B C:
 ------------------------------------------------------------------------------
@@ -3053,10 +3112,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
@@ -3107,10 +3168,12 @@ The above coefficients also apply to the following equations:
 > es_AD _trtdiff2_C_des_BC _trtdiff2_C_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_
 > des_BD _trtdiff2_D_des_CD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .74316262          1          .
 _y_2  .74316262         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_ACD = 0
@@ -3256,10 +3319,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_A _trtdiff2_C _trtdiff2_D 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
@@ -3310,10 +3375,12 @@ The above coefficients also apply to the following equations:
 > es_AD _trtdiff2_C_des_BC _trtdiff2_C_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_
 > des_BD _trtdiff2_D_des_CD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .74316262          1          .
 _y_2  .74316262         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_ACD = 0
@@ -3459,10 +3526,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_D 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
@@ -3513,10 +3582,12 @@ The above coefficients also apply to the following equations:
 > es_AD _trtdiff2_B_des_BC _trtdiff2_B_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_
 > des_BD _trtdiff2_D_des_CD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .74316262          1          .
 _y_2  .74316262         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_A_des_ACD = 0
@@ -3662,10 +3733,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_A _trtdiff2_B _trtdiff2_C 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
@@ -3716,10 +3789,12 @@ The above coefficients also apply to the following equations:
 > s_AD _trtdiff2_B_des_BC _trtdiff2_C_des_BCD _trtdiff2_B_des_BCD _trtdiff2_B_d
 > es_BD _trtdiff2_C_des_CD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .74316262          1          .
 _y_2  .74316262         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_AC = 0
@@ -4545,11 +4620,13 @@ _y_D         |
        _cons |  -.4674407   .4074045    -1.15   0.251    -1.265939    .3310575
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .67446627          1          .          .
 _y_C  .67446627         .5          1          .
 _y_D  .67446627         .5         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
@@ -4611,11 +4688,13 @@ _y_D         |
        _cons |  -.2253333   .8364805    -0.27   0.788    -1.864805    1.414138
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .74316222          1          .          .
 _y_C  .74316222         .5          1          .
 _y_D  .74316222         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_B]des_ABC = 0
@@ -4886,10 +4965,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
+----------------------------------------------------
 Method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
@@ -4957,10 +5038,12 @@ The above coefficients also apply to the following equations:
 > es_ABD _trtdiff2_C_des_AC _trtdiff2_D_des_AD _trtdiff2_C_des_BC _trtdiff2_D_d
 > es_BD _trtdiff2_D_des_CD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .74316262          1          .
 _y_2  .74316262         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_B_des_ABC = 0
@@ -5629,11 +5712,13 @@ _y_D         |
        _cons |   .8658897   .3762931     2.30   0.021     .1283688    1.603411
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .67446626          1          .          .
 _y_C  .67446626         .5          1          .
 _y_D  .67446626         .5         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
 > y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_B _y
@@ -5677,11 +5762,13 @@ _y_D         |
        _cons |   .1285276   .8825234     0.15   0.884    -1.601187    1.858242
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .74316242          1          .          .
 _y_C  .74316242         .5          1          .
 _y_D  .74316242         .5         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACD = 0
@@ -5758,10 +5845,12 @@ _y_1         |
 The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
 > s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _tr
@@ -5811,10 +5900,12 @@ The above coefficients also apply to the following equations:
 > es_AD _trtdiff2_C_des_BC _trtdiff2_C_des_BCD _trtdiff2_D_des_BCD _trtdiff2_D_
 > des_BD _trtdiff2_D_des_CD 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .74316262          1          .
 _y_2  .74316262         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_ACD = 0
@@ -5927,7 +6018,8 @@ _y_H         |
        _cons |   .0143568   .0403003     0.36   0.722    -.0646304    .0933439
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .01518867          1          .          .          .          .
 _y_C  .01518867         .5          1          .          .          .
@@ -5945,6 +6037,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -6036,7 +6129,8 @@ _y_H         |
        _cons |  -.0048219   .2191607    -0.02   0.982    -.4343691    .4247253
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .21561834          1          .          .          .          .
 _y_C  .21561834         .5          1          .          .          .
@@ -6054,6 +6148,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACH = 0
@@ -6146,10 +6241,12 @@ The above coefficients also apply to the following equations:
     _y_2: _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdiff2_F _trtdiff2
 > _G _trtdiff2_H 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .01520364          1          .
 _y_2  .01520364         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -6241,10 +6338,12 @@ The above coefficients also apply to the following equations:
 > diff2_F_des_BF _trtdiff2_G_des_BG _trtdiff2_H_des_BH _trtdiff2_G_des_CG _trtd
 > iff2_H_des_CH 
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1       _y_2
 _y_1  .21561469          1          .
 _y_2  .21561469         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_C_des_ACH = 0
@@ -6358,7 +6457,8 @@ _y_C         |
        _cons |   -.070582   .6069195    -0.12   0.907    -1.260122    1.118958
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_F       _y_G       _y_H       _y_B       _y_E
 _y_F  .00013874          1          .          .          .          .
 _y_G  .00013874         .5          1          .          .          .
@@ -6374,6 +6474,7 @@ _y_H          .
 _y_B          .
 _y_E          .
 _y_C          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_B]des_BG = 0
@@ -6446,7 +6547,8 @@ _y_C         |
        _cons |   -.070582   .6069195    -0.12   0.907    -1.260122    1.118958
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_F       _y_G       _y_H       _y_B       _y_E
 _y_F  .00013874          1          .          .          .          .
 _y_G  .00013874         .5          1          .          .          .
@@ -6462,6 +6564,7 @@ _y_H          .
 _y_B          .
 _y_E          .
 _y_C          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_B]des_BG = 0
@@ -6527,7 +6630,8 @@ _y_C         |
        _cons |   .3403513    .381701     0.89   0.373    -.4077688    1.088471
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_F       _y_G       _y_H       _y_B       _y_E
 _y_F  .23049481          1          .          .          .          .
 _y_G  .23049481         .5          1          .          .          .
@@ -6543,6 +6647,7 @@ _y_H          .
 _y_B          .
 _y_E          .
 _y_C          1
+----------------------------------------------------
 mvmeta command stored as F9
 
 . network rank min, rep(50) seed(41087) cum bar saving(z) replace mcse ///
@@ -6725,7 +6830,8 @@ AAy_H        |
        _cons |  -.0048219   .2191607    -0.02   0.982    -.4343691    .4247253
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
               SD      AAy_B      AAy_C      AAy_D      AAy_E      AAy_F
 AAy_B  .21561834          1          .          .          .          .
 AAy_C  .21561834         .5          1          .          .          .
@@ -6743,6 +6849,7 @@ AAy_E          .          .
 AAy_F          .          .
 AAy_G          1          .
 AAy_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [AAy_C]des_ACH = 0
@@ -6838,7 +6945,8 @@ b_H          |
        _cons |  -.0048219   .2191607    -0.02   0.982    -.4343691    .4247253
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
             SD        b_B        b_C        b_D        b_E        b_F
 b_B  .21561834          1          .          .          .          .
 b_C  .21561834         .5          1          .          .          .
@@ -6856,6 +6964,7 @@ b_E          .          .
 b_F          .          .
 b_G          1          .
 b_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [b_C]des_ACH = 0
@@ -7154,8 +7263,8 @@ Error: there are missing contrasts in the studies listed
      +-----------------------------------------------+
      | study       _design     t1     t2       logOR |
      |-----------------------------------------------|
- 17. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
- 18. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+ 17. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+ 18. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
      +-----------------------------------------------+
 
 . assert _rc==498
@@ -7350,11 +7459,13 @@ _y_D         |
        _cons |   1.347197   .5222318     2.58   0.010     .3236417    2.370753
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D
 _y_B  .70636066          1          .          .
 _y_C  .70636066         .5          1          .
 _y_D  .70636066         .5         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Converting augmented to standard ...
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
@@ -7386,9 +7497,11 @@ _y_1         |
  _trtdiff1_D |     1.3472   .5222329     2.58   0.010     .3236425    2.370758
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1
 _y_1  .70636161          1
+----------------------------------------------------
 mvmeta command stored as F9
 1.107e-06
 Converting standard to pairs ...
@@ -7503,7 +7616,8 @@ _y_H         |
        _cons |   .0123549   .0363959     0.34   0.734    -.0589798    .0836896
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .01428598          1          .          .          .          .
 _y_C  .01428598         .5          1          .          .          .
@@ -7521,6 +7635,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Table of log risk ratio and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -7612,7 +7727,8 @@ _y_H         |
        _cons |  -.0043145   .2048275    -0.02   0.983     -.405769      .39714
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .20179591          1          .          .          .          .
 _y_C  .20179591         .5          1          .          .          .
@@ -7630,6 +7746,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACH = 0
@@ -7721,7 +7838,8 @@ _y_H         |
        _cons |   .0143568   .0403003     0.36   0.722    -.0646304    .0933439
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .01518867          1          .          .          .          .
 _y_C  .01518867         .5          1          .          .          .
@@ -7739,6 +7857,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -7830,7 +7949,8 @@ _y_H         |
        _cons |  -.0048219   .2191607    -0.02   0.982    -.4343691    .4247253
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .21561834          1          .          .          .          .
 _y_C  .21561834         .5          1          .          .          .
@@ -7848,6 +7968,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACH = 0
@@ -7948,7 +8069,8 @@ _y_H         |
        _cons |   .0021887   .0036593     0.60   0.550    -.0049834    .0093609
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .00141337          1          .          .          .          .
 _y_C  .00141337         .5          1          .          .          .
@@ -7966,6 +8088,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Table of risk difference and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -8063,7 +8186,8 @@ _y_H         |
        _cons |  -.0004544   .0122731    -0.04   0.970    -.0245092    .0236004
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .01170233          1          .          .          .          .
 _y_C  .01170233         .5          1          .          .          .
@@ -8081,6 +8205,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACH = 0
@@ -8173,7 +8298,8 @@ _y_H         |
        _cons |   .0121657   .0362798     0.34   0.737    -.0589414    .0832728
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .00630202          1          .          .          .          .
 _y_C  .00630202         .5          1          .          .          .
@@ -8191,6 +8317,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 mvmeta command stored as F9
 Table of log hazard ratio and its standard error for Treatment vs. Comparator:
 ---------------------------------------------------------------------------
@@ -8282,7 +8409,8 @@ _y_H         |
        _cons |  -.0043145   .1996779    -0.02   0.983    -.3956761    .3870471
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_B       _y_C       _y_D       _y_E       _y_F
 _y_B  .19619732          1          .          .          .          .
 _y_C  .19619732         .5          1          .          .          .
@@ -8300,6 +8428,7 @@ _y_E          .          .
 _y_F          .          .
 _y_G          1          .
 _y_H         .5          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_C]des_ACH = 0
@@ -9406,9 +9535,11 @@ _trtdiff1_BD |   1.031988   .1768717     5.83   0.000     .6853262     1.37865
  _trtdiff1_A |   1.265824   .1186863    10.67   0.000     1.033203    1.498445
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1
 _y_1  1.740e-09          1
+----------------------------------------------------
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
 > s(uv mm) eq(_y_1: _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B _trtd
@@ -9449,9 +9580,11 @@ _trtd~s_AABC |   .0528083   .4028993     0.13   0.896    -.7368598    .8424764
 _trtdiff~ABD |   .0322757   .4117356     0.08   0.938    -.7747113    .8392626
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
              SD       _y_1
 _y_1  9.266e-13          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_1]_trtdiff1_AAB_des_AAAAB = 0
@@ -9569,7 +9702,8 @@ _y_A         |
        _cons |   1.265823   .1186863    10.67   0.000     1.033202    1.498444
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
                 SD     _y_AAB    _y_AABC      _y_BC       _y_B      _y_BD
  _y_AAB  5.952e-09          1          .          .          .          .
 _y_AABC  5.952e-09         .5          1          .          .          .
@@ -9585,6 +9719,7 @@ _y_AABC          .
    _y_B          .
   _y_BD          .
    _y_A          1
+----------------------------------------------------
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
 > y_AAB: des_AAAAB, _y_AABC: des_AAAABC, _y_BC: des_AABC, _y_B: des_AAB, _y_BD:
@@ -9637,7 +9772,8 @@ _y_A         |
        _cons |   1.243707   .1716947     7.24   0.000     .9071918    1.580223
 ------------------------------------------------------------------------------
 
-Estimated between-studies SDs and correlation matrix:
+Estimated between-studies SDs and correlation matrix
+----------------------------------------------------
                 SD     _y_AAB    _y_AABC      _y_BC       _y_B      _y_BD
  _y_AAB  8.267e-09          1          .          .          .          .
 _y_AABC  8.267e-09         .5          1          .          .          .
@@ -9653,6 +9789,7 @@ _y_AABC          .
    _y_B          .
   _y_BD          .
    _y_A          1
+----------------------------------------------------
 
 Testing for inconsistency:
  ( 1)  [_y_AAB]des_AAAAB = 0
@@ -10059,5 +10196,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:  18 Nov 2021, 17:59:56
+ closed on:  18 Nov 2021, 18:09:31
 -------------------------------------------------------------------------------
