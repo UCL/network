@@ -3,7 +3,7 @@
 {* *! version 1.1 27may2015}{...}
 {vieweralsosee "mvmeta (if installed)" "mvmeta"}{...}
 {vieweralsosee "metareg (if installed)" "metareg"}{...}
-{viewerjumpto "Syntax" "network##syntax"}{...}
+{viewerjumpto "Commands" "network##commands"}{...}
 {viewerjumpto "Description" "network##description"}{...}
 {viewerjumpto "Data formats" "network##formats"}{...}
 {viewerjumpto "Features of interest to methodologists" "network##formethodologists"}{...}
@@ -15,12 +15,11 @@
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
 
-
 {phang}
 {bf:network} {hline 2} Suite of commands for network meta-analysis
 
 
-{title:Syntax}{marker syntax}
+{title:Commands}{marker commands}
 {p2colset 5 25 25 0}{...}
 
 Get started
