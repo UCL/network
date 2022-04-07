@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- opened on:  18 Nov 2021, 18:06:30
+ opened on:   7 Apr 2022, 12:42:38
 
 . 
 . cls
@@ -31,7 +31,7 @@
 . 
 . which mvmeta
 c:\ado\ian\mvmeta\package\mvmeta.ado
-*! version 3.5.0 # Ian White # 15nov2021
+*! version 4.0 # Ian White # 07apr2022
 
 . which network
 c:\ado\ian\network\package\network.ado
@@ -4583,7 +4583,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1===== 0
+loop 1 score 0=
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -4927,7 +4927,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1===== 0
+loop 1 score 1==== 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -5282,7 +5282,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 0=
+loop 1 score 1====================== 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -10196,5 +10196,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ado\ian\network\testlogs\network_cscript.log
   log type:  text
- closed on:  18 Nov 2021, 18:09:31
+ closed on:   7 Apr 2022, 12:45:27
 -------------------------------------------------------------------------------
