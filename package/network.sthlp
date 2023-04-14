@@ -278,6 +278,11 @@ Graphical methods and numerical summaries for presenting results from multiple-t
 an overview and tutorial. Journal of Clinical Epidemiology 2011; 64: 163-171.
 {browse "http://www.ncbi.nlm.nih.gov/pubmed/20688472"}
 
+{phang}{marker Thom++19}Thom H, White IR, Welton NJ, et al. 
+Automated methods to test connectedness and quantify indirectness of evidence in network meta-analysis. 
+Res Synth Methods 2019; 10: 113–124.
+{browse "https://onlinelibrary.wiley.com/doi/10.1002/jrsm.1329"}
+
 {phang}{marker White09}White IR. Multivariate random-effects meta-analysis. 
 Stata Journal 2009; 9: 40-56.
 {browse "http://www.stata-journal.com/article.html?article=st0156"}

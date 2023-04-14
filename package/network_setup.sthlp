@@ -280,6 +280,7 @@ It also computes four useful matrices which describe the geometry of the network
 
 {pstd}You can view the geometry of the network using {help network map} 
 and you can see the above matrices using {stata matrix list network_components} etc.
+For more information see {help network##Thom++19:Thom et al (2019)}.
 
 
 {marker examples}{...}
