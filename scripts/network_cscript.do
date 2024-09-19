@@ -21,7 +21,7 @@ REQUIRES: MVMETA, METAREG
 11jul2014: fails with long names
 */
 
-local networkdir c:\ado\ian\network\
+local networkdir c:\ian\git\network\
 cd "`networkdir'scripts"
 cap log close
 log using "`networkdir'testlogs\network_cscript.log", replace

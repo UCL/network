@@ -1,8 +1,8 @@
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  c:\ado\ian\network\testlogs\network_cscript.log
+       log:  c:\ian\git\network\testlogs\network_cscript.log
   log type:  text
- opened on:   7 Apr 2022, 12:42:38
+ opened on:  19 Sep 2024, 14:40:16
 
 . 
 . cls
@@ -19,22 +19,22 @@
 . prog drop _all
 
 . myadopath mvmeta network
-  [1]              "c:\ado\ian\network\package"
-  [2]              "c:\ado\ian\mvmeta\package"
+  [1]              "c:\ian\git\network\package"
+  [2]              "c:\ian\git\mvmeta\package"
   [3]  (BASE)      "C:\Program Files\Stata17\ado\base/"
   [4]  (SITE)      "C:\Program Files\Stata17\ado\site/"
   [5]              "."
-  [6]  (PERSONAL)  "N:\Home\ado\personal/"
-  [7]  (PLUS)      "N:\Home\ado\stbplus/"
+  [6]  (PERSONAL)  "c:\ian\ado\personal/"
+  [7]  (PLUS)      "c:\ian\ado\plus/"
   [8]  (OLDPLACE)  "c:\ado/"
 
 . 
 . which mvmeta
-c:\ado\ian\mvmeta\package\mvmeta.ado
-*! version 4.0 # Ian White # 07apr2022
+c:\ian\git\mvmeta\package\mvmeta.ado
+*! version 4.0.2 # Ian White # 21apr2022
 
 . which network
-c:\ado\ian\network\package\network.ado
+c:\ian\git\network\package\network.ado
 *! version 1.7.0 # Ian White # 8apr2021
 
 . 
@@ -4927,7 +4927,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1==== 0
+loop 1 score 1======================= 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -5282,7 +5282,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1====================== 0
+loop 1 score 1======= 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -7263,8 +7263,8 @@ Error: there are missing contrasts in the studies listed
      +-----------------------------------------------+
      | study       _design     t1     t2       logOR |
      |-----------------------------------------------|
- 17. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
- 18. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
+ 17. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
+ 18. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
      +-----------------------------------------------+
 
 . assert _rc==498
@@ -10194,7 +10194,7 @@ mvmeta command stored as F9; test command stored as F8
 . 
 . log close
       name:  <unnamed>
-       log:  c:\ado\ian\network\testlogs\network_cscript.log
+       log:  c:\ian\git\network\testlogs\network_cscript.log
   log type:  text
- closed on:   7 Apr 2022, 12:45:27
+ closed on:  19 Sep 2024, 14:44:43
 -------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 v 3
 d network: Suite of commands for network meta-analysis
 d Program by Ian White
-d Version 1.6.2
-d Distribution-Date: 5dec2019
+d Version 1.7.1
+d Distribution-Date: 19sep2024
 
 * Main callable files
 f network.ado
