@@ -2,5 +2,5 @@ v 3
 
 d Ian White's Stata software
 
-p network: Suite of commands for network meta-analysis
+p network Suite of commands for network meta-analysis
 
