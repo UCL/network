@@ -1,5 +1,5 @@
 {smcl}
-{* *! updated 12jun2023}{...}
+{* *! updated 4oct2024}{...}
 {* *! version 1.3.2 30aug2017}{...}
 {* *! version 1.1 27may2015}{...}
 {vieweralsosee "mvmeta (if installed)" "mvmeta"}{...}
@@ -10,9 +10,11 @@
 {viewerjumpto "Features of interest to methodologists" "network##formethodologists"}{...}
 {viewerjumpto "Troubleshooting and limitations" "network##limitations"}{...}
 {viewerjumpto "Examples" "network##examples"}{...}
-{viewerjumpto "References" "network##refs"}{...}
+{viewerjumpto "Details" "network##details"}{...}
+{viewerjumpto "Known problems" "network##problems"}{...}
 {viewerjumpto "Changes from version 1.2.x to version 1.5" "network##whatsnew"}{...}
 {viewerjumpto "Future developments" "network##future"}{...}
+{viewerjumpto "References" "network##refs"}{...}
 {viewerjumpto "Please cite this program" "network##citation"}{...}
 {viewerjumpto "Author and updates" "network##updates"}{...}
 {title:Title}
@@ -22,43 +24,48 @@
 
 
 {title:Commands}{marker commands}
-{p2colset 5 25 25 0}{...}
+{p2colset 5 23 26 0}{...}
 
 Get started
 
-{p2col:{bf:{help network_setup:network setup}}}set up data from arm-specific counts
-
-{p2col:{bf:{help network_import:network import}}}import data set of pairwise comparisons 
+{p2col:{bf:{help network_setup:network setup}}}
+Set up data from arm-specific counts{p_end}
+{p2col:{bf:{help network_import:network import}}}
+Import data set of pairwise comparisons{p_end}
 
 Descriptive tables and figures
 
-{p2col:{bf:{help network_table:network table}}}tabulate data
-
-{p2col:{bf:{help network_pattern:network pattern}}}pattern of network
-
-{p2col:{bf:{help network_map:network map}}}map of network
+{p2col:{bf:{help network_table:network table}}}
+Tabulate data{p_end}
+{p2col:{bf:{help network_pattern:network pattern}}}
+Pattern of network{p_end}
+{p2col:{bf:{help network_map:network map}}}
+Map of network{p_end}
 
 Utilities
 
-{p2col:{bf:{help network_convert:network convert}}}convert data between formats
-
-{p2col:{bf:{help network_query:network query}}}display network settings
-
-{p2col:{bf:{help network_unset:network unset}}}delete network settings (rarely needed)
+{p2col:{bf:{help network_convert:network convert}}}
+Convert data between formats{p_end}
+{p2col:{bf:{help network_query:network query}}}
+Display network settings{p_end}
+{p2col:{bf:{help network_unset:network unset}}}
+Delete network settings (rarely needed){p_end}
 
 Analyses
 
-{p2col:{bf:{help network_meta:network meta}}}perform network meta-analysis
-
-{p2col:{bf:{help network_rank:network rank}}}rank treatments after network meta-analysis 
-
-{p2col:{bf:{help network_sidesplit:network sidesplit}}}fit side-splitting (node-splitting) model(s)
-
-{p2col:{bf:{help network_compare:network compare}}}tabulate all comparisons estimated from the network
+{p2col:{bf:{help network_meta:network meta}}}
+Perform network meta-analysis{p_end}
+{p2col:{bf:{help network_rank:network rank}}}
+Rank treatments after network meta-analysis{p_end}
+{p2col:{bf:{help network_sidesplit:network sidesplit}}}
+Fit side-splitting (node-splitting) model(s){p_end}
+{p2col:{bf:{help network_compare:network compare}}}
+Tabulate all comparisons estimated from the network{p_end}
 
 Graphs of results
 
-{p2col:{bf:{help network_forest:network forest}}}forest plot
+{p2col:{bf:{help network_forest:network forest}}}
+Forest plot{p_end}
 
 
 {marker description}{...}
@@ -144,7 +151,8 @@ not of their codes.
 
 {pstd}{cmd:network rank} and {cmd:network sidesplit} only work when the data are in augmented format.
 
-{pstd}A page of frequently asked questions is available at {browse "http://www.homepages.ucl.ac.uk/~rmjwiww/stata/meta/networkFAQs.htm"}.
+{pstd}A page of frequently asked questions is available at {browse "http://www.githubusercontent.ucl.htm"} or 
+{browse "https://raw.uk/~rmjwiww/stata/meta/networkFAQs.htm"}.
 
 
 {marker examples}{...}
@@ -261,48 +269,48 @@ runs WinBUGS and reads the MCMC samples back into Stata.
 
 {title:References}{marker refs}
 
-{phang}{marker Dias++10}
+{pstd}{marker Dias++10}
 Dias S, Welton NJ, Caldwell DM, Ades AE. 
 Checking consistency in mixed treatment comparison meta-analysis.
 Statistics in Medicine 2010;29:932-944.
 {browse "http://onlinelibrary.wiley.com/doi/10.1002/sim.3767/abstract"}
 
-{phang}{marker Higgins++12}Higgins JPT, Jackson D, Barrett JL, Lu G, Ades AE, White IR. 
+{pstd}{marker Higgins++12}Higgins JPT, Jackson D, Barrett JL, Lu G, Ades AE, White IR. 
 Consistency and inconsistency in network meta-analysis: 
 concepts and models for multi-arm studies. 
 Research Synthesis Methods 2012; 3: 98-110.
 {browse "http://onlinelibrary.wiley.com/doi/10.1002/jrsm.1044/abstract"}
 
-{phang}{marker LuAdes06}Lu G, Ades AE. 
+{pstd}{marker LuAdes06}Lu G, Ades AE. 
 Assessing evidence inconsistency in mixed treatment comparisons. 
 Journal of the American Statistical Association 2006; 101: 447-459.
 {browse "http://amstat.tandfonline.com/doi/abs/10.1198/016214505000001302"}
 
-{phang}{marker Salanti++11}Salanti G, Ades A, Ioannidis J. 
+{pstd}{marker Salanti++11}Salanti G, Ades A, Ioannidis J. 
 Graphical methods and numerical summaries for presenting results from multiple-treatment meta-analysis: 
 an overview and tutorial. Journal of Clinical Epidemiology 2011; 64: 163-171.
 {browse "http://www.ncbi.nlm.nih.gov/pubmed/20688472"}
 
-{phang}{marker Thom++19}Thom H, White IR, Welton NJ, et al. 
+{pstd}{marker Thom++19}Thom H, White IR, Welton NJ, et al. 
 Automated methods to test connectedness and quantify indirectness of evidence in network meta-analysis. 
 Res Synth Methods 2019; 10: 113–124.
 {browse "https://onlinelibrary.wiley.com/doi/10.1002/jrsm.1329"}
 
-{phang}{marker White09}White IR. Multivariate random-effects meta-analysis. 
+{pstd}{marker White09}White IR. Multivariate random-effects meta-analysis. 
 Stata Journal 2009; 9: 40-56.
 {browse "http://www.stata-journal.com/article.html?article=st0156"}
 
-{phang}{marker White11}White IR. Multivariate random-effects meta-regression: Updates to mvmeta. 
+{pstd}{marker White11}White IR. Multivariate random-effects meta-regression: Updates to mvmeta. 
 Stata Journal 2011; 11: 255-270.
 {browse "http://www.stata-journal.com/article.html?article=st0156_1"}
 
-{phang}{marker White++12}White IR, Barrett JK, Jackson D, Higgins JPT. 
+{pstd}{marker White++12}White IR, Barrett JK, Jackson D, Higgins JPT. 
 Consistency and inconsistency in network meta-analysis: 
 model estimation using multivariate meta-regression.
 Research Synthesis Methods 2012; 3: 111-125.
 {browse "http://onlinelibrary.wiley.com/doi/10.1002/jrsm.1045/abstract"}
 
-{phang}{marker WhiteThomas05}White IR, Thomas J. 
+{pstd}{marker WhiteThomas05}White IR, Thomas J. 
 Standardised mean differences in individually-randomised and cluster-randomised trials, 
 with applications to meta-analysis. 
 Clinical Trials 2005; 2: 141-151.
@@ -311,9 +319,9 @@ Clinical Trials 2005; 2: 141-151.
 
 {title:Please cite this program}{marker citation}
 
-{phang}If you find this command useful, please cite it as below (and please check for updates): 
+{pstd}If you find this command useful, please cite it as below (and please check for updates): 
 
-{phang}White IR. Network meta-analysis. Stata Journal 2015; 15(4): 1–34. 
+{pstd}White IR. Network meta-analysis. Stata Journal 2015; 15(4): 1–34. 
 {browse "http://www.stata-journal.com/article.html?article=st0410"}
 
 
