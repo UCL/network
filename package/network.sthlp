@@ -340,5 +340,4 @@ Email {browse "mailto:ian.white@ucl.ac.uk":ian.white@ucl.ac.uk}.
 
 {pstd}{help metareg} (if installed)
 
-{pstd}Programs by Anna Chaimani: {stata "net from http://www.mtm.uoi.gr"}
-
+{pstd}Programs by Anna Chaimani: {stata "net from http://www.clinicalepidemio.fr/Stata"}
