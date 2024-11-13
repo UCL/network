@@ -89,6 +89,9 @@ see {help network##formethodologists:Features of interest to methodologists}.
 {pstd}
 This is a user-written command: please cite {help network##citation:our paper}, which also gives more details of the methods.
 
+{pstd}A page of frequently asked questions is available 
+{browse "https://htmlpreview.github.io/?https://github.com/UCL/network/blob/master/networkFAQs.htm":here}.
+
 
 {marker formats}{...}
 {title:Data formats}
@@ -150,9 +153,6 @@ Try {cmd:set scheme s2color}.
 not of their codes.
 
 {pstd}{cmd:network rank} and {cmd:network sidesplit} only work when the data are in augmented format.
-
-{pstd}A page of frequently asked questions is available at {browse "http://www.githubusercontent.ucl.htm"} or 
-{browse "https://raw.uk/~rmjwiww/stata/meta/networkFAQs.htm"}.
 
 
 {marker examples}{...}
