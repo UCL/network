@@ -5,5 +5,4 @@
 /scripts/z.dta
 /.gitignore
 /package/~$network_bayes_parameters.xlsx
-~$*.xlsx
-~$*.docx
+~$*.*

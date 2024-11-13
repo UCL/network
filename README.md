@@ -15,3 +15,5 @@ You should be able to install this package (but maybe not the very latest versio
 
 To install the latest version from github, use
 - `net from https://raw.githubusercontent.com/UCL/network/master/package/`
+
+I have a list of [frequently asked questions](https://htmlpreview.github.io/?https://github.com/UCL/network/blob/master/networkFAQs.htm).
