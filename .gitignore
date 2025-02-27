@@ -6,3 +6,4 @@
 /.gitignore
 /package/~$network_bayes_parameters.xlsx
 ~$*.*
+*.stswp

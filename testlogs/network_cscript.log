@@ -1,8 +1,8 @@
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
       name:  <unnamed>
        log:  c:\ian\git\network\testlogs\network_cscript.log
   log type:  text
- opened on:  19 Sep 2024, 14:40:16
+ opened on:  27 Feb 2025, 13:50:06
 
 . 
 . cls
@@ -18,24 +18,17 @@
 
 . prog drop _all
 
-. myadopath mvmeta network
-  [1]              "c:\ian\git\network\package"
-  [2]              "c:\ian\git\mvmeta\package"
-  [3]  (BASE)      "C:\Program Files\Stata17\ado\base/"
-  [4]  (SITE)      "C:\Program Files\Stata17\ado\site/"
-  [5]              "."
-  [6]  (PERSONAL)  "c:\ian\ado\personal/"
-  [7]  (PLUS)      "c:\ian\ado\plus/"
-  [8]  (OLDPLACE)  "c:\ado/"
-
 . 
 . which mvmeta
-c:\ian\git\mvmeta\package\mvmeta.ado
+N:\Home\ado\plus\m\mvmeta.ado
 *! version 4.0.2 # Ian White # 21apr2022
 
 . which network
-c:\ian\git\network\package\network.ado
-*! version 1.7.0 # Ian White # 8apr2021
+N:\Home\ado\plus\n\network.ado
+*! version 1.7.1 # Ian White # 19sep2024
+
+. version
+version 18.5
 
 . 
 . // check network setup
@@ -555,14 +548,14 @@ Note: using variables _y_A _y_C _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -174.66976
-rescale:       log likelihood = -174.66976
-rescale eq:    log likelihood = -174.45531
-Iteration 0:   log likelihood = -174.45531  
-Iteration 1:   log likelihood = -173.04376  
-Iteration 2:   log likelihood = -173.01524  
-Iteration 3:   log likelihood = -173.01509  
-Iteration 4:   log likelihood = -173.01509  
+Initial:      Log likelihood = -174.66976
+Rescale:      Log likelihood = -174.66976
+Rescale eq:   Log likelihood = -174.45531
+Iteration 0:  Log likelihood = -174.45531  
+Iteration 1:  Log likelihood = -173.04376  
+Iteration 2:  Log likelihood = -173.01524  
+Iteration 3:  Log likelihood = -173.01509  
+Iteration 4:  Log likelihood = -173.01509  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -671,14 +664,14 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_C _trtdiff2_D
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood =  -32.84443  
-Iteration 2:   log likelihood = -32.817174  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood =  -32.84443  
+Iteration 2:  Log likelihood = -32.817174  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -723,14 +716,14 @@ Note: using variables _y_A _y_C _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -154.62907
-rescale:       log likelihood = -154.62907
-rescale eq:    log likelihood = -154.41452
-Iteration 0:   log likelihood = -154.41452  
-Iteration 1:   log likelihood = -153.00296  
-Iteration 2:   log likelihood = -152.97448  
-Iteration 3:   log likelihood = -152.97434  
-Iteration 4:   log likelihood = -152.97434  
+Initial:      Log likelihood = -154.62907
+Rescale:      Log likelihood = -154.62907
+Rescale eq:   Log likelihood = -154.41452
+Iteration 0:  Log likelihood = -154.41452  
+Iteration 1:  Log likelihood = -153.00296  
+Iteration 2:  Log likelihood = -152.97448  
+Iteration 3:  Log likelihood = -152.97434  
+Iteration 4:  Log likelihood = -152.97434  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -778,13 +771,13 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -144.53879
-rescale:       log likelihood = -144.53879
-rescale eq:    log likelihood = -144.53879
-Iteration 0:   log likelihood = -144.53879  
-Iteration 1:   log likelihood = -143.81158  
-Iteration 2:   log likelihood = -143.81088  
-Iteration 3:   log likelihood = -143.81088  
+Initial:      Log likelihood = -144.53879
+Rescale:      Log likelihood = -144.53879
+Rescale eq:   Log likelihood = -144.53879
+Iteration 0:  Log likelihood = -144.53879  
+Iteration 1:  Log likelihood = -143.81158  
+Iteration 2:  Log likelihood = -143.81088  
+Iteration 3:  Log likelihood = -143.81088  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -855,13 +848,13 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_C _trtdiff2_D _trtdiff2_C_des_AC
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654259  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654259  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -931,13 +924,13 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -144.53879
-rescale:       log likelihood = -144.53879
-rescale eq:    log likelihood = -144.53879
-Iteration 0:   log likelihood = -144.53879  
-Iteration 1:   log likelihood = -143.81158  
-Iteration 2:   log likelihood = -143.81088  
-Iteration 3:   log likelihood = -143.81088  
+Initial:      Log likelihood = -144.53879
+Rescale:      Log likelihood = -144.53879
+Rescale eq:   Log likelihood = -144.53879
+Iteration 0:  Log likelihood = -144.53879  
+Iteration 1:  Log likelihood = -143.81158  
+Iteration 2:  Log likelihood = -143.81088  
+Iteration 3:  Log likelihood = -143.81088  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1041,14 +1034,14 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -63.602216
-rescale:       log likelihood = -63.602216
-rescale eq:    log likelihood = -63.602216
-Iteration 0:   log likelihood = -63.602216  
-Iteration 1:   log likelihood = -62.875022  
-Iteration 2:   log likelihood = -62.874365  
-Iteration 3:   log likelihood = -62.874357  
-Iteration 4:   log likelihood = -62.874357  
+Initial:      Log likelihood = -63.602216
+Rescale:      Log likelihood = -63.602216
+Rescale eq:   Log likelihood = -63.602216
+Iteration 0:  Log likelihood = -63.602216  
+Iteration 1:  Log likelihood = -62.875022  
+Iteration 2:  Log likelihood = -62.874365  
+Iteration 3:  Log likelihood = -62.874357  
+Iteration 4:  Log likelihood = -62.874357  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1148,12 +1141,12 @@ Note: regressing logOR_1 on _trtdiff1_DES _trtdiff1_MT _trtdiff1_PTCA
 Note: 62 observations on 1 variables
 Note: variance-covariance matrix is proportional to .5*I(1)+.5*J(1,1,1)
 
-initial:       log likelihood = -92.637963
-rescale:       log likelihood = -80.586716
-rescale eq:    log likelihood = -80.368328
-Iteration 0:   log likelihood = -80.368328  
-Iteration 1:   log likelihood =  -80.15459  
-Iteration 2:   log likelihood = -80.154586  
+Initial:      Log likelihood = -92.637963
+Rescale:      Log likelihood = -80.586716
+Rescale eq:   Log likelihood = -80.368328
+Iteration 0:  Log likelihood = -80.368328  
+Iteration 1:  Log likelihood =  -80.15459  
+Iteration 2:  Log likelihood = -80.154586  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(1)+.5*J(1,1,1)
@@ -1210,13 +1203,13 @@ Note: using variables logOR_DES logOR_MT logOR_PTCA
 Note: 62 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -159.39203
-rescale:       log likelihood = -147.34073
-rescale eq:    log likelihood = -146.93803
-Iteration 0:   log likelihood = -146.93803  
-Iteration 1:   log likelihood = -146.90884  
-Iteration 2:   log likelihood =  -146.9086  
-Iteration 3:   log likelihood =  -146.9086  
+Initial:      Log likelihood = -159.39203
+Rescale:      Log likelihood = -147.34073
+Rescale eq:   Log likelihood = -146.93803
+Iteration 0:  Log likelihood = -146.93803  
+Iteration 1:  Log likelihood = -146.90884  
+Iteration 2:  Log likelihood =  -146.9086  
+Iteration 3:  Log likelihood =  -146.9086  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1292,13 +1285,13 @@ Note: regressing logOR_1 on _trtdiff1_DES _trtdiff1_MT _trtdiff1_PTCA _trtdiff1
 Note: 62 observations on 1 variables
 Note: variance-covariance matrix is proportional to .5*I(1)+.5*J(1,1,1)
 
-initial:       log likelihood = -91.762224
-rescale:       log likelihood = -81.007946
-rescale eq:    log likelihood = -80.777554
-Iteration 0:   log likelihood = -80.777554  
-Iteration 1:   log likelihood = -80.330406  
-Iteration 2:   log likelihood = -80.284174  
-Iteration 3:   log likelihood = -80.284173  
+Initial:      Log likelihood = -91.762224
+Rescale:      Log likelihood = -81.007946
+Rescale eq:   Log likelihood = -80.777554
+Iteration 0:  Log likelihood = -80.777554  
+Iteration 1:  Log likelihood = -80.330406  
+Iteration 2:  Log likelihood = -80.284174  
+Iteration 3:  Log likelihood = -80.284173  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(1)+.5*J(1,1,1)
@@ -1345,12 +1338,12 @@ Note: regressing logOR_PTCA on des_MTPTCA
 Note: 62 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood =  -158.5163
-rescale:       log likelihood = -147.76196
-rescale eq:    log likelihood = -147.10745
-Iteration 0:   log likelihood = -147.10745  
-Iteration 1:   log likelihood =  -147.0382  
-Iteration 2:   log likelihood = -147.03819  
+Initial:      Log likelihood =  -158.5163
+Rescale:      Log likelihood = -147.76196
+Rescale eq:   Log likelihood = -147.10745
+Iteration 0:  Log likelihood = -147.10745  
+Iteration 1:  Log likelihood =  -147.0382  
+Iteration 2:  Log likelihood = -147.03819  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1411,13 +1404,13 @@ Note: using variables logOR_DES logOR_MT logOR_PTCA
 Note: 62 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -159.39203
-rescale:       log likelihood = -147.34073
-rescale eq:    log likelihood = -146.93803
-Iteration 0:   log likelihood = -146.93803  
-Iteration 1:   log likelihood = -146.90884  
-Iteration 2:   log likelihood =  -146.9086  
-Iteration 3:   log likelihood =  -146.9086  
+Initial:      Log likelihood = -159.39203
+Rescale:      Log likelihood = -147.34073
+Rescale eq:   Log likelihood = -146.93803
+Iteration 0:  Log likelihood = -146.93803  
+Iteration 1:  Log likelihood = -146.90884  
+Iteration 2:  Log likelihood =  -146.9086  
+Iteration 3:  Log likelihood =  -146.9086  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1476,12 +1469,12 @@ Note: regressing logOR_PTCA on des_MTPTCA
 Note: 62 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood =  -158.5163
-rescale:       log likelihood = -147.76196
-rescale eq:    log likelihood = -147.10745
-Iteration 0:   log likelihood = -147.10745  
-Iteration 1:   log likelihood =  -147.0382  
-Iteration 2:   log likelihood = -147.03819  
+Initial:      Log likelihood =  -158.5163
+Rescale:      Log likelihood = -147.76196
+Rescale eq:   Log likelihood = -147.10745
+Iteration 0:  Log likelihood = -147.10745  
+Iteration 1:  Log likelihood =  -147.0382  
+Iteration 2:  Log likelihood = -147.03819  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1648,14 +1641,14 @@ Note: using variables _y_B _y_C
 Note: 3 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -3.2153481
-rescale:       log likelihood = -3.2153481
-rescale eq:    log likelihood = -3.2153481
-Iteration 0:   log likelihood = -3.2153481  
-Iteration 1:   log likelihood = -3.1440565  
-Iteration 2:   log likelihood =  -3.142873  
-Iteration 3:   log likelihood = -3.1428684  
-Iteration 4:   log likelihood = -3.1428684  
+Initial:      Log likelihood = -3.2153481
+Rescale:      Log likelihood = -3.2153481
+Rescale eq:   Log likelihood = -3.2153481
+Iteration 0:  Log likelihood = -3.2153481  
+Iteration 1:  Log likelihood = -3.1440565  
+Iteration 2:  Log likelihood =  -3.142873  
+Iteration 3:  Log likelihood = -3.1428684  
+Iteration 4:  Log likelihood = -3.1428684  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -1789,15 +1782,15 @@ Note: using variables _y_B _y_C _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -72.419237
-rescale:       log likelihood = -72.419237
-rescale eq:    log likelihood = -72.206817
-Iteration 0:   log likelihood = -72.206817  
-Iteration 1:   log likelihood = -70.791949  
-Iteration 2:   log likelihood = -70.765417  
-Iteration 3:   log likelihood = -70.764725  
-Iteration 4:   log likelihood = -70.764565  
-Iteration 5:   log likelihood = -70.764565  
+Initial:      Log likelihood = -72.419237
+Rescale:      Log likelihood = -72.419237
+Rescale eq:   Log likelihood = -72.206817
+Iteration 0:  Log likelihood = -72.206817  
+Iteration 1:  Log likelihood = -70.791949  
+Iteration 2:  Log likelihood = -70.765417  
+Iteration 3:  Log likelihood = -70.764725  
+Iteration 4:  Log likelihood = -70.764565  
+Iteration 5:  Log likelihood = -70.764565  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1835,13 +1828,13 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -62.328944
-rescale:       log likelihood = -62.328944
-rescale eq:    log likelihood = -62.328944
-Iteration 0:   log likelihood = -62.328944  
-Iteration 1:   log likelihood = -61.601801  
-Iteration 2:   log likelihood = -61.601084  
-Iteration 3:   log likelihood = -61.601084  
+Initial:      Log likelihood = -62.328944
+Rescale:      Log likelihood = -62.328944
+Rescale eq:   Log likelihood = -62.328944
+Iteration 0:  Log likelihood = -62.328944  
+Iteration 1:  Log likelihood = -61.601801  
+Iteration 2:  Log likelihood = -61.601084  
+Iteration 3:  Log likelihood = -61.601084  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1928,14 +1921,14 @@ Note: regressing _y_D on groupB groupC
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -69.372953
-rescale:       log likelihood = -69.372953
-rescale eq:    log likelihood = -69.372953
-Iteration 0:   log likelihood = -69.372953  
-Iteration 1:   log likelihood =   -68.3523  
-Iteration 2:   log likelihood = -68.343791  
-Iteration 3:   log likelihood = -68.343387  
-Iteration 4:   log likelihood = -68.343387  
+Initial:      Log likelihood = -69.372953
+Rescale:      Log likelihood = -69.372953
+Rescale eq:   Log likelihood = -69.372953
+Iteration 0:  Log likelihood = -69.372953  
+Iteration 1:  Log likelihood =   -68.3523  
+Iteration 2:  Log likelihood = -68.343791  
+Iteration 3:  Log likelihood = -68.343387  
+Iteration 4:  Log likelihood = -68.343387  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -1985,15 +1978,15 @@ Note: regressing _y_D on _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -71.527657
-rescale:       log likelihood = -71.527657
-rescale eq:    log likelihood = -71.527657
-Iteration 0:   log likelihood = -71.527657  
-Iteration 1:   log likelihood = -70.223464  (not concave)
-Iteration 2:   log likelihood = -70.090788  
-Iteration 3:   log likelihood = -70.086065  
-Iteration 4:   log likelihood = -70.085996  
-Iteration 5:   log likelihood = -70.085996  
+Initial:      Log likelihood = -71.527657
+Rescale:      Log likelihood = -71.527657
+Rescale eq:   Log likelihood = -71.527657
+Iteration 0:  Log likelihood = -71.527657  
+Iteration 1:  Log likelihood = -70.223464  (not concave)
+Iteration 2:  Log likelihood = -70.090788  
+Iteration 3:  Log likelihood = -70.086065  
+Iteration 4:  Log likelihood = -70.085996  
+Iteration 5:  Log likelihood = -70.085996  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2113,14 +2106,14 @@ Note: using variables _y_A _y_C _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -174.66976
-rescale:       log likelihood = -174.66976
-rescale eq:    log likelihood = -174.45531
-Iteration 0:   log likelihood = -174.45531  
-Iteration 1:   log likelihood = -173.04376  
-Iteration 2:   log likelihood = -173.01524  
-Iteration 3:   log likelihood = -173.01509  
-Iteration 4:   log likelihood = -173.01509  
+Initial:      Log likelihood = -174.66976
+Rescale:      Log likelihood = -174.66976
+Rescale eq:   Log likelihood = -174.45531
+Iteration 0:  Log likelihood = -174.45531  
+Iteration 1:  Log likelihood = -173.04376  
+Iteration 2:  Log likelihood = -173.01524  
+Iteration 3:  Log likelihood = -173.01509  
+Iteration 4:  Log likelihood = -173.01509  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2158,13 +2151,13 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -164.57948
-rescale:       log likelihood = -164.57948
-rescale eq:    log likelihood = -164.57948
-Iteration 0:   log likelihood = -164.57948  
-Iteration 1:   log likelihood = -163.85231  
-Iteration 2:   log likelihood = -163.85162  
-Iteration 3:   log likelihood = -163.85162  
+Initial:      Log likelihood = -164.57948
+Rescale:      Log likelihood = -164.57948
+Rescale eq:   Log likelihood = -164.57948
+Iteration 0:  Log likelihood = -164.57948  
+Iteration 1:  Log likelihood = -163.85231  
+Iteration 2:  Log likelihood = -163.85162  
+Iteration 3:  Log likelihood = -163.85162  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2251,14 +2244,14 @@ Note: regressing _y_D on groupA groupC
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -171.62348
-rescale:       log likelihood = -171.62348
-rescale eq:    log likelihood = -171.62348
-Iteration 0:   log likelihood = -171.62348  
-Iteration 1:   log likelihood =  -170.6025  
-Iteration 2:   log likelihood = -170.59394  
-Iteration 3:   log likelihood = -170.59391  
-Iteration 4:   log likelihood = -170.59391  
+Initial:      Log likelihood = -171.62348
+Rescale:      Log likelihood = -171.62348
+Rescale eq:   Log likelihood = -171.62348
+Iteration 0:  Log likelihood = -171.62348  
+Iteration 1:  Log likelihood =  -170.6025  
+Iteration 2:  Log likelihood = -170.59394  
+Iteration 3:  Log likelihood = -170.59391  
+Iteration 4:  Log likelihood = -170.59391  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2308,18 +2301,18 @@ Note: regressing _y_D on _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -173.77819
-rescale:       log likelihood = -173.77819
-rescale eq:    log likelihood = -173.77819
-Iteration 0:   log likelihood = -173.77819  
-Iteration 1:   log likelihood = -172.47344  
-Iteration 2:   log likelihood = -172.40978  
-Iteration 3:   log likelihood = -172.36939  
-Iteration 4:   log likelihood = -172.35003  
-Iteration 5:   log likelihood = -172.34529  
-Iteration 6:   log likelihood = -172.33803  
-Iteration 7:   log likelihood = -172.33652  
-Iteration 8:   log likelihood = -172.33652  
+Initial:      Log likelihood = -173.77819
+Rescale:      Log likelihood = -173.77819
+Rescale eq:   Log likelihood = -173.77819
+Iteration 0:  Log likelihood = -173.77819  
+Iteration 1:  Log likelihood = -172.47344  
+Iteration 2:  Log likelihood = -172.40978  
+Iteration 3:  Log likelihood = -172.36939  
+Iteration 4:  Log likelihood = -172.35003  
+Iteration 5:  Log likelihood = -172.34529  
+Iteration 6:  Log likelihood = -172.33803  
+Iteration 7:  Log likelihood = -172.33652  
+Iteration 8:  Log likelihood = -172.33652  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2438,15 +2431,15 @@ Note: using variables _y_A _y_B _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -73.692505
-rescale:       log likelihood = -73.692505
-rescale eq:    log likelihood = -73.457281
-Iteration 0:   log likelihood = -73.457281  
-Iteration 1:   log likelihood = -72.060274  
-Iteration 2:   log likelihood = -72.040712  (not concave)
-Iteration 3:   log likelihood = -72.038393  
-Iteration 4:   log likelihood = -72.037833  
-Iteration 5:   log likelihood = -72.037833  
+Initial:      Log likelihood = -73.692505
+Rescale:      Log likelihood = -73.692505
+Rescale eq:   Log likelihood = -73.457281
+Iteration 0:  Log likelihood = -73.457281  
+Iteration 1:  Log likelihood = -72.060274  
+Iteration 2:  Log likelihood = -72.040712  (not concave)
+Iteration 3:  Log likelihood = -72.038393  
+Iteration 4:  Log likelihood = -72.037833  
+Iteration 5:  Log likelihood = -72.037833  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2484,14 +2477,14 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -63.602216
-rescale:       log likelihood = -63.602216
-rescale eq:    log likelihood = -63.602216
-Iteration 0:   log likelihood = -63.602216  
-Iteration 1:   log likelihood = -62.875022  
-Iteration 2:   log likelihood = -62.874365  
-Iteration 3:   log likelihood = -62.874357  
-Iteration 4:   log likelihood = -62.874357  
+Initial:      Log likelihood = -63.602216
+Rescale:      Log likelihood = -63.602216
+Rescale eq:   Log likelihood = -63.602216
+Iteration 0:  Log likelihood = -63.602216  
+Iteration 1:  Log likelihood = -62.875022  
+Iteration 2:  Log likelihood = -62.874365  
+Iteration 3:  Log likelihood = -62.874357  
+Iteration 4:  Log likelihood = -62.874357  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2578,17 +2571,17 @@ Note: regressing _y_D on groupA groupB
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -68.652402
-rescale:       log likelihood = -68.652402
-rescale eq:    log likelihood = -68.545967
-Iteration 0:   log likelihood = -68.545967  
-Iteration 1:   log likelihood = -67.201747  (not concave)
-Iteration 2:   log likelihood = -67.195534  
-Iteration 3:   log likelihood = -67.194363  
-Iteration 4:   log likelihood = -67.188993  
-Iteration 5:   log likelihood = -67.188067  
-Iteration 6:   log likelihood = -67.187852  
-Iteration 7:   log likelihood = -67.187852  
+Initial:      Log likelihood = -68.652402
+Rescale:      Log likelihood = -68.652402
+Rescale eq:   Log likelihood = -68.545967
+Iteration 0:  Log likelihood = -68.545967  
+Iteration 1:  Log likelihood = -67.201747  (not concave)
+Iteration 2:  Log likelihood = -67.195534  
+Iteration 3:  Log likelihood = -67.194363  
+Iteration 4:  Log likelihood = -67.188993  
+Iteration 5:  Log likelihood = -67.188067  
+Iteration 6:  Log likelihood = -67.187852  
+Iteration 7:  Log likelihood = -67.187852  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2638,14 +2631,14 @@ Note: regressing _y_D on _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -72.800925
-rescale:       log likelihood = -72.800925
-rescale eq:    log likelihood = -72.800925
-Iteration 0:   log likelihood = -72.800925  
-Iteration 1:   log likelihood = -71.496751  
-Iteration 2:   log likelihood = -71.367404  
-Iteration 3:   log likelihood = -71.359269  
-Iteration 4:   log likelihood = -71.359266  
+Initial:      Log likelihood = -72.800925
+Rescale:      Log likelihood = -72.800925
+Rescale eq:   Log likelihood = -72.800925
+Iteration 0:  Log likelihood = -72.800925  
+Iteration 1:  Log likelihood = -71.496751  
+Iteration 2:  Log likelihood = -71.367404  
+Iteration 3:  Log likelihood = -71.359269  
+Iteration 4:  Log likelihood = -71.359266  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2765,14 +2758,14 @@ Note: using variables _y_A _y_B _y_C
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -175.48222
-rescale:       log likelihood = -175.48222
-rescale eq:    log likelihood = -175.26979
-Iteration 0:   log likelihood = -175.26979  
-Iteration 1:   log likelihood = -173.85457  
-Iteration 2:   log likelihood = -173.82766  
-Iteration 3:   log likelihood = -173.82754  
-Iteration 4:   log likelihood = -173.82754  
+Initial:      Log likelihood = -175.48222
+Rescale:      Log likelihood = -175.48222
+Rescale eq:   Log likelihood = -175.26979
+Iteration 0:  Log likelihood = -175.26979  
+Iteration 1:  Log likelihood = -173.85457  
+Iteration 2:  Log likelihood = -173.82766  
+Iteration 3:  Log likelihood = -173.82754  
+Iteration 4:  Log likelihood = -173.82754  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2810,13 +2803,13 @@ Note: regressing _y_C on des_AC des_BCD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -165.39193
-rescale:       log likelihood = -165.39193
-rescale eq:    log likelihood = -165.39193
-Iteration 0:   log likelihood = -165.39193  
-Iteration 1:   log likelihood = -164.66499  
-Iteration 2:   log likelihood = -164.66407  
-Iteration 3:   log likelihood = -164.66407  
+Initial:      Log likelihood = -165.39193
+Rescale:      Log likelihood = -165.39193
+Rescale eq:   Log likelihood = -165.39193
+Iteration 0:  Log likelihood = -165.39193  
+Iteration 1:  Log likelihood = -164.66499  
+Iteration 2:  Log likelihood = -164.66407  
+Iteration 3:  Log likelihood = -164.66407  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2903,13 +2896,13 @@ Note: regressing _y_C on groupA groupB
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -172.32926
-rescale:       log likelihood = -172.32926
-rescale eq:    log likelihood = -172.32926
-Iteration 0:   log likelihood = -172.32926  
-Iteration 1:   log likelihood = -171.40797  
-Iteration 2:   log likelihood = -171.40736  
-Iteration 3:   log likelihood = -171.40736  
+Initial:      Log likelihood = -172.32926
+Rescale:      Log likelihood = -172.32926
+Rescale eq:   Log likelihood = -172.32926
+Iteration 0:  Log likelihood = -172.32926  
+Iteration 1:  Log likelihood = -171.40797  
+Iteration 2:  Log likelihood = -171.40736  
+Iteration 3:  Log likelihood = -171.40736  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -2959,15 +2952,15 @@ Note: regressing _y_C on _trtdiffzero _trtdiffzero _trtdiffone _trtdiffincoC
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -174.59064
-rescale:       log likelihood = -174.59064
-rescale eq:    log likelihood = -174.59064
-Iteration 0:   log likelihood = -174.59064  
-Iteration 1:   log likelihood =  -173.2882  (not concave)
-Iteration 2:   log likelihood = -173.17375  (not concave)
-Iteration 3:   log likelihood = -173.14946  
-Iteration 4:   log likelihood = -173.14897  
-Iteration 5:   log likelihood = -173.14897  
+Initial:      Log likelihood = -174.59064
+Rescale:      Log likelihood = -174.59064
+Rescale eq:   Log likelihood = -174.59064
+Iteration 0:  Log likelihood = -174.59064  
+Iteration 1:  Log likelihood =  -173.2882  (not concave)
+Iteration 2:  Log likelihood = -173.17375  (not concave)
+Iteration 3:  Log likelihood = -173.14946  
+Iteration 4:  Log likelihood = -173.14897  
+Iteration 5:  Log likelihood = -173.14897  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -3088,14 +3081,14 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood = -32.844434  
-Iteration 2:   log likelihood = -32.817175  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood = -32.844434  
+Iteration 2:  Log likelihood = -32.817175  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3136,13 +3129,13 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_C_des_AC
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654263  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654263  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3295,14 +3288,14 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_C _trtdiff2_D
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood =  -32.84443  
-Iteration 2:   log likelihood = -32.817175  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood =  -32.84443  
+Iteration 2:  Log likelihood = -32.817175  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3343,13 +3336,13 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_C _trtdiff2_D _trtdiff2_C_des_AC
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654259  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654259  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3502,14 +3495,14 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_B _trtdiff2_D
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood = -32.844428  
-Iteration 2:   log likelihood = -32.817175  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood = -32.844428  
+Iteration 2:  Log likelihood = -32.817175  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3550,13 +3543,13 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_B _trtdiff2_D _trtdiff2_A_des_AC
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654258  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654258  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3709,14 +3702,14 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_B _trtdiff2_C
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood = -32.844423  
-Iteration 2:   log likelihood = -32.817174  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood = -32.844423  
+Iteration 2:  Log likelihood = -32.817174  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -3757,13 +3750,13 @@ Note: regressing _y_2 on _trtdiff2_A _trtdiff2_B _trtdiff2_C _trtdiff2_C_des_AC
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654262  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654262  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -4583,7 +4576,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 0=
+loop 1 score 1===== 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -4594,14 +4587,14 @@ Note: using variables _y_B _y_C _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -175.48222
-rescale:       log likelihood = -175.48222
-rescale eq:    log likelihood = -175.26979
-Iteration 0:   log likelihood = -175.26979  
-Iteration 1:   log likelihood = -173.85457  
-Iteration 2:   log likelihood = -173.82772  
-Iteration 3:   log likelihood = -173.82754  
-Iteration 4:   log likelihood = -173.82754  
+Initial:      Log likelihood = -175.48222
+Rescale:      Log likelihood = -175.48222
+Rescale eq:   Log likelihood = -175.26979
+Iteration 0:  Log likelihood = -175.26979  
+Iteration 1:  Log likelihood = -173.85457  
+Iteration 2:  Log likelihood = -173.82772  
+Iteration 3:  Log likelihood = -173.82754  
+Iteration 4:  Log likelihood = -173.82754  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -4656,13 +4649,13 @@ Note: regressing _y_D on des_AD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -165.39193
-rescale:       log likelihood = -165.39193
-rescale eq:    log likelihood = -165.39193
-Iteration 0:   log likelihood = -165.39193  
-Iteration 1:   log likelihood = -164.66492  
-Iteration 2:   log likelihood = -164.66406  
-Iteration 3:   log likelihood = -164.66406  
+Initial:      Log likelihood = -165.39193
+Rescale:      Log likelihood = -165.39193
+Rescale eq:   Log likelihood = -165.39193
+Iteration 0:  Log likelihood = -165.39193  
+Iteration 1:  Log likelihood = -164.66492  
+Iteration 2:  Log likelihood = -164.66406  
+Iteration 3:  Log likelihood = -164.66406  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -4927,7 +4920,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1======================= 0
+loop 1 score 1===== 0
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -4941,14 +4934,14 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood = -32.844423  
-Iteration 2:   log likelihood = -32.817174  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood = -32.844423  
+Iteration 2:  Log likelihood = -32.817174  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -5006,13 +4999,13 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_B_des_AB
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654262  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654262  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -5282,7 +5275,7 @@ Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
 Improving locations ...
-loop 1 score 1======= 0
+loop 1 score 0=
 Stopping after achieving score of 0
 Evaluating optimal locations ...
 Graph command stored in F9
@@ -5685,15 +5678,15 @@ Note: using variables _y_B _y_C _y_D
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -72.419237
-rescale:       log likelihood = -72.419237
-rescale eq:    log likelihood = -72.206817
-Iteration 0:   log likelihood = -72.206817  
-Iteration 1:   log likelihood = -70.791949  
-Iteration 2:   log likelihood = -70.765417  
-Iteration 3:   log likelihood = -70.764725  
-Iteration 4:   log likelihood = -70.764565  
-Iteration 5:   log likelihood = -70.764565  
+Initial:      Log likelihood = -72.419237
+Rescale:      Log likelihood = -72.419237
+Rescale eq:   Log likelihood = -72.206817
+Iteration 0:  Log likelihood = -72.206817  
+Iteration 1:  Log likelihood = -70.791949  
+Iteration 2:  Log likelihood = -70.765417  
+Iteration 3:  Log likelihood = -70.764725  
+Iteration 4:  Log likelihood = -70.764565  
+Iteration 5:  Log likelihood = -70.764565  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -5730,13 +5723,13 @@ Note: regressing _y_D on des_AD des_BCD des_BD des_CD
 Note: 24 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood = -62.328944
-rescale:       log likelihood = -62.328944
-rescale eq:    log likelihood = -62.328944
-Iteration 0:   log likelihood = -62.328944  
-Iteration 1:   log likelihood = -61.601801  
-Iteration 2:   log likelihood = -61.601084  
-Iteration 3:   log likelihood = -61.601084  
+Initial:      Log likelihood = -62.328944
+Rescale:      Log likelihood = -62.328944
+Rescale eq:   Log likelihood = -62.328944
+Iteration 0:  Log likelihood = -62.328944  
+Iteration 1:  Log likelihood = -61.601801  
+Iteration 2:  Log likelihood = -61.601084  
+Iteration 3:  Log likelihood = -61.601084  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -5821,14 +5814,14 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -34.471727
-rescale:       log likelihood = -34.471727
-rescale eq:    log likelihood = -34.259312
-Iteration 0:   log likelihood = -34.259312  
-Iteration 1:   log likelihood = -32.844434  
-Iteration 2:   log likelihood = -32.817175  
-Iteration 3:   log likelihood = -32.817057  
-Iteration 4:   log likelihood = -32.817057  
+Initial:      Log likelihood = -34.471727
+Rescale:      Log likelihood = -34.471727
+Rescale eq:   Log likelihood = -34.259312
+Iteration 0:  Log likelihood = -34.259312  
+Iteration 1:  Log likelihood = -32.844434  
+Iteration 2:  Log likelihood = -32.817175  
+Iteration 3:  Log likelihood = -32.817057  
+Iteration 4:  Log likelihood = -32.817057  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -5868,13 +5861,13 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_C_des_AC
 Note: 24 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -24.381433
-rescale:       log likelihood = -24.381433
-rescale eq:    log likelihood = -24.381433
-Iteration 0:   log likelihood = -24.381433  
-Iteration 1:   log likelihood = -23.654263  
-Iteration 2:   log likelihood = -23.653575  
-Iteration 3:   log likelihood = -23.653575  
+Initial:      Log likelihood = -24.381433
+Rescale:      Log likelihood = -24.381433
+Rescale eq:   Log likelihood = -24.381433
+Iteration 0:  Log likelihood = -24.381433  
+Iteration 1:  Log likelihood = -23.654263  
+Iteration 2:  Log likelihood = -23.653575  
+Iteration 3:  Log likelihood = -23.653575  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -5980,14 +5973,14 @@ Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -128.22249
-rescale:       log likelihood = -117.53856
-rescale eq:    log likelihood = -115.63531
-Iteration 0:   log likelihood = -115.63531  
-Iteration 1:   log likelihood =  -115.4644  
-Iteration 2:   log likelihood = -115.45842  
-Iteration 3:   log likelihood =  -115.4584  
-Iteration 4:   log likelihood =  -115.4584  
+Initial:      Log likelihood = -128.22249
+Rescale:      Log likelihood = -117.53856
+Rescale eq:   Log likelihood = -115.63531
+Iteration 0:  Log likelihood = -115.63531  
+Iteration 1:  Log likelihood =  -115.4644  
+Iteration 2:  Log likelihood = -115.45842  
+Iteration 3:  Log likelihood =  -115.4584  
+Iteration 4:  Log likelihood =  -115.4584  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -6082,15 +6075,15 @@ Note: regressing _y_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -117.92653
-rescale:       log likelihood =  -114.1119
-rescale eq:    log likelihood =  -111.8201
-Iteration 0:   log likelihood =  -111.8201  
-Iteration 1:   log likelihood = -111.50541  
-Iteration 2:   log likelihood = -111.49889  
-Iteration 3:   log likelihood = -111.49245  
-Iteration 4:   log likelihood = -111.49218  
-Iteration 5:   log likelihood = -111.49218  
+Initial:      Log likelihood = -117.92653
+Rescale:      Log likelihood =  -114.1119
+Rescale eq:   Log likelihood =  -111.8201
+Iteration 0:  Log likelihood =  -111.8201  
+Iteration 1:  Log likelihood = -111.50541  
+Iteration 2:  Log likelihood = -111.49889  
+Iteration 3:  Log likelihood = -111.49245  
+Iteration 4:  Log likelihood = -111.49218  
+Iteration 5:  Log likelihood = -111.49218  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -6208,18 +6201,18 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdi
 Note: 28 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood =  -30.93091
-rescale:       log likelihood = -20.246987
-rescale eq:    log likelihood = -19.390269
-Iteration 0:   log likelihood = -19.390269  (not concave)
-Iteration 1:   log likelihood = -18.320713  
-Iteration 2:   log likelihood = -18.234641  (not concave)
-Iteration 3:   log likelihood = -18.214841  
-Iteration 4:   log likelihood = -18.169016  
-Iteration 5:   log likelihood = -18.167742  
-Iteration 6:   log likelihood = -18.166833  
-Iteration 7:   log likelihood = -18.166827  
-Iteration 8:   log likelihood = -18.166827  
+Initial:      Log likelihood =  -30.93091
+Rescale:      Log likelihood = -20.246987
+Rescale eq:   Log likelihood = -19.390269
+Iteration 0:  Log likelihood = -19.390269  (not concave)
+Iteration 1:  Log likelihood = -18.320713  
+Iteration 2:  Log likelihood = -18.234641  (not concave)
+Iteration 3:  Log likelihood = -18.214841  
+Iteration 4:  Log likelihood = -18.169016  
+Iteration 5:  Log likelihood = -18.167742  
+Iteration 6:  Log likelihood = -18.166833  
+Iteration 7:  Log likelihood = -18.166827  
+Iteration 8:  Log likelihood = -18.166827  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -6297,16 +6290,16 @@ Note: regressing _y_2 on _trtdiff2_B _trtdiff2_C _trtdiff2_D _trtdiff2_E _trtdi
 Note: 28 observations on 2 variables
 Note: variance-covariance matrix is proportional to .5*I(2)+.5*J(2,2,1)
 
-initial:       log likelihood = -20.634952
-rescale:       log likelihood = -16.820324
-rescale eq:    log likelihood = -15.214981
-Iteration 0:   log likelihood = -15.214981  
-Iteration 1:   log likelihood = -14.790576  
-Iteration 2:   log likelihood =  -14.47963  
-Iteration 3:   log likelihood = -14.213403  
-Iteration 4:   log likelihood = -14.200762  
-Iteration 5:   log likelihood = -14.200606  
-Iteration 6:   log likelihood = -14.200606  
+Initial:      Log likelihood = -20.634952
+Rescale:      Log likelihood = -16.820324
+Rescale eq:   Log likelihood = -15.214981
+Iteration 0:  Log likelihood = -15.214981  
+Iteration 1:  Log likelihood = -14.790576  
+Iteration 2:  Log likelihood =  -14.47963  
+Iteration 3:  Log likelihood = -14.213403  
+Iteration 4:  Log likelihood = -14.200762  
+Iteration 5:  Log likelihood = -14.200606  
+Iteration 6:  Log likelihood = -14.200606  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(2)+.5*J(2,2,1)
@@ -6414,19 +6407,19 @@ Note: regressing _y_C on des_CH
 Note: 18 observations on 6 variables
 Note: variance-covariance matrix is proportional to .5*I(6)+.5*J(6,6,1)
 
-initial:       log likelihood = -110.20659
-rescale:       log likelihood = -108.22602
-rescale eq:    log likelihood = -106.50072
-Iteration 0:   log likelihood = -106.50072  
-Iteration 1:   log likelihood = -106.17186  
-Iteration 2:   log likelihood =  -106.1068  (not concave)
-Iteration 3:   log likelihood = -106.10125  
-Iteration 4:   log likelihood = -106.09946  (not concave)
-Iteration 5:   log likelihood = -106.09135  
-Iteration 6:   log likelihood = -106.08948  
-Iteration 7:   log likelihood = -106.08882  
-Iteration 8:   log likelihood = -106.08879  
-Iteration 9:   log likelihood = -106.08879  
+Initial:      Log likelihood = -110.20659
+Rescale:      Log likelihood = -108.22602
+Rescale eq:   Log likelihood = -106.50072
+Iteration 0:  Log likelihood = -106.50072  
+Iteration 1:  Log likelihood = -106.17186  
+Iteration 2:  Log likelihood =  -106.1068  (not concave)
+Iteration 3:  Log likelihood = -106.10125  
+Iteration 4:  Log likelihood = -106.09946  (not concave)
+Iteration 5:  Log likelihood = -106.09135  
+Iteration 6:  Log likelihood = -106.08948  
+Iteration 7:  Log likelihood = -106.08882  
+Iteration 8:  Log likelihood = -106.08879  
+Iteration 9:  Log likelihood = -106.08879  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(6)+.5*J(6,6,1)
@@ -6504,19 +6497,19 @@ Note: regressing _y_C on des_CH
 Note: 18 observations on 6 variables
 Note: variance-covariance matrix is proportional to .5*I(6)+.5*J(6,6,1)
 
-initial:       log likelihood = -110.20659
-rescale:       log likelihood = -108.22602
-rescale eq:    log likelihood = -106.50072
-Iteration 0:   log likelihood = -106.50072  
-Iteration 1:   log likelihood = -106.17186  
-Iteration 2:   log likelihood =  -106.1068  (not concave)
-Iteration 3:   log likelihood = -106.10125  
-Iteration 4:   log likelihood = -106.09946  (not concave)
-Iteration 5:   log likelihood = -106.09135  
-Iteration 6:   log likelihood = -106.08948  
-Iteration 7:   log likelihood = -106.08882  
-Iteration 8:   log likelihood = -106.08879  
-Iteration 9:   log likelihood = -106.08879  
+Initial:      Log likelihood = -110.20659
+Rescale:      Log likelihood = -108.22602
+Rescale eq:   Log likelihood = -106.50072
+Iteration 0:  Log likelihood = -106.50072  
+Iteration 1:  Log likelihood = -106.17186  
+Iteration 2:  Log likelihood =  -106.1068  (not concave)
+Iteration 3:  Log likelihood = -106.10125  
+Iteration 4:  Log likelihood = -106.09946  (not concave)
+Iteration 5:  Log likelihood = -106.09135  
+Iteration 6:  Log likelihood = -106.08948  
+Iteration 7:  Log likelihood = -106.08882  
+Iteration 8:  Log likelihood = -106.08879  
+Iteration 9:  Log likelihood = -106.08879  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(6)+.5*J(6,6,1)
@@ -6593,16 +6586,16 @@ Note: using variables _y_F _y_G _y_H _y_B _y_E _y_C
 Note: 18 observations on 6 variables
 Note: variance-covariance matrix is proportional to .5*I(6)+.5*J(6,6,1)
 
-initial:       log likelihood = -114.88088
-rescale:       log likelihood = -112.00466
-rescale eq:    log likelihood = -111.05856
-Iteration 0:   log likelihood = -111.05856  
-Iteration 1:   log likelihood = -110.88169  
-Iteration 2:   log likelihood = -110.86141  (not concave)
-Iteration 3:   log likelihood = -110.85264  
-Iteration 4:   log likelihood = -110.84484  
-Iteration 5:   log likelihood =  -110.8448  
-Iteration 6:   log likelihood =  -110.8448  
+Initial:      Log likelihood = -114.88088
+Rescale:      Log likelihood = -112.00466
+Rescale eq:   Log likelihood = -111.05856
+Iteration 0:  Log likelihood = -111.05856  
+Iteration 1:  Log likelihood = -110.88169  
+Iteration 2:  Log likelihood = -110.86141  (not concave)
+Iteration 3:  Log likelihood = -110.85264  
+Iteration 4:  Log likelihood = -110.84484  
+Iteration 5:  Log likelihood =  -110.8448  
+Iteration 6:  Log likelihood =  -110.8448  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(6)+.5*J(6,6,1)
@@ -6783,15 +6776,15 @@ Note: regressing AAy_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -117.92653
-rescale:       log likelihood =  -114.1119
-rescale eq:    log likelihood =  -111.8201
-Iteration 0:   log likelihood =  -111.8201  
-Iteration 1:   log likelihood = -111.50541  
-Iteration 2:   log likelihood = -111.49889  
-Iteration 3:   log likelihood = -111.49245  
-Iteration 4:   log likelihood = -111.49218  
-Iteration 5:   log likelihood = -111.49218  
+Initial:      Log likelihood = -117.92653
+Rescale:      Log likelihood =  -114.1119
+Rescale eq:   Log likelihood =  -111.8201
+Iteration 0:  Log likelihood =  -111.8201  
+Iteration 1:  Log likelihood = -111.50541  
+Iteration 2:  Log likelihood = -111.49889  
+Iteration 3:  Log likelihood = -111.49245  
+Iteration 4:  Log likelihood = -111.49218  
+Iteration 5:  Log likelihood = -111.49218  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -6898,15 +6891,15 @@ Note: regressing b_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -117.92653
-rescale:       log likelihood =  -114.1119
-rescale eq:    log likelihood =  -111.8201
-Iteration 0:   log likelihood =  -111.8201  
-Iteration 1:   log likelihood = -111.50541  
-Iteration 2:   log likelihood = -111.49889  
-Iteration 3:   log likelihood = -111.49245  
-Iteration 4:   log likelihood = -111.49218  
-Iteration 5:   log likelihood = -111.49218  
+Initial:      Log likelihood = -117.92653
+Rescale:      Log likelihood =  -114.1119
+Rescale eq:   Log likelihood =  -111.8201
+Iteration 0:  Log likelihood =  -111.8201  
+Iteration 1:  Log likelihood = -111.50541  
+Iteration 2:  Log likelihood = -111.49889  
+Iteration 3:  Log likelihood = -111.49245  
+Iteration 4:  Log likelihood = -111.49218  
+Iteration 5:  Log likelihood = -111.49218  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -7263,8 +7256,8 @@ Error: there are missing contrasts in the studies listed
      +-----------------------------------------------+
      | study       _design     t1     t2       logOR |
      |-----------------------------------------------|
- 17. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
- 18. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+ 17. |    17   BMS MT PTCA     MT   PTCA   -.0214601 |
+ 18. |    17   BMS MT PTCA   PTCA    BMS   -.1596448 |
      +-----------------------------------------------+
 
 . assert _rc==498
@@ -7433,14 +7426,14 @@ Note: using variables _y_B _y_C _y_D
 Note: 22 observations on 3 variables
 Note: variance-covariance matrix is proportional to .5*I(3)+.5*J(3,3,1)
 
-initial:       log likelihood =  -56.08237
-rescale:       log likelihood =  -56.08237
-rescale eq:    log likelihood =  -56.08237
-Iteration 0:   log likelihood =  -56.08237  
-Iteration 1:   log likelihood = -55.035848  
-Iteration 2:   log likelihood = -55.009946  
-Iteration 3:   log likelihood = -55.009068  
-Iteration 4:   log likelihood = -55.009068  
+Initial:      Log likelihood =  -56.08237
+Rescale:      Log likelihood =  -56.08237
+Rescale eq:   Log likelihood =  -56.08237
+Iteration 0:  Log likelihood =  -56.08237  
+Iteration 1:  Log likelihood = -55.035848  
+Iteration 2:  Log likelihood = -55.009946  
+Iteration 3:  Log likelihood = -55.009068  
+Iteration 4:  Log likelihood = -55.009068  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(3)+.5*J(3,3,1)
@@ -7475,14 +7468,14 @@ Note: regressing _y_1 on _trtdiff1_B _trtdiff1_C _trtdiff1_D
 Note: 22 observations on 1 variables
 Note: variance-covariance matrix is proportional to .5*I(1)+.5*J(1,1,1)
 
-initial:       log likelihood = -29.380734
-rescale:       log likelihood = -29.380734
-rescale eq:    log likelihood = -29.380734
-Iteration 0:   log likelihood = -29.380734  
-Iteration 1:   log likelihood = -28.334223  
-Iteration 2:   log likelihood = -28.307455  
-Iteration 3:   log likelihood = -28.307443  
-Iteration 4:   log likelihood = -28.307443  
+Initial:      Log likelihood = -29.380734
+Rescale:      Log likelihood = -29.380734
+Rescale eq:   Log likelihood = -29.380734
+Iteration 0:  Log likelihood = -29.380734  
+Iteration 1:  Log likelihood = -28.334223  
+Iteration 2:  Log likelihood = -28.307455  
+Iteration 3:  Log likelihood = -28.307443  
+Iteration 4:  Log likelihood = -28.307443  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(1)+.5*J(1,1,1)
@@ -7574,18 +7567,18 @@ Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -127.00526
-rescale:       log likelihood = -115.41956
-rescale eq:    log likelihood = -113.43202
-Iteration 0:   log likelihood = -113.43202  
-Iteration 1:   log likelihood = -113.29158  (not concave)
-Iteration 2:   log likelihood = -113.27213  
-Iteration 3:   log likelihood = -113.26616  
-Iteration 4:   log likelihood = -113.26611  
-Iteration 5:   log likelihood = -113.26601  
-Iteration 6:   log likelihood =   -113.266  
-Iteration 7:   log likelihood = -113.26598  
-Iteration 8:   log likelihood = -113.26598  
+Initial:      Log likelihood = -127.00526
+Rescale:      Log likelihood = -115.41956
+Rescale eq:   Log likelihood = -113.43202
+Iteration 0:  Log likelihood = -113.43202  
+Iteration 1:  Log likelihood = -113.29158  (not concave)
+Iteration 2:  Log likelihood = -113.27213  
+Iteration 3:  Log likelihood = -113.26616  
+Iteration 4:  Log likelihood = -113.26611  
+Iteration 5:  Log likelihood = -113.26601  
+Iteration 6:  Log likelihood =   -113.266  
+Iteration 7:  Log likelihood = -113.26598  
+Iteration 8:  Log likelihood = -113.26598  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -7680,15 +7673,15 @@ Note: regressing _y_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -116.86591
-rescale:       log likelihood = -112.69538
-rescale eq:    log likelihood = -110.20781
-Iteration 0:   log likelihood = -110.20781  
-Iteration 1:   log likelihood = -109.87776  (not concave)
-Iteration 2:   log likelihood = -109.85199  
-Iteration 3:   log likelihood = -109.84473  
-Iteration 4:   log likelihood = -109.84471  
-Iteration 5:   log likelihood = -109.84471  
+Initial:      Log likelihood = -116.86591
+Rescale:      Log likelihood = -112.69538
+Rescale eq:   Log likelihood = -110.20781
+Iteration 0:  Log likelihood = -110.20781  
+Iteration 1:  Log likelihood = -109.87776  (not concave)
+Iteration 2:  Log likelihood = -109.85199  
+Iteration 3:  Log likelihood = -109.84473  
+Iteration 4:  Log likelihood = -109.84471  
+Iteration 5:  Log likelihood = -109.84471  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -7800,14 +7793,14 @@ Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -128.22249
-rescale:       log likelihood = -117.53856
-rescale eq:    log likelihood = -115.63531
-Iteration 0:   log likelihood = -115.63531  
-Iteration 1:   log likelihood =  -115.4644  
-Iteration 2:   log likelihood = -115.45842  
-Iteration 3:   log likelihood =  -115.4584  
-Iteration 4:   log likelihood =  -115.4584  
+Initial:      Log likelihood = -128.22249
+Rescale:      Log likelihood = -117.53856
+Rescale eq:   Log likelihood = -115.63531
+Iteration 0:  Log likelihood = -115.63531  
+Iteration 1:  Log likelihood =  -115.4644  
+Iteration 2:  Log likelihood = -115.45842  
+Iteration 3:  Log likelihood =  -115.4584  
+Iteration 4:  Log likelihood =  -115.4584  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -7902,15 +7895,15 @@ Note: regressing _y_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -117.92653
-rescale:       log likelihood =  -114.1119
-rescale eq:    log likelihood =  -111.8201
-Iteration 0:   log likelihood =  -111.8201  
-Iteration 1:   log likelihood = -111.50541  
-Iteration 2:   log likelihood = -111.49889  
-Iteration 3:   log likelihood = -111.49245  
-Iteration 4:   log likelihood = -111.49218  
-Iteration 5:   log likelihood = -111.49218  
+Initial:      Log likelihood = -117.92653
+Rescale:      Log likelihood =  -114.1119
+Rescale eq:   Log likelihood =  -111.8201
+Iteration 0:  Log likelihood =  -111.8201  
+Iteration 1:  Log likelihood = -111.50541  
+Iteration 2:  Log likelihood = -111.49889  
+Iteration 3:  Log likelihood = -111.49245  
+Iteration 4:  Log likelihood = -111.49218  
+Iteration 5:  Log likelihood = -111.49218  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -8022,23 +8015,23 @@ Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -88.723004
-rescale:       log likelihood = -17.512769
-rescale eq:    log likelihood = -13.864284
-Iteration 0:   log likelihood = -13.864284  
-Iteration 1:   log likelihood = -13.651492  (not concave)
-Iteration 2:   log likelihood = -13.462651  
-Iteration 3:   log likelihood = -13.438165  (not concave)
-Iteration 4:   log likelihood = -13.411816  
-Iteration 5:   log likelihood = -13.395288  
-Iteration 6:   log likelihood = -13.393564  
-Iteration 7:   log likelihood = -13.386783  
-Iteration 8:   log likelihood = -13.386695  
-Iteration 9:   log likelihood = -13.385791  (not concave)
-Iteration 10:  log likelihood = -13.385765  
-Iteration 11:  log likelihood = -13.385761  
-Iteration 12:  log likelihood = -13.385759  
-Iteration 13:  log likelihood = -13.385759  
+Initial:      Log likelihood = -88.723004
+Rescale:      Log likelihood = -17.512769
+Rescale eq:   Log likelihood = -13.864284
+Iteration 0:  Log likelihood = -13.864284  
+Iteration 1:  Log likelihood = -13.651492  (not concave)
+Iteration 2:  Log likelihood = -13.462651  
+Iteration 3:  Log likelihood = -13.438165  (not concave)
+Iteration 4:  Log likelihood = -13.411816  
+Iteration 5:  Log likelihood = -13.395288  
+Iteration 6:  Log likelihood = -13.393564  
+Iteration 7:  Log likelihood = -13.386783  
+Iteration 8:  Log likelihood = -13.386695  
+Iteration 9:  Log likelihood = -13.385791  (not concave)
+Iteration 10: Log likelihood = -13.385765  
+Iteration 11: Log likelihood = -13.385761  
+Iteration 12: Log likelihood = -13.385759  
+Iteration 13: Log likelihood = -13.385759  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -8133,21 +8126,21 @@ Note: regressing _y_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -80.316686
-rescale:       log likelihood = -38.965317
-rescale eq:    log likelihood =  -33.57131
-Iteration 0:   log likelihood =  -33.57131  
-Iteration 1:   log likelihood = -33.216134  
-Iteration 2:   log likelihood = -33.074931  (not concave)
-Iteration 3:   log likelihood =    -33.037  (not concave)
-Iteration 4:   log likelihood =  -33.01375  
-Iteration 5:   log likelihood = -33.003898  
-Iteration 6:   log likelihood = -33.003729  
-Iteration 7:   log likelihood = -33.003101  
-Iteration 8:   log likelihood = -33.002771  (not concave)
-Iteration 9:   log likelihood = -33.002213  
-Iteration 10:  log likelihood = -33.001874  
-Iteration 11:  log likelihood = -33.001874  
+Initial:      Log likelihood = -80.316686
+Rescale:      Log likelihood = -38.965317
+Rescale eq:   Log likelihood =  -33.57131
+Iteration 0:  Log likelihood =  -33.57131  
+Iteration 1:  Log likelihood = -33.216134  
+Iteration 2:  Log likelihood = -33.074931  (not concave)
+Iteration 3:  Log likelihood =    -33.037  (not concave)
+Iteration 4:  Log likelihood =  -33.01375  
+Iteration 5:  Log likelihood = -33.003898  
+Iteration 6:  Log likelihood = -33.003729  
+Iteration 7:  Log likelihood = -33.003101  
+Iteration 8:  Log likelihood = -33.002771  (not concave)
+Iteration 9:  Log likelihood = -33.002213  
+Iteration 10: Log likelihood = -33.001874  
+Iteration 11: Log likelihood = -33.001874  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -8259,15 +8252,15 @@ Note: using variables _y_B _y_C _y_D _y_E _y_F _y_G _y_H
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood =  -127.5061
-rescale:       log likelihood = -115.90472
-rescale eq:    log likelihood = -113.91555
-Iteration 0:   log likelihood = -113.91555  
-Iteration 1:   log likelihood = -113.78964  
-Iteration 2:   log likelihood =  -113.7649  (not concave)
-Iteration 3:   log likelihood = -113.74716  
-Iteration 4:   log likelihood = -113.74666  
-Iteration 5:   log likelihood = -113.74666  
+Initial:      Log likelihood =  -127.5061
+Rescale:      Log likelihood = -115.90472
+Rescale eq:   Log likelihood = -113.91555
+Iteration 0:  Log likelihood = -113.91555  
+Iteration 1:  Log likelihood = -113.78964  
+Iteration 2:  Log likelihood =  -113.7649  (not concave)
+Iteration 3:  Log likelihood = -113.74716  
+Iteration 4:  Log likelihood = -113.74666  
+Iteration 5:  Log likelihood = -113.74666  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -8362,15 +8355,15 @@ Note: regressing _y_H on des_AH des_BH des_CH
 Note: 28 observations on 7 variables
 Note: variance-covariance matrix is proportional to .5*I(7)+.5*J(7,7,1)
 
-initial:       log likelihood = -117.34934
-rescale:       log likelihood = -113.23641
-rescale eq:    log likelihood = -110.79323
-Iteration 0:   log likelihood = -110.79323  
-Iteration 1:   log likelihood = -110.46783  (not concave)
-Iteration 2:   log likelihood = -110.44303  
-Iteration 3:   log likelihood = -110.43828  
-Iteration 4:   log likelihood = -110.43825  
-Iteration 5:   log likelihood = -110.43825  
+Initial:      Log likelihood = -117.34934
+Rescale:      Log likelihood = -113.23641
+Rescale eq:   Log likelihood = -110.79323
+Iteration 0:  Log likelihood = -110.79323  
+Iteration 1:  Log likelihood = -110.46783  (not concave)
+Iteration 2:  Log likelihood = -110.44303  
+Iteration 3:  Log likelihood = -110.43828  
+Iteration 4:  Log likelihood = -110.43825  
+Iteration 5:  Log likelihood = -110.43825  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(7)+.5*J(7,7,1)
@@ -9512,12 +9505,12 @@ Note: regressing _y_1 on _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B
 Note: 18 observations on 1 variables
 Note: variance-covariance matrix is proportional to .5*I(1)+.5*J(1,1,1)
 
-initial:       log likelihood = -15.212027
-rescale:       log likelihood = -12.660107
-rescale eq:    log likelihood = -.22530835
-Iteration 0:   log likelihood = -.22530835  
-Iteration 1:   log likelihood = -.22529199  
-Iteration 2:   log likelihood = -.22529199  
+Initial:      Log likelihood = -15.212027
+Rescale:      Log likelihood = -12.660107
+Rescale eq:   Log likelihood = -.22530835
+Iteration 0:  Log likelihood = -.22530835  
+Iteration 1:  Log likelihood = -.22529199  
+Iteration 2:  Log likelihood = -.22529199  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(1)+.5*J(1,1,1)
@@ -9552,12 +9545,12 @@ Note: regressing _y_1 on _trtdiff1_AAB _trtdiff1_AABC _trtdiff1_BC _trtdiff1_B
 Note: 18 observations on 1 variables
 Note: variance-covariance matrix is proportional to .5*I(1)+.5*J(1,1,1)
 
-initial:       log likelihood = -9.0135553
-rescale:       log likelihood = -9.0135553
-rescale eq:    log likelihood = -.25177417
-Iteration 0:   log likelihood = -.25177417  
-Iteration 1:   log likelihood = -.25175869  
-Iteration 2:   log likelihood = -.25175869  
+Initial:      Log likelihood = -9.0135553
+Rescale:      Log likelihood = -9.0135553
+Rescale eq:   Log likelihood = -.25177417
+Iteration 0:  Log likelihood = -.25177417  
+Iteration 1:  Log likelihood = -.25175869  
+Iteration 2:  Log likelihood = -.25175869  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(1)+.5*J(1,1,1)
@@ -9669,12 +9662,12 @@ Note: using variables _y_AAB _y_AABC _y_BC _y_B _y_BD _y_A
 Note: 18 observations on 6 variables
 Note: variance-covariance matrix is proportional to .5*I(6)+.5*J(6,6,1)
 
-initial:       log likelihood = -48.589097
-rescale:       log likelihood = -46.037184
-rescale eq:    log likelihood = -33.602355
-Iteration 0:   log likelihood = -33.602355  
-Iteration 1:   log likelihood = -33.602339  
-Iteration 2:   log likelihood = -33.602339  
+Initial:      Log likelihood = -48.589097
+Rescale:      Log likelihood = -46.037184
+Rescale eq:   Log likelihood = -33.602355
+Iteration 0:  Log likelihood = -33.602355  
+Iteration 1:  Log likelihood = -33.602339  
+Iteration 2:  Log likelihood = -33.602339  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(6)+.5*J(6,6,1)
@@ -9734,12 +9727,12 @@ Note: regressing _y_A on (nothing)
 Note: 18 observations on 6 variables
 Note: variance-covariance matrix is proportional to .5*I(6)+.5*J(6,6,1)
 
-initial:       log likelihood = -42.390634
-rescale:       log likelihood = -42.390634
-rescale eq:    log likelihood =  -33.62882
-Iteration 0:   log likelihood =  -33.62882  
-Iteration 1:   log likelihood = -33.628804  
-Iteration 2:   log likelihood = -33.628804  
+Initial:      Log likelihood = -42.390634
+Rescale:      Log likelihood = -42.390634
+Rescale eq:   Log likelihood =  -33.62882
+Iteration 0:  Log likelihood =  -33.62882  
+Iteration 1:  Log likelihood = -33.628804  
+Iteration 2:  Log likelihood = -33.628804  
 
 Multivariate meta-analysis
 Variance-covariance matrix = proportional .5*I(6)+.5*J(6,6,1)
@@ -10196,5 +10189,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ian\git\network\testlogs\network_cscript.log
   log type:  text
- closed on:  19 Sep 2024, 14:44:43
+ closed on:  27 Feb 2025, 13:53:54
 -------------------------------------------------------------------------------

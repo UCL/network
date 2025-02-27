@@ -1,6 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
-8apr2021:	add tests of new netwrok setup direct to standard format
+8apr2021:	add tests of new network setup direct to standard format
 7apr2021:	new ado location on "c:\ado\ian"
 			add new tests of network import in pairs format
 			add new test of extra-long treatment names with nocodes
@@ -21,7 +21,12 @@ REQUIRES: MVMETA, METAREG
 11jul2014: fails with long names
 */
 
+// local implementation - other users change these lines
 local networkdir c:\ian\git\network\
+adopath ++ c:\ian\git\mvmeta\package
+// end of local implementation
+
+adopath ++ `networkdir'package
 cd "`networkdir'scripts"
 cap log close
 log using "`networkdir'testlogs\network_cscript.log", replace
@@ -32,10 +37,10 @@ set trace off
 set more off
 pause on
 prog drop _all
-myadopath mvmeta network
 
 which mvmeta
 which network
+version
 
 // check network setup
 
