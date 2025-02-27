@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  c:\ian\git\network\testlogs\network_cscript.log
   log type:  text
- opened on:  27 Feb 2025, 13:50:06
+ opened on:  27 Feb 2025, 20:16:12
 
 . 
 . cls
@@ -20,12 +20,12 @@
 
 . 
 . which mvmeta
-N:\Home\ado\plus\m\mvmeta.ado
-*! version 4.0.2 # Ian White # 21apr2022
+c:\ian\git\mvmeta\package\mvmeta.ado
+*! version 4.0.3 # Ian White # 27feb2025
 
 . which network
-N:\Home\ado\plus\n\network.ado
-*! version 1.7.1 # Ian White # 19sep2024
+c:\ian\git\network\package\network.ado
+*! 19sep2024
 
 . version
 version 18.5
@@ -199,7 +199,6 @@ Converting pairs to standard ...
      +---------------------------------------------------------------------+
 
 . save z, replace
-(file z.dta not found)
 file z.dta saved
 
 . 
@@ -1545,7 +1544,6 @@ mvmeta command stored as F9; test command stored as F8
      +-----------------------------------+
 
 . save zquant, replace
-(file zquant.dta not found)
 file zquant.dta saved
 
 . network setup sbp sbpsd count, stud(study) trt(trt) smd
@@ -1816,7 +1814,7 @@ _y_B  .67446626          1          .          .
 _y_C  .67446626         .5          1          .
 _y_D  .67446626         .5         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
 > y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_B _y
@@ -2139,7 +2137,7 @@ _y_A  .674466        1        .        .
 _y_C  .674466       .5        1        .
 _y_D  .674466       .5       .5        1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
 > y_C: des_ACD des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(_y_A _y
@@ -2465,7 +2463,7 @@ _y_A  .67446641          1          .          .
 _y_B  .67446641         .5          1          .
 _y_D  .67446641         .5         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
 > y_A: des_ACD, _y_B: des_BC des_BCD, _y_D: des_AD des_BCD des_BD des_CD) vars(
@@ -2791,7 +2789,7 @@ _y_A  .67446786          1          .          .
 _y_B  .67446786         .5          1          .
 _y_C  .67446786         .5         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) longparm suppress(uv mm) eq(_
 > y_A: des_AD, _y_B: des_BC des_BCD des_BD, _y_C: des_AC des_BCD des_CD) vars(_
@@ -3111,7 +3109,7 @@ Estimated between-studies SDs and correlation matrix
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
 > s(uv mm) eq(_y_1: _trtdiff1_B _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _tr
@@ -3318,7 +3316,7 @@ Estimated between-studies SDs and correlation matrix
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
 > s(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_C _trtdiff1_D _trtdiff1_C_des_ACD _tr
@@ -3525,7 +3523,7 @@ Estimated between-studies SDs and correlation matrix
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
 > s(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_D _trtdiff1_A_des_ACD _tr
@@ -3732,7 +3730,7 @@ Estimated between-studies SDs and correlation matrix
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Command is: mvmeta _y _S , bscovariance(exch 0.5) commonparm noconstant suppres
 > s(uv mm) eq(_y_1: _trtdiff1_A _trtdiff1_B _trtdiff1_C _trtdiff1_C_des_AC _trt
@@ -4620,7 +4618,7 @@ _y_B  .67446627          1          .          .
 _y_C  .67446627         .5          1          .
 _y_D  .67446627         .5         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
 -------------------------------------------
@@ -4964,7 +4962,7 @@ Estimated between-studies SDs and correlation matrix
 _y_1  .67446638          1          .
 _y_2  .67446638         .5          1
 ----------------------------------------------------
-Method of moments failed when mvmeta ran, so I^2 cannot be computed
+Warning: method of moments failed when mvmeta ran, so I^2 cannot be computed
 mvmeta command stored as F9
 Table of log odds ratio and its standard error for Treatment vs. Comparator:
 -------------------------------------------
@@ -6710,6 +6708,29 @@ Rank probabilities have been loaded into memory
 tabulate command is stored in F7
 graph command is stored in F8
 
+. assert !mi("$F7")
+
+. $F7
+
+----------------------------------------------------
+          |                Treatment                
+     Rank |    A     F     G     H     B     E     C
+----------+-----------------------------------------
+     Best |  7.9  18.3  11.5   0.3  26.1  34.5   1.4
+      2nd |  6.4  21.1  15.1   1.7  31.3  22.6   1.8
+      3rd | 11.5  28.6  13.5   3.1  23.8  16.8   2.7
+      4th | 22.4  16.3  22.7   8.9  11.9  11.9   5.9
+      5th | 24.7   8.9  22.2  19.7   3.6   7.3  13.6
+      6th | 17.5   5.4  10.6  34.9   2.3   4.0  25.3
+    Worst |  9.6   1.4   4.4  31.4   1.0   2.9  49.3
+MEAN RANK |  4.4   3.0   3.8   5.8   2.5   2.6   6.0
+    SUCRA |  0.4   0.7   0.5   0.2   0.8   0.7   0.2
+----------------------------------------------------
+
+. assert !mi("$F8")
+
+. $F8
+
 . summ _Rank if _Rank<10, meanonly
 
 . assert r(min)==1
@@ -7262,6 +7283,32 @@ Error: there are missing contrasts in the studies listed
 
 . assert _rc==498
 
+. 
+. * CLEAR ERROR MESSAGE FOR MISSING VALUES IN STUDY OR TREATMENT
+. use "coronary artery disease pairwise.dta", clear
+
+. replace study = . in 1
+(1 real change made, 1 to missing)
+
+. cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se)
+Importing from pairs format
+Variable study must not be missing
+
+. assert _rc==459
+
+. 
+. use "coronary artery disease pairwise.dta", clear
+
+. replace t1 = "" in 1
+(1 real change made)
+
+. cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se)
+Importing from pairs format
+Variable t1 must not be missing
+
+. assert _rc==459
+
+. 
 . 
 . * HANDLE NESTED TREATMENT NAMES
 . use "coronary artery disease pairwise", clear
@@ -10189,5 +10236,5 @@ mvmeta command stored as F9; test command stored as F8
       name:  <unnamed>
        log:  c:\ian\git\network\testlogs\network_cscript.log
   log type:  text
- closed on:  27 Feb 2025, 13:53:54
+ closed on:  27 Feb 2025, 20:20:03
 -------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 /* CERTIFICATION SCRIPT FOR NETWORK.ADO
 REQUIRES: MVMETA, METAREG
+27feb2025:	add test of missings for network import
 8apr2021:	add tests of new network setup direct to standard format
 7apr2021:	new ado location on "c:\ado\ian"
 			add new tests of network import in pairs format
@@ -302,6 +303,10 @@ network rank min, rep(50) seed(41087) cum bar saving(z) replace mcse ///
 	title(Rank bars) name(rank1, replace) legend(row(2))
 network rank min, seed(41087) meanrank clear line predict trtcodes ///
 	ylabel(0 25 50) title(Rankogram) name(rank2, replace)
+assert !mi("$F7")
+$F7
+assert !mi("$F8")
+$F8
 summ _Rank if _Rank<10, meanonly
 assert r(min)==1
 assert r(max)==7
@@ -383,6 +388,18 @@ replace study = 17 if inlist(study,50)
 l if study == 17
 cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se) 
 assert _rc==498
+
+* CLEAR ERROR MESSAGE FOR MISSING VALUES IN STUDY OR TREATMENT
+use "coronary artery disease pairwise.dta", clear
+replace study = . in 1
+cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se)
+assert _rc==459
+
+use "coronary artery disease pairwise.dta", clear
+replace t1 = "" in 1
+cap noi network import, tr(t1 t2) eff(logOR) study(study) stderr(se)
+assert _rc==459
+
 
 * HANDLE NESTED TREATMENT NAMES
 use "coronary artery disease pairwise", clear
