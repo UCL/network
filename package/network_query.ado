@@ -1,5 +1,5 @@
 /*
-*! version 1.1 # Ian White # 27may2015
+*! 27may2015
 14mar2015
 	corrected outputting for augmented format
 version 1.0 # Ian White # 9Sep2014 

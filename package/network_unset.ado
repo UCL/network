@@ -1,4 +1,4 @@
-*! version 1.1 # Ian White # 27may2015
+*! 27may2015
 prog def network_unset
 
 // drop any metavars

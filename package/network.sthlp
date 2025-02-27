@@ -149,9 +149,6 @@ must have been fitted since {cmd:network meta, i}.
 {pstd}{cmd:network map} gives poor results if a monochrome color scheme is used. 
 Try {cmd:set scheme s2color}.
 
-{pstd}Unlike other commands, {cmd:network table} orders the treatments in alphabetical order of their names, 
-not of their codes.
-
 {pstd}{cmd:network rank} and {cmd:network sidesplit} only work when the data are in augmented format.
 
 

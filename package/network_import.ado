@@ -77,6 +77,14 @@ if mi("`measure'") local measure (unidentified measure)
 
 // END OF PARSING
 
+foreach var of varlist `studyvar' `treat' `t1' `t2' `contrast' {
+	cap assert !mi(`var')
+	if _rc {
+		di as error "Variable `var' must not be missing"
+		exit 459
+	}
+}
+
 preserve // only in case of error - see restore, not later
 
 if "`format'"=="pairs" {
@@ -395,7 +403,7 @@ if `ncomponents'==1 {
 	local component
 }
 else {
-    di as error "Warning: network is disconnected (see variable _component)"
+    di as text "Warning: network is disconnected (see variable _component)"
 }
 
 // FINISH OFF FOR ALL FORMATS

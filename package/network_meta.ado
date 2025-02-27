@@ -1,5 +1,5 @@
 /*
-*! version 1.7.0 # Ian White # 8apr2021
+*! 08apr2021
 	bug fix: regressing on a constant variable (and using noconstant option) now works and leads to a correct forest plot
 	bug fix: metavars stored before the analysis, to avoid further errors if analysis fails
 	feature: fixed option now works in pairs format (calls vwls)
@@ -11,7 +11,7 @@
 	bug avoider: some choices of treatment codes made designs appear non-unique once spaces are removed
 		e.g. design  "B CD" = "BC D"
 		avoided by returning error in network setup/import if space-removed designs are non-unique 
-*! Ian White # 4apr2018
+4apr2018
 	better error message for network meta without c/i or previous model
 version 1.2.1 # Ian White # 29jun2017 
 	- attempted bug fix in standard format with nested trt names - see line 467
@@ -86,34 +86,34 @@ if !mi("`anything'") {
     }
 }
 if !mi("`luades'`luades2'") {
-    if "`model'"!="inconsistency" & `warn' di as error "Warning: luades option is only allowed with inconsistency model"
+    if "`model'"!="inconsistency" & `warn' di as text "Warning: luades option is only allowed with inconsistency model"
     if "`format'"!="augmented" {
         di as error "Lu-Ades model is only available when data are in augmented format"
         exit 198
     }
 }
-if mi("`ncomponents'") & `warn' di as error "Warning: can't check for disconnected network"
+if mi("`ncomponents'") & `warn' di as text "Warning: can't check for disconnected network"
 else if `ncomponents'>1 {
-    if mi("`force'") | `warn' di as error "Warning: network is disconnected, so network meta models will be wrong"
+    if mi("`force'") | `warn' di as text "Warning: network is disconnected, so network meta models will be wrong"
     if mi("`force'") {
         di as error "(Use force option to override - at your own risk)"
         exit 498
     }
 }
-if mi("`df_inconsistency'") di as error "Warning: can't check df for inconsistency"
+if mi("`df_inconsistency'") di as text "Warning: can't check df for inconsistency"
 else if `df_inconsistency'==0 & "`model'"=="inconsistency" {
-    if mi("`force'") | `warn' di as error "Warning: inconsistency model requested, but your data contain no potential source of inconsistency" 
+    if mi("`force'") | `warn' di as text "Warning: inconsistency model requested, but your data contain no potential source of inconsistency" 
     if mi("`force'") {
         di as error "(Use the force option to override - at your own risk)"
         exit 498
     }
 }
-if mi("`df_heterogeneity'") di as error "Warning: can't check df for heterogeneity"
+if mi("`df_heterogeneity'") di as text "Warning: can't check df for heterogeneity"
 else if `df_heterogeneity'==0 {
 	local bscov1=word("`bscovariance'",1)
 	if !mi("`bscov1'") & "`bscov1'"==substr("equals",1,length("`bscov1'")) local bscov1 equals
 	if mi("`fixed'") & "`bscov1'"!="equals" {
-        if mi("`force'") | `warn' di as error "Warning: heterogeneity model requested, but your data contain no potential source of heterogeneity" _n "Consider using the fixed option"
+        if mi("`force'") | `warn' di as text "Warning: heterogeneity model requested, but your data contain no potential source of heterogeneity" _n "Consider using the fixed option"
         if mi("`force'") {
             di as error "(Use the force option to override - at your own risk)"
             exit 498
@@ -132,8 +132,8 @@ if !mi("`vars'") {
     exit 198
 }
 if !mi("`i2'") {
-    if "`format'"=="pairs" di as error "Warning: i2 option is not available in pairs format"
-    if "`format'"=="standard" di as error "Warning: i2 option is not meaningful in standard format"
+    if "`format'"=="pairs" di as text "Warning: i2 option is not available in pairs format"
+    if "`format'"=="standard" di as text "Warning: i2 option is not meaningful in standard format"
 }
 if !mi("`regress'") & "`format'"!="augmented" {
     di as error "Meta-regression not yet implemented for `format' format"
@@ -193,7 +193,7 @@ if !mi("`luades'`luades2'") { // now finish parsing luades option
     }
 }
 
-if !mi("`MNAR'") di as error "Warning: data were computed under MNAR using options: " as error "`MNAR'"
+if !mi("`MNAR'") di as text "Warning: data were computed under MNAR using options: " as error "`MNAR'"
 
 // SET UP MODELS
 marksample touse
@@ -569,7 +569,7 @@ if `forestproblem'==0 {
     char _dta[network_`model'_fitted] `keepmat'
 }
 else {
-    if `warn' di as error "Warning: results can't be used by network forest, because " _c
+    if `warn' di as text "Warning: results can't be used by network forest, because " _c
     if `forestproblem'==1 & `warn' di as error "consistency model has covariates"
     if `forestproblem'==2 & `warn' di as error "inconsistency model has variation within designs"
     char _dta[network_`model'_fitted]

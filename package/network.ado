@@ -1,5 +1,5 @@
 /*
-*! version 1.7.1 # Ian White # 19sep2024
+*! 19sep2024
 	various minor updates
 version 1.7.0 # Ian White # 8apr2021
 	updates to setup, table, meta, rank

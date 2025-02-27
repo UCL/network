@@ -1,5 +1,5 @@
 /*
-*! Ian White # 26aug2021
+*! 26aug2021
 	remove words "exponentiated log" in eform output
 Ian White # 6apr2018
 	included in network package 

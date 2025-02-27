@@ -1,5 +1,5 @@
 /*
-*! version 1.1 # Ian White # 27may2015
+*! 27may2015
 version 0.8 # 31jul2014
     sort trts by code (not name)
     code option renamed trtcodes

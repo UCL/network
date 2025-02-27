@@ -1,5 +1,5 @@
 /*
-*! version 1.7.1 # Ian White # 13may2021
+*! 13may2021
 	clearer error message if user misunderstands min|max 
 version 1.7.0 # Ian White # 8apr2021
 	removed F9 if clear option is used
@@ -31,7 +31,7 @@ if "`format'"!="augmented" {
     exit 198
 }
 
-syntax [anything] [if] [in], [zero id(varname) TRTCodes clear *]
+syntax [anything] [if] [in], [id(varname) TRTCodes clear *]
 if mi("`if'`in'") & "`e(network)'"=="consistency" & !`hasx' local in "in 1"
 if mi("`id'") local id `studyvar'
 local idopt id(`id')

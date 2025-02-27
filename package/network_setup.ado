@@ -246,7 +246,7 @@ if "`trtvar'"!="" {
     local trtnamemaxlength = 32
     foreach trt in `trtlist' {
         if length("`trt'")>`trtnamemaxlength' { // check added 6apr2018
-			di as error "Warning:" as txt " treatment name " as res "`trt'" as txt " has been truncated to " as res "`trtnamemaxlength'" as txt " characters"
+			di as text "Warning:" as txt " treatment name " as res "`trt'" as txt " has been truncated to " as res "`trtnamemaxlength'" as txt " characters"
 			local trt = substr("`trt'",1,`trtnamemaxlength')
 		}
 		local ++r
@@ -258,9 +258,9 @@ if "`trtvar'"!="" {
 			}
 			* above five lines replace next two lines 
             * local thistrtcode = strtoname("`trt'",0) 
-			* if "`thistrtcode'" != "`trt'" di as error "Warning:" as txt " treatment code " as res "`trt'" as txt " has been changed to " as res "`thistrtcode'"
+			* if "`thistrtcode'" != "`trt'" di as text "Warning:" as txt " treatment code " as res "`trt'" as txt " has been changed to " as res "`thistrtcode'"
 			if length("`thistrtcode'")>`trtcodemaxlength' { // check added 6apr2018
-				di as error "Warning:" as txt " treatment code " as res "`thistrtcode'" as txt " has been truncated to " as res "`trtcodemaxlength'" as txt " characters"
+				di as text "Warning:" as txt " treatment code " as res "`thistrtcode'" as txt " has been truncated to " as res "`trtcodemaxlength'" as txt " characters"
 				local thistrtcode = substr("`thistrtcode'",1,`trtcodemaxlength')
 			}
         }
@@ -368,7 +368,7 @@ else {
                 if _rc local missingvars `missingvars' `rawvar'`trt'
 			}
 			if !mi("`missingvars'") 	{
-				noi di as error "Warning: ignoring variable" as result " `nvar' " ///
+				noi di as text "Warning: ignoring variable" as result " `nvar' " ///
 					as error "because variable(s) " as result "`missingvars'" as text " not found"
             }
 			else local trtvarlevels `trtvarlevels' `trt'

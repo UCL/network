@@ -1,5 +1,5 @@
 /*
-*! Ian White # 5dec2019
+*! 5dec2019
 	-network sidesplit all- aborts with useful error message if matsize is too small
 	-network sidesplit trt1 trt2- aborts with useful error message if no direct evidence
 Ian White # 9may2018
@@ -49,7 +49,7 @@ if mi("`cformat'") local cformat %9.0g
 if mi("`pformat'") local pformat `c(pformat)'
 if mi("`pformat'") local pformat %5.3f
 
-if !mi("`MNAR'") di as error "Warning: data were computed under MNAR using options: " as error "`MNAR'"
+if !mi("`MNAR'") di as text "Warning: data were computed under MNAR using options: " as error "`MNAR'"
 
 marksample touse
 
@@ -180,7 +180,7 @@ using the multi-arm direct trials (but not of course using their side1-side2 com
 */
 network_components if !(`has'`side1' & `has'`side2')
 local outside_evidence = r(ncomponents)==1 
-if  !`outside_evidence' di as error "Warning: there is no evidence about the `side1'-`side2' contrast outside trials containing `side1' and `side2'"
+if  !`outside_evidence' di as text "Warning: there is no evidence about the `side1'-`side2' contrast outside trials containing `side1' and `side2'"
 
 // FORM SIDESPLIT MODEL
 if "`format'"=="augmented" {

@@ -16,7 +16,7 @@
 {title:Syntax}
 
 {p 8 17 2}
-{cmdab:network rank} {cmd:min|max} {ifin} [, {it:mvmeta_pbest_options}]
+{cmdab:network rank} {cmd:min|max} {ifin} [, {it:mvmeta_pbest_options} {it:other_options}]
 
 {pstd}{cmd:network rank} makes sensible choices for
 {cmd:if} and {cmd:in} which it would be unwise to change.
@@ -30,7 +30,7 @@ The options listed below are likely to be useful.
 {synopthdr}
 {synoptline}
 {syntab:mvmeta_pbest_options}
-{synopt:{opt rep:s(#)}}Set the number of replicates - larger numbers reduce Monte Carlo error{p_end}
+{synopt:{opt rep:s(#)}}Set the number of repetitions - larger numbers reduce Monte Carlo error{p_end}
 {synopt:{opt mcse}}Add the Monte Carlo standard errors to the tables{p_end}
 {synopt:{opt seed(#)}}Set the random number seed for reproducibility{p_end}
 {synopt:{opt bar}}Draw a bar graph of ranks{p_end}
@@ -50,8 +50,12 @@ is 1 when a treatment is certain to be the best and 0 when a treatment is certai
 {synopt:{opt best:only}}Reports only the probabilities of being the best treatment. 
 This can be misleading ({help mvmeta##Salanti++11:Salanti et al, 2011}).
 The default is to report the probabilities for all ranks.{p_end}
+{synoptline}
 {syntab:Other options}
 {synopt:{opt trtc:odes}}Makes the display use the treatment codes rather than the treatment names.{p_end}
+{synopt:{opt clear}}Keeps the drawn ranks in memory, and saves the tabulate command in F7 and any graph command in F8.
+This gives the user flexibility to modify the table and graph.{p_end}
+{synopt:{it:twoway_options}}Options for {help twoway_options:graph twoway}, such as {cmd:title()}.{p_end}
 {synoptline}
 {p2colreset}{...}
 
@@ -69,6 +73,9 @@ Use {cmdab:network rank min} if the best treatment is that with the lowest (most
 effect
 and {cmdab:network rank max} if the best treatment is that with the highest (most positive) treatment
 effect.
+
+{pstd}
+Ranks are estimated by making repeated draws (repetitions) from the approximation posterior distribution of the parameter estimates.
 
 {pstd}
 After fitting the inconsistency model, and after fitting a meta-regression, 
@@ -91,10 +98,11 @@ under the consistency model:
 {pin}. {stata network rank min}
 
 {pstd}The same, setting the seed (for reproducibility); 
-considering all ranks, not just the best; drawing a rankogram; 
-and increasing the number of replicates (to reduce Monte Carlo error):
+drawing a rankogram ({cmd:line} and {cmd:cumul} options) with a title; 
+reporting mean rank and SUCRA; 
+and reporting Monte Carlo error and Monte Carlo confidence intervals:
 
-{pin}. {stata network rank min, seed(48106) all line cumul reps(10000) meanrank}
+{pin}. {stata network rank min, seed(48106) line cumul title(Rankogram) meanrank mcse mcci}
 
 
 

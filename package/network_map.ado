@@ -1,5 +1,5 @@
 /*
-*! version 1.6.2 # Ian White # 2dec2019
+*! 02dec2019
 	fix for unlabelled treatments
 version 1.6.1 # Ian White # 4sep2019
 	program now detects which version of networkplot is used 

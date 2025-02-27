@@ -1,6 +1,6 @@
 /*
 29may2019 Bug fix: failed when current path contained spaces
-*! version 1.6.0 # Ian White # 3may2019
+*! 03may2019
 3may2019
 	version number added
 5apr2019

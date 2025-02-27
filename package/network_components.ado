@@ -1,4 +1,4 @@
-*! version 1.2.5 # Ian White # 13mar2017
+*! 13mar2017
 /*
 version 1.2.5 # Ian White # 13mar2017
 	changed network_indirect_connection back to be 1 on diagonal 

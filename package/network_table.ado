@@ -1,5 +1,5 @@
 /*
-*! version 1.7.0 # Ian White # 7apr2021
+*! 07apr2021
 	fixed bug that made it fail for disconnected network
 version 1.6.1 # Ian White # 4sep2019
 	treatments are displayed in correct order (ref first)
