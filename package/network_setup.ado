@@ -368,8 +368,8 @@ else {
                 if _rc local missingvars `missingvars' `rawvar'`trt'
 			}
 			if !mi("`missingvars'") 	{
-				noi di as text "Warning: ignoring variable" as result " `nvar' " ///
-					as text "because variable(s) " as result "`missingvars'" as text " not found"
+				noi di as error "Warning: ignoring variable" as result " `nvar' " ///
+					as error "because variable(s) " as result "`missingvars'" as text " not found"
             }
 			else local trtvarlevels `trtvarlevels' `trt'
 		}

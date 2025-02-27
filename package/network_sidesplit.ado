@@ -131,7 +131,7 @@ if "`anything'"=="all" {
     }
     
     * Finish
-    if `no_outside_evidence' di as text _new "* Warning: all the evidence about these contrasts comes from the trials which directly compare them." _new "See {help network_sidesplit##no_indirect_evidence:help file} for more information."
+    if `no_outside_evidence' di as error _new "* Warning: all the evidence about these contrasts comes from the trials which directly compare them." _new "See {help network_sidesplit##no_indirect_evidence:help file} for more information."
     return matrix b = `ball'
     return matrix V = `Vall'    
     exit

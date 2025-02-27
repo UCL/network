@@ -153,7 +153,7 @@ foreach model in inconsistency consistency {
     if "``model''"=="off" continue
     cap confirm matrix ``model''
     if _rc {
-        di as text "Warning: `model' matrix of fitted values not found - forest plot will be incomplete"
+        di as error "Warning: `model' matrix of fitted values not found - forest plot will be incomplete"
         continue
     }
     `ifdebug' di "`model' results will be taken from matrix ``model''"
@@ -469,7 +469,7 @@ forvalues i = `imin'/`imax' {
       local value = `2'[`j']
       cap assert `2'=="`value'" if `1'==`i' & `touse'
       if _rc>0 {
-        di as text "Warning: multiple values of `2' found for `1'==`i'"
+        di as error "Warning: multiple values of `2' found for `1'==`i'"
         tab `2' if `1'==`i' & `touse', missing
         if "`usefirst'"!="usefirst" {
             di as error "To use the first value, specify usefirst option"
@@ -481,7 +481,7 @@ forvalues i = `imin'/`imax' {
 	  else if "`blanks"!="noblanks" local label `label' `i' " "
       cap assert `2'=="`value'" if `1'==`i'
       if _rc>0  {
-         di as text "Warning: multiple values of `2' for `1'==`i' - but only outside if/in expression"
+         di as error "Warning: multiple values of `2' for `1'==`i' - but only outside if/in expression"
          label var `touse' "to use"
          tab `2' `touse' if `1'==`i', missing
       }
